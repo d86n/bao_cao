@@ -1,0 +1,297 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage{babel}
+
+\babelprovide[import,main]{vietnamese}
+
+\renewcommand{\IEEEkeywordsname}{Từ khóa}
+
+\begin{document}
+
+\title{Phân loại bánh xe và các cấu trúc của robot di động}
+
+\author{\IEEEauthorblockN{Nguyễn Văn Diễn}
+%\IEEEauthorblockA{\textit{22027541} \\
+%\textit{QH-2022-I/CQ-E-RE}}
+\and
+\IEEEauthorblockN{Hoàng Văn Cường}
+%\IEEEauthorblockA{\textit{22027549} \\
+%\textit{QH-2022-I/CQ-E-RE}}
+\and
+\IEEEauthorblockN{Vũ Đức Hiếu}
+%\IEEEauthorblockA{\textit{22027527} \\
+%\textit{QH-2022-I/CQ-E-RE}}
+}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+Robot di động, Phân loại, Động học robot, Cơ cấu bánh xe, Robot đa hướng
+\end{IEEEkeywords}
+
+\section{Giới thiệu}
+
+%---------------------------------
+
+\section{Phân loại bánh xe}
+Bánh xe là cơ chế di chuyển được sử dụng nhiều nhất trong robot di động và trong các phương tiện do con người tạo ra \cite{siegwart2011}.
+Nó có hiệu suất làm việc cao và sử dụng ít năng lượng hơn so với các cơ chế di chuyển khác (\textit{Hình \ref{fig:figure1}}).
+Bánh xe có thể chia thành 3 loại chính gồm \textit{bánh xe tiêu chuẩn}, \textit{bánh xe đa hướng} và \textit{bánh xe đặc biệt}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/figure1.pdf}
+    \caption{Biểu đồ giữa tốc độ và năng lượng của các cơ chế di chuyển của robot \cite{todd2012}}
+    \label{fig:figure1}
+\end{figure}
+
+\subsection{Bánh xe tiêu chuẩn (standard wheel)}
+Bánh xe tiêu chuẩn là nhóm bánh xe phổ biến và cơ bản nhất trong robot di động. 
+Đặc điểm chung của nhóm này là chúng tạo ra các ràng buộc phi đa hướng (non-holonomic constraints) \cite{rasam2016, siegwart2011}, 
+nghĩa là tại một thời điểm, 
+bánh xe chỉ có thể lăn hiệu quả theo một hướng và không thể trượt theo phương của trục bánh xe trong điều kiện lý tưởng. 
+
+\subsubsection{Bánh xe cố định (fixed wheel)}
+Bánh xe cố định là loại bánh xe đơn giản nhất, được gắn chặt vào khung robot với một hướng duy nhất không thể thay đổi.
+Nó chỉ có một bậc tự do (Degree of Freedom) là quay quanh trục chính của nó \cite{mikova2016, leong2022, chung2008}.
+Nó có cấu trúc đơn giản, nhiều kích thước và có độ tin cậy cao \cite{shabalina2018}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig.II.A.1.1.pdf}
+    \caption{Mô hình động học tổng quát mô tả một bánh xe tiêu chuẩn được gắn trên khung robot \cite{chung2008}}
+    \label{fig:figIIA11}
+\end{figure}
+
+Hình \ref{fig:figIIA11} trình bày sơ đồ động học tổng quát của một bánh xe tiêu chuẩn.
+Trong sơ đồ, vị trí của tâm bánh xe $A$ trên khung robot được xác định
+bởi các thông số khoảng cách $l$ và góc $\alpha$.
+Hướng của bánh xe được xác định bởi góc $\beta$, là góc hợp bởi đường thẳng
+nối tâm khung robot $P$ với tâm bánh xe $A$ và trục của bánh xe.
+
+Đối với \textit{bánh xe cố định}, cả ba thông số ($l$, $\alpha$, và $\beta$)
+đều là các hằng số thiết kế và không thay đổi trong quá trình robot di chuyển. 
+
+Về mặt toán học, \textit{bánh xe cố định} áp đặt hai ràng buốc động học chính 
+lên robot trong điều kiện lý tưởng:
+\begin{itemize}
+    \item[--] Ràng buộc lăn: Vận tốc tại điểm tiếp xúc mặt đất phải bằng không
+    (lăn không trượt), điều này liên quan đến vận tốc quay của bánh xe.
+    \item[--] Ràng buộc trượt ngang: Vận tốc của tâm bánh xe (điểm $A$) theo phương
+    vuông góc với trục bánh xe phải bằng không.
+\end{itemize}
+
+Nhờ cấu trúc đơn giản, độ tin cậy cao và đa dạng kích thước, bánh xe cố định
+là nền tảng cho nhiều cấu trúc robot như dẫn động vi sai, dẫn động trượt.
+
+\subsubsection{Bánh xe lái (steered wheel)}
+Bánh xe lái phức tạp hơn bánh cố định. Ngoài bậc tự do quay quanh trục của bánh xe, 
+nó còn có thêm một bậc tự do thứ hai là khả năng quay quanh trục thẳng đứng (trục lái).
+Một động cơ lái thường được sử dụng để chủ động thay đổi góc của bánh xe so với khung của robot \cite{ueno2017}.
+Mặc dù có thể thay đổi hướng, tại bất kỳ thời điểm nào, 
+nó vẫn là một bánh xe tiêu chuẩn và phải tuân thủ ràng buộc lăn không trượt theo phương mà nó đang hướng theo.
+Đây là thành phần cốt lõi trong cấu trúc lái Ackerman \cite{qiu2018, gautam2021} (như bánh trước xe ô tô) hoặc trong cấu trúc 3 bánh \cite{patel2021}.
+
+\subsubsection{Bánh xe xoay tự do (caster wheel)}
+Bánh xe xoay tự do (bánh xe con lăn) cũng có hai bậc tự do tương tự như bánh lái (lăn và xoay quanh trục đứng).
+Tuy nhiên, điểm khác biệt cơ bản là nó là một cơ cấu bị động.
+Khi robot di chuyển, lực ma sát từ mặt đất sẽ tạo ra một mô-men xoắn, 
+khiến bánh xe tự động xoay và căn chỉnh theo hướng di chuyển của robot để giảm thiểu lực cản.
+Chúng không cung cấp bất kỳ lực đẩy chủ động nào.
+Chúng không dùng để lái hay đẩy, mà chỉ dùng để hỗ trợ và giữ thăng bằng cho robot.
+Chúng cực kỳ phổ biến và thường được dùng làm bánh xe phụ trong cấu trúc dẫn động vi sai \cite{arrizabalaga2021}, 
+hoặc có thể giúp robot di chuyển lên bậc hoặc bề mặt không bằng phẳng \cite{lee2024, garcia2016}.
+
+%-----
+
+\subsection{Bánh xe đa hướng (omnidirectional wheel)}
+Bánh xe đa hướng, hay còn gọi là bánh xe toàn hướng, là một bước tiến quan trọng so với bánh xe tiêu chuẩn.
+Chúng được thiết kế để khắc phục các ràng buộc phi đa hướng của bánh xe tiêu chuẩn nên chúng ngày càng phổ biến
+trong robot di động vì robot có thể đi thẳng từ điểm này đến điểm khác \cite{ignatiev2016}.
+Một robot sử dụng các bánh xe này có thể di chuyển theo bất kỳ hướng nào (tiến/lùi, sang ngang, chéo) 
+và xoay tại chỗ một cách đồng thời mà không cần phải xoay định hướng thân robot trước.
+Khả năng này đạt được bằng cách gắn các con lăn bị động vào chu vi của bánh xe chính.
+
+\subsubsection{Bánh xe omni (omni wheel)}
+Bánh xe Omni có cấu tạo gồm một vành bánh xe chính, trên đó gắn các con lăn nhỏ bị động.
+Điểm mấu chốt trong thiết kế của bánh Omni là các trục quay của con lăn này được đặt vuông góc (90 độ) 
+so với trục quay chính của bánh xe [..].
+Khi bánh xe chính quay (do động cơ tác động), nó tạo ra lực đẩy theo hướng tiến hoặc lùi. 
+Tuy nhiên, nhờ các con lăn bị động, bánh xe có thể trượt tự do theo phương ngang (phương của trục bánh xe) với ma sát rất nhỏ.
+Ưu điểm của bánh Omni là cấu tạo cơ khí tương đối đơn giản hơn so với bánh Mecanum. 
+Tuy nhiên, nhược điểm là các con lăn bố trí rời rạc có thể gây ra hiện tượng rung, xóc khi di chuyển trên các bề mặt không hoàn toàn bằng phẳng [..].
+
+\subsubsection{Bánh xe Mecanum (Mecanum wheel)}
+Bánh xe Mecanum là bánh có thiết kế đặc biệt được phát minh bởi Bengt Ilon tại công ty Mecanum AB của Thụy Điển \cite{wikipedia_mecanum_wheel}.
+Tương tự bánh omni, nó cũng có các con lăn bị động gắn trên vành bánh chính. Tuy nhiên, điểm khác biệt cốt lõi là các con lăn này được đặt nghiêng một góc (thường là 45 độ) so với trục quay chính của bánh xe.
+Chính góc nghiêng 45 độ này là yếu tố quyết định. Khi bánh xe quay, lực đẩy tạo ra không chỉ có thành phần tiến/lùi mà còn có cả thành phần lực theo phương ngang.
+Bánh Mecanum cung cấp khả năng cơ động linh hoạt bậc nhất.
+Tuy nhiên, chúng có nhược điểm là độ phức tạp cao trong cả chế tạo và điều khiển (đòi hỏi mô hình động học ngược phức tạp để "trộn" vận tốc). Chúng cũng rất nhạy cảm với bề mặt, yêu cầu bề mặt phải rất bằng phẳng và sạch sẽ để đạt hiệu suất tối ưu [..].
+
+%-----
+
+\subsection{Bánh xe đặc biệt}
+Nhóm này bao gồm các thiết kế bánh xe mang tính thử nghiệm, đột phá hoặc mới lạ, 
+thường tập trung vào các lĩnh vực nghiên cứu cụ thể như robot tự cân bằng hoặc robot có khả năng thích ứng địa hình.
+
+\subsubsection{Bánh hình cầu}
+Bánh hình cầu là một cơ cấu bánh xe sử dụng một quả cầu để tiếp xúc với mặt đất. 
+Thiết kế này về cơ bản cho phép chuyển động đa hướng.
+Chúng ta có thể phân biệt hai loại chính: bánh cầu bị động và bánh cầu chủ động.
+
+\begin{itemize}
+    \item Bánh cầu bị động: Nó hoạt động như một bánh xe xoay tự do đa hướng, bị động.
+          Thường được dùng làm bánh xe hỗ trợ (thứ ba hoặc thứ tư) để giữ thăng bằng cho các robot có cấu trúc dẫn động vi sai.
+    \item Bánh cầu chủ động: Đây là một cơ cấu cơ khí cực kỳ phức tạp, trong đó quả cầu được chủ động điều khiển để tạo lực đẩy.
+          Quả cầu được giữ trong một hốc (socket) và tiếp xúc trực tiếp với các con lăn (rollers) 
+          hoặc động cơ được đặt bên trong cơ cấu. Bằng cách điều khiển các con lăn này 
+          (ví dụ, hai con lăn đặt vuông góc với nhau), cơ cấu có thể làm quả cầu quay theo bất kỳ trục nào trên mặt phẳng [..].
+          Một bánh xe cầu chủ động là một cơ cấu truyền động đa hướng (holonomic) hoàn chỉnh. 
+          Một robot được trang bị 3 hoặc 4 bánh xe này có thể di chuyển theo mọi hướng và xoay đồng thời, 
+          tương tự như bánh Mecanum nhưng tiềm năng về độ mượt mà và khả năng vượt địa hình gồ ghề (nhẹ) tốt hơn [..].
+          Ưu điểm là khả năng cơ động đa hướng tuyệt đối. 
+          Nhược điểm là độ phức tạp cơ khí cực cao, chi phí lớn, và khó khăn trong việc duy trì lực bám và chống mài mòn [..].
+\end{itemize}
+
+%-----
+
+\subsubsection{Bánh origami}
+Đây là một hướng nghiên cứu mới, ứng dụng các nguyên lý của nghệ thuật gấp giấy Nhật Bản (Origami) để tạo ra các bánh xe có thể thay đổi hình dạng.
+Ưu điểm lớn nhất là khả năng thích ứng địa hình (terrain adaptability).
+Nhược điểm là độ phức tạp về cơ khí, độ bền của các khớp gấp, và sự phức tạp trong hệ thống điều khiển để quyết định khi nào cần thay đổi hình dạng [..].
+
+\subsection{Tổng hơp, so sánh các loại bánh xe}
+
+%---------------------------------
+
+\section{Phân loại cấu trúc robot di động}
+Sau khi phân tích các loại bánh xe (linh kiện) ở phần II, phần này sẽ đi sâu vào việc phân loại các cấu trúc robot di động (hệ thống). 
+Một cấu trúc robot được định nghĩa bởi cách các bánh xe được sắp xếp, loại bánh xe được sử dụng, 
+và phương pháp truyền động [..]. Các yếu tố này kết hợp lại sẽ quyết định mô hình động học (kinematic model), 
+các ràng buộc chuyển động (constraints), và từ đó, ảnh hưởng trực tiếp đến khả năng cơ động, độ ổn định, và môi trường hoạt động của robot.
+
+\subsection{Cấu trúc dẫn động vi sai}
+Đây là cấu trúc phổ biến, đơn giản và được sử dụng rộng rãi nhất cho robot di động trong nhà [].
+Cấu trúc này bao gồm hai bánh xe chủ động (driven wheels) được lắp cố định trên cùng một trục và được điều khiển vận tốc một cách độc lập. Để giữ thăng bằng, robot thường sử dụng thêm một hoặc hai bánh xe bị động, thường là bánh xe xoay tự do (Caster Wheel) hoặc bánh bi (Ball Caster) đặt ở phía trước hoặc/và sau [..].
+Cấu trúc dẫn động vi sai là một hệ thống phi đa hướng (non-holonomic). Mặc dù nó rất linh hoạt, nó vẫn bị một ràng buộc: robot không thể di chuyển tức thời theo phương ngang (vuông góc với trục bánh xe) [..]. Mô hình động học (cả động học thuận và ngược) của nó tương đối đơn giản và đã được nghiên cứu kỹ, khiến nó trở thành lựa chọn hàng đầu cho các robot cơ bản và trong giáo dục.
+
+%-----
+
+\subsection{Cấu trúc lái Ackerman}
+Cấu trúc này mô phỏng cơ chế lái của các phương tiện giao thông đường bộ phổ biến như ô tô [].
+Một cấu hình Ackerman điển hình có bốn bánh xe, bao gồm hai bánh sau chủ động được gắn cố định (Fixed Wheels) và hai bánh trước có thể lái được (Steered Wheels).
+Điểm then chốt của cấu trúc này là Hình học lái Ackerman (Ackerman Steering Geometry). Khi robot rẽ, hai bánh xe phía trước không quay song song với nhau. Thay vào đó, bánh xe ở phía bên trong của vòng cua sẽ quay với một góc lớn hơn bánh xe ở phía bên ngoài [..]. Cơ chế này đảm bảo rằng tất cả bốn bánh xe đều lăn quanh một điểm quay tức thời chung (Instantaneous Center of Rotation - ICR), giúp giảm thiểu sự trượt ngang của lốp xe.
+Đây là một hệ thống phi đa hướng (non-holonomic) điển hình. Nó không thể di chuyển ngang và không thể xoay tại chỗ (bán kính quay luôn lớn hơn 0).
+Ưu điểm: Rất ổn định khi vận hành ở tốc độ cao, giảm mài mòn bánh xe do loại bỏ được phần lớn lực trượt khi rẽ.
+Nhược điểm: Bán kính quay lớn, hạn chế sự linh hoạt trong không gian hẹp. Cơ cấu cơ khí (thanh liên kết) để thực hiện hình học Ackerman tương đối phức tạp [..].
+
+%-----
+
+\subsection{Cấu trúc 3 bánh}
+Đây là một cấu hình phổ biến khác, cân bằng giữa sự đơn giản và khả năng cơ động.
+Cấu trúc này, như tên gọi, sử dụng ba bánh xe. Cấu hình phổ biến nhất là một bánh lái (steered wheel) ở phía trước và hai bánh cố định (fixed wheels) ở phía sau. Bánh lái có thể đồng thời là bánh chủ động (driven) hoặc chỉ có chức năng lái, trong khi hai bánh sau là chủ động hoặc bị động [..].
+Hướng di chuyển của robot được quyết định hoàn toàn bởi góc quay của bánh lái phía trước.
+Tương tự như cấu trúc Ackerman, đây là một hệ thống phi đa hướng. Tuy nhiên, nếu bánh lái có thể quay được một góc lớn (ví dụ: ±90 độ), robot có thể đạt được bán kính quay rất nhỏ, tiệm cận không.
+Ưu điểm: Thiết kế cơ khí đơn giản hơn đáng kể so với Ackerman.
+Nhược điểm: Độ ổn định (stability) kém hơn so với cấu trúc 4 bánh, đặc biệt là khi phanh gấp hoặc rẽ ở tốc độ cao, có nguy cơ bị lật [..].
+
+%-----
+
+\subsection{Cấu trúc dẫn động trượt}
+Cấu trúc này sử dụng ma sát trượt để thay đổi hướng, tương tự như các phương tiện bánh xích.
+Thường sử dụng bốn (hoặc sáu, tám) bánh xe cố định, được gắn chặt vào khung robot và không thể thay đổi hướng. Tất cả các bánh xe ở mỗi bên (trái và phải) thường được kết nối và chủ động đồng thời.
+Robot rẽ bằng cách tạo ra chênh lệch vận tốc giữa hai phía của robot, giống hệt như Cấu trúc Dẫn động Vi sai. Ví dụ, để rẽ trái, các bánh xe bên phải quay nhanh hơn bên trái (hoặc bên trái quay lùi). Sự chênh lệch vận tốc này buộc các bánh xe phải trượt (skid) trên mặt đất để robot có thể xoay [..].
+Về mặt điều khiển, nó được xem như một hệ thống phi đa hướng tương tự Dẫn động Vi sai, có khả năng xoay tại chỗ (zero turning radius). Tuy nhiên, mô hình động học của nó phức tạp hơn nhiều do sự trượt không thể đoán trước, phụ thuộc rất nhiều vào ma sát và bề mặt địa hình.
+Ưu điểm: Cấu trúc cơ khí cực kỳ đơn giản và bền bỉ (không có cơ cấu lái). Rất phù hợp cho địa hình gồ ghề.
+Nhược điểm: Tiêu thụ năng lượng rất lớn do ma sát trượt. Gây mài mòn bánh xe và làm hỏng các bề mặt mềm. Việc ước tính vị trí (Odometry) rất không chính xác do độ trượt cao [..].
+
+%-----
+
+\subsection{Cấu trúc đa hướng}
+Cấu trúc này cung cấp mức độ cơ động cao nhất trên mặt phẳng 2D.
+Cấu trúc này sử dụng các loại bánh xe đặc biệt đã được đề cập ở Phần II.B, phổ biến nhất là 3 bánh Omni (đặt cách nhau 120 độ) hoặc 4 bánh Mecanum (đặt ở 4 góc) [..].
+Bằng cách kết hợp vận tốc quay của từng bánh xe đặc biệt, robot có thể tạo ra một véc-tơ vận tốc tổng hợp theo bất kỳ hướng nào (X, Y) và đồng thời xoay quanh trục Z.
+Đây là một hệ thống đa hướng (holonomic). Nó có 3 bậc tự do (DoF) trên mặt phẳng, cho phép robot di chuyển sang ngang, đi chéo, và xoay đồng thời mà không cần thay đổi hướng của thân robot. Mô hình động học ngược (từ vận tốc robot mong muốn sang vận tốc từng bánh) là một ma trận "trộn" vận tốc (mixing matrix) [..].
+Ưu điểm: Khả năng cơ động tuyệt đối, cực kỳ lý tưởng cho các không gian chật hẹp, phức tạp.
+Nhược điểm: Các bánh xe (đặc biệt là Mecanum) đắt tiền và phức tạp. Hệ thống điều khiển phức tạp. Rất nhạy cảm với bề mặt (yêu cầu mặt phẳng), hiệu suất truyền động thấp và dễ bị trượt [..].
+
+%-----
+
+\subsection{Cấu trúc bánh xích}
+Cấu trúc này được tối ưu hóa cho khả năng vượt địa hình gồ ghề và bề mặt mềm.
+Thay vì bánh xe, robot sử dụng hai dải xích (tracks) song song.
+Tương tự như cấu trúc Dẫn động trượt (Skid-Steer), robot được điều khiển bằng cách thay đổi vận tốc tương đối của hai dải xích [..].
+Đây là hệ thống phi đa hướng, có khả năng xoay tại chỗ, và phụ thuộc lớn vào sự trượt của dải xích trên mặt đất.
+Ưu điểm: Khả năng bám địa hình (traction) vượt trội. Áp suất tác dụng lên mặt đất rất thấp (do diện tích tiếp xúc lớn), cho phép robot di chuyển trên cát, tuyết, hoặc bùn lầy. Khả năng vượt chướng ngại vật và leo dốc rất tốt [..].
+Nhược điểm: Tốc độ di chuyển chậm, tiêu thụ năng lượng cao, phá hủy bề mặt di chuyển, và rất khó để ước tính vị trí chính xác [..].
+
+\subsection{Cấu trúc tự cân bằng}
+Đây là một nhóm cấu trúc đặc biệt, dựa vào nguyên lý điều khiển chủ động để duy trì sự ổn định.
+Các robot này về bản chất là không ổn định. Cấu hình phổ biến nhất là robot 2 bánh (two-wheeled) hoạt động như một con lắc ngược (inverted pendulum), hoặc các robot 1 bánh (Ball-bot) tự cân bằng trên một quả cầu [..].
+Robot liên tục sử dụng các cảm biến (thường là IMU - Cảm biến đo quán tính) để đo góc nghiêng của thân. Một vòng lặp điều khiển tốc độ cao (như PID, LQR) sẽ tính toán và ra lệnh cho động cơ (ở bánh xe hoặc quả cầu) di chuyển "về phía" robot đang ngã, nhằm đưa trọng tâm trở lại vị trí cân bằng [..].
+Đây là các hệ thống không ổn định, phi tuyến (nonlinear) và thiếu truyền động (underactuated). Chuyển động (tiến/lùi) là hệ quả của việc chủ động "ngã" về phía trước hoặc sau.
+Ưu điểm: Cực kỳ nhỏ gọn, diện tích chiếm dụng mặt bằng (footprint) bằng không, rất linh hoạt trong môi trường có con người.
+Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn phụ thuộc vào cảm biến và nguồn điện (mất điện là ngã). Khả năng chịu tải và vượt địa hình bị hạn chế [..].
+
+%---------------------------------
+
+\section{Ứng dụng}
+
+
+%---------------------------------
+
+\section{Xu hướng nghiên cứu}
+
+%---------------------------------
+
+\section{Kết luận}
+
+%---------------------------------
+
+\begin{thebibliography}{00}
+\bibitem{siegwart2011} R. Siegwart, I. R. Nourbakhsh, and D. Scaramuzza, \textit{Introduction to Autonomous Mobile Robots, second edition}. MIT Press, 2011.
+\bibitem{todd2012} D. J. Todd, \textit{Walking machines: An Introduction to Legged Robots}. Springer, 2012.
+\bibitem{rasam2016} H. R. Rasam, “Review on Land-Based Wheeled Robots,” MATEC Web of Conferences, vol. 53, p. 01058, Jan. 2016, doi: 10.1051/matecconf/20165301058.  
+\bibitem{mikova2016} Ľ. Miková and A. Gmiterko, “Kinematic model and control algorithm for the path tracking of nonholonomic mobile robots,” Journal of Automation and Control, vol. 4, no. 2, pp. 26–29, Dec. 2016, doi: 10.12691/automation-4-2-4.
+\bibitem{leong2022} J. S. Ling Leong, K. T. Kin Teo and H. P. Yoong, "Four Wheeled Mobile Robots: A Review," \textit{2022 IEEE International Conference on Artificial Intelligence in Engineering and Technology (IICAIET)}, pp. 1-6, Sep. 2022, doi: 10.1109/IICAIET55139.2022.9936855.
+\bibitem{chung2008} W. Chung and K. Iagnemma,  "Wheeled robots," \textit{Springer Handbook of Robotics}. 2008. doi: 10.1007/978-3-540-30301-5.
+\bibitem{shabalina2018} K. Shabalina, A. Sagitov and E. Magid, "Comparative Analysis of Mobile Robot Wheels Design," 2018 11th International Conference on Developments in eSystems Engineering (DeSE), Cambridge, UK, 2018, pp. 175-179, doi: 10.1109/DeSE.2018.00041.
+\bibitem{ueno2017} Y. Ueno, K. Watanabe and I. Nagai, "Design and development of steered active wheel casters and its application," 2017 IEEE International Conference on Mechatronics and Automation (ICMA), Takamatsu, Japan, 2017, pp. 507-512, doi: 10.1109/ICMA.2017.8015869.
+\bibitem{qiu2018} Q. Qiu et al., “Extended Ackerman Steering Principle for the coordinated movement control of a four wheel drive agricultural mobile robot,” Computers and Electronics in Agriculture, vol. 152, pp. 40-50, Jul. 2018, doi: 10.1016/j.compag.2018.06.036.
+\bibitem{gautam2021} P. Gautam, S. Sahai, S. S. Kelkar, P. S. Agrawal, and M. R. D, “Designing Variable Ackerman Steering geometry for Formula Student Race car,” International Journal of Analytical Experimental and Finite Element Analysis (IJAEFEA), vol. 8, no. 1, Feb. 2021, doi: 10.26706/ijaefea.1.8.20210101.
+\bibitem{patel2021} S. Patel, R. Rawat, N. Shantanu, A. Kumar, and N. Amardeep, “Study of steering system for an electric Trike-Ackerman steering,” in Smart innovation, systems and technologies, 2021, pp. 9-18. doi: 10.1007/978-981-16-2857-3\_3.
+\bibitem{arrizabalaga2021} J. Arrizabalaga, N. Van Duijkeren, M. Ryll, and R. Lange, “A caster-wheel-aware MPC-based motion planner for mobile robotics,” 2021 20th International Conference on Advanced Robotics (ICAR), pp. 613-618, Dec. 2021, doi: 10.1109/icar53236.2021.9659478.
+\bibitem{lee2024} W. Lee, J. Kim, and T. Seo, “Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability,” Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
+\bibitem{garcia2016} J. M. García, J. L. Martínez, A. Mandow, and A. García-Cerezo, “Caster-leg aided maneuver for negotiating surface discontinuities with a wheeled skid-steer mobile robot,” Robotics and Autonomous Systems, vol. 91, pp. 25-37, Dec. 2016, doi: 10.1016/j.robot.2016.12.007.
+\bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
+\bibitem{wikipedia_mecanum_wheel} Wikipedia contributors, “Mecanum wheel,” Wikipedia, Sep. 08, 2025. https://en.wikipedia.org/wiki/Mecanum\_wheel
+%\bibitem{leong2022} Boru Diriba Hirpo , Prof. Wang Zhongmin, “Design and Control for Differential Drive Mobile Robot”, INTERNATIONAL JOURNAL OF ENGINEERING RESEARCH \& TECHNOLOGY (IJERT), vol. 6, no. 10, pp. 327-334, Oct. 2017.
+%\bibitem{chung2008} A. A. Rodriguez et al., "Modeling, design and control of low-cost differential-drive robotic ground vehicles: Part II — Multiple vehicle study," 2017 IEEE Conference on Control Technology and Applications (CCTA), Maui, HI, USA, 2017, pp. 161-166, doi: 10.1109/CCTA.2017.8062457.
+%\bibitem{shabalina2018} R. Cao, J. Gu, C. Yu and A. Rosendo, "OmniWheg: An Omnidirectional Wheel-Leg Transformable Robot," 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Kyoto, Japan, 2022, pp. 5626-5631, doi: 10.1109/IROS47612.2022.9982030.
+%\bibitem{ueno2017} Lee D-Y, Kim S-R, Kim J-S, Park J-J, Cho K-J. Origami Wheel Transformer: A Variable-Diameter Wheel Drive Robot Using an Origami Structure. Soft Robotics. 2017;4(2):163-180. doi:10.1089/soro.2016.0038
+%\bibitem{qiu2018} Dae-Young Lee et al., High-load capacity origami transformable wheel.Sci. Robot.6,eabe0201(2021).DOI:10.1126/scirobotics.abe0201
+%\bibitem{gautam2021} Rhoads, BP, \& Su, H. "The Design and Fabrication of a Deformable Origami Wheel." Proceedings of the ASME 2016 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference. Volume 5B: 40th Mechanisms and Robotics Conference. Charlotte, North Carolina, USA. August 21-24, 2016. V05BT07A021. ASME. https://doi.org/10.1115/DETC2016-60045
+%\bibitem{patel2021} Berre, J., Geiskopf, F., Rubbert, L., Renaud, P. (2021). Origami-Inspired Design of a Deployable Wheel. In: Lovasz, EC., Maniu, I., Doroftei, I., Ivanescu, M., Gruescu, CM. (eds) New Advances in Mechanisms, Mechanical Transmissions and Robotics . MTM\&Robotics 2020. Mechanisms and Machine Science, vol 88. Springer, Cham. https://doi.org/10.1007/978-3-030-60076-1\_11
+%\bibitem{arrizabalaga2021} Jie Liu, Zufeng Pang, Zhiyong Li, Guilin Wen, Zhoucheng Su, Junfeng He, Kaiyue Liu, Dezheng Jiang, Zenan Li, Shouyan Chen, Yang Tian, Yi Min Xie, Zhenpei Wang, \& Zhuangjian Liu. (2023). OriWheelBot: An origami-wheeled robot. 
+
+\end{thebibliography}
+
+\end{document}
