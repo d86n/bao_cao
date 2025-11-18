@@ -70,8 +70,8 @@ nghĩa là tại một thời điểm,
 bánh xe chỉ có thể lăn hiệu quả theo một hướng và không thể trượt theo phương của trục bánh xe trong điều kiện lý tưởng. 
 
 \subsubsection{Bánh xe cố định (fixed wheel)}
-Bánh xe cố định là loại bánh xe đơn giản nhất, được gắn chặt vào khung robot với một hướng duy nhất không thể thay đổi.
-Nó chỉ có một bậc tự do (Degree of Freedom) là quay quanh trục chính của nó \cite{mikova2016, leong2022, chung2008}.
+Bánh xe cố định là loại bánh xe đơn giản nhất, được gắn chặt vào khung robot với một hướng duy nhất không thể thay đổi \cite{mikova2016, leong2022}.
+Nó chỉ có một bậc tự do (Degree of Freedom) là quay quanh trục chính của nó \cite{chung2008, mikova2013}.
 Nó có cấu trúc đơn giản, nhiều kích thước và có độ tin cậy cao \cite{shabalina2018}.
 
 \begin{figure}[H]
@@ -82,13 +82,14 @@ Nó có cấu trúc đơn giản, nhiều kích thước và có độ tin cậy
 \end{figure}
 
 Hình \ref{fig:figIIA11} trình bày sơ đồ động học tổng quát của một bánh xe tiêu chuẩn.
-Trong sơ đồ, vị trí của tâm bánh xe $A$ trên khung robot được xác định
-bởi các thông số khoảng cách $l$ và góc $\alpha$.
+Trong sơ đồ, vị trí của tâm bánh xe $A$ được xác định
+bởi các thông số khoảng cách $l$ và góc $\alpha$ so với hệ toạ độ gắn trên khung robot $\{X_R, Y_R\}$.
 Hướng của bánh xe được xác định bởi góc $\beta$, là góc hợp bởi đường thẳng
 nối tâm khung robot $P$ với tâm bánh xe $A$ và trục của bánh xe.
 
 Đối với \textit{bánh xe cố định}, cả ba thông số ($l$, $\alpha$, và $\beta$)
-đều là các hằng số thiết kế và không thay đổi trong quá trình robot di chuyển. 
+đều là các hằng số thiết kế và không thay đổi trong quá trình robot di chuyển.
+Bánh xe có bán kính $r$ và chuyển động của nó được định nghĩa bằng góc thay đổi theo thời gian $\varphi (t)$.
 
 Về mặt toán học, \textit{bánh xe cố định} áp đặt hai ràng buốc động học chính 
 lên robot trong điều kiện lý tưởng:
@@ -273,6 +274,7 @@ Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn ph�
 \bibitem{mikova2016} Ľ. Miková and A. Gmiterko, “Kinematic model and control algorithm for the path tracking of nonholonomic mobile robots,” Journal of Automation and Control, vol. 4, no. 2, pp. 26–29, Dec. 2016, doi: 10.12691/automation-4-2-4.
 \bibitem{leong2022} J. S. Ling Leong, K. T. Kin Teo and H. P. Yoong, "Four Wheeled Mobile Robots: A Review," \textit{2022 IEEE International Conference on Artificial Intelligence in Engineering and Technology (IICAIET)}, pp. 1-6, Sep. 2022, doi: 10.1109/IICAIET55139.2022.9936855.
 \bibitem{chung2008} W. Chung and K. Iagnemma,  "Wheeled robots," \textit{Springer Handbook of Robotics}. 2008. doi: 10.1007/978-3-540-30301-5.
+\bibitem{mikova2013} L. Miková, F. Trebuňa and M. Čurilla, "Model of mechatronic system's undercarriage created on the basis of its dynamics," 2013 International Conference on Process Control (PC), Strbske Pleso, Slovakia, 2013, pp. 231-234, doi: 10.1109/PC.2013.6581414.
 \bibitem{shabalina2018} K. Shabalina, A. Sagitov and E. Magid, "Comparative Analysis of Mobile Robot Wheels Design," 2018 11th International Conference on Developments in eSystems Engineering (DeSE), Cambridge, UK, 2018, pp. 175-179, doi: 10.1109/DeSE.2018.00041.
 \bibitem{ueno2017} Y. Ueno, K. Watanabe and I. Nagai, "Design and development of steered active wheel casters and its application," 2017 IEEE International Conference on Mechatronics and Automation (ICMA), Takamatsu, Japan, 2017, pp. 507-512, doi: 10.1109/ICMA.2017.8015869.
 \bibitem{qiu2018} Q. Qiu et al., “Extended Ackerman Steering Principle for the coordinated movement control of a four wheel drive agricultural mobile robot,” Computers and Electronics in Agriculture, vol. 152, pp. 40-50, Jul. 2018, doi: 10.1016/j.compag.2018.06.036.
