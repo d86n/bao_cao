@@ -165,10 +165,10 @@ trên địa hình mềm, giả thuyết này thường bị vi phạm:
 \end{itemize}
 
 Do đó, để giải quyết các thách thức này, kỹ thuật robot hiện đại thường tiếp cận theo hai hướng song song:
-\begin{itemize}
-    \item[1.] Các mô hình động học được bổ sung thêm các tham số về độ trượt (slip ratio) và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý [].
-    \item[2.] Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe (Odometry) bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài [].
-\end{itemize}
+\begin{enumerate}
+    \item Các mô hình động học được bổ sung thêm các tham số về độ trượt (slip ratio) và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý [].
+    \item Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe (Odometry) bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài [].
+\end{enumerate}
 
 Nhờ sự kết hợp giữa độ tin cậy cơ khí cao và các giải pháp điều khiển/định vị tiên tiến này, bánh xe cố định vẫn giữ vững vai trò là nền tảng cốt lõi cho các cấu trúc robot phổ biến như dẫn động vi sai và dẫn động trượt.
 
@@ -234,6 +234,40 @@ hoặc có thể giúp robot di chuyển lên bậc hoặc bề mặt không b�
     \caption{Mô hình động học tổng quát mô tả một bánh xe xoay tự do được gắn trên khung robot \cite{chung2008}}
     \label{fig:fig4}
 \end{figure}
+
+Ràng buộc lăn của bánh xoay tự do:
+\begin{equation}
+    \begin{split}
+        & \begin{bmatrix}
+            \sin(\alpha + \beta(t))  & -\cos(\alpha + \beta(t)) & -l \cos{\beta(t)}
+        \end{bmatrix}
+        R(\theta) \dot{\xi}_I \\
+        & \hspace{6.5cm} - r\dot{\varphi} = 0
+    \end{split}
+\end{equation}
+
+Ràng buộc trượt của bánh xoay tự do:
+\begin{equation}
+    \begin{split}
+        \begin{bmatrix}
+            \cos(\alpha + \beta) & \sin(\alpha + \beta) & d + l\sin{\beta}
+        \end{bmatrix}
+        R(\theta)\dot{\xi}_I + d\dot{\beta} = 0
+    \end{split}
+\end{equation}
+
+Sự khác biệt cốt lõi giữa bánh Caster và bánh lái tiêu chuẩn nằm ở tham số $d$ (khoảng cách lệch tâm giữa trục lái và điểm tiếp xúc) trong phương trình (6). Sự xuất hiện của thành phần $d\dot{\beta}$ mang ý nghĩa vật lý quan trọng: mọi chuyển động ngang (trượt) của khung robot tại điểm gắn kết đều có thể được triệt tiêu bằng một tốc độ xoay $\dot{\beta}$ phù hợp của bánh xe.
+Điều này dẫn đến một kết luận quan trọng: Nếu khớp xoay là tự do (ma sát thấp), bánh xe Caster không áp đặt bất kỳ ràng buộc động học nào lên chuyển động tổng thể của robot [17]. Robot có thể di chuyển theo bất kỳ quỹ đạo nào, và bánh Caster sẽ tự động xoay để "đi theo" (follow) chuyển động đó.
+
+Các vấn đề Hiện đại và Thách thức Động lực học: Mặc dù về mặt hình học (kinematics), bánh Caster rất hoàn hảo để làm bánh phụ trợ, nhưng về mặt động lực học (dynamics), chúng gây ra nhiều vấn đề phức tạp cho các robot hiện đại:
+
+\begin{enumerate}
+    \item Hiện tượng Rung lắc (Caster Flutter/Shimmy):Đây là một vấn đề kinh điển nhưng vẫn là thách thức trong thiết kế robot tốc độ cao. Khi di chuyển nhanh, bánh Caster thường xảy ra hiện tượng dao động tự kích (self-excited oscillation) quanh trục lái, gây rung lắc dữ dội cho thân robot. Điều này xuất phát từ sự tương tác phức tạp giữa độ đàn hồi của lốp, độ lệch tâm $d$ và ma sát, điều mà các mô hình động học (5) và (6) không mô tả được [18]. Các robot hiện đại thường phải sử dụng bộ giảm chấn (damper) hoặc thiết kế tối ưu hóa độ cứng lốp để triệt tiêu hiện tượng này.
+    \item Hiệu ứng "Đảo chiều" (Turn-around Effect): Khi robot đổi hướng di chuyển đột ngột (ví dụ: từ tiến sang lùi), bánh Caster phải thực hiện một hành trình xoay 180 độ quanh trục đứng để căn chỉnh lại. Quá trình này tạo ra một khoảng "trễ" và một lực phản hồi bất định lên khung robot, gây ra sai số vị trí lớn (Odometry error) và làm quỹ đạo thực tế bị giật cục. Trong các thuật toán định vị hiện đại (SLAM), hành vi khó đoán này của bánh Caster thường được coi là nhiễu (noise).
+    \item Xu hướng mới: Active Caster (Bánh Caster chủ động): Để khắc phục tính bị động, một xu hướng nghiên cứu hiện đại là Active Caster (hay Powered Caster). Thay vì để bánh tự xoay do ma sát, người ta gắn động cơ vào cả trục lăn và trục lái. Khi đó, hệ thống trở thành một mô đun truyền động đa hướng (omnidirectional drive) mạnh mẽ, cho phép robot di chuyển holonomic mà không cần dùng bánh Mecanum đắt tiền [19].
+\end{enumerate}
+
+Tóm lại, bánh Caster là giải pháp rẻ tiền và hiệu quả để duy trì cân bằng tĩnh, nhưng sự phức tạp về động lực học của nó đòi hỏi sự cân nhắc kỹ lưỡng trong thiết kế robot chính xác cao.
 
 %-----
 
@@ -374,6 +408,35 @@ Robot liên tục sử dụng các cảm biến (thường là IMU - Cảm biế
 Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn phụ thuộc vào cảm biến và nguồn điện (mất điện là ngã). Khả năng chịu tải và vượt địa hình bị hạn chế [..].
 
 \subsection{Cấu trúc lai cơ cấu chân - bánh}
+Cấu trúc lai chân - bánh đại diện cho sự hội tụ giữa hai cơ chế di chuyển cơ bản: bánh xe (hiệu quả năng lượng cao trên mặt phẳng) và chân (khả năng vượt địa hình phức tạp). Mục tiêu của thiết kế này là kết hợp ưu điểm của cả hai để tạo ra các robot đa năng vượt trội [Ref].
+
+Nguyên lý hoạt động và Cấu hình: Thông thường, cấu trúc này bao gồm các bánh xe chủ động được gắn vào điểm cuối (end-effector) của các chân robot có nhiều bậc tự do (DOF). Robot có thể hoạt động ở hai chế độ chính:
+
+Chế độ lăn (Driving Mode): Trên địa hình bằng phẳng, robot hạ thấp trọng tâm, khóa các khớp chân hoặc sử dụng chúng như hệ thống treo chủ động (active suspension), và di chuyển bằng bánh xe để đạt tốc độ cao và tiết kiệm năng lượng.
+
+Chế độ bước (Walking/Stepping Mode): Khi gặp chướng ngại vật lớn hoặc cầu thang, robot khóa bánh xe và sử dụng chân để bước qua, thực hiện các chuyển động rời rạc [Ref].
+
+Đặc tính Động học và Ưu điểm: Về mặt động học, đây là một hệ thống dư thừa dẫn động (redundant actuated system).
+
+Khả năng thay đổi cấu hình (Reconfigurability): Khác với cấu trúc Ackermann hay Vi sai có hình học cố định, robot lai có thể thay đổi chiều rộng cơ sở (footprint), chiều cao trọng tâm (CoM height) và góc nghiêng thân xe (roll/pitch) một cách chủ động. Điều này cho phép robot duy trì thăng bằng trên các sườn dốc nghiêng mà các robot bánh xe thông thường sẽ bị lật.
+
+Di chuyển Đa hướng (Omnidirectional): Bằng cách xoay trục của chân (yaw joint), các bánh xe có thể được định hướng theo bất kỳ góc nào, cho phép robot di chuyển holonomic tương tự như dùng bánh Mecanum nhưng trên địa hình gồ ghề.
+
+Các vấn đề Hiện đại và Thách thức Điều khiển (Modern Issues): Đây là phần quan trọng nhất, làm nổi bật tính "hiện đại" của báo cáo:
+
+Điều khiển Toàn thân (Whole-Body Control - WBC): Thách thức lớn nhất không nằm ở cơ khí mà ở thuật toán. Robot phải giải quyết bài toán tối ưu hóa phức tạp trong thời gian thực để phối hợp mô-men xoắn của động cơ bánh xe (để di chuyển) và động cơ chân (để giữ thăng bằng và giảm xóc). Các phương pháp hiện đại như Model Predictive Control (MPC) thường được sử dụng để dự đoán trạng thái tương lai và giữ robot ổn định khi di chuyển tốc độ cao trên địa hình lồi lõm [Ref].
+
+Quản lý Chuyển đổi trạng thái (Locomotion Mode Switching): Việc quyết định khi nào nên lăn và khi nào nên bước là một bài toán khó về nhận thức môi trường (perception). Robot cần sử dụng Vision/LiDAR để phân loại địa hình và chuyển đổi mượt mà giữa các mô hình động học khác nhau mà không bị gián đoạn hoặc mất thăng bằng.
+
+Tương tác Động lực học (Hybrid Dynamics): Khác với robot bánh xe truyền thống luôn bám đất, robot lai có những pha "bay" (flight phase) khi nhảy hoặc bước. Việc mô hình hóa các lực va chạm (impact forces) khi bánh xe tiếp đất sau một cú nhảy là rất quan trọng để bảo vệ phần cứng và duy trì quỹ đạo.
+
+Ứng dụng thực tiễn: Các robot tiêu biểu cho xu hướng này bao gồm Boston Dynamics Handle (robot kho vận), ETH Zurich ANYmal on Wheels (robot thám hiểm), và Tencent Ollie (robot nhào lộn). Chúng đang mở ra hướng đi mới cho robot giao hàng chặng cuối (last-mile delivery) nơi robot phải leo lên bậc thềm nhà khách hàng.
+
+
+\subsection{Cấu trúc dẫn động bánh cầu}
+Cấu trúc dẫn động bánh cầu đại diện cho một lớp robot di động đặc biệt, di chuyển và giữ thăng bằng trên một quả cầu duy nhất thay vì nhiều bánh xe. Đây là ví dụ điển hình nhất cho hệ thống robot cân bằng động (dynamically balancing) và thiếu dẫn động (underactuated) trong kỹ thuật robot hiện đại [].
+
+Khác với bánh xe thông thường, quả cầu cần quay tự do theo mọi hướng, do đó không thể gắn trục động cơ cố định vào tâm cầu. Thay vào đó, hệ thống sử dụng cơ chế truyền động gián tiếp, thường được gọi là "cơ cấu chuột bi ngược" (inverse mouse-ball drive) \cite{lauwers2006, liao2008}.
 
 %---------------------------------
 
@@ -415,9 +478,10 @@ Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn ph�
 \bibitem{lee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163–180, May 2017, doi: 10.1089/soro.2016.0038.
 \bibitem{lee2021} D.-Y. Lee, J.-K. Kim, C.-Y. Sohn, J.-M. Heo, and K.-J. Cho, “High–load capacity origami transformable wheel,” Science Robotics, vol. 6, no. 53, Apr. 2021, doi: 10.1126/scirobotics.abe0201.
 \bibitem{rhoads2016} B. P. Rhoads and H.-J. Su, “The Design and Fabrication of a Deformable Origami Wheel,” Volume 5B: 40th Mechanisms and Robotics Conference, Aug. 2016, doi: https://doi.org/10.1115/detc2016-60045.
-\bibitem{berre2020} J. Berre, François Geiskopf, L. Rubbert, and P. Renaud, “Origami-Inspired Design of a Deployable Wheel,” Mechanisms and machine science, pp. 114–126, Oct. 2020, doi: https://doi.org/10.1007/978-3-030-60076-1\_11.
+\bibitem{berre2020} J. Berre, François Geiskopf, L. Rubbert, and P. Renaud, “Origami-Inspired Design of a Deployable Wheel,” Mechanisms and machine science, pp. 114-126, Oct. 2020, doi: https://doi.org/10.1007/978-3-030-60076-1\_11.
 \bibitem{liu2023} J. Liu et al., “OriWheelBot: An origami-wheeled robot,” arXiv (Cornell University), Jan. 2023, doi: https://doi.org/10.48550/arxiv.2310.00033.
-\bibitem{citekey} 
+\bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor and R. L. Hollis, "A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive," Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006., Orlando, FL, USA, 2006, pp. 2884-2889, doi: 10.1109/ROBOT.2006.1642139.
+\bibitem{liao2008} Ching-Wen Liao, Ching-Chih Tsai, Yi Yu Li and Cheng-Kai Chan, "Dynamic modeling and sliding-mode control of a Ball robot with inverse mouse-ball drive," 2008 SICE Annual Conference, Chofu, Japan, 2008, pp. 2951-2955, doi: 10.1109/SICE.2008.4655168.
 
 \end{thebibliography}
 
