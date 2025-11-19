@@ -48,8 +48,36 @@ Robot di động, Phân loại, Động học robot, Cơ cấu bánh xe, Robot �
 \end{IEEEkeywords}
 
 \section{Giới thiệu}
-Trong thập kỷ qua, lĩnh vực robot di động đã chứng kiến sự phát triển vượt bậc, trở thành một thành phần
-không thể thiếu trong kỷ nguyên Công nghiệp 4.0. 
+Trong thập kỷ qua, lĩnh vực robot di động đã chứng kiến sự phát triển vượt bậc, 
+trở thành một thành phần không thể thiếu trong kỷ nguyên Công nghiệp 4.0.
+Từ các robot tự hành (AGV) vận chuyển hàng hóa trong kho bãi, robot dịch vụ trong bệnh viện,
+đến các phương tiện thám hiểm tự hành trên các hành tinh khác, robot di động đang giải phóng 
+con người khỏi các công việc lặp lại, nặng nhọc và nguy hiểm [], [].
+
+Một trong những yếu tố nền tảng quyết định khả năng vận hành của robot di động là 
+cơ chế di chuyển. Mặc dù có nhiều phương thức di chuyển khác nhau như sử dụng chân, 
+bay, hoặc bơi, cơ cấu sử dụng bánh xe vẫn là giải pháp phổ biến và chiếm ưu thế nhất 
+trong hầu hết các ứng dụng trên mặt đất []. Ưu điểm vượt trội của robot bánh xe 
+nằm ở hiệu suất năng lượng cao, khả năng chịu tải lớn, cơ khí đơn giản và 
+thuật toán điều khiển tương đối hoàn thiện so với các cơ chế khác [].
+
+Tuy nhiên, sự đa dạng về yêu cầu ứng dụng — từ di chuyển tốc độ cao trên đường nhựa 
+đến khả năng xoay sở linh hoạt trong không gian chật hẹp — đã dẫn đến sự ra đời 
+của hàng loạt thiết kế bánh xe và cấu trúc khung khác nhau. 
+Việc lựa chọn giữa bánh xe tiêu chuẩn (standard wheel), bánh xe đa hướng (omnidirectional wheel), 
+hay các cấu trúc dẫn động vi sai (differential drive), cấu trúc lái Ackerman... 
+không chỉ ảnh hưởng đến khả năng cơ động mà còn quyết định mô hình động học và độ phức tạp của hệ thống điều khiển [], [].
+
+Mặc dù đã có nhiều nghiên cứu riêng lẻ về từng loại robot, 
+nhưng vẫn thiếu các tài liệu tổng quan hệ thống hóa một cách đầy đủ 
+về sự phân loại và mối liên hệ giữa đặc tính của linh kiện bánh xe và cấu trúc động học của robot. 
+Bài báo này nhằm mục đích cung cấp một cái nhìn toàn diện và phân loại chi tiết về các hệ thống bánh xe và cấu trúc robot di động hiện có.
+
+Cấu trúc của bài báo được tổ chức như sau: 
+Phần II trình bày phân loại chi tiết các loại bánh xe, từ bánh xe tiêu chuẩn đến các thiết kế bánh xe đa hướng và đặc biệt. 
+Phần III phân tích các cấu trúc robot di động phổ biến dựa trên mô hình động học của chúng. 
+Phần IV tổng hợp và so sánh các đặc tính kỹ thuật. 
+Cuối cùng, Phần V và Phần VI thảo luận về các ứng dụng thực tế, xu hướng nghiên cứu tương lai và kết luận.
 
 %---------------------------------
 
@@ -118,8 +146,31 @@ lên robot trong điều kiện lý tưởng \cite{siegwart2011,mikova2016}:
     ($x$, $y$ và $\psi$ lần lượt là vị trí và hướng của robot). 
 \end{itemize}
 
-Nhờ cấu trúc đơn giản, độ tin cậy cao và đa dạng kích thước, bánh xe cố định
-là nền tảng cho nhiều cấu trúc robot như dẫn động vi sai, dẫn động trượt.
+Từ phương trình ràng buộc (\ref{eq2}), ta có thể thấy rằng bánh xe cố định
+triệt tiêu hoàn toàn khả năng di chuyển tức thời theo phương ngang trục bánh.
+Tính chất này biến robot sử dụng bánh xe cố định thành hệ thống phi đa hướng.
+Về mặt điều khiển, điều này có nghĩa là không gian điều khiển (số lượng động cơ) nhỏ hơn không gian cấu hình (số bậc tự do vị trí),
+buộc robot phải thực hiện các quỹ đạo phức tạp (như đỗ xe song song) để đến được vị trí
+mong muốn thay vì di chuyển thẳng []. Tuy nhiên, chính ràng buộc này lại mang lại sự ổn định hướng
+vượt trội khi di chuyển ở tốc độ cao, giúp robot giữ lộ trình tốt hơn so với các loại bánh đa hướng.
+
+Các phương trình (\ref{eq1}) và (\ref{eq2}) dựa trên giả thuyết lý tưởng về "lăn không trượt" (pure rolling)
+và tiếp xúc điểm cứng tuyệt đối (rigid point contact). 
+Tuy nhiên, trong các ứng dụng thực tế, đặc biệt là với các robot vận tải (AGV) mang tải trọng lớn hoặc robot nông nghiệp di Chuyển
+trên địa hình mềm, giả thuyết này thường bị vi phạm:
+
+\begin{itemize}
+    \item Hiện tượng trượt: Khi lực kéo vượt quá giới hạn ma sát nghỉ, hiện tượng trượt dọc sẽ xảy ra, dẫn đến sai số tích luỹ trong bài toán định vị. Ngoài ra, khi robot quay vòng, hiện tượng trượt ngang cũng xuất hiện do lực ly tâm, tạo ra góc trượt làm lệch hướng di chuyển thực tế so với hướng bánh xe.
+    \item Biến dạng lốp: Diện tích tiếp xúc thực tế là một vùng thay vì một điểm, tạo ra mô-men cản lăn làm tiêu tốn năng lượng [].
+\end{itemize}
+
+Do đó, để giải quyết các thách thức này, kỹ thuật robot hiện đại thường tiếp cận theo hai hướng song song:
+\begin{itemize}
+    \item[1.] Các mô hình động học được bổ sung thêm các tham số về độ trượt (slip ratio) và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý [].
+    \item[2.] Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe (Odometry) bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài [].
+\end{itemize}
+
+Nhờ sự kết hợp giữa độ tin cậy cơ khí cao và các giải pháp điều khiển/định vị tiên tiến này, bánh xe cố định vẫn giữ vững vai trò là nền tảng cốt lõi cho các cấu trúc robot phổ biến như dẫn động vi sai và dẫn động trượt.
 
 \subsubsection{Bánh xe lái (steered standard wheel)}
 Bánh xe lái phức tạp hơn bánh cố định. Ngoài bậc tự do quay quanh trục của bánh xe, 
