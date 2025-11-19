@@ -53,14 +53,15 @@ Robot di động, Phân loại, Động học robot, Cơ cấu bánh xe, Robot �
 
 \section{Phân loại bánh xe}
 Bánh xe là cơ chế di chuyển được sử dụng nhiều nhất trong robot di động và trong các phương tiện do con người tạo ra \cite{siegwart2011}.
+Bánh xe sử dụng đơn giản hơn, rẻ hơn so với cơ chế di chuyển bằng chân và dễ dàng thiết kế, xây dựng và lập trình khi robot di chuyển trên bề mặt phẳng, không gồ ghề \cite{rubio2019}.
 Nó có hiệu suất làm việc cao và sử dụng ít năng lượng hơn so với các cơ chế di chuyển khác (\textit{Hình \ref{fig:figure1}}).
-Bánh xe có thể chia thành 3 loại chính gồm \textit{bánh xe tiêu chuẩn}, \textit{bánh xe đa hướng} và \textit{bánh xe đặc biệt}.
+Bánh xe có thể chia thành 3 loại chính gồm \textit{bánh xe tiêu chuẩn}, \textit{bánh xe đa hướng} và \textit{bánh xe đặc biệt} \cite{chung2008}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.3\textwidth]{figures/figure1.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/fig1.pdf}
     \caption{Biểu đồ giữa tốc độ và năng lượng của các cơ chế di chuyển của robot \cite{todd2012}}
-    \label{fig:figure1}
+    \label{fig:fig1}
 \end{figure}
 
 \subsection{Bánh xe tiêu chuẩn (standard wheel)}
@@ -71,17 +72,17 @@ bánh xe chỉ có thể lăn hiệu quả theo một hướng và không thể 
 
 \subsubsection{Bánh xe cố định (fixed wheel)}
 Bánh xe cố định là loại bánh xe đơn giản nhất, được gắn chặt vào khung robot với một hướng duy nhất không thể thay đổi \cite{mikova2016, leong2022}.
-Nó chỉ có một bậc tự do (Degree of Freedom) là quay quanh trục chính của nó \cite{chung2008, mikova2013}.
+Nó chỉ có một bậc tự do (degree of freedom) là quay quanh trục chính của nó \cite{chung2008, mikova2013}.
 Nó có cấu trúc đơn giản, nhiều kích thước và có độ tin cậy cao \cite{shabalina2018}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=0.4\textwidth]{figures/fig.II.A.1.1.pdf}
+    \includegraphics[width=0.4\textwidth]{figures/fig2.pdf}
     \caption{Mô hình động học tổng quát mô tả một bánh xe tiêu chuẩn được gắn trên khung robot \cite{chung2008}}
-    \label{fig:figIIA11}
+    \label{fig:fig2}
 \end{figure}
 
-Hình \ref{fig:figIIA11} trình bày sơ đồ động học tổng quát của một bánh xe tiêu chuẩn.
+Hình \ref{fig:fig2} trình bày sơ đồ động học tổng quát của một bánh xe tiêu chuẩn.
 Trong sơ đồ, vị trí của tâm bánh xe $A$ được xác định trong hệ toạ độ cực
 bởi các thông số khoảng cách $l$ và góc $\alpha$ so với hệ toạ độ gắn trên khung robot $\{X_R, Y_R\}$.
 Hướng của bánh xe được xác định bởi góc $\beta$, là góc hợp bởi đường thẳng
@@ -95,21 +96,62 @@ Về mặt toán học, \textit{bánh xe cố định} áp đặt hai ràng bu�
 lên robot trong điều kiện lý tưởng \cite{siegwart2011,mikova2016}:
 \begin{itemize}
     \item[--] Ràng buộc lăn: Vận tốc tại điểm tiếp xúc mặt đất phải bằng không
-    (lăn không trượt), điều này liên quan đến vận tốc quay của bánh xe.
+    (lăn không trượt), điều này liên quan đến vận tốc quay của bánh xe:
+    \begin{equation} \label{eq1}
+        \begin{bmatrix}
+            \sin(\alpha + \beta) & -cos(\alpha + \beta) & -l\cos{\beta}
+        \end{bmatrix}
+        R(\theta) \dot{\xi}_I - r\dot{\varphi} = 0
+    \end{equation}
     \item[--] Ràng buộc trượt ngang: Vận tốc của tâm bánh xe (điểm $A$) theo phương
-    vuông góc với trục bánh xe phải bằng không.
+    vuông góc với trục bánh xe phải bằng không:
+    \begin{equation} \label{eq2}
+        \begin{bmatrix}
+            \cos(\alpha + \beta) & \sin(\alpha + \beta) & l \sin{\beta}
+        \end{bmatrix}
+        R(\theta) \dot{\xi}_I = 0
+    \end{equation}
+
+    Với $\dot{\varphi}$ là vận tốc góc của bánh và  $\dot{\xi_I} = \begin{bmatrix} \dot{x} \\ \dot{y} \\ \dot{\psi} \end{bmatrix}$ là vectơ biểu diễn chuyển động của robot
+    ($x$, $y$ và $\psi$ lần lượt là vị trí và hướng của robot). 
 \end{itemize}
 
 Nhờ cấu trúc đơn giản, độ tin cậy cao và đa dạng kích thước, bánh xe cố định
 là nền tảng cho nhiều cấu trúc robot như dẫn động vi sai, dẫn động trượt.
 
-\subsubsection{Bánh xe lái (steered wheel)}
+\subsubsection{Bánh xe lái (steered standard wheel)}
 Bánh xe lái phức tạp hơn bánh cố định. Ngoài bậc tự do quay quanh trục của bánh xe, 
-nó còn có thêm một bậc tự do thứ hai là khả năng quay quanh trục thẳng đứng (trục lái).
+nó còn có thêm một bậc tự do thứ hai là khả năng quay quanh trục thẳng đứng (trục lái) đi qua tâm của bánh xe và điểm tiếp xúc với mặt đất.
 Một động cơ lái thường được sử dụng để chủ động thay đổi góc của bánh xe so với khung của robot \cite{ueno2017}.
 Mặc dù có thể thay đổi hướng, tại bất kỳ thời điểm nào, 
 nó vẫn là một bánh xe tiêu chuẩn và phải tuân thủ ràng buộc lăn không trượt theo phương mà nó đang hướng theo.
 Đây là thành phần cốt lõi trong cấu trúc lái Ackerman \cite{qiu2018, gautam2021} (như bánh trước xe ô tô) hoặc trong cấu trúc 3 bánh \cite{patel2021}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig3.pdf}
+    \caption{Mô hình động học tổng quát mô tả một bánh xe lái được gắn trên khung robot \cite{chung2008}}
+    \label{fig:fig3}
+\end{figure}
+
+Ràng buộc lăn của bánh:
+\begin{equation} \label{eq:eq3}
+    \begin{split}
+        & \begin{bmatrix}
+            \sin(\alpha + \beta(t)) & -\cos(\alpha + \beta(t)) & -l \cos(\beta(t))
+        \end{bmatrix} R(\theta)\dot{\xi}_I \\
+        & \hspace{6.5cm} - r\dot{\varphi} = 0
+    \end{split}
+\end{equation}
+
+Ràng buộc trượt của bánh:
+\begin{equation} \label{eq:eq4}
+    \begin{split}
+        \begin{bmatrix}
+            \cos(\alpha + \beta(t)) & \sin(\alpha + \beta(t)) & l \sin(\beta(t))
+        \end{bmatrix} R(\theta)\dot{\xi}_I = 0
+    \end{split}
+\end{equation}
 
 \subsubsection{Bánh xe xoay tự do (caster wheel)}
 Bánh xe xoay tự do (bánh xe con lăn) cũng có hai bậc tự do tương tự như bánh lái (lăn và xoay quanh trục đứng).
@@ -120,6 +162,13 @@ Chúng không cung cấp bất kỳ lực đẩy chủ động nào.
 Chúng không dùng để lái hay đẩy, mà chỉ dùng để hỗ trợ và giữ thăng bằng cho robot.
 Chúng cực kỳ phổ biến và thường được dùng làm bánh xe phụ trong cấu trúc dẫn động vi sai \cite{arrizabalaga2021}, 
 hoặc có thể giúp robot di chuyển lên bậc hoặc bề mặt không bằng phẳng \cite{lee2024, garcia2016}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig4.pdf}
+    \caption{Mô hình động học tổng quát mô tả một bánh xe xoay tự do được gắn trên khung robot \cite{chung2008}}
+    \label{fig:fig4}
+\end{figure}
 
 %-----
 
@@ -252,6 +301,8 @@ Robot liên tục sử dụng các cảm biến (thường là IMU - Cảm biế
 Ưu điểm: Cực kỳ nhỏ gọn, diện tích chiếm dụng mặt bằng (footprint) bằng không, rất linh hoạt trong môi trường có con người.
 Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn phụ thuộc vào cảm biến và nguồn điện (mất điện là ngã). Khả năng chịu tải và vượt địa hình bị hạn chế [..].
 
+\subsection{Cấu trúc lai cơ cấu chân - bánh}
+
 %---------------------------------
 
 \section{Ứng dụng}
@@ -269,6 +320,7 @@ Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn ph�
 
 \begin{thebibliography}{00}
 \bibitem{siegwart2011} R. Siegwart, I. R. Nourbakhsh, and D. Scaramuzza, \textit{Introduction to Autonomous Mobile Robots, second edition}. MIT Press, 2011.
+\bibitem{rubio2019} F. Rubio, F. Valero, and C. Llopis-Albert, “A review of mobile robots: Concepts, methods, theoretical framework, and applications,” International Journal of Advanced Robotic Systems, vol. 16, no. 2, Mar. 2019, doi: 10.1177/1729881419839596.
 \bibitem{todd2012} D. J. Todd, \textit{Walking machines: An Introduction to Legged Robots}. Springer, 2012.
 \bibitem{rasam2016} H. R. Rasam, “Review on Land-Based Wheeled Robots,” MATEC Web of Conferences, vol. 53, p. 01058, Jan. 2016, doi: 10.1051/matecconf/20165301058.  
 \bibitem{mikova2016} Ľ. Miková and A. Gmiterko, “Kinematic model and control algorithm for the path tracking of nonholonomic mobile robots,” Journal of Automation and Control, vol. 4, no. 2, pp. 26–29, Dec. 2016, doi: 10.12691/automation-4-2-4.
@@ -285,14 +337,14 @@ Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn ph�
 \bibitem{garcia2016} J. M. García, J. L. Martínez, A. Mandow, and A. García-Cerezo, “Caster-leg aided maneuver for negotiating surface discontinuities with a wheeled skid-steer mobile robot,” Robotics and Autonomous Systems, vol. 91, pp. 25-37, Dec. 2016, doi: 10.1016/j.robot.2016.12.007.
 \bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
 \bibitem{wikipedia_mecanum_wheel} Wikipedia contributors, “Mecanum wheel,” Wikipedia, Sep. 08, 2025. https://en.wikipedia.org/wiki/Mecanum\_wheel
-%\bibitem{leong2022} Boru Diriba Hirpo , Prof. Wang Zhongmin, “Design and Control for Differential Drive Mobile Robot”, INTERNATIONAL JOURNAL OF ENGINEERING RESEARCH \& TECHNOLOGY (IJERT), vol. 6, no. 10, pp. 327-334, Oct. 2017.
-%\bibitem{chung2008} A. A. Rodriguez et al., "Modeling, design and control of low-cost differential-drive robotic ground vehicles: Part II — Multiple vehicle study," 2017 IEEE Conference on Control Technology and Applications (CCTA), Maui, HI, USA, 2017, pp. 161-166, doi: 10.1109/CCTA.2017.8062457.
-%\bibitem{shabalina2018} R. Cao, J. Gu, C. Yu and A. Rosendo, "OmniWheg: An Omnidirectional Wheel-Leg Transformable Robot," 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Kyoto, Japan, 2022, pp. 5626-5631, doi: 10.1109/IROS47612.2022.9982030.
-%\bibitem{ueno2017} Lee D-Y, Kim S-R, Kim J-S, Park J-J, Cho K-J. Origami Wheel Transformer: A Variable-Diameter Wheel Drive Robot Using an Origami Structure. Soft Robotics. 2017;4(2):163-180. doi:10.1089/soro.2016.0038
-%\bibitem{qiu2018} Dae-Young Lee et al., High-load capacity origami transformable wheel.Sci. Robot.6,eabe0201(2021).DOI:10.1126/scirobotics.abe0201
-%\bibitem{gautam2021} Rhoads, BP, \& Su, H. "The Design and Fabrication of a Deformable Origami Wheel." Proceedings of the ASME 2016 International Design Engineering Technical Conferences and Computers and Information in Engineering Conference. Volume 5B: 40th Mechanisms and Robotics Conference. Charlotte, North Carolina, USA. August 21-24, 2016. V05BT07A021. ASME. https://doi.org/10.1115/DETC2016-60045
-%\bibitem{patel2021} Berre, J., Geiskopf, F., Rubbert, L., Renaud, P. (2021). Origami-Inspired Design of a Deployable Wheel. In: Lovasz, EC., Maniu, I., Doroftei, I., Ivanescu, M., Gruescu, CM. (eds) New Advances in Mechanisms, Mechanical Transmissions and Robotics . MTM\&Robotics 2020. Mechanisms and Machine Science, vol 88. Springer, Cham. https://doi.org/10.1007/978-3-030-60076-1\_11
-%\bibitem{arrizabalaga2021} Jie Liu, Zufeng Pang, Zhiyong Li, Guilin Wen, Zhoucheng Su, Junfeng He, Kaiyue Liu, Dezheng Jiang, Zenan Li, Shouyan Chen, Yang Tian, Yi Min Xie, Zhenpei Wang, \& Zhuangjian Liu. (2023). OriWheelBot: An origami-wheeled robot. 
+\bibitem{hirpo2017} B. D. Hirpo , W. Zhongmin, “Design and Control for Differential Drive Mobile Robot”, INTERNATIONAL JOURNAL OF ENGINEERING RESEARCH \& TECHNOLOGY (IJERT), vol. 6, no. 10, pp. 327-334, Oct. 2017.
+\bibitem{rodriguez2017} A. A. Rodriguez et al., "Modeling, design and control of low-cost differential-drive robotic ground vehicles: Part II — Multiple vehicle study," 2017 IEEE Conference on Control Technology and Applications (CCTA), Maui, HI, USA, 2017, pp. 161-166, doi: 10.1109/CCTA.2017.8062457.
+\bibitem{cao2022} R. Cao, J. Gu, C. Yu and A. Rosendo, "OmniWheg: An Omnidirectional Wheel-Leg Transformable Robot," 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Kyoto, Japan, 2022, pp. 5626-5631, doi: 10.1109/IROS47612.2022.9982030.
+\bibitem{lee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163–180, May 2017, doi: 10.1089/soro.2016.0038.
+\bibitem{lee2021} D.-Y. Lee, J.-K. Kim, C.-Y. Sohn, J.-M. Heo, and K.-J. Cho, “High–load capacity origami transformable wheel,” Science Robotics, vol. 6, no. 53, Apr. 2021, doi: 10.1126/scirobotics.abe0201.
+\bibitem{rhoads2016} B. P. Rhoads and H.-J. Su, “The Design and Fabrication of a Deformable Origami Wheel,” Volume 5B: 40th Mechanisms and Robotics Conference, Aug. 2016, doi: https://doi.org/10.1115/detc2016-60045.
+\bibitem{berre2020} J. Berre, François Geiskopf, L. Rubbert, and P. Renaud, “Origami-Inspired Design of a Deployable Wheel,” Mechanisms and machine science, pp. 114–126, Oct. 2020, doi: https://doi.org/10.1007/978-3-030-60076-1\_11.
+\bibitem{liu2023} J. Liu et al., “OriWheelBot: An origami-wheeled robot,” arXiv (Cornell University), Jan. 2023, doi: https://doi.org/10.48550/arxiv.2310.00033.
 
 \end{thebibliography}
 
