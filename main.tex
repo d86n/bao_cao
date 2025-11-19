@@ -206,6 +206,18 @@ Ràng buộc trượt của bánh:
     \end{split}
 \end{equation}
 
+So với bánh xe cố định, việc biến góc $\beta$ thành một biến số theo thời gian $\beta(t)$ mang lại sự linh hoạt vượt trội trong việc định hình quỹ đạo. Tuy nhiên, điều này dẫn đến những thách thức kỹ thuật đặc thù mà các hệ thống robot hiện đại phải giải quyết:
+
+\begin{enumerate}
+    \item Ma sát xoay và Hiện tượng "Cày lốp" (Scrubbing): Một vấn đề vật lý nghiêm trọng của bánh xe lái là hiện tượng ma sát xoay khi robot cần đổi hướng mà vận tốc lăn thấp hoặc bằng không. Để thay đổi góc $\beta$, động cơ lái phải thắng được mô-men ma sát trượt xoay (twisting friction) rất lớn giữa bề mặt lốp và mặt đường [14]. Điều này không chỉ gây mài mòn lốp nhanh chóng (tire wear) mà còn đòi hỏi động cơ lái phải có mô-men xoắn cực đại lớn, làm tăng kích thước và tiêu thụ năng lượng của hệ thống.
+    \item Giới hạn tốc độ lái và Phối hợp điều khiển: Trong lý thuyết, góc lái $\beta$ có thể thay đổi tức thời. Tuy nhiên, trong thực tế, tốc độ thay đổi góc lái ($\beta$) bị giới hạn bởi động lực học của cơ cấu chấp hành. Nếu bộ điều khiển yêu cầu thay đổi hướng quá nhanh so với vận tốc lăn của robot, bánh xe sẽ bị trượt ngang (lateral slip), vi phạm ràng buộc (4). Do đó, các thuật toán điều khiển hiện đại cho robot dùng bánh lái (như Ackerman hoặc Tricycle) đòi hỏi sự phối hợp đồng bộ (coordinated control) chặt chẽ giữa vận tốc lăn $\varphi$ và vận tốc lái $\beta$ để đảm bảo quỹ đạo mượt mà [15].
+    \item Sai số cơ khí (Backlash): Hệ thống truyền động lái (thường dùng bánh răng hoặc trục vít) luôn tồn tại độ rơ (backlash). Sai số này làm cho góc lái thực tế lệch so với góc lái đo được từ encoder, dẫn đến sai số trong bài toán định vị (Odometry) lớn hơn so với bánh xe cố định.
+\end{enumerate}
+
+Ứng dụng điển hình của bánh xe lái là trong các robot nông nghiệp cỡ lớn, xe tự hành ngoài trời hoặc các robot giao hàng tốc độ cao, nơi cần kết hợp giữa lực kéo mạnh và khả năng điều hướng ổn định theo kiểu ô tô.
+
+%------- BÁNH XE XOAY TỰ DO -------------------
+
 \subsubsection{Bánh xe xoay tự do (caster wheel)}
 Bánh xe xoay tự do (bánh xe con lăn) cũng có hai bậc tự do tương tự như bánh lái (lăn và xoay quanh trục đứng).
 Tuy nhiên, điểm khác biệt cơ bản là nó là một cơ cấu bị động.
