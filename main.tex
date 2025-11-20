@@ -15,6 +15,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1, T5]{fontenc}
 \usepackage{babel}
+\usepackage{booktabs}
 
 \babelprovide[import,main]{vietnamese}
 
@@ -40,6 +41,9 @@
 }
 
 \maketitle
+
+\thispagestyle{plain} % Bật số trang cho trang tiêu đề
+\pagestyle{plain}    % Bật số trang cho các trang còn lại
 
 \begin{abstract}
 
@@ -71,8 +75,7 @@ hay các cấu trúc dẫn động vi sai (differential drive), cấu trúc lái
 không chỉ ảnh hưởng đến khả năng cơ động mà còn quyết định mô hình động học và độ phức tạp của hệ thống điều khiển \cite{campion1993, lynch2017}.
 
 Mặc dù đã có nhiều nghiên cứu riêng lẻ về từng loại robot, 
-nhưng vẫn thiếu các tài liệu tổng quan hệ thống hóa một cách đầy đủ 
-về sự phân loại và mối liên hệ giữa đặc tính của linh kiện bánh xe và cấu trúc động học của robot. 
+nhưng việc tổng hợp và hệ thống hóa mối liên hệ giữa đặc tính linh kiện và cấu trúc động học trong một tài liệu duy nhất là rất cần thiết để có cái nhìn toàn diện.
 Bài báo này nhằm mục đích cung cấp một cái nhìn toàn diện và phân loại chi tiết về các hệ thống bánh xe và cấu trúc robot di động hiện có.
 
 Cấu trúc của bài báo được tổ chức như sau: 
@@ -211,8 +214,8 @@ Ràng buộc trượt của bánh (yêu cầu điều khiển vị trí):
 So với bánh xe cố định, việc biến góc $\beta$ thành một biến số theo thời gian $\beta(t)$ mang lại sự linh hoạt vượt trội trong việc định hình quỹ đạo. Tuy nhiên, điều này dẫn đến những thách thức kỹ thuật đặc thù mà các hệ thống robot hiện đại phải giải quyết:
 
 \begin{enumerate}
-    \item Ma sát xoay và Hiện tượng "Cày lốp" (Scrubbing): Một vấn đề vật lý nghiêm trọng của bánh xe lái là hiện tượng ma sát xoay khi robot cần đổi hướng mà vận tốc lăn thấp hoặc bằng không. Để thay đổi góc $\beta$, động cơ lái phải thắng được mô-men ma sát trượt xoay (twisting friction) rất lớn giữa bề mặt lốp và mặt đường [14]. Điều này không chỉ gây mài mòn lốp nhanh chóng (tire wear) mà còn đòi hỏi động cơ lái phải có mô-men xoắn cực đại lớn, làm tăng kích thước và tiêu thụ năng lượng của hệ thống.
-    \item Giới hạn tốc độ lái và Phối hợp điều khiển: Trong lý thuyết, góc lái $\beta$ có thể thay đổi tức thời. Tuy nhiên, trong thực tế, tốc độ thay đổi góc lái ($\beta$) bị giới hạn bởi động lực học của cơ cấu chấp hành. Nếu bộ điều khiển yêu cầu thay đổi hướng quá nhanh so với vận tốc lăn của robot, bánh xe sẽ bị trượt ngang (lateral slip), vi phạm ràng buộc (4). Do đó, các thuật toán điều khiển hiện đại cho robot dùng bánh lái (như Ackerman hoặc Tricycle) đòi hỏi sự phối hợp đồng bộ (coordinated control) chặt chẽ giữa vận tốc lăn $\varphi$ và vận tốc lái $\beta$ để đảm bảo quỹ đạo mượt mà [15].
+    \item Ma sát xoay và Hiện tượng "Cày lốp" (Scrubbing): Một vấn đề vật lý nghiêm trọng của bánh xe lái là hiện tượng ma sát xoay khi robot cần đổi hướng mà vận tốc lăn thấp hoặc bằng không. Để thay đổi góc $\beta$, động cơ lái phải thắng được mô-men ma sát trượt xoay (twisting friction) rất lớn giữa bề mặt lốp và mặt đường \cite{gillespie1992}. Điều này không chỉ gây mài mòn lốp nhanh chóng (tire wear) mà còn đòi hỏi động cơ lái phải có mô-men xoắn cực đại lớn, làm tăng kích thước và tiêu thụ năng lượng của hệ thống.
+    \item Giới hạn tốc độ lái và Phối hợp điều khiển: Trong lý thuyết, góc lái $\beta$ có thể thay đổi tức thời. Tuy nhiên, trong thực tế, tốc độ thay đổi góc lái ($\beta$) bị giới hạn bởi động lực học của cơ cấu chấp hành. Nếu bộ điều khiển yêu cầu thay đổi hướng quá nhanh so với vận tốc lăn của robot, bánh xe sẽ bị trượt ngang (lateral slip), vi phạm ràng buộc (4). Do đó, các thuật toán điều khiển hiện đại cho robot dùng bánh lái (như Ackerman hoặc Tricycle) đòi hỏi sự phối hợp đồng bộ (coordinated control) chặt chẽ giữa vận tốc lăn $\varphi$ và vận tốc lái $\beta$ để đảm bảo quỹ đạo mượt mà \cite{deluca1998}.
     \item Sai số cơ khí (Backlash): Hệ thống truyền động lái (thường dùng bánh răng hoặc trục vít) luôn tồn tại độ rơ (backlash). Sai số này làm cho góc lái thực tế lệch so với góc lái đo được từ encoder, dẫn đến sai số trong bài toán định vị (Odometry) lớn hơn so với bánh xe cố định.
 \end{enumerate}
 
@@ -273,6 +276,9 @@ Tóm lại, bánh Caster là giải pháp rẻ tiền và hiệu quả để duy
 
 %-----
 
+
+% -----------------------
+
 \subsection{Bánh xe đa hướng (omnidirectional wheel)}
 Bánh xe đa hướng, hay còn gọi là bánh xe toàn hướng, là một bước tiến quan trọng so với bánh xe tiêu chuẩn.
 Chúng được thiết kế để khắc phục các ràng buộc phi đa hướng của bánh xe tiêu chuẩn nên chúng ngày càng phổ biến
@@ -314,12 +320,12 @@ Chúng ta có thể phân biệt hai loại chính: bánh cầu bị động và
     \item Bánh cầu chủ động: Đây là một cơ cấu cơ khí cực kỳ phức tạp, trong đó quả cầu được chủ động điều khiển để tạo lực đẩy.
           Quả cầu được giữ trong một hốc (socket) và tiếp xúc trực tiếp với các con lăn (rollers) 
           hoặc động cơ được đặt bên trong cơ cấu. Bằng cách điều khiển các con lăn này 
-          (ví dụ, hai con lăn đặt vuông góc với nhau), cơ cấu có thể làm quả cầu quay theo bất kỳ trục nào trên mặt phẳng [..].
+          (ví dụ, hai con lăn đặt vuông góc với nhau), cơ cấu có thể làm quả cầu quay theo bất kỳ trục nào trên mặt phẳng \cite{lauwers2006, mukherjee1999}.
           Một bánh xe cầu chủ động là một cơ cấu truyền động đa hướng (holonomic) hoàn chỉnh. 
           Một robot được trang bị 3 hoặc 4 bánh xe này có thể di chuyển theo mọi hướng và xoay đồng thời, 
-          tương tự như bánh Mecanum nhưng tiềm năng về độ mượt mà và khả năng vượt địa hình gồ ghề (nhẹ) tốt hơn [..].
+          tương tự như bánh Mecanum nhưng tiềm năng về độ mượt mà và khả năng vượt địa hình gồ ghề (nhẹ) tốt hơn \cite{nagarajan2009}.
           Ưu điểm là khả năng cơ động đa hướng tuyệt đối. 
-          Nhược điểm là độ phức tạp cơ khí cực cao, chi phí lớn, và khó khăn trong việc duy trì lực bám và chống mài mòn [..].
+          Nhược điểm là độ phức tạp cơ khí cực cao, chi phí lớn, và khó khăn trong việc duy trì lực bám và chống mài mòn \cite{kumagai2008}.
 \end{itemize}
 
 \begin{figure}[!htbp]
@@ -329,6 +335,28 @@ Chúng ta có thể phân biệt hai loại chính: bánh cầu bị động và
     \label{fig:fig5}
 \end{figure}
 
+Quan sát mô hình động học (\textit{Hình \ref{fig:fig5}}), ta thấy các tham số hình học ($l$, $\alpha$, $\beta$) tương tự như \textit{bánh xe cố định}. Tuy nhiên, ý nghĩa vật lý của các phương trình ràng buộc lại hoàn toàn khác biệt \cite{siegwart2011}:
+
+Phương trình lăn:
+    \begin{equation} \label{eq7}
+        \begin{bmatrix}
+            \sin(\alpha + \beta) & -cos(\alpha + \beta) & -l\cos{\beta}
+        \end{bmatrix}
+        R(\theta) \dot{\xi}_I - r\dot{\varphi} = 0
+    \end{equation}
+
+Phương trình trượt:
+    \begin{equation} \label{eq8}
+        \begin{bmatrix}
+            \cos(\alpha + \beta) & \sin(\alpha + \beta) & l \sin{\beta}
+        \end{bmatrix}
+        R(\theta) \dot{\xi}_I = 0
+    \end{equation}
+
+Đối với \textit{bánh xe cố định}, góc $\beta$ là hằng số, nên phương trình (\ref{eq8}) là một ràng buộc ngăn cản chuyển động ngang. Ngược lại, đối với \textit{bánh hình cầu}, góc $\beta$ là một biến tự do. Do đó, phương trình (\ref{eq8}) không hạn chế chuyển động của robot ($\dot{\xi}_I$), mà nó dùng để xác định hướng quay tức thời của quả cầu sao cho phù hợp với hướng di chuyển của robot. Nói cách khác, \textit{bánh hình cầu} không áp đặt bất kỳ ràng buộc động học nào lên khung robot, cho phép robot di chuyển toàn hướng.
+
+Thách thức hiện đại: Mặc dù lý thuyết động học rất lý tưởng, việc hiện thực hóa \textit{bánh hình cầu} chủ động gặp thách thức lớn về hiệu suất truyền động. Lực đẩy phụ thuộc hoàn toàn vào ma sát tiếp xúc điểm giữa con lăn dẫn động và quả cầu. Nếu ma sát không đủ sẽ gây trượt, nếu quá lớn sẽ gây mài mòn và tổn hao năng lượng. Đây là bài toán khó về vật liệu và cơ khí chính xác mà các nghiên cứu hiện nay đang tập trung giải quyết \cite{kumagai2008}.
+
 %-----
 
 \subsubsection{Bánh origami}
@@ -336,7 +364,60 @@ Chúng ta có thể phân biệt hai loại chính: bánh cầu bị động và
 Ưu điểm lớn nhất là khả năng thích ứng địa hình (terrain adaptability).
 Nhược điểm là độ phức tạp về cơ khí, độ bền của các khớp gấp, và sự phức tạp trong hệ thống điều khiển để quyết định khi nào cần thay đổi hình dạng [..].
 
+Cơ chế và Nguyên lý Biến hình: Hầu hết các bánh xe Origami hiện đại dựa trên các mẫu gấp (tessellation patterns) nổi tiếng như mẫu "Bóng ma thuật" (Magic Ball pattern) hoặc "Waterbomb base" [].
+
+\begin{itemize}
+    \item Cấu trúc: Bánh xe được cấu tạo từ một màng mỏng (thường là composite hoặc polymer) được gấp nếp theo quy luật hình học xác định.
+    
+    \item Hoạt động: Một cơ cấu chấp hành tuyến tính (linear actuator) ở trục bánh xe sẽ đẩy hai đĩa ốp hai bên lại gần hoặc ra xa nhau. Nhờ cấu trúc gấp nếp, chuyển động tuyến tính này sẽ được chuyển đổi thành chuyển động hướng kính, làm thay đổi đường kính của bánh xe.
+    \begin{itemize}
+        \item Trạng thái thu gọn: Đường kính nhỏ, bề mặt trơn nhẵn → Di chuyển nhanh, hiệu suất cao trên mặt phẳng.
+        \item Trạng thái mở rộng: Đường kính lớn, bề mặt xuất hiện các "gai" hoặc mấu bám → Tăng mô-men vượt chướng ngại vật, leo cầu thang hoặc đi trên đất mềm.
+    \end{itemize}
+\end{itemize}
+
+Đặc tính Động học Biến thiên (Variable Kinematics): Điểm khác biệt "hiện đại" nhất so với bánh xe truyền thống là bán kính bánh xe r không còn là hằng số mà là một hàm số phụ thuộc vào trạng thái biến hình u(t). Phương trình ràng buộc lăn (1) trở thành phi tuyến:
+
+Điều này đặt ra thách thức lớn cho bài toán Odometry và điều khiển PID, vì hệ số khuếch đại của hệ thống thay đổi liên tục khi bánh xe biến hình. Bộ điều khiển cần phải thích nghi (Adaptive Control) để cập nhật lại mô hình động học theo thời gian thực.
+
+Các vấn đề Hiện đại và Thách thức Kỹ thuật: Nghiên cứu về bánh xe Origami đang đối mặt với 3 bài toán lớn:
+
+\begin{itemize}
+    \item Mâu thuẫn giữa Độ cứng và Độ linh hoạt (Stiffness vs. Flexibility Trade-off): Để biến hình, vật liệu cần mềm dẻo (flexible). Nhưng để chịu tải trọng của robot (Payload), bánh xe cần phải cứng (stiff).
+    \begin{itemize}
+        \item Giải pháp hiện đại: Các nghiên cứu mới nhất (như của ĐH Quốc gia Seoul) đề xuất cơ chế khóa cấu trúc (structural locking). Khi ở trạng thái mong muốn, bánh xe tự khóa cứng lại để chịu tải lên tới hàng trăm kg, nhưng khi cần biến hình thì mở khóa để trở nên mềm dẻo [Ref].
+    \end{itemize}
+
+    \item Hiệu ứng Đa giác (Polygon Effect): Khi mở rộng, bánh xe Origami thường không giữ được hình tròn hoàn hảo mà tạo thành hình đa giác. Điều này gây ra rung động chu kỳ (vibration) khi robot di chuyển, ảnh hưởng đến độ ổn định của camera hoặc cảm biến trên thân robot.
+    
+    \item Độ bền mỏi (Fatigue Durability): Các nếp gấp (hinges) là nơi tập trung ứng suất. Sau hàng nghìn chu kỳ gấp/mở, vật liệu rất dễ bị nứt gãy. Công nghệ vật liệu hiện đại đang hướng tới các loại vải gia cường (fabric-reinforced composites) để tăng tuổi thọ cho bánh xe.
+\end{itemize}
+
+Ứng dụng tiềm năng nhất của công nghệ này là các robot giao hàng (last-mile delivery) có khả năng tự leo vỉa hè hoặc robot thám hiểm bề mặt hành tinh với địa hình không xác định.
+
+% ----------
+
 \subsection{Tổng hơp, so sánh các loại bánh xe}
+
+\begin{table*}[t]
+  \centering
+  \caption{TỔNG HỢP VÀ SO SÁNH CÁC LOẠI BÁNH XE}
+  \label{tab:comparison}
+  % Bỏ các dấu | thẳng đứng đi, nhìn sẽ thoáng hơn
+  \begin{tabular}{llllll} 
+    \toprule % Đường kẻ đậm trên cùng
+    \textbf{Loại bánh xe} & \textbf{Ràng buộc} & \textbf{Cơ khí} & \textbf{Điều khiển} & \textbf{Địa hình} & \textbf{Năng lượng} \\
+    \midrule % Đường kẻ mảnh ở giữa
+    Bánh cố định & Non-holonomic & Thấp & Thấp & Cao & Cao \\
+    Bánh lái & Non-holonomic & TB & TB & Cao & Cao \\
+    Bánh Caster & Bị động & Thấp & N/A & TB & TB \\
+    Bánh Omni & Holonomic & TB & Cao & Thấp & TB \\
+    Bánh Mecanum & Holonomic & Cao & Rất cao & Thấp & Thấp \\
+    Bánh Hình cầu & Holonomic & Rất cao & Rất cao & Thấp & Thấp \\
+    Bánh Origami & Biến thiên & Rất cao & Rất cao & Rất cao & TB \\
+    \bottomrule % Đường kẻ đậm dưới cùng
+  \end{tabular}
+\end{table*}
 
 %---------------------------------
 
@@ -350,6 +431,13 @@ các ràng buộc chuyển động (constraints), và từ đó, ảnh hưởng 
 Đây là cấu trúc phổ biến, đơn giản và được sử dụng rộng rãi nhất cho robot di động trong nhà [].
 Cấu trúc này bao gồm hai bánh xe chủ động (driven wheels) được lắp cố định trên cùng một trục và được điều khiển vận tốc một cách độc lập. Để giữ thăng bằng, robot thường sử dụng thêm một hoặc hai bánh xe bị động, thường là bánh xe xoay tự do (Caster Wheel) hoặc bánh bi (Ball Caster) đặt ở phía trước hoặc/và sau [..].
 Cấu trúc dẫn động vi sai là một hệ thống phi đa hướng (non-holonomic). Mặc dù nó rất linh hoạt, nó vẫn bị một ràng buộc: robot không thể di chuyển tức thời theo phương ngang (vuông góc với trục bánh xe) [..]. Mô hình động học (cả động học thuận và ngược) của nó tương đối đơn giản và đã được nghiên cứu kỹ, khiến nó trở thành lựa chọn hàng đầu cho các robot cơ bản và trong giáo dục.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig6.pdf}
+    \caption{Mô hình cấu trúc dẫn động vi sai \cite{chung2008}}
+    \label{fig:fig6}
+\end{figure}
 
 %-----
 
@@ -434,24 +522,102 @@ Tương tác Động lực học (Hybrid Dynamics): Khác với robot bánh xe t
 
 Ứng dụng thực tiễn: Các robot tiêu biểu cho xu hướng này bao gồm Boston Dynamics Handle (robot kho vận), ETH Zurich ANYmal on Wheels (robot thám hiểm), và Tencent Ollie (robot nhào lộn). Chúng đang mở ra hướng đi mới cho robot giao hàng chặng cuối (last-mile delivery) nơi robot phải leo lên bậc thềm nhà khách hàng.
 
+%------------- CẤU TRÚC DẪN ĐỘNG BÁNH CẦU ---------------------
 
 \subsection{Cấu trúc dẫn động bánh cầu}
 Cấu trúc dẫn động bánh cầu đại diện cho một lớp robot di động đặc biệt, di chuyển và giữ thăng bằng trên một quả cầu duy nhất thay vì nhiều bánh xe. Đây là ví dụ điển hình nhất cho hệ thống robot cân bằng động (dynamically balancing) và thiếu dẫn động (underactuated) trong kỹ thuật robot hiện đại [].
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig1000.pdf}
+    \caption{Mô hình cấu trúc dẫn động bánh cầu trong mặt phẳng 2D (\textit{bên trái}) và không gian 3D (\textit{bên phải}) \cite{abdelrahim2025}}
+    \label{fig:fig1000}
+\end{figure}
+
 Khác với bánh xe thông thường, quả cầu cần quay tự do theo mọi hướng, do đó không thể gắn trục động cơ cố định vào tâm cầu. Thay vào đó, hệ thống sử dụng cơ chế truyền động gián tiếp, thường được gọi là "cơ cấu chuột bi ngược" (inverse mouse-ball drive) \cite{lauwers2006, liao2008}.
 
-%---------------------------------
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig997.pdf}
+    \caption{Mô hình cấu trúc dẫn động bánh cầu trong mặt phẳng 2D (\textit{bên trái}) và không gian 3D (\textit{bên phải}) \cite{abdelrahim2025}}
+    \label{fig:fig997}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.2\textwidth]{figures/fig998.pdf}
+    \caption{Robot inverse mouse-ball \cite{kumagai2008}}
+    \label{fig:fig998}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.2\textwidth]{figures/fig999.pdf}
+    \caption{Robot inverse mouse-ball \cite{lauwers2006}}
+    \label{fig:fig999}
+\end{figure}
+
+%--------------- ỨNG DỤNG ------------------
 
 \section{Ứng dụng}
+Sự đa dạng của các loại bánh xe và cấu trúc robot di động đã được phản ánh qua vô số ứng dụng thực tế. Việc lựa chọn một cấu hình di động cụ thể luôn là kết quả của bài toán tối ưu hóa giữa: khả năng cơ động, tải trọng, năng lượng tiêu thụ và đặc điểm môi trường hoạt động [].
 
+\begin{enumerate}
+    \item Logistics và Kho bãi thông minh: Đây là lĩnh vực ứng dụng lớn nhất của robot di động (AMR/AGV).
+    \begin{itemize}
+        \item Cấu trúc Dẫn động Vi sai: Chiếm ưu thế trong các robot vận chuyển kệ hàng (như Amazon Kiva/Robotics) nhờ chi phí thấp, độ tin cậy cao và khả năng xoay tại chỗ trong các lối đi vuông góc [].
+        \item Cấu trúc Đa hướng (Mecanum/Omni): Đang dần phổ biến trong các nhà máy sản xuất linh kiện điện tử hoặc lắp ráp máy bay, nơi cần di chuyển chính xác các linh kiện lớn trong không gian chật hẹp mà không cần không gian quay đầu (zero turning radius) [].
+    \end{itemize}
 
-%---------------------------------
+    \item Giao hàng chặng cuối: Một xu hướng "hiện đại" bùng nổ sau đại dịch.
+    \begin{itemize}
+        \item Cấu trúc 6 bánh (6-Wheel Differential/Rocker-bogie): Các robot như Starship Technologies sử dụng cấu trúc này để leo lề đường và di chuyển ổn định trên vỉa hè đô thị không bằng phẳng.
+        \item Cấu trúc Ackerman: Được dùng cho các robot giao hàng tốc độ cao trên làn đường xe đạp hoặc khu dân cư rộng (như Nuro R2).
+    \end{itemize}
+
+    \item Thám hiểm và Nông nghiệp
+    \begin{itemize}
+        \item Cấu trúc Dẫn động trượt (Skid-steer) \& Rocker-bogie: Là tiêu chuẩn vàng cho các robot thám hiểm hành tinh (như Mars Rovers: Curiosity, Perseverance) nhờ hệ thống cơ khí bền bỉ, không có các khớp lái phức tạp dễ hỏng hóc trong môi trường bụi bặm khắc nghiệt [].
+        \item Cấu trúc Bánh xích: Vẫn là lựa chọn số một cho các robot cứu hỏa hoặc nông nghiệp hoạt động trên nền đất bùn lầy (soft soil) để giảm áp suất tiếp xúc.
+    \end{itemize}
+
+    \item Robot Dịch vụ và Tương tác người (Service \& HRI):
+    \begin{itemize}
+        \item Ballbot và Robot tự cân bằng: Nhờ diện tích đế nhỏ (small footprint) và chiều cao lớn, các cấu trúc này (như Rezero, Segway) rất phù hợp để di chuyển trong văn phòng đông người và tương tác ngang tầm mắt mà không gây cản trở giao thông [].
+    \end{itemize}
+\end{enumerate}
+
+%---------------- XU HƯỚNG NGHIÊN CỨU -----------------
 
 \section{Xu hướng nghiên cứu}
+Lĩnh vực cơ cấu di chuyển (locomotion) đang chuyển dịch từ việc thiết kế các cơ cấu cứng nhắc sang các hệ thống thông minh, linh hoạt và thích ứng hơn.
 
-%---------------------------------
+\begin{enumerate}
+    \item Cấu trúc Lai và Biến hình (Hybrid \& Reconfigurable Locomotion): Để giải quyết sự đánh đổi giữa tốc độ (bánh xe) và khả năng vượt địa hình (chân), xu hướng Robot lai Chân-Bánh (Wheel-Legged Robots) đang dẫn đầu nghiên cứu hiện đại (ví dụ: ETH Zurich ANYmal on Wheels). Ngoài ra, các nghiên cứu về bánh xe biến hình (Origami wheels) cho phép thay đổi đường kính hoặc hình dạng bánh xe theo thời gian thực để thích ứng với địa hình cát, sỏi hoặc cầu thang đang rất được quan tâm [].
+    
+    \item Bánh xe Chủ động và Thông minh (Active \& Smart Wheels): Thay vì chỉ là một cơ cấu chấp hành thụ động, bánh xe đang trở thành một mô-đun thông minh.
+    \begin{itemize}
+        \item Active Caster: Biến bánh xe xoay tự do thành bánh xe dẫn động toàn hướng có điều khiển, loại bỏ nhược điểm rung lắc (shimmy) [].
+        \item In-wheel Motors \& Sensors: Tích hợp động cơ và cảm biến mô-men xoắn trực tiếp vào trong lòng bánh xe để thực hiện các thuật toán điều khiển bám đường (traction control) và ước lượng độ trượt (slip estimation) ngay tại điểm tiếp xúc.
+    \end{itemize}
+
+    \item Terramechanics và Điều khiển dựa trên Mô hình (Model-based Control): Như đã phân tích ở Phần II, các mô hình động học hình học cổ điển không còn đủ chính xác. Xu hướng hiện nay là tích hợp Cơ học đất (Terramechanics) vào vòng điều khiển. Các bộ điều khiển hiện đại (như MPC - Model Predictive Control) sử dụng dữ liệu thời gian thực để dự đoán sự lún và trượt của đất, từ đó điều phối lực kéo tối ưu cho từng bánh xe, giúp robot không bị sa lầy trên địa hình mềm [].
+\end{enumerate}
+
+%----------------- KẾT LUẬN ----------------
 
 \section{Kết luận}
+Bài báo cáo này đã trình bày một cái nhìn tổng quan và hệ thống hóa về các loại bánh xe và cấu trúc cơ bản của robot di động, đồng thời phân tích các vấn đề hiện đại liên quan đến động lực học và điều khiển.
+
+Qua phân tích, có thể rút ra các kết luận chính sau:
+
+\begin{enumerate}
+    \item Không có thiết kế vạn năng: Sự lựa chọn cấu trúc robot luôn là một sự đánh đổi (design trade-off). Cấu trúc Dẫn động vi sai tối ưu cho sự đơn giản và giá thành; Cấu trúc Đa hướng tối ưu cho sự linh hoạt trong không gian hẹp; trong khi Cấu trúc Skid-steer/Bánh xích tối ưu cho địa hình gồ ghề.
+    \item Thách thức từ Thực tế: Các mô hình động học lý tưởng (lăn không trượt) là nền tảng cần thiết nhưng không đủ. Kỹ thuật robot hiện đại buộc phải giải quyết các vấn đề phi tuyến như ma sát xoay (scrubbing), trượt (slippage) và tương tác địa hình thông qua việc mở rộng mô hình và ghép nối cảm biến (Sensor Fusion).
+    \item Tương lai là sự Thích ứng: Xu hướng phát triển đang hướng tới các cấu trúc lai (chân-bánh) và các vật liệu thông minh, cho phép robot không chỉ di chuyển trên địa hình mà còn thích ứng với địa hình đó.
+\end{enumerate}
+
+Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước đầu tiên và quan trọng nhất để thiết kế nên những hệ thống robot tự hành hiệu quả, bền bỉ và thông minh hơn trong tương lai.
 
 %---------------------------------
 
@@ -481,7 +647,12 @@ Khác với bánh xe thông thường, quả cầu cần quay tự do theo mọi
 \bibitem{gautam2021} P. Gautam, S. Sahai, S. S. Kelkar, P. S. Agrawal, and M. R. D, “Designing Variable Ackerman Steering geometry for Formula Student Race car,” International Journal of Analytical Experimental and Finite Element Analysis (IJAEFEA), vol. 8, no. 1, Feb. 2021, doi: 10.26706/ijaefea.1.8.20210101.
 \bibitem{patel2021} S. Patel, R. Rawat, N. Shantanu, A. Kumar, and N. Amardeep, “Study of steering system for an electric Trike-Ackerman steering,” in Smart innovation, systems and technologies, 2021, pp. 9-18. doi: 10.1007/978-981-16-2857-3\_3.
 \bibitem{low2005} K. H. Low and Y. P. Leow, “Kinematic modeling, mobility analysis and design of wheeled mobile robots,” Advanced Robotics, vol. 19, no. 1, pp. 73-99, Jan. 2005, doi: 10.1163/1568553053020241.
+\bibitem{gillespie1992} T. D. Gillespie, Fundamentals of Vehicle Dynamics. Warrendale, PA: SAE International, 1992.
+\bibitem{deluca1998} A. De Luca, G. Oriolo, and C. Samson, "Feedback control of a nonholonomic car-like robot," in Robot Motion Planning and Control, J.-P. Laumond, Ed. Springer, 1998, pp. 171-253.
 \bibitem{arrizabalaga2021} J. Arrizabalaga, N. Van Duijkeren, M. Ryll, and R. Lange, “A caster-wheel-aware MPC-based motion planner for mobile robotics,” 2021 20th International Conference on Advanced Robotics (ICAR), pp. 613-618, Dec. 2021, doi: 10.1109/icar53236.2021.9659478.
+\bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor, and R. L. Hollis, “A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive,” in Proc. IEEE Int. Conf. Robot. Automat., 2006, pp. 2884-2889.
+\bibitem{mukherjee1999} R. Mukherjee, M. A. Minor and J. T. Pukrushpan, "Simple motion planning strategies for spherobot: a spherical mobile robot," Proceedings of the 38th IEEE Conference on Decision and Control (Cat. No.99CH36304), Phoenix, AZ, USA, 1999, pp. 2132-2137 vol.3, doi: 10.1109/CDC.1999.831235.
+\bibitem{nagarajan2009} U. Nagarajan, G. Kantor, and R. L. Hollis, “Trajectory planning and control of an underactuated dynamically stable single spherical wheeled mobile robot,” IEEE Xplore, May 01, 2009. https://ieeexplore.ieee.org/document/5152624.
 \bibitem{lee2024} W. Lee, J. Kim, and T. Seo, “Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability,” Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
 \bibitem{garcia2016} J. M. García, J. L. Martínez, A. Mandow, and A. García-Cerezo, “Caster-leg aided maneuver for negotiating surface discontinuities with a wheeled skid-steer mobile robot,” Robotics and Autonomous Systems, vol. 91, pp. 25-37, Dec. 2016, doi: 10.1016/j.robot.2016.12.007.
 \bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
@@ -497,6 +668,11 @@ Khác với bánh xe thông thường, quả cầu cần quay tự do theo mọi
 \bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor and R. L. Hollis, "A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive," Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006., Orlando, FL, USA, 2006, pp. 2884-2889, doi: 10.1109/ROBOT.2006.1642139.
 \bibitem{liao2008} Ching-Wen Liao, Ching-Chih Tsai, Yi Yu Li and Cheng-Kai Chan, "Dynamic modeling and sliding-mode control of a Ball robot with inverse mouse-ball drive," 2008 SICE Annual Conference, Chofu, Japan, 2008, pp. 2951-2955, doi: 10.1109/SICE.2008.4655168.
 \bibitem{trojnacki2019} M. Trojnacki and P. D\pl{ą}bek, “Mechanical properties of modern wheeled mobile robots,” Journal of Automation Mobile Robotics \& Intelligent Systems, pp. 3-13, Jul. 2019, doi: 10.14313/jamris/3-2019/21.
+\bibitem{nakata2022} Y. Nakata, S. Yagi, S. Yu, Y. Wang, N. Ise, Y. Nakamura, and H. Ishiguro, "Development of 'ibuki' an electrically actuated childlike Android with mobility and its potential in the future society," Robotica, vol. 40, no. 4, pp. 933-950, Apr. 2022.
+\bibitem{kumagai2008} M. Kumagai and T. Ochiai, "Development of a robot balancing on a ball," in Proc. Int. Conf. Control, Autom. Syst., Hong Kong, Oct. 2008, pp. 433-438.
+\bibitem{bhatia2015} A. Bhatia, M. Kumagai, and R. Hollis, "Six-stator spherical induction motor for balancing mobile robots," in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2015, pp. 226-231.
+\bibitem{abdelrahim2025} M. Abdelrahim, M. A. Thabet, H. S. Abbas, M. M. M. Hassan, M. H. Amin and A. Morsi, "Modeling and Control of a Ballbot: A Systematic Approach," in IEEE Access, vol. 13, pp. 141263-141280, 2025, doi: 10.1109/ACCESS.2025.3597797.
+
 
 \end{thebibliography}
 
