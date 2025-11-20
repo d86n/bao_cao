@@ -399,25 +399,51 @@ Các vấn đề Hiện đại và Thách thức Kỹ thuật: Nghiên cứu v�
 
 \subsection{Tổng hơp, so sánh các loại bánh xe}
 
+Sau khi phân tích chi tiết đặc tính động học và cơ khí của từng nhóm bánh xe, phần này tổng hợp và so sánh chúng để cung cấp cái nhìn toàn diện cho việc lựa chọn thiết kế robot. Trong kỹ thuật robot hiện đại, không có loại bánh xe nào là ưu việt tuyệt đối; sự lựa chọn luôn là kết quả của bài toán tối ưu hóa đa mục tiêu giữa: Khả năng cơ động (Mobility), Độ phức tạp (Complexity) và Khả năng thích ứng địa hình (Traversability) [].
+
+Bảng \ref{tab:table1} dưới đây tóm tắt các đặc tính kỹ thuật cốt lõi của các loại bánh xe đã khảo sát.
+
 \begin{table*}[t]
   \centering
   \caption{TỔNG HỢP VÀ SO SÁNH CÁC LOẠI BÁNH XE}
-  \label{tab:comparison}
-  % Bỏ các dấu | thẳng đứng đi, nhìn sẽ thoáng hơn
+  \label{tab:table1}
   \begin{tabular}{llllll} 
-    \toprule % Đường kẻ đậm trên cùng
-    \textbf{Loại bánh xe} & \textbf{Ràng buộc} & \textbf{Cơ khí} & \textbf{Điều khiển} & \textbf{Địa hình} & \textbf{Năng lượng} \\
-    \midrule % Đường kẻ mảnh ở giữa
-    Bánh cố định & Non-holonomic & Thấp & Thấp & Cao & Cao \\
-    Bánh lái & Non-holonomic & TB & TB & Cao & Cao \\
-    Bánh Caster & Bị động & Thấp & N/A & TB & TB \\
-    Bánh Omni & Holonomic & TB & Cao & Thấp & TB \\
-    Bánh Mecanum & Holonomic & Cao & Rất cao & Thấp & Thấp \\
-    Bánh Hình cầu & Holonomic & Rất cao & Rất cao & Thấp & Thấp \\
-    Bánh Origami & Biến thiên & Rất cao & Rất cao & Rất cao & TB \\
-    \bottomrule % Đường kẻ đậm dưới cùng
+    \toprule
+    \textbf{Loại bánh xe} & \textbf{Loại ràng buộc} & \textbf{Độ phức tạp cơ khí} & \textbf{Độ phức tạp điều khiển} & \textbf{Thích ứng địa hình} & \textbf{Hiệu suất năng lượng} \\
+    \midrule
+    Bánh xe cố định & Phi đa hướng & Thấp & Thấp & Cao & Cao \\
+    Bánh xe lái & Phi đa hướng & Trung bình & Trung bình & Cao & Cao \\
+    Bánh xe xoay tự do & Bị động & Thấp & Trung bình & Trung bình & Trung bình \\
+    Bánh xe omni & Đa hướng & Trung bình & Cao & Thấp & Trung bình \\
+    Bánh xe Mecanum & Đa hướng & Cao & Rất cao & Thấp & Thấp \\
+    Bánh hình cầu & Đa hướng & Rất cao & Rất cao & Thấp & Thấp \\
+    Bánh Origami & Biến thiên & Rất cao & Rất cao & Rất cao & Trung bình \\
+    \bottomrule
   \end{tabular}
 \end{table*}
+
+Từ bảng so sánh, ta có thể rút ra ba xu hướng thiết kế chính trong robot hiện đại:
+
+\begin{enumerate}
+    \item Cơ động vs. Địa hình (Maneuverability vs. Traversability): Có một sự nghịch đảo rõ rệt giữa khả năng di chuyển linh hoạt và khả năng vượt địa hình.
+    \begin{itemize}
+        \item Các bánh xe toàn hướng (Omni, Mecanum, Hình cầu) cho phép robot di chuyển ngang và xoay tại chỗ trong không gian hẹp, nhưng cấu tạo con lăn nhỏ hoặc bề mặt cầu khiến chúng cực kỳ nhạy cảm với bụi bẩn, gờ giảm tốc và nền đất mềm [].
+        \item Ngược lại, bánh xe tiêu chuẩn (Cố định, Lái) chịu tải tốt và bám đường tốt trên địa hình gồ ghề, nhưng lại bị hạn chế bởi bán kính quay vòng (đối với bánh lái) hoặc ma sát trượt khi quay (đối với bánh cố định).
+        \item Xu hướng hiện đại: Bánh xe Origami nổi lên như một giải pháp lai, hy sinh sự đơn giản để đạt được cả hai yếu tố trên nhờ khả năng biến hình.
+    \end{itemize}
+
+    \item Độ phức tạp Điều khiển và Định vị (Control \& Localization):
+    \begin{itemize}
+        \item Bánh xe tiêu chuẩn có mô hình động học ổn định, ít bị trượt ngang, giúp thuật toán Odometry đạt độ chính xác cao.
+        \item Các bánh xe Holonomic (đặc biệt là Mecanum và Ballbot) chịu ảnh hưởng lớn bởi sự trượt (slippage) ngẫu nhiên. Điều này đặt ra thách thức lớn cho hệ thống điều khiển: bắt buộc phải sử dụng các bộ lọc ước lượng trạng thái (như EKF/Particle Filter) và hợp nhất cảm biến (Sensor Fusion) đắt tiền để bù đắp sai số vị trí tích lũy [].
+    \end{itemize}
+
+    \item Hiệu suất Năng lượng (Energy Efficiency):
+    \begin{itemize}
+        \item Bánh xe cố định và bánh lái tận dụng ma sát lăn thuần túy, tiêu tốn ít năng lượng nhất.
+        \item Bánh Omni và Mecanum tiêu tốn năng lượng đáng kể do lực ma sát trượt nội tại giữa các con lăn và trục, cũng như việc các véc-tơ lực của 4 bánh thường triệt tiêu lẫn nhau khi tạo chuyển động ngang []. Đây là lý do chúng hiếm khi được dùng cho các robot chạy pin hoạt động ngoài trời trong thời gian dài.
+    \end{itemize}
+\end{enumerate}
 
 %---------------------------------
 
