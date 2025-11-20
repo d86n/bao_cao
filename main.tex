@@ -13,12 +13,14 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \usepackage[utf8]{inputenc}
-\usepackage[T5]{fontenc}
+\usepackage[T1, T5]{fontenc}
 \usepackage{babel}
 
 \babelprovide[import,main]{vietnamese}
 
 \renewcommand{\IEEEkeywordsname}{Từ khóa}
+
+\newcommand{\pl}[1]{{\fontencoding{T1}\selectfont #1}}
 
 \begin{document}
 
@@ -52,21 +54,21 @@ Trong thập kỷ qua, lĩnh vực robot di động đã chứng kiến sự ph�
 trở thành một thành phần không thể thiếu trong kỷ nguyên Công nghiệp 4.0.
 Từ các robot tự hành (AGV) vận chuyển hàng hóa trong kho bãi, robot dịch vụ trong bệnh viện,
 đến các phương tiện thám hiểm tự hành trên các hành tinh khác, robot di động đang giải phóng 
-con người khỏi các công việc lặp lại, nặng nhọc và nguy hiểm [], [].
+con người khỏi các công việc lặp lại, nặng nhọc và nguy hiểm \cite{siegwart2011, fragapane2021}.
 
 Một trong những yếu tố nền tảng quyết định khả năng vận hành của robot di động là 
 cơ chế di chuyển. Mặc dù có nhiều phương thức di chuyển khác nhau như sử dụng chân, 
 bay, hoặc bơi, cơ cấu sử dụng bánh xe vẫn là giải pháp phổ biến và chiếm ưu thế nhất 
-trong hầu hết các ứng dụng trên mặt đất []. Ưu điểm vượt trội của robot bánh xe 
+trong hầu hết các ứng dụng trên mặt đất \cite{chung2008}. Ưu điểm vượt trội của robot bánh xe 
 nằm ở hiệu suất năng lượng cao, khả năng chịu tải lớn, cơ khí đơn giản và 
-thuật toán điều khiển tương đối hoàn thiện so với các cơ chế khác [].
+thuật toán điều khiển tương đối hoàn thiện so với các cơ chế khác \cite{todd2012}.
 
 Tuy nhiên, sự đa dạng về yêu cầu ứng dụng — từ di chuyển tốc độ cao trên đường nhựa 
 đến khả năng xoay sở linh hoạt trong không gian chật hẹp — đã dẫn đến sự ra đời 
 của hàng loạt thiết kế bánh xe và cấu trúc khung khác nhau. 
 Việc lựa chọn giữa bánh xe tiêu chuẩn (standard wheel), bánh xe đa hướng (omnidirectional wheel), 
 hay các cấu trúc dẫn động vi sai (differential drive), cấu trúc lái Ackerman... 
-không chỉ ảnh hưởng đến khả năng cơ động mà còn quyết định mô hình động học và độ phức tạp của hệ thống điều khiển [], [].
+không chỉ ảnh hưởng đến khả năng cơ động mà còn quyết định mô hình động học và độ phức tạp của hệ thống điều khiển \cite{campion1993, lynch2017}.
 
 Mặc dù đã có nhiều nghiên cứu riêng lẻ về từng loại robot, 
 nhưng vẫn thiếu các tài liệu tổng quan hệ thống hóa một cách đầy đủ 
@@ -146,8 +148,8 @@ lên robot trong điều kiện lý tưởng \cite{siegwart2011,mikova2016}:
     ($x$, $y$ và $\psi$ lần lượt là vị trí và hướng của robot). 
 \end{itemize}
 
-Từ phương trình ràng buộc (\ref{eq2}), ta có thể thấy rằng bánh xe cố định
-triệt tiêu hoàn toàn khả năng di chuyển tức thời theo phương ngang trục bánh.
+Từ phương trình ràng buộc (\ref{eq2}), ta có thể thấy rằng bánh xe cố định triệt tiêu hoàn toàn 
+khả năng di chuyển tức thời theo phương ngang trục bánh.
 Tính chất này biến robot sử dụng bánh xe cố định thành hệ thống phi đa hướng.
 Về mặt điều khiển, điều này có nghĩa là không gian điều khiển (số lượng động cơ) nhỏ hơn không gian cấu hình (số bậc tự do vị trí),
 buộc robot phải thực hiện các quỹ đạo phức tạp (như đỗ xe song song) để đến được vị trí
@@ -156,25 +158,25 @@ vượt trội khi di chuyển ở tốc độ cao, giúp robot giữ lộ trìn
 
 Các phương trình (\ref{eq1}) và (\ref{eq2}) dựa trên giả thuyết lý tưởng về "lăn không trượt" (pure rolling)
 và tiếp xúc điểm cứng tuyệt đối (rigid point contact). 
-Tuy nhiên, trong các ứng dụng thực tế, đặc biệt là với các robot vận tải (AGV) mang tải trọng lớn hoặc robot nông nghiệp di Chuyển
-trên địa hình mềm, giả thuyết này thường bị vi phạm:
+Tuy nhiên, trong các ứng dụng thực tế, đặc biệt là với các robot vận tải (AGV) mang tải trọng lớn 
+hoặc robot nông nghiệp di chuyển trên địa hình mềm, giả thuyết này thường bị vi phạm:
 
 \begin{itemize}
     \item Hiện tượng trượt: Khi lực kéo vượt quá giới hạn ma sát nghỉ, hiện tượng trượt dọc sẽ xảy ra, dẫn đến sai số tích luỹ trong bài toán định vị. Ngoài ra, khi robot quay vòng, hiện tượng trượt ngang cũng xuất hiện do lực ly tâm, tạo ra góc trượt làm lệch hướng di chuyển thực tế so với hướng bánh xe.
-    \item Biến dạng lốp: Diện tích tiếp xúc thực tế là một vùng thay vì một điểm, tạo ra mô-men cản lăn làm tiêu tốn năng lượng [].
+    \item Biến dạng lốp: Diện tích tiếp xúc thực tế là một vùng thay vì một điểm, tạo ra mô-men cản lăn làm tiêu tốn năng lượng \cite{wong2022, iagnemma2000}.
 \end{itemize}
 
 Do đó, để giải quyết các thách thức này, kỹ thuật robot hiện đại thường tiếp cận theo hai hướng song song:
 \begin{enumerate}
-    \item Các mô hình động học được bổ sung thêm các tham số về độ trượt (slip ratio) và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý [].
-    \item Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe (Odometry) bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài [].
+    \item Các mô hình động học được bổ sung thêm các tham số về độ trượt và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý \cite{ward2008, yi2009, mandow2007}.
+    \item Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe (Odometry) bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài \cite{thrun2010, moore2014}.
 \end{enumerate}
 
-Nhờ sự kết hợp giữa độ tin cậy cơ khí cao và các giải pháp điều khiển/định vị tiên tiến này, bánh xe cố định vẫn giữ vững vai trò là nền tảng cốt lõi cho các cấu trúc robot phổ biến như dẫn động vi sai và dẫn động trượt.
+Nhờ sự kết hợp giữa độ tin cậy cơ khí cao và các giải pháp điều khiển/định vị tiên tiến này, bánh xe cố định vẫn giữ vững vai trò là nền tảng cốt lõi cho các cấu trúc robot phổ biến như dẫn động vi sai và dẫn động trượt \cite{parhi2011}.
 
 \subsubsection{Bánh xe lái (steered standard wheel)}
 Bánh xe lái phức tạp hơn bánh cố định. Ngoài bậc tự do quay quanh trục của bánh xe, 
-nó còn có thêm một bậc tự do thứ hai là khả năng quay quanh trục thẳng đứng (trục lái) đi qua tâm của bánh xe và điểm tiếp xúc với mặt đất.
+nó còn có thêm một bậc tự do thứ hai là khả năng quay quanh trục thẳng đứng (trục lái) đi qua tâm của bánh xe và điểm tiếp xúc với mặt đất \cite{parhi2011}.
 Một động cơ lái thường được sử dụng để chủ động thay đổi góc của bánh xe so với khung của robot \cite{ueno2017}.
 Mặc dù có thể thay đổi hướng, tại bất kỳ thời điểm nào, 
 nó vẫn là một bánh xe tiêu chuẩn và phải tuân thủ ràng buộc lăn không trượt theo phương mà nó đang hướng theo.
@@ -187,7 +189,7 @@ nó vẫn là một bánh xe tiêu chuẩn và phải tuân thủ ràng buộc l
     \label{fig:fig3}
 \end{figure}
 
-Ràng buộc lăn của bánh:
+Ràng buộc lăn của bánh (yêu cầu điều khiển vận tốc) \cite{low2005}:
 \begin{equation} \label{eq:eq3}
     \begin{split}
         & \begin{bmatrix}
@@ -197,7 +199,7 @@ Ràng buộc lăn của bánh:
     \end{split}
 \end{equation}
 
-Ràng buộc trượt của bánh:
+Ràng buộc trượt của bánh (yêu cầu điều khiển vị trí):
 \begin{equation} \label{eq:eq4}
     \begin{split}
         \begin{bmatrix}
@@ -455,18 +457,30 @@ Khác với bánh xe thông thường, quả cầu cần quay tự do theo mọi
 
 \begin{thebibliography}{00}
 \bibitem{siegwart2011} R. Siegwart, I. R. Nourbakhsh, and D. Scaramuzza, \textit{Introduction to Autonomous Mobile Robots, second edition}. MIT Press, 2011.
+\bibitem{fragapane2021} G. Fragapane, R. de Koster, F. Sgarbossa, and J. O. Strandhagen, “Planning and control of autonomous mobile robots for intralogistics: Literature review and research agenda,” European Journal of Operational Research, vol. 294, no. 2, pp. 405-426, Jan. 2021, doi: https://doi.org/10.1016/j.ejor.2021.01.019.
+\bibitem{chung2008} W. Chung and K. Iagnemma,  "Wheeled robots," \textit{Springer Handbook of Robotics}. 2008. doi: 10.1007/978-3-540-30301-5.
 \bibitem{rubio2019} F. Rubio, F. Valero, and C. Llopis-Albert, “A review of mobile robots: Concepts, methods, theoretical framework, and applications,” International Journal of Advanced Robotic Systems, vol. 16, no. 2, Mar. 2019, doi: 10.1177/1729881419839596.
 \bibitem{todd2012} D. J. Todd, \textit{Walking machines: An Introduction to Legged Robots}. Springer, 2012.
+\bibitem{campion1993} G. Campion, G. Bastin and B. D'Andrea-Novel, "Structural properties and classification of kinematic and dynamic models of wheeled mobile robots," [1993] Proceedings IEEE International Conference on Robotics and Automation, Atlanta, GA, USA, 1993, pp. 462-469 vol.1, doi: 10.1109/ROBOT.1993.292023.
+\bibitem{lynch2017} K. M. Lynch and F. C. Park, Modern robotics : mechanics, planning, and control. Cambridge: University Press, 2017.
 \bibitem{rasam2016} H. R. Rasam, “Review on Land-Based Wheeled Robots,” MATEC Web of Conferences, vol. 53, p. 01058, Jan. 2016, doi: 10.1051/matecconf/20165301058.  
 \bibitem{mikova2016} Ľ. Miková and A. Gmiterko, “Kinematic model and control algorithm for the path tracking of nonholonomic mobile robots,” Journal of Automation and Control, vol. 4, no. 2, pp. 26–29, Dec. 2016, doi: 10.12691/automation-4-2-4.
 \bibitem{leong2022} J. S. Ling Leong, K. T. Kin Teo and H. P. Yoong, "Four Wheeled Mobile Robots: A Review," \textit{2022 IEEE International Conference on Artificial Intelligence in Engineering and Technology (IICAIET)}, pp. 1-6, Sep. 2022, doi: 10.1109/IICAIET55139.2022.9936855.
-\bibitem{chung2008} W. Chung and K. Iagnemma,  "Wheeled robots," \textit{Springer Handbook of Robotics}. 2008. doi: 10.1007/978-3-540-30301-5.
 \bibitem{mikova2013} L. Miková, F. Trebuňa and M. Čurilla, "Model of mechatronic system's undercarriage created on the basis of its dynamics," 2013 International Conference on Process Control (PC), Strbske Pleso, Slovakia, 2013, pp. 231-234, doi: 10.1109/PC.2013.6581414.
 \bibitem{shabalina2018} K. Shabalina, A. Sagitov and E. Magid, "Comparative Analysis of Mobile Robot Wheels Design," 2018 11th International Conference on Developments in eSystems Engineering (DeSE), Cambridge, UK, 2018, pp. 175-179, doi: 10.1109/DeSE.2018.00041.
+\bibitem{wong2022} J. Y. Wong, "Mechanics of Vehicle-Terrain Interaction," Theory of ground vehicles. 2022. doi: 10.1002/9781119719984.
+\bibitem{iagnemma2000} K. Iagnemma and S. Dubowsky, “Mobile Robot Rough-Terrain Control (RTC) for Planetary Exploration,” Sep. 2000, doi: https://doi.org/10.1115/detc2000/mech-14211.
+\bibitem{ward2008} C. C. Ward and K. Iagnemma, "A Dynamic-Model-Based Wheel Slip Detector for Mobile Robots on Outdoor Terrain," in IEEE Transactions on Robotics, vol. 24, no. 4, pp. 821-831, Aug. 2008, doi: 10.1109/TRO.2008.924945.
+\bibitem{yi2009} J. Yi, H. Wang, J. Zhang, D. Song, S. Jayasuriya, and J. Liu, “Kinematic Modeling and Analysis of Skid-Steered Mobile Robots With Applications to Low-Cost Inertial-Measurement-Unit-Based Motion Estimation,” vol. 25, no. 5, pp. 1087-1097, Oct. 2009, doi: https://doi.org/10.1109/tro.2009.2026506.
+\bibitem{mandow2007} A. Mandow, J. Alfredo Martínez, J. Morales, J. M. Blanco, A. García-Cerezo, and J. Suarez Gonzalez, “Experimental kinematics for wheeled skid-steer mobile robots,” Dec. 2007, doi: https://doi.org/10.1109/iros.2007.4399139.
+\bibitem{thrun2010} S. Thrun, W. Burgard, and D. Fox, Probabilistic robotics. Cambridge, Mass.: Mit Press, 2010.
+\bibitem{moore2014} T. Moore and D. Stouch, "A generalized extended kalman filter implementation for the robot operating system," in Proceedings of the 13th International Conference on Intelligent Autonomous Systems (IAS-13), 2014.
+\bibitem{parhi2011} D. R. Parhi and B. B. V. L. Deepak, “Kinematic model of three wheeled mobile robot,” Mechanical Engineering Research, vol. 3, no. 9, pp. 307-318, Sep. 2011, doi: 10.5897/jmer.9000032.
 \bibitem{ueno2017} Y. Ueno, K. Watanabe and I. Nagai, "Design and development of steered active wheel casters and its application," 2017 IEEE International Conference on Mechatronics and Automation (ICMA), Takamatsu, Japan, 2017, pp. 507-512, doi: 10.1109/ICMA.2017.8015869.
 \bibitem{qiu2018} Q. Qiu et al., “Extended Ackerman Steering Principle for the coordinated movement control of a four wheel drive agricultural mobile robot,” Computers and Electronics in Agriculture, vol. 152, pp. 40-50, Jul. 2018, doi: 10.1016/j.compag.2018.06.036.
 \bibitem{gautam2021} P. Gautam, S. Sahai, S. S. Kelkar, P. S. Agrawal, and M. R. D, “Designing Variable Ackerman Steering geometry for Formula Student Race car,” International Journal of Analytical Experimental and Finite Element Analysis (IJAEFEA), vol. 8, no. 1, Feb. 2021, doi: 10.26706/ijaefea.1.8.20210101.
 \bibitem{patel2021} S. Patel, R. Rawat, N. Shantanu, A. Kumar, and N. Amardeep, “Study of steering system for an electric Trike-Ackerman steering,” in Smart innovation, systems and technologies, 2021, pp. 9-18. doi: 10.1007/978-981-16-2857-3\_3.
+\bibitem{low2005} K. H. Low and Y. P. Leow, “Kinematic modeling, mobility analysis and design of wheeled mobile robots,” Advanced Robotics, vol. 19, no. 1, pp. 73-99, Jan. 2005, doi: 10.1163/1568553053020241.
 \bibitem{arrizabalaga2021} J. Arrizabalaga, N. Van Duijkeren, M. Ryll, and R. Lange, “A caster-wheel-aware MPC-based motion planner for mobile robotics,” 2021 20th International Conference on Advanced Robotics (ICAR), pp. 613-618, Dec. 2021, doi: 10.1109/icar53236.2021.9659478.
 \bibitem{lee2024} W. Lee, J. Kim, and T. Seo, “Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability,” Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
 \bibitem{garcia2016} J. M. García, J. L. Martínez, A. Mandow, and A. García-Cerezo, “Caster-leg aided maneuver for negotiating surface discontinuities with a wheeled skid-steer mobile robot,” Robotics and Autonomous Systems, vol. 91, pp. 25-37, Dec. 2016, doi: 10.1016/j.robot.2016.12.007.
@@ -482,6 +496,7 @@ Khác với bánh xe thông thường, quả cầu cần quay tự do theo mọi
 \bibitem{liu2023} J. Liu et al., “OriWheelBot: An origami-wheeled robot,” arXiv (Cornell University), Jan. 2023, doi: https://doi.org/10.48550/arxiv.2310.00033.
 \bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor and R. L. Hollis, "A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive," Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006., Orlando, FL, USA, 2006, pp. 2884-2889, doi: 10.1109/ROBOT.2006.1642139.
 \bibitem{liao2008} Ching-Wen Liao, Ching-Chih Tsai, Yi Yu Li and Cheng-Kai Chan, "Dynamic modeling and sliding-mode control of a Ball robot with inverse mouse-ball drive," 2008 SICE Annual Conference, Chofu, Japan, 2008, pp. 2951-2955, doi: 10.1109/SICE.2008.4655168.
+\bibitem{trojnacki2019} M. Trojnacki and P. D\pl{ą}bek, “Mechanical properties of modern wheeled mobile robots,” Journal of Automation Mobile Robotics \& Intelligent Systems, pp. 3-13, Jul. 2019, doi: 10.14313/jamris/3-2019/21.
 
 \end{thebibliography}
 
