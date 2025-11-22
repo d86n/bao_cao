@@ -293,38 +293,42 @@ Khả năng này đạt được bằng cách gắn các con lăn bị động v
 
 \subsubsection{Bánh xe omni (omni wheel)}
 
-Đây là loại bánh xe toàn hướng đầu tiên và phổ biến nhất, được cấp bằng sáng chế lần đầu bởi Grabowiecki vào năm 1919. Cấu tạo cơ bản gồm một vành bánh xe chính (Hub) và một loạt các con lăn nhỏ (Rollers) hình tang trống được gắn dọc theo chu vi.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.35\textwidth]{figures/fig1500.pdf}
+    \caption{Bánh xe omni với các con lăn nhỏ gắn dọc vành bánh \cite{komori2016}}
+    \label{fig:fig1500}
+\end{figure}
+
+Cấu tạo và Nguyên lý: Bánh xe Omni (hay còn gọi là Universal Wheel) bao gồm một vành bánh xe chính và các con lăn nhỏ (passive rollers) được gắn dọc theo chu vi. Đặc điểm hình học cốt lõi là trục quay của các con lăn này vuông góc (90 độ) với trục quay chính của bánh xe \cite{patil2024, kanjanawanishkul2015}. Nguyên lý hoạt động dựa trên sự tách biệt chuyển động:
 
 \begin{itemize}
-    \item Đặc tính hình học: Trục quay của các con lăn con luôn vuông góc (90 độ) với trục quay chính của bánh xe.
-    \item Nguyên lý hoạt động:
-    \begin{itemize}
-        \item Khi động cơ quay trục chính: Bánh xe tạo ra lực đẩy dọc (Longitudinal force) như bánh xe thường.
-        \item Khi có ngoại lực ngang: Các con lăn tự do quay, cho phép bánh xe trượt ngang (Lateral motion) với ma sát tối thiểu.
-        \item Sự kết hợp này giúp robot di chuyển theo bất kỳ hướng nào mà không bị ràng buộc non-holonomic [43].
-    \end{itemize}
+    \item Động cơ dẫn động trục chính tạo ra lực đẩy chủ động (active traction) theo hướng dọc.
+    \item Các con lăn tự do cho phép bánh xe trượt thụ động (passive motion) theo phương ngang. Sự kết hợp của nhiều bánh xe Omni (thường là 3 hoặc 4) cho phép tổng hợp véc-tơ vận tốc theo bất kỳ hướng nào \cite{kanjanawanishkul2015, komori2016}.
 \end{itemize}
 
-Các Biến thể Cấu trúc Hiện đại (Modern Structural Variations): Nhược điểm chí mạng của bánh Omni cổ điển là biên dạng không tròn đều. Giữa các con lăn luôn có khoảng hở (gap), gây ra rung động mạnh khi di chuyển. Các nghiên cứu hiện đại đã phát triển các biến thể để khắc phục:
+Các Biến thể Cấu trúc và Giảm chấn (Structural Variations): Một nhược điểm cố hữu của thiết kế Omni cổ điển là sự không liên tục của điểm tiếp xúc (discontinuous contact points). Giữa các con lăn luôn tồn tại khoảng hở, gây ra rung động dọc (vertical vibration) khi bánh xe quay. Ferrière và các cộng sự \cite{ferriere1996} đã phân tích rằng biên độ rung động này phụ thuộc trực tiếp vào kích thước khe hở và bán kính con lăn. Để khắc phục, các biến thể cấu trúc hiện đại đã được phát triển:
 
 \begin{itemize}
-    \item Bánh Omni Kép (Dual-row / Double Omni): Gồm hai đĩa bánh Omni đơn ghép lại, lệch pha nhau một nửa bước con lăn.
-    \begin{itemize}
-        \item Ưu điểm: Đảm bảo luôn có ít nhất một con lăn tiếp xúc với mặt đất tại mọi thời điểm, giúp triệt tiêu gần như hoàn toàn rung động và tiếng ồn. Đây là chuẩn mực cho các robot thi đấu Robocon/RoboCup hiện nay [43].
-    \end{itemize}
-    
-    \item Bánh Omni Liên tục (Continuous-rim Omni): Sử dụng các con lăn có hình dáng đặc biệt đan xen nhau để tạo thành biên dạng tròn liên tục hoàn hảo. Loại này thường thấy trong các xe nâng hàng đa hướng (Forklifts) tải trọng lớn.
+    \item Bánh Omni Kép (Dual-row / Double Wheel): Sử dụng hai đĩa bánh xe ghép lại, lệch pha nhau để đảm bảo biên dạng tiếp xúc liên tục. Tuy nhiên, thiết kế này làm tăng bề rộng và khối lượng bánh xe.
+    \item Thiết kế Con lăn Xen kẽ (Alternate Concept): Các con lăn được thiết kế đan xen (interpenetrated) để giảm thiểu khe hở mà không cần dùng bánh kép, giúp giảm rung động hiệu quả.
 \end{itemize}
 
-Phân tích Động lực học và Rung động (Dynamics \& Vibrations): Mặc dù lý thuyết động học giả định bánh xe là tròn tuyệt đối, thực tế bán kính hiệu dụng $r_{eff}$ của bánh Omni biến thiên tuần hoàn theo góc quay $\theta$.
+\textbf{Phân tích Động lực học Trượt (Slip Dynamics - Modern Issue)}: Trong các nghiên cứu hiện đại, mô hình động học lý tưởng (lăn không trượt) đã được chứng minh là không đủ chính xác. Williams và các cộng sự \cite{williams2002} đã phát hiện ra rằng phần vật liệu cứng nằm giữa các con lăn (discontinuities) đóng vai trò quan trọng trong việc gây ra hiện tượng trượt (slip), ngay cả ở tốc độ thấp. Nghiên cứu thực nghiệm chỉ ra rằng hệ số ma sát trong hướng lăn ($\mu_W$) và hướng trượt ngang ($\mu_T$) là khác nhau đáng kể (ví dụ: $\mu_W \approx 0.26$ so với $\mu_T \approx 0.09$ trên bề mặt giấy). Do đó, các bộ điều khiển robot hiện đại cần tích hợp mô hình ma sát phi tuyến để bù trừ sai số trượt này, thay vì chỉ dựa vào mô hình hình học thuần túy.
 
-\begin{equation}
-    r_{eff}(\theta) = R_{hub} + r_{roller} \cos(\mod(\theta, \alpha))
-\end{equation}
+Đột phá về Vật liệu (Material Innovation - 2024): Xu hướng "nhẹ hóa" robot đang thúc đẩy việc thay thế các vật liệu kim loại truyền thống. Nghiên cứu mới nhất của Patil và các cộng sự \cite{patil2024} đã đề xuất sử dụng vật liệu Composite sợi Carbon gia cường (Carbon Fiber Reinforced Polymer) để chế tạo đĩa bánh xe omni thay cho nhôm.
 
-Sự biến thiên này tạo ra lực kích động tuần hoàn theo phương thẳng đứng, gây rung lắc thân robot và làm giảm độ chính xác của cảm biến Odometry. Các bộ điều khiển hiện đại phải sử dụng bộ lọc Kalman hoặc mô hình động lực học lốp để bù trừ sai số chu kỳ này [Ref A].
+\begin{itemize}
+    \item Sử dụng phương pháp đắp tay (hand lay-up) với nhựa epoxy, đĩa bánh xe sợi carbon đạt được độ bền uốn (bending strength) lên tới 2.2 KN.
+    \item Mô phỏng ANSYS cho thấy biến dạng tối đa chỉ tập trung ở vùng cổ răng bánh xe và nằm trong giới hạn an toàn. Đây là bước tiến quan trọng giúp giảm quán tính quay của bánh xe, từ đó nâng cao khả năng tăng tốc và tiết kiệm năng lượng cho robot.
+\end{itemize}
 
-Ứng dụng và Xu hướng: Bánh Omni đang dần chuyển dịch từ robot giáo dục sang robot dịch vụ trong nhà (như robot hút bụi cao cấp, robot phục vụ bàn) nhờ ưu điểm cơ khí đơn giản và bền bỉ hơn so với bánh Mecanum (ít chi tiết chuyển động hơn, chịu bụi tốt hơn).
+Hướng nghiên cứu mới: Bánh Omni Chủ động (Active Omni Wheel): Một hạn chế lớn của bánh Omni thường là khó kiểm soát chính xác chuyển động thụ động của con lăn do lực cản lăn không xác định. Để giải quyết vấn đề này, Komori và các cộng sự \cite{komori2016} đã đề xuất cơ cấu bánh omni chủ động.
+
+\begin{itemize}
+    \item Thiết kế này sử dụng cơ cấu vi sai (differential gear) để dẫn động chủ động cả trục bánh xe chính và trục của các con lăn con.
+    \item Kết quả là một bánh xe duy nhất có thể chủ động di chuyển theo hướng bất kỳ (active motion in arbitrary direction) mà không cần phụ thuộc vào lực kéo của các bánh xe khác, mở ra khả năng thiết kế các loại xe vận chuyển đa hướng với cấu hình linh hoạt hơn.
+\end{itemize}
 
 % ======================================================================
 
@@ -922,9 +926,10 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 \begin{thebibliography}{00}
 
-% ----- CHUNG -----
+% ----- TỔNG HỢP -----
 
 \bibitem{mir2022} I. Mir et al., “A survey of trajectory planning techniques for autonomous systems,” Electronics, vol. 11, no. 18, p. 2801, Sep. 2022, doi: 10.3390/electronics11182801.
+\bibitem{tagliavini2022} L. Tagliavini, G. Colucci, A. Botta, P. Cavallone, L. Baglieri, and G. Quaglia, “Wheeled Mobile robots: state of the art overview and kinematic comparison among three omnidirectional locomotion strategies,” Journal of Intelligent \& Robotic Systems, vol. 106, no. 3, p. 57, Oct. 2022, doi: 10.1007/s10846-022-01745-7.
 
 % =================
 
@@ -1001,6 +1006,20 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{patil2024} S. Patil, M. Madgule, and R. Patil, "Design and analysis of carbon reinforced composite plate for robotic Omni-Wheel: replacement of costly metals," Journal of the Institution of Engineers (India) Series D, Nov. 2024, doi: 10.1007/s40033-024-00831-4.
 \bibitem{williams2002} R. L. Williams, B. E. Carter, P. Gallina and G. Rosati, "Dynamic model with slip for wheeled omnidirectional robots," in IEEE Transactions on Robotics and Automation, vol. 18, no. 3, pp. 285-293, June 2002, doi: 10.1109/TRA.2002.1019459.
 \bibitem{komori2016} M. Komori, K. Matsuda, T. Terakawa, F. Takeoka, H. Nishihara, and H. Ohashi, "Active omni wheel capable of active motion in arbitrary direction and omnidirectional vehicle," Journal of Advanced Mechanical Design Systems and Manufacturing, vol. 10, no. 6, p. JAMDSM0086, Jan. 2016, doi: 10.1299/jamdsm.2016jamdsm0086.
+
+% ======================================================================
+
+% ----- BÁNH XE MECANUM -----
+
+\bibitem{bae2016} J.-J. Bae and N. Kang, "Design optimization of a mecanum wheel to reduce vertical vibrations by the consideration of equivalent stiffness," Shock and Vibration, vol. 2016, pp. 1-8, Jan. 2016, doi: 10.1155/2016/5892784.
+\bibitem{giurgiu2022} T. Giurgiu, G. Bârsan, I. Virca, and C. Pupăză, "Mecanum wheeled platforms for special applications," International Conference KNOWLEDGE-BASED ORGANIZATION, vol. 28, no. 3, pp. 44-51, Jun. 2022, doi: 10.2478/kbo-2022-0086.
+\bibitem{dyakov2024} A. S. Dyakov and D. S. Fedorov, "GEOMETRY, KINEMATICS AND DYNAMICS OF THE MECANUM WHEEL. UNSTABLE ACCELERATED MOTION OF MECANUM VEHICLE," Izvestiya MGTU MAMI, May 2024, doi: 10.17816/2074-0530-629873.
+\bibitem{dosoftei2020} C. Dosoftei, V. Horga, I. Doroftei, T. Popovici and Ş. Custura, "Simplified Mecanum Wheel Modelling using a Reduced Omni Wheel Model for Dynamic Simulation of an Omnidirectional Mobile Robot," 2020 International Conference and Exposition on Electrical And Power Engineering (EPE), Iasi, Romania, 2020, pp. 721-726, doi: 10.1109/EPE50722.2020.9305643.
+\bibitem{hasana2021} S. Hasana and H. Alwan, "Modeling and control of wheeled mobile robot with four Mecanum wheels," Engineering and Technology Journal, vol. 39, no. 5A, pp. 779-789, May 2021, doi: 10.30684/etj.v39i5a.1926.
+\bibitem{doroliat2022} A. P. Doroliat, M.-H. Ing, and C.-H. G. Li, "Optimization of mecanum wheels for mitigation of AGV vibration," The International Journal of Advanced Manufacturing Technology, vol. 121, no. 1-2, pp. 633-645, May 2022, doi: 10.1007/s00170-022-09298-7.
+\bibitem{zimmermann2014} K. Zimmermann, I. Zeidis, and M. Abdelrahman, "Dynamics of Mechanical Systems with Mecanum Wheels," in Springer proceedings in mathematics \& statistics, 2014, pp. 269-279. doi: 10.1007/978-3-319-08266-0\_19.
+\bibitem{zhewen2024} Z. Zhewen, Y. Hongliu, W. Chengjia, H. Pu, and W. Jiangui, "A comprehensive study on Mecanum wheel-based mobility and suspension solutions for intelligent nursing wheelchairs," Scientific Reports, vol. 14, no. 1, p. 20644, Sep. 2024, doi: 10.1038/s41598-024-71459-3.
+\bibitem{yadav2022} N. P. S. Yadav, V. Agrawal, N. J. C. Mohanta, and N. Md. F. Ahmed, “A Theoretical Review of Mobile Robot Locomotion based on Mecanum Wheels,” Evergreen, vol. 9, no. 2, pp. 396-403, Jun. 2022, doi: 10.5109/4794163.
 
 % ======================================================================
 
