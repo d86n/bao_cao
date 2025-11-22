@@ -477,15 +477,10 @@ Nhược điểm: Bán kính quay lớn, hạn chế sự linh hoạt trong khô
 
 % =======================================================================
 
-% ----- CẤU TRÚC 3 BÁNH -----
+% ----- CẤU TRÚC BA BÁNH -----
 
-\subsection{Cấu trúc 3 bánh}
-Đây là một cấu hình phổ biến khác, cân bằng giữa sự đơn giản và khả năng cơ động.
-Cấu trúc này, như tên gọi, sử dụng ba bánh xe. Cấu hình phổ biến nhất là một bánh lái (steered wheel) ở phía trước và hai bánh cố định (fixed wheels) ở phía sau. Bánh lái có thể đồng thời là bánh chủ động (driven) hoặc chỉ có chức năng lái, trong khi hai bánh sau là chủ động hoặc bị động [..].
-Hướng di chuyển của robot được quyết định hoàn toàn bởi góc quay của bánh lái phía trước.
-Tương tự như cấu trúc Ackerman, đây là một hệ thống phi đa hướng. Tuy nhiên, nếu bánh lái có thể quay được một góc lớn (ví dụ: ±90 độ), robot có thể đạt được bán kính quay rất nhỏ, tiệm cận không.
-Ưu điểm: Thiết kế cơ khí đơn giản hơn đáng kể so với Ackerman.
-Nhược điểm: Độ ổn định (stability) kém hơn so với cấu trúc 4 bánh, đặc biệt là khi phanh gấp hoặc rẽ ở tốc độ cao, có nguy cơ bị lật [..].
+\subsection{Cấu trúc ba bánh}
+Cấu trúc ba bánh là một trong những thiết kế kinh điển và phổ biến nhất trong robot công nghiệp và xe tự hành (AGV). Khác với cấu trúc vi sai (điều hướng bằng chênh lệch vận tốc), cấu trúc này tách biệt hoàn toàn chức năng tạo lực đẩy và chức năng điều hướng [1]. Về mặt động học, đây là một hệ thống phi đa hướng (non-holonomic) với bán kính quay vòng bị giới hạn bởi góc lái cực đại [2].
 
 % =======================================================================
 
@@ -676,10 +671,15 @@ Tương tác Động lực học (Hybrid Dynamics): Khác với robot bánh xe t
 
 % =======================================================================
 
-%------------- CẤU TRÚC DẪN ĐỘNG BÁNH CẦU ---------------------
+% ----- CẤU TRÚC DẪN ĐỘNG BÁNH CẦU -----
 
 \subsection{Cấu trúc dẫn động bánh cầu}
-Cấu trúc dẫn động bánh cầu đại diện cho một lớp robot di động đặc biệt, di chuyển và giữ thăng bằng trên một quả cầu duy nhất thay vì nhiều bánh xe. Đây là ví dụ điển hình nhất cho hệ thống robot cân bằng động (dynamically balancing) và thiếu dẫn động (underactuated) trong kỹ thuật robot hiện đại [].
+
+Cấu trúc dẫn động bánh cầu đại diện cho một bước tiến đột phá trong tư duy thiết kế robot di động: chuyển dịch từ sự ổn định tĩnh của các robot đa bánh truyền thống sang trạng thái cân bằng động trên một điểm tiếp xúc duy nhất. Đây là ví dụ điển hình nhất cho lớp hệ thống cơ điện tử thiếu dẫn động và không ổn định tự nhiên, đặt ra những thách thức lớn nhất nhưng cũng thú vị nhất cho lý thuyết điều khiển hiện đại \cite{lauwers2006}.
+
+\subsubsection{Cấu hình cơ khí và nguyên lý truyền động}
+Khác với bánh xe thông thường, quả cầu cần quay tự do theo mọi hướng (3 bậc tự do), do đó không thể gắn trục động cơ cố định trực tiếp vào tâm cầu. Thay vào đó, hệ thống sử dụng cơ chế truyền động gián tiếp thông qua ma sát bề mặt, thường được gọi là "Cơ cấu chuột bi ngược" (Inverse Mouse-ball Drive) \cite{lauwers2006}.
+
 
 \begin{figure}[!htbp]
     \centering
@@ -811,7 +811,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{gillespie1992} T. D. Gillespie, Fundamentals of Vehicle Dynamics. Warrendale, PA: SAE International, 1992.
 \bibitem{deluca1998} A. De Luca, G. Oriolo, and C. Samson, "Feedback control of a nonholonomic car-like robot," in Robot Motion Planning and Control, J.-P. Laumond, Ed. Springer, 1998, pp. 171-253.
 \bibitem{arrizabalaga2021} J. Arrizabalaga, N. Van Duijkeren, M. Ryll, and R. Lange, “A caster-wheel-aware MPC-based motion planner for mobile robotics,” 2021 20th International Conference on Advanced Robotics (ICAR), pp. 613-618, Dec. 2021, doi: 10.1109/icar53236.2021.9659478.
-\bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor, and R. L. Hollis, “A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive,” in Proc. IEEE Int. Conf. Robot. Automat., 2006, pp. 2884-2889.
+
 \bibitem{mukherjee1999} R. Mukherjee, M. A. Minor and J. T. Pukrushpan, "Simple motion planning strategies for spherobot: a spherical mobile robot," Proceedings of the 38th IEEE Conference on Decision and Control (Cat. No.99CH36304), Phoenix, AZ, USA, 1999, pp. 2132-2137 vol.3, doi: 10.1109/CDC.1999.831235.
 \bibitem{nagarajan2009} U. Nagarajan, G. Kantor, and R. L. Hollis, “Trajectory planning and control of an underactuated dynamically stable single spherical wheeled mobile robot,” IEEE Xplore, May 01, 2009. https://ieeexplore.ieee.org/document/5152624.
 \bibitem{lee2024} W. Lee, J. Kim, and T. Seo, “Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability,” Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
@@ -837,17 +837,16 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{rodriguez2017} A. A. Rodriguez et al., "Modeling, design and control of low-cost differential-drive robotic ground vehicles: Part II — Multiple vehicle study," 2017 IEEE Conference on Control Technology and Applications (CCTA), Maui, HI, USA, 2017, pp. 161-166, doi: 10.1109/CCTA.2017.8062457.
 \bibitem{cao2022} R. Cao, J. Gu, C. Yu and A. Rosendo, "OmniWheg: An Omnidirectional Wheel-Leg Transformable Robot," 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Kyoto, Japan, 2022, pp. 5626-5631, doi: 10.1109/IROS47612.2022.9982030.
 \bibitem{lee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163–180, May 2017, doi: 10.1089/soro.2016.0038.
-\bibitem{lee2021} D.-Y. Lee, J.-K. Kim, C.-Y. Sohn, J.-M. Heo, and K.-J. Cho, “High–load capacity origami transformable wheel,” Science Robotics, vol. 6, no. 53, Apr. 2021, doi: 10.1126/scirobotics.abe0201.
+\bibitem{lee2021} D.-Y. Lee, J.-K. Kim, C.-Y. Sohn, J.-M. Heo, and K.-J. Cho, “High-load capacity origami transformable wheel,” Science Robotics, vol. 6, no. 53, Apr. 2021, doi: 10.1126/scirobotics.abe0201.
 \bibitem{rhoads2016} B. P. Rhoads and H.-J. Su, “The Design and Fabrication of a Deformable Origami Wheel,” Volume 5B: 40th Mechanisms and Robotics Conference, Aug. 2016, doi: https://doi.org/10.1115/detc2016-60045.
 \bibitem{berre2020} J. Berre, François Geiskopf, L. Rubbert, and P. Renaud, “Origami-Inspired Design of a Deployable Wheel,” Mechanisms and machine science, pp. 114-126, Oct. 2020, doi: https://doi.org/10.1007/978-3-030-60076-1\_11.
 \bibitem{liu2023} J. Liu et al., “OriWheelBot: An origami-wheeled robot,” arXiv (Cornell University), Jan. 2023, doi: https://doi.org/10.48550/arxiv.2310.00033.
-\bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor and R. L. Hollis, "A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive," Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006., Orlando, FL, USA, 2006, pp. 2884-2889, doi: 10.1109/ROBOT.2006.1642139.
 \bibitem{liao2008} Ching-Wen Liao, Ching-Chih Tsai, Yi Yu Li and Cheng-Kai Chan, "Dynamic modeling and sliding-mode control of a Ball robot with inverse mouse-ball drive," 2008 SICE Annual Conference, Chofu, Japan, 2008, pp. 2951-2955, doi: 10.1109/SICE.2008.4655168.
 \bibitem{trojnacki2019} M. Trojnacki and P. D\pl{ą}bek, “Mechanical properties of modern wheeled mobile robots,” Journal of Automation Mobile Robotics \& Intelligent Systems, pp. 3-13, Jul. 2019, doi: 10.14313/jamris/3-2019/21.
 \bibitem{nakata2022} Y. Nakata, S. Yagi, S. Yu, Y. Wang, N. Ise, Y. Nakamura, and H. Ishiguro, "Development of 'ibuki' an electrically actuated childlike Android with mobility and its potential in the future society," Robotica, vol. 40, no. 4, pp. 933-950, Apr. 2022.
-\bibitem{kumagai2008} M. Kumagai and T. Ochiai, "Development of a robot balancing on a ball," in Proc. Int. Conf. Control, Autom. Syst., Hong Kong, Oct. 2008, pp. 433-438.
+
 \bibitem{bhatia2015} A. Bhatia, M. Kumagai, and R. Hollis, "Six-stator spherical induction motor for balancing mobile robots," in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2015, pp. 226-231.
-\bibitem{abdelrahim2025} M. Abdelrahim, M. A. Thabet, H. S. Abbas, M. M. M. Hassan, M. H. Amin and A. Morsi, "Modeling and Control of a Ballbot: A Systematic Approach," in IEEE Access, vol. 13, pp. 141263-141280, 2025, doi: 10.1109/ACCESS.2025.3597797.
+
 
 % =======================================================================
 
@@ -856,6 +855,28 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{murphy2014} R. R. Murphy, Disaster robotics. 2014. doi: 10.7551/mitpress/9407.001.0001.
 \bibitem{aljarrah2019} A. Al-Jarrah, M. Salah and F. Almomani, "Controlling a Skid-Steered Tracked Mobile Robot with Slippage Using Various Control Schemes," 2019 20th International Conference on Research and Education in Mechatronics (REM), Wels, Austria, 2019, pp. 1-7, doi: 10.1109/REM.2019.8744123.
 \bibitem{bekker1969} M. G. Bekker, Introduction to Terrain-Vehicle Systems. University of Michigan Press, 1969
+
+% =======================================================================
+
+% ----- BẮT ĐẦU: CẤU TRÚC DẪN ĐỘNG BÁNH CẦU -----
+
+\bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor, and R. L. Hollis, “A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive,” in Proc. IEEE Int. Conf. Robot. Automat., 2006, pp. 2884-2889.
+\bibitem{kumagai2008} M. Kumagai and T. Ochiai, "Development of a robot balancing on a ball," in Proc. Int. Conf. Control, Autom. Syst., Hong Kong, Oct. 2008, pp. 433-438.
+\bibitem{fankhauser2010} P. Fankhauser and C. Gwerder, "Modeling and Control of a Ballbot," Bachelor's Thesis, Swiss Federal Institute of Technology (ETH), Zurich, Switzerland, 2010.
+\bibitem{lima2018} F. H. B. Lima, E. Poleze, G. P. das Neves and B. A. Angélico, "Ball Balancing Robot: construction, modeling and control design," 2018 13th IEEE International Conference on Industry Applications (INDUSCON), Sao Paulo, Brazil, 2018, pp. 1368-1372, doi: 10.1109/INDUSCON.2018.8627171.
+\bibitem{cai2019} C. Cai, J. Lu and Z. Li, "Kinematic Analysis and Control Algorithm for the Ballbot," in IEEE Access, vol. 7, pp. 38314-38321, 2019, doi: 10.1109/ACCESS.2019.2902219.
+\bibitem{abdelrahim2025} M. Abdelrahim, M. A. Thabet, H. S. Abbas, M. M. M. Hassan, M. H. Amin and A. Morsi, "Modeling and Control of a Ballbot: A Systematic Approach," in IEEE Access, vol. 13, pp. 141263-141280, 2025, doi: 10.1109/ACCESS.2025.3597797.
+\bibitem{lee2020} S. -M. Lee and B. S. Park, "Robust Control for Trajectory Tracking and Balancing of a Ballbot," in IEEE Access, vol. 8, pp. 159324-159330, 2020, doi: 10.1109/ACCESS.2020.3020091.
+\bibitem{han2014} H. Y. Han, T. Y. Han and H. S. Jo, "Development of omnidirectional self-balancing robot," 2014 IEEE International Symposium on Robotics and Manufacturing Automation (ROMA), Kuala Lumpur, Malaysia, 2014, pp. 57-62, doi: 10.1109/ROMA.2014.7295862.
+\bibitem{bonci2016} A. Bonci, "New dynamic model for a Ballbot system," 2016 12th IEEE/ASME International Conference on Mechatronic and Embedded Systems and Applications (MESA), Auckland, New Zealand, 2016, pp. 1-6, doi: 10.1109/MESA.2016.7587176.
+\bibitem{jesus2024} P. H. de Jesus, C. L. N. Júnior, D. S. Dos Santos and S. R. B. Dos Santos, "Design and Experimental Validation of a Ballbot: A Self-balancing Omnidirectional Robot," 2024 IEEE International Systems Conference (SysCon), Montreal, QC, Canada, 2024, pp. 1-8, doi: 10.1109/SysCon61195.2024.10553418.
+\bibitem{skrabel2013} C. Skrabel, "Mechanical Design of a Ballbot Platform," Bachelor's Thesis, Swiss Federal Institute of Technology (ETH), Zurich, Switzerland, 2013.
+\bibitem{pham2024} A. Pham, B. H. Thai, P. V. Dang, and N. T. Vo, "Analysis of the parametric configuration impact on BallBot control performance," International Journal of Mechanical System Dynamics, vol. 4, no. 4, pp. 446-460, Nov. 2024, doi: 10.1002/msd2.12133.
+\bibitem{jespersen2020} T. K. Jespersen et al., "Path-Following Model Predictive Control of Ballbots," 2020 IEEE International Conference on Robotics and Automation (ICRA), Paris, France, 2020, pp. 1498-1504, doi: 10.1109/ICRA40945.2020.9196634.
+\bibitem{hollis2006} R. Hollis, "BALLBOTS." Scientific American, vol. 295, no. 4, 2006, pp. 72-77. JSTOR, http://www.jstor.org/stable/26069005.
+\bibitem{park2024} S. Park, "Design, Implementation, and Control of a Ball-Balancing Robot," in IEEE Access, vol. 12, pp. 127380-127389, 2024, doi: 10.1109/ACCESS.2024.3456238.
+
+% ----- KẾT THÚC: CẤU TRÚC DẪN ĐỘNG BÁNH CẦU -----
 
 % =======================================================================
 
