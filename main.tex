@@ -336,7 +336,57 @@ Hướng nghiên cứu mới: Bánh Omni Chủ động (Active Omni Wheel): Mộ
 
 \subsubsection{Bánh xe Mecanum (Mecanum wheel)}
 
+Bánh xe Mecanum đại diện cho giải pháp kỹ thuật phổ biến nhất hiện nay để đạt được khả năng di chuyển toàn hướng mà không cần cơ cấu lái phức tạp.
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.35\textwidth]{figures/fig_ilon_1975.pdf}
+    \caption{Sáng chế bánh xe Mecanum của Ilon \cite{ilon1975}}
+    \label{fig:fig_ilon_1975}
+\end{figure}
+
+\textbf{Lịch sử và Cấu hình Hình học:} Được phát minh vào năm 1973 bởi Bengt Ilon tại Thụy Điển \cite{ilon1975, wikipedia_mecanum_wheel}, bánh xe Mecanum có cấu tạo gồm một trục chính và các con lăn thụ động (rollers) bao quanh. Đặc điểm nhận dạng là trục của các con lăn tạo một góc $\alpha = 45^{\circ}$ so với trục bánh xe.
+
+\begin{itemize}
+    \item \textbf{Chế tạo:} Salih và các cộng sự \cite{salih2006} đã mô tả chi tiết quy trình chế tạo một bánh Mecanum tùy chỉnh gồm 9 con lăn làm từ vật liệu Delrin (một loại nhựa kỹ thuật có độ ma sát thấp và độ cứng cao), giúp giảm thiểu mài mòn khi trượt ngang.
+    \item \textbf{Bố trí:} Để robot hoạt động đúng, 4 bánh xe phải được lắp đặt theo quy tắc hình chữ nhật hoặc hình vuông, sao cho các trục con lăn tạo thành hình chữ X hướng vào tâm robot khi nhìn từ trên xuống \cite{hasana2021, salih2006}.
+\end{itemize}
+
+\textbf{Cơ chế Tạo lực và Động học:} Nguyên lý vận hành dựa trên việc phân tách véc-tơ lực ma sát. Khi bánh xe quay, lực tác dụng lên mặt đất nghiêng $45^{\circ}$.
+
+\begin{itemize}
+    \item \textbf{Phối hợp véc-tơ:} Bằng cách điều khiển độc lập chiều quay và tốc độ của 4 bánh, các thành phần lực dọc và ngang có thể cộng hưởng hoặc triệt tiêu. Ví dụ, Salih và các cộng sự \cite{salih2006} đã thực nghiệm và chỉ ra rằng để di chuyển ngang (sideways), các bánh chéo nhau phải quay cùng chiều, trong khi hai bánh cùng bên quay ngược chiều.
+    \item \textbf{Vấn đề Trượt (Slippage):} Mặc dù mô hình động học lý thuyết (dựa trên ma trận Jacobian) rất hoàn hảo \cite{dyakov2024}, Ignatiev và các cộng sự (2016) \cite{ignatiev2016} và Salih và các cộng sự \cite{salih2006} đều nhấn mạnh rằng trong thực tế, hiện tượng trượt là không thể tránh khỏi do diện tích tiếp xúc nhỏ (điểm) của con lăn. Điều này làm giảm độ chính xác của phương pháp định vị bằng Odometry (đếm xung encoder), đòi hỏi các giải pháp bù trừ sai số.
+\end{itemize}
+
+\textbf{Vấn đề Hiện đại: Rung động và Tối ưu hóa Thiết kế:} Nhược điểm lớn nhất của bánh Mecanum là rung động do sự không liên tục của điểm tiếp xúc khi chuyển giao giữa các con lăn.
+
+\begin{itemize}
+    \item \textbf{Phân tích Rung động:} Bae và Kang \cite{bae2016} đã đo đạc thực nghiệm và phát hiện ra gia tốc rung động dọc trục có tính bất đối xứng (asymmetric acceleration), tăng mạnh ở tốc độ cao.
+    \item \textbf{Tối ưu hóa Topo (Topology Optimization):} Để khắc phục, Doroliat và các cộng sự \cite{doroliat2022} đề xuất sử dụng thuật toán tối ưu hóa topo để thiết kế lại cấu trúc bên trong của lớp cao su bọc con lăn. Bằng cách thay đổi độ dày vật liệu tại các vị trí khác nhau, họ tạo ra độ cứng tiếp xúc đồng nhất (uniform stiffness), giúp giảm rung động tới 30\%.
+\end{itemize}
+
+\textbf{Hệ thống Điều khiển và Tích hợp (System Integration):} Sự phát triển của bánh Mecanum gắn liền với sự tiến bộ của hệ thống nhúng.
+
+\begin{itemize}
+    \item \textbf{Điều khiển cơ bản:} Salih và các cộng sự \cite{salih2006} trình bày kiến trúc điều khiển kinh điển sử dụng vi điều khiển (như BasicStamp) kết hợp với mạch cầu H (H-bridge drivers) để điều xung PWM độc lập cho 4 động cơ DC, cho phép thực hiện các chuyển động cơ bản.
+    \item \textbf{Điều khiển Tự hành Nâng cao:} Ignatiev và các cộng sự \cite{ignatiev2016} đã nâng cấp hệ thống lên mức tự hành (autonomous) bằng cách tích hợp Thị giác máy tính (Computer Vision). Robot được trang bị camera và máy tính nhúng để nhận diện mẫu (pattern recognition) và bám theo đối tượng (tracking), khắc phục nhược điểm sai số vị trí của bánh Mecanum.
+    \item \textbf{Mô phỏng Động lực học:} Để kiểm chứng thuật toán trước khi chế tạo, Dosoftei và các cộng sự \cite{dosoftei2020} và Zimmermann và các cộng sự \cite{zimmermann2014} đề xuất các phương pháp mô phỏng động lực học đa vật thể (multibody dynamics) và mô hình hóa giản lược, giúp tính toán chính xác lực va chạm và mô-men xoắn yêu cầu.
+\end{itemize}
+
+\textbf{Ứng dụng Mở rộng:} Không chỉ giới hạn ở xe vận chuyển (AGV) trong nhà kho, bánh Mecanum đang được ứng dụng trong các hệ thống phức tạp hơn:
+
+\begin{itemize}
+    \item \textbf{Mobile Manipulator:} Ignatiev và các cộng sự \cite{ignatiev2016} giới thiệu robot tích hợp cánh tay máy công nghiệp (như PUMA 560) đặt trên nền tảng Mecanum, cho phép thực hiện các thao tác lắp ráp linh hoạt trong không gian hẹp.
+    \item \textbf{Y tế và Vũ trụ:} Các ứng dụng xe lăn thông minh và robot thám hiểm không gian (NASA OmniBot) tận dụng khả năng xoay sở trong môi trường chật hẹp \cite{giurgiu2022, yadav2022}.
+\end{itemize}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.35\textwidth]{figures/fig99nasa.pdf}
+    \caption{NASA OmniBot mobile base \cite{doroftei2011}}
+    \label{fig:fig99nasa}
+\end{figure}
 
 % ======================================================================
 
@@ -595,7 +645,7 @@ Thách thức Hiện đại và Giới hạn Mô hình: Các nghiên cứu gần
 \begin{enumerate}
     \item Giới hạn tốc độ: Mô hình ICR chỉ hợp lệ trong vùng động lực học thấp (tốc độ thấp). Ở tốc độ cao, hiệu suất bám quỹ đạo bị suy giảm mạnh do các yếu tố động lực học phi tuyến.
     \item Biến thiên tham số: Các tọa độ ICR ($y_{ICR}$) biến thiên liên tục theo địa hình và không thể đo trực tiếp. Do đó, xu hướng hiện đại là tích hợp việc ước lượng tham số ICR trực tuyến (Online Parameter Estimation) vào trong các bộ lọc Kalman mở rộng (EKF) cùng với dữ liệu IMU/GPS để đảm bảo độ chính xác định vị \cite{pentzer2014}.
-    \item Tối ưu hóa Năng lượng trên Địa hình thực tế: Một thách thức lớn của robot dẫn động trượt là mức tiêu thụ năng lượng phi tuyến tính, đặc biệt trên địa hình đất mềm. Các mô hình cổ điển thường giả định mặt đường cứng và công suất tiêu thụ là hằng số. Tuy nhiên, nghiên cứu thực nghiệm gần đây của Fiset et al. (2021) \cite{fiset2021} đã chứng minh rằng trên nền đất xốp (như cát), công suất tiêu thụ tăng vọt tại các bán kính quay vòng nhỏ. Nguyên nhân là do hiện tượng "ủi đất": khi bánh xe phía trong quay ngược chiều để rẽ gắt, nó bị lún xuống và đẩy một lượng đất lớn phía trước, làm tăng mô-men cản lăn đột biến. Phát hiện này có ý nghĩa quan trọng trong việc lập kế hoạch quỹ đạo để tránh các bán kính quay gây tốn năng lượng này.
+    \item Tối ưu hóa Năng lượng trên Địa hình thực tế: Một thách thức lớn của robot dẫn động trượt là mức tiêu thụ năng lượng phi tuyến tính, đặc biệt trên địa hình đất mềm. Các mô hình cổ điển thường giả định mặt đường cứng và công suất tiêu thụ là hằng số. Tuy nhiên, nghiên cứu thực nghiệm gần đây của Fiset và các cộng sự (2021) \cite{fiset2021} đã chứng minh rằng trên nền đất xốp (như cát), công suất tiêu thụ tăng vọt tại các bán kính quay vòng nhỏ. Nguyên nhân là do hiện tượng "ủi đất": khi bánh xe phía trong quay ngược chiều để rẽ gắt, nó bị lún xuống và đẩy một lượng đất lớn phía trước, làm tăng mô-men cản lăn đột biến. Phát hiện này có ý nghĩa quan trọng trong việc lập kế hoạch quỹ đạo để tránh các bán kính quay gây tốn năng lượng này.
 \end{enumerate}
 
 % =======================================================================
@@ -773,7 +823,7 @@ Giữ thăng bằng cho Ballbot là bài toán điều khiển thời gian thự
 
 Từ PID đến LQR (Linear Quadratic Regulator) Các thế hệ đầu (như CMU Ballbot) sử dụng các vòng lặp PID độc lập. Tuy nhiên, PID gặp khó khăn khi xử lý sự ràng buộc chéo (coupling) giữa các trục. Bộ điều khiển LQR đã trở thành tiêu chuẩn nhờ khả năng tối ưu hóa đa mục tiêu (cân bằng giữa sai số góc nghiêng và năng lượng tiêu thụ) thông qua việc giải phương trình Riccati [64].
 
-Điều khiển Dự báo Mô hình (MPC - Model Predictive Control) Đây là xu hướng nghiên cứu nóng nhất hiện nay. Jespersen et al. (2020) [73] đã áp dụng thành công Path-Following MPC.
+Điều khiển Dự báo Mô hình (MPC - Model Predictive Control) Đây là xu hướng nghiên cứu nóng nhất hiện nay. Jespersen và các cộng sự (2020) [73] đã áp dụng thành công Path-Following MPC.
 
 \begin{itemize}
     \item Ưu điểm: Khác với LQR chỉ phản ứng với sai số hiện tại, MPC sử dụng mô hình động lực học để "dự đoán" trạng thái của robot trong một khoảng thời gian tương lai (prediction horizon).
@@ -868,7 +918,7 @@ Lĩnh vực thiết kế và điều khiển robot di động đang trải qua m
 Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi giữa tốc độ (trên đường bằng) và khả năng vượt chướng ngại vật. Xu hướng hiện đại tập trung vào các thiết kế có khả năng thay đổi hình học (geometry reconfiguration) trong thời gian thực.
 
 \begin{itemize}
-    \item Bánh xe Origami chịu tải trọng cao: Các nghiên cứu tiên phong của Lee et al. [48] đã giới thiệu bánh xe Origami có thể thay đổi đường kính. Tuy nhiên, thách thức lớn nhất là độ cứng vững (stiffness). Xu hướng mới nhất (2021-2023) tập trung vào cơ chế "khóa cấu trúc" (structural locking). Nghiên cứu [49] đã phát triển bánh xe Origami có khả năng chịu tải lên tới hàng trăm kg khi ở trạng thái khóa, nhưng vẫn linh hoạt biến hình khi cần thiết. Gần đây nhất, robot OriWheelBot (2023) [52] đã tích hợp khả năng này để tự động chuyển đổi giữa chế độ bánh xe tròn (di chuyển nhanh) và chế độ bánh răng/gai (leo dốc) dựa trên cảm nhận địa hình.
+    \item Bánh xe Origami chịu tải trọng cao: Các nghiên cứu tiên phong của Lee và các cộng sự [48] đã giới thiệu bánh xe Origami có thể thay đổi đường kính. Tuy nhiên, thách thức lớn nhất là độ cứng vững (stiffness). Xu hướng mới nhất (2021-2023) tập trung vào cơ chế "khóa cấu trúc" (structural locking). Nghiên cứu [49] đã phát triển bánh xe Origami có khả năng chịu tải lên tới hàng trăm kg khi ở trạng thái khóa, nhưng vẫn linh hoạt biến hình khi cần thiết. Gần đây nhất, robot OriWheelBot (2023) [52] đã tích hợp khả năng này để tự động chuyển đổi giữa chế độ bánh xe tròn (di chuyển nhanh) và chế độ bánh răng/gai (leo dốc) dựa trên cảm nhận địa hình.
     \item Cấu trúc Lai Bánh-Chân (Omni-Wheg): Sự kết hợp giữa bánh xe và chân (Whegs) đang được cải tiến để đạt được tính năng toàn hướng. Robot OmniWheg [47] là một ví dụ điển hình, sử dụng cơ cấu biến hình để tách các phần của bánh xe Omni thành các "chân" riêng biệt, cho phép robot vừa đi ngang (holonomic) trên sàn phẳng, vừa bước qua bậc thang mà không cần hệ thống lái phức tạp.
 \end{itemize}
 
@@ -877,7 +927,7 @@ Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi
 Đối với các robot dẫn động trượt (Skid-steer/Tracked) hoạt động ngoài trời, mô hình động học truyền thống (dựa trên Encoder) thường thất bại do hiện tượng trượt không xác định. Một xu hướng nghiên cứu đột phá trong năm 2024 là tích hợp thị giác máy vào vòng lặp động học.
 
 \begin{itemize}
-    \item Visual Kinematics Estimation: Thay vì chỉ dùng Camera/LiDAR để định vị (SLAM), nghiên cứu mới nhất của Zuo et al. (2024) [39] đề xuất sử dụng dữ liệu hình ảnh để ước lượng trực tiếp các tham số động học tức thời (như tâm quay ICR và vận tốc trượt). Bằng cách phân tích luồng quang học (optical flow) của kết cấu mặt đất, robot có thể "nhìn thấy" mình đang trượt như thế nào và tự động điều chỉnh lại mô hình động học (Self-calibrating Kinematics) theo thời gian thực, giúp giảm sai số vị trí xuống mức thấp kỷ lục mà không cần GPS độ chính xác cao.
+    \item Visual Kinematics Estimation: Thay vì chỉ dùng Camera/LiDAR để định vị (SLAM), nghiên cứu mới nhất của Zuo và các cộng sự (2024) [39] đề xuất sử dụng dữ liệu hình ảnh để ước lượng trực tiếp các tham số động học tức thời (như tâm quay ICR và vận tốc trượt). Bằng cách phân tích luồng quang học (optical flow) của kết cấu mặt đất, robot có thể "nhìn thấy" mình đang trượt như thế nào và tự động điều chỉnh lại mô hình động học (Self-calibrating Kinematics) theo thời gian thực, giúp giảm sai số vị trí xuống mức thấp kỷ lục mà không cần GPS độ chính xác cao.
 \end{itemize}
 
 \subsubsection{Điều khiển Phối hợp và Tối ưu Năng lượng}
@@ -885,8 +935,8 @@ Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi
 Với sự phổ biến của các robot dẫn động 4 bánh độc lập (4WD/4WS), vấn đề không chỉ là "đi được" mà là "đi hiệu quả".
 
 \begin{itemize}
-    \item Điều khiển Phối hợp Mô-men xoắn (Torque Coordination): Trên các robot dẫn động trượt (Skid-steer) thừa dẫn động (over-actuated), các bánh xe thường sinh ra nội lực chống lại nhau (fighting forces). Các nghiên cứu của Liao et al. [40], [41] tập trung vào các thuật toán phân phối mô-men xoắn tối ưu (Optimal Torque Distribution). Mục tiêu là tìm ra tổ hợp lực kéo của 4 bánh sao cho robot vẫn bám quỹ đạo mong muốn nhưng tiêu tốn năng lượng ít nhất và giảm thiểu mài mòn lốp.
-    \item Tích hợp Mô hình Tương tác Đất (Terramechanics-based Control): Việc đưa các mô hình cơ học đất phức tạp (như mô hình Bekker/Wong [14], [57]) vào bộ điều khiển thời gian thực đang trở thành xu hướng. Bằng cách ước lượng online các thông số của đất (độ lún, độ kết dính), robot có thể chủ động giới hạn gia tốc để tránh bị "đào hố" (digging) trên cát hoặc bùn lầy, như phân tích về tiêu thụ năng lượng của Fiset et al. (2021) [36].
+    \item Điều khiển Phối hợp Mô-men xoắn (Torque Coordination): Trên các robot dẫn động trượt (Skid-steer) thừa dẫn động (over-actuated), các bánh xe thường sinh ra nội lực chống lại nhau (fighting forces). Các nghiên cứu của Liao và các cộng sự [40], [41] tập trung vào các thuật toán phân phối mô-men xoắn tối ưu (Optimal Torque Distribution). Mục tiêu là tìm ra tổ hợp lực kéo của 4 bánh sao cho robot vẫn bám quỹ đạo mong muốn nhưng tiêu tốn năng lượng ít nhất và giảm thiểu mài mòn lốp.
+    \item Tích hợp Mô hình Tương tác Đất (Terramechanics-based Control): Việc đưa các mô hình cơ học đất phức tạp (như mô hình Bekker/Wong [14], [57]) vào bộ điều khiển thời gian thực đang trở thành xu hướng. Bằng cách ước lượng online các thông số của đất (độ lún, độ kết dính), robot có thể chủ động giới hạn gia tốc để tránh bị "đào hố" (digging) trên cát hoặc bùn lầy, như phân tích về tiêu thụ năng lượng của Fiset và các cộng sự (2021) [36].
 \end{itemize}
 
 \subsubsection{Điều khiển Tiên tiến cho Hệ thống Cân bằng}
@@ -921,7 +971,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ----- TỔNG HỢP -----
 
-\bibitem{mir2022} I. Mir et al., “A survey of trajectory planning techniques for autonomous systems,” Electronics, vol. 11, no. 18, p. 2801, Sep. 2022, doi: 10.3390/electronics11182801.
+\bibitem{mir2022} I. Mir và các cộng sự, “A survey of trajectory planning techniques for autonomous systems,” Electronics, vol. 11, no. 18, p. 2801, Sep. 2022, doi: 10.3390/electronics11182801.
 \bibitem{tagliavini2022} L. Tagliavini, G. Colucci, A. Botta, P. Cavallone, L. Baglieri, and G. Quaglia, “Wheeled Mobile robots: state of the art overview and kinematic comparison among three omnidirectional locomotion strategies,” Journal of Intelligent \& Robotic Systems, vol. 106, no. 3, p. 57, Oct. 2022, doi: 10.1007/s10846-022-01745-7.
 
 % =================
@@ -947,7 +997,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{moore2014} T. Moore and D. Stouch, "A generalized extended kalman filter implementation for the robot operating system," in Proceedings of the 13th International Conference on Intelligent Autonomous Systems (IAS-13), 2014.
 \bibitem{parhi2011} D. R. Parhi and B. B. V. L. Deepak, “Kinematic model of three wheeled mobile robot,” Mechanical Engineering Research, vol. 3, no. 9, pp. 307-318, Sep. 2011, doi: 10.5897/jmer.9000032.
 \bibitem{ueno2017} Y. Ueno, K. Watanabe and I. Nagai, "Design and development of steered active wheel casters and its application," 2017 IEEE International Conference on Mechatronics and Automation (ICMA), Takamatsu, Japan, 2017, pp. 507-512, doi: 10.1109/ICMA.2017.8015869.
-\bibitem{qiu2018} Q. Qiu et al., “Extended Ackerman Steering Principle for the coordinated movement control of a four wheel drive agricultural mobile robot,” Computers and Electronics in Agriculture, vol. 152, pp. 40-50, Jul. 2018, doi: 10.1016/j.compag.2018.06.036.
+\bibitem{qiu2018} Q. Qiu và các cộng sự, “Extended Ackerman Steering Principle for the coordinated movement control of a four wheel drive agricultural mobile robot,” Computers and Electronics in Agriculture, vol. 152, pp. 40-50, Jul. 2018, doi: 10.1016/j.compag.2018.06.036.
 \bibitem{gautam2021} P. Gautam, S. Sahai, S. S. Kelkar, P. S. Agrawal, and M. R. D, “Designing Variable Ackerman Steering geometry for Formula Student Race car,” International Journal of Analytical Experimental and Finite Element Analysis (IJAEFEA), vol. 8, no. 1, Feb. 2021, doi: 10.26706/ijaefea.1.8.20210101.
 \bibitem{patel2021} S. Patel, R. Rawat, N. Shantanu, A. Kumar, and N. Amardeep, “Study of steering system for an electric Trike-Ackerman steering,” in Smart innovation, systems and technologies, 2021, pp. 9-18. doi: 10.1007/978-981-16-2857-3\_3.
 \bibitem{low2005} K. H. Low and Y. P. Leow, “Kinematic modeling, mobility analysis and design of wheeled mobile robots,” Advanced Robotics, vol. 19, no. 1, pp. 73-99, Jan. 2005, doi: 10.1163/1568553053020241.
@@ -967,26 +1017,38 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{fiset2021} J.-S. Fiset, M. Effati, and K. Skonieczny, “Effects of turning radius on skid-steered wheeled robot power consumption on loose soil,” pp. 115-129, 2021.
 \bibitem{rabiee2019} S. Rabiee and J. Biswas, "A Friction-Based Kinematic Model for Skid-Steer Wheeled Mobile Robots," 2019 International Conference on Robotics and Automation (ICRA), Montreal, QC, Canada, 2019, pp. 8563-8569, doi: 10.1109/ICRA.2019.8794216.
 \bibitem{ferreira2023} A. R. S. Ferreira, V. S. Medeiros, H. V. H. Ayala and M. A. Meggiolaro, "Hierarchical control in skid steer mobile robots with nonholonomics constraints," 2023 31st Mediterranean Conference on Control and Automation (MED), Limassol, Cyprus, 2023, pp. 299-304, doi: 10.1109/MED59994.2023.10185672.
-\bibitem{zuo2024} X. Zuo et al., "Visual-Based Kinematics and Pose Estimation for Skid-Steering Robots," in IEEE Transactions on Automation Science and Engineering, vol. 21, no. 1, pp. 91-105, Jan. 2024, doi: 10.1109/TASE.2022.3214984.
+\bibitem{zuo2024} X. Zuo và các cộng sự, "Visual-Based Kinematics and Pose Estimation for Skid-Steering Robots," in IEEE Transactions on Automation Science and Engineering, vol. 21, no. 1, pp. 91-105, Jan. 2024, doi: 10.1109/TASE.2022.3214984.
 \bibitem{liao2019} J. Liao, Z. Chen and B. Yao, "Model-Based Coordinated Control of Four-Wheel Independently Driven Skid Steer Mobile Robot with Wheel-Ground Interaction and Wheel Dynamics," in IEEE Transactions on Industrial Informatics, vol. 15, no. 3, pp. 1742-1752, March 2019, doi: 10.1109/TII.2018.2869573.
 \bibitem{liao2017} J. Liao, Z. Chen and B. Yao, "Performance-Oriented Coordinated Adaptive Robust Control for Four-Wheel Independently Driven Skid Steer Mobile Robot," in IEEE Access, vol. 5, pp. 19048-19057, 2017, doi: 10.1109/ACCESS.2017.2754647.
 
-% =======================================================================
+% ======================================================================
 
 \bibitem{garcia2016} J. M. García, J. L. Martínez, A. Mandow, and A. García-Cerezo, “Caster-leg aided maneuver for negotiating surface discontinuities with a wheeled skid-steer mobile robot,” Robotics and Autonomous Systems, vol. 91, pp. 25-37, Dec. 2016, doi: 10.1016/j.robot.2016.12.007.
 \bibitem{hirpo2017} B. D. Hirpo , W. Zhongmin, “Design and Control for Differential Drive Mobile Robot”, INTERNATIONAL JOURNAL OF ENGINEERING RESEARCH \& TECHNOLOGY (IJERT), vol. 6, no. 10, pp. 327-334, Oct. 2017.
-\bibitem{rodriguez2017} A. A. Rodriguez et al., "Modeling, design and control of low-cost differential-drive robotic ground vehicles: Part II — Multiple vehicle study," 2017 IEEE Conference on Control Technology and Applications (CCTA), Maui, HI, USA, 2017, pp. 161-166, doi: 10.1109/CCTA.2017.8062457.
+\bibitem{rodriguez2017} A. A. Rodriguez và các cộng sự, "Modeling, design and control of low-cost differential-drive robotic ground vehicles: Part II — Multiple vehicle study," 2017 IEEE Conference on Control Technology and Applications (CCTA), Maui, HI, USA, 2017, pp. 161-166, doi: 10.1109/CCTA.2017.8062457.
 \bibitem{cao2022} R. Cao, J. Gu, C. Yu and A. Rosendo, "OmniWheg: An Omnidirectional Wheel-Leg Transformable Robot," 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Kyoto, Japan, 2022, pp. 5626-5631, doi: 10.1109/IROS47612.2022.9982030.
 \bibitem{lee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163-180, May 2017, doi: 10.1089/soro.2016.0038.
 \bibitem{lee2021} D.-Y. Lee, J.-K. Kim, C.-Y. Sohn, J.-M. Heo, and K.-J. Cho, “High-load capacity origami transformable wheel,” Science Robotics, vol. 6, no. 53, Apr. 2021, doi: 10.1126/scirobotics.abe0201.
 \bibitem{rhoads2016} B. P. Rhoads and H.-J. Su, “The Design and Fabrication of a Deformable Origami Wheel,” Volume 5B: 40th Mechanisms and Robotics Conference, Aug. 2016, doi: https://doi.org/10.1115/detc2016-60045.
 \bibitem{berre2020} J. Berre, François Geiskopf, L. Rubbert, and P. Renaud, “Origami-Inspired Design of a Deployable Wheel,” Mechanisms and machine science, pp. 114-126, Oct. 2020, doi: https://doi.org/10.1007/978-3-030-60076-1\_11.
-\bibitem{liu2023} J. Liu et al., “OriWheelBot: An origami-wheeled robot,” arXiv (Cornell University), Jan. 2023, doi: https://doi.org/10.48550/arxiv.2310.00033.
+\bibitem{liu2023} J. Liu và các cộng sự, “OriWheelBot: An origami-wheeled robot,” arXiv (Cornell University), Jan. 2023, doi: https://doi.org/10.48550/arxiv.2310.00033.
 \bibitem{liao2008} Ching-Wen Liao, Ching-Chih Tsai, Yi Yu Li and Cheng-Kai Chan, "Dynamic modeling and sliding-mode control of a Ball robot with inverse mouse-ball drive," 2008 SICE Annual Conference, Chofu, Japan, 2008, pp. 2951-2955, doi: 10.1109/SICE.2008.4655168.
 \bibitem{trojnacki2019} M. Trojnacki and P. D\pl{ą}bek, “Mechanical properties of modern wheeled mobile robots,” Journal of Automation Mobile Robotics \& Intelligent Systems, pp. 3-13, Jul. 2019, doi: 10.14313/jamris/3-2019/21.
 \bibitem{nakata2022} Y. Nakata, S. Yagi, S. Yu, Y. Wang, N. Ise, Y. Nakamura, and H. Ishiguro, "Development of 'ibuki' an electrically actuated childlike Android with mobility and its potential in the future society," Robotica, vol. 40, no. 4, pp. 933-950, Apr. 2022.
 
 \bibitem{bhatia2015} A. Bhatia, M. Kumagai, and R. Hollis, "Six-stator spherical induction motor for balancing mobile robots," in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2015, pp. 226-231.
+
+% ======================================================================
+
+% ----- BÁNH XE CỐ ĐỊNH -----
+
+% ======================================================================
+
+% ----- BÁNH XE LÁI -----
+
+% ======================================================================
+
+% ----- BÁNH XE XOAY TỰ DO -----
 
 % ======================================================================
 
@@ -1002,6 +1064,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ----- BÁNH XE MECANUM -----
 
+\bibitem{ilon1975} B. E. Ilon, "Wheels for a course stable selfpropelling vehicle movable in any desired direction on the ground or some other base," U.S. Patent 3 876 255, 1975.
 \bibitem{wikipedia_mecanum_wheel} Wikipedia, “Mecanum wheel,” Wikipedia, Sep. 08, 2025. https://en.wikipedia.org/wiki/Mecanum\_wheel.
 \bibitem{bae2016} J.-J. Bae and N. Kang, "Design optimization of a mecanum wheel to reduce vertical vibrations by the consideration of equivalent stiffness," Shock and Vibration, vol. 2016, pp. 1-8, Jan. 2016, doi: 10.1155/2016/5892784.
 \bibitem{giurgiu2022} T. Giurgiu, G. Bârsan, I. Virca, and C. Pupăză, "Mecanum wheeled platforms for special applications," International Conference KNOWLEDGE-BASED ORGANIZATION, vol. 28, no. 3, pp. 44-51, Jun. 2022, doi: 10.2478/kbo-2022-0086.
@@ -1014,18 +1077,59 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{yadav2022} N. P. S. Yadav, V. Agrawal, N. J. C. Mohanta, and N. Md. F. Ahmed, “A Theoretical Review of Mobile Robot Locomotion based on Mecanum Wheels,” Evergreen, vol. 9, no. 2, pp. 396-403, Jun. 2022, doi: 10.5109/4794163.
 \bibitem{salih2006} J. E. M. Salih, M. Rizon, and S. Yaacob, “Designing Omni-Directional Mobile Robot with Mecanum Wheel,” American Journal of Applied Sciences, vol. 3, no. 5, pp. 1831-1835, May 2006, doi: 10.3844/ajassp.2006.1831.1835.
 \bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
+\bibitem{doroftei2011} I. Doroftei and B.-D. D. Mangeron, “PRACTICAL APPLICATIONS FOR MOBILE ROBOTS BASED ON MECANUM WHEELS - A SYSTEMATIC SURVEY,” Romanian Review Precision Mechanics, Optics and Mechatronics, Jan. 2011, [Online]. Available: http://www.incdmtm.ro/mecahitech2011/articole/Pp112-123.pdf
+
+% ======================================================================
+
+% ----- BÁNH HÌNH CẦU -----
+
+
+
+% ======================================================================
+
+% ----- BÁNH ORIGAMI -----
+
+
+% ======================================================================
+
+% ----- CẤU TRÚC DẪN ĐỘNG VI SAI -----
+
+% ======================================================================
+
+% ----- CẤU TRÚC LÁI ACKERMAN -----
+
+% ======================================================================
+
+% ----- CẤU TRÚC BA BÁNH -----
+
+% ======================================================================
+
+% ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
+
+% ======================================================================
+
+% ----- CẤU TRÚC ĐA HƯỚNG -----
 
 % ======================================================================
 
 % ----- CẤU TRÚC BÁNH XÍCH -----
+
 \bibitem{wong2008} J. Y. Wong, Theory of Ground Vehicles, 4th ed. John Wiley \& Sons, 2008.
 \bibitem{murphy2014} R. R. Murphy, Disaster robotics. 2014. doi: 10.7551/mitpress/9407.001.0001.
 \bibitem{aljarrah2019} A. Al-Jarrah, M. Salah and F. Almomani, "Controlling a Skid-Steered Tracked Mobile Robot with Slippage Using Various Control Schemes," 2019 20th International Conference on Research and Education in Mechatronics (REM), Wels, Austria, 2019, pp. 1-7, doi: 10.1109/REM.2019.8744123.
 \bibitem{bekker1969} M. G. Bekker, Introduction to Terrain-Vehicle Systems. University of Michigan Press, 1969
 
-% =======================================================================
+% ======================================================================
 
-% ----- BẮT ĐẦU: CẤU TRÚC DẪN ĐỘNG BÁNH CẦU -----
+% ----- CẤU TRÚC TỰ CÂN BẰNG -----
+
+% ======================================================================
+
+% ----- CẤU TRÚC LAI CƠ CẤU CHÂN - BÁNH -----
+
+% ======================================================================
+
+% ----- CẤU TRÚC DẪN ĐỘNG BÁNH CẦU -----
 
 \bibitem{lauwers2006} T. B. Lauwers, G. A. Kantor, and R. L. Hollis, “A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive,” in Proc. IEEE Int. Conf. Robot. Automat., 2006, pp. 2884-2889.
 \bibitem{kumagai2008} M. Kumagai and T. Ochiai, "Development of a robot balancing on a ball," in Proc. Int. Conf. Control, Autom. Syst., Hong Kong, Oct. 2008, pp. 433-438.
@@ -1039,24 +1143,27 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{jesus2024} P. H. de Jesus, C. L. N. Júnior, D. S. Dos Santos and S. R. B. Dos Santos, "Design and Experimental Validation of a Ballbot: A Self-balancing Omnidirectional Robot," 2024 IEEE International Systems Conference (SysCon), Montreal, QC, Canada, 2024, pp. 1-8, doi: 10.1109/SysCon61195.2024.10553418.
 \bibitem{skrabel2013} C. Skrabel, "Mechanical Design of a Ballbot Platform," Bachelor's Thesis, Swiss Federal Institute of Technology (ETH), Zurich, Switzerland, 2013.
 \bibitem{pham2024} A. Pham, B. H. Thai, P. V. Dang, and N. T. Vo, "Analysis of the parametric configuration impact on BallBot control performance," International Journal of Mechanical System Dynamics, vol. 4, no. 4, pp. 446-460, Nov. 2024, doi: 10.1002/msd2.12133.
-\bibitem{jespersen2020} T. K. Jespersen et al., "Path-Following Model Predictive Control of Ballbots," 2020 IEEE International Conference on Robotics and Automation (ICRA), Paris, France, 2020, pp. 1498-1504, doi: 10.1109/ICRA40945.2020.9196634.
+\bibitem{jespersen2020} T. K. Jespersen và các cộng sự, "Path-Following Model Predictive Control of Ballbots," 2020 IEEE International Conference on Robotics and Automation (ICRA), Paris, France, 2020, pp. 1498-1504, doi: 10.1109/ICRA40945.2020.9196634.
 \bibitem{hollis2006} R. Hollis, "BALLBOTS." Scientific American, vol. 295, no. 4, 2006, pp. 72-77. JSTOR, http://www.jstor.org/stable/26069005.
 \bibitem{park2024} S. Park, "Design, Implementation, and Control of a Ball-Balancing Robot," in IEEE Access, vol. 12, pp. 127380-127389, 2024, doi: 10.1109/ACCESS.2024.3456238.
-
-% ----- KẾT THÚC: CẤU TRÚC DẪN ĐỘNG BÁNH CẦU -----
 
 % ======================================================================
 
 % ----- ỨNG DỤNG -----
+
 \bibitem{jackal} "Jackal UGV - Small Weatherproof Robot - Clearpath," Clearpath Robotics, Jun. 09, 2025. https://www.clearpathrobotics.com/jackal-small-unmanned-ground-vehicle/ (accessed Nov. 20, 2025).
 
 % ====================
 
 % ----- XU HƯỚNG NGHIÊN CỨU -----
 
+
+
 % ===============================
 
 % ----- KẾT LUẬN -----
+
+
 
 % ====================
 
