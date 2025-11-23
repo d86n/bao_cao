@@ -103,7 +103,24 @@ Bánh xe có thể chia thành 3 loại chính gồm \textit{bánh xe tiêu chu�
 Bánh xe tiêu chuẩn là nhóm bánh xe phổ biến và cơ bản nhất trong robot di động. 
 Đặc điểm chung của nhóm này là chúng tạo ra các ràng buộc phi đa hướng (non-holonomic constraints) \cite{rasam2016, siegwart2011}, 
 nghĩa là tại một thời điểm, 
-bánh xe chỉ có thể lăn hiệu quả theo một hướng và không thể trượt theo phương của trục bánh xe trong điều kiện lý tưởng. 
+bánh xe chỉ có thể lăn hiệu quả theo một hướng và không thể trượt theo phương của trục bánh xe trong điều kiện lý tưởng.
+
+Ba điều kiện cần được xác định cho một thiết kế bánh xe tiêu chuẩn \cite{chung2008}:
+
+\begin{itemize}
+    \item Xác định hai độ lệch $d$ và $b$
+    \item Thiết kế cơ khí cho phép chuyển động lái hoặc không (tức là, có cố định hướng bánh xe hay không)
+    \item Xác định cơ cấu dẫn động cho việc lái và di chuyển (tức là, dẫn động chủ động hay bị động)
+\end{itemize}
+
+Bánh xe tiêu chuẩn gồm ba loại: Bánh xe cố định, bánh xe lái và bánh xe xoay tự do.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig000.pdf}
+    \caption{Thiết kế tổng quát của bánh xe tiêu chuẩn. (a) Hình chiếu cạnh, (b) Hình chiếu đứng, và (c) Hình chiếu bằng \cite{chung2008}}
+    \label{fig:fig000}
+\end{figure}
 
 \subsubsection{Bánh xe cố định (fixed wheel)}
 Bánh xe cố định là loại bánh xe đơn giản nhất, được gắn chặt vào khung robot với một hướng duy nhất không thể thay đổi \cite{mikova2016, leong2022}.
@@ -177,7 +194,7 @@ Do đó, để giải quyết các thách thức này, kỹ thuật robot hiện
 
 Nhờ sự kết hợp giữa độ tin cậy cơ khí cao và các giải pháp điều khiển/định vị tiên tiến này, bánh xe cố định vẫn giữ vững vai trò là nền tảng cốt lõi cho các cấu trúc robot phổ biến như dẫn động vi sai và dẫn động trượt \cite{parhi2011}.
 
-\subsubsection{Bánh xe lái (steered standard wheel)}
+\subsubsection{Bánh xe lái (steerable standard wheel)}
 Bánh xe lái phức tạp hơn bánh cố định. Ngoài bậc tự do quay quanh trục của bánh xe, 
 nó còn có thêm một bậc tự do thứ hai là khả năng quay quanh trục thẳng đứng (trục lái) đi qua tâm của bánh xe và điểm tiếp xúc với mặt đất \cite{parhi2011}.
 Một động cơ lái thường được sử dụng để chủ động thay đổi góc của bánh xe so với khung của robot \cite{ueno2017}.
@@ -587,10 +604,53 @@ Từ bảng so sánh, ta có thể rút ra ba xu hướng thiết kế chính tr
 % ----- PHÂN LOẠI CẤU TRÚC ROBOT DI ĐỘNG -----
 
 \section{Phân loại cấu trúc robot di động}
-Sau khi phân tích các loại bánh xe (linh kiện) ở phần II, phần này sẽ đi sâu vào việc phân loại các cấu trúc robot di động (hệ thống). 
-Một cấu trúc robot được định nghĩa bởi cách các bánh xe được sắp xếp, loại bánh xe được sử dụng, 
-và phương pháp truyền động [..]. Các yếu tố này kết hợp lại sẽ quyết định mô hình động học (kinematic model), 
-các ràng buộc chuyển động (constraints), và từ đó, ảnh hưởng trực tiếp đến khả năng cơ động, độ ổn định, và môi trường hoạt động của robot.
+
+Để hệ thống hóa các cấu trúc robot đa dạng hiện nay, báo cáo sử dụng phương pháp phân loại cấu trúc kinh điển dựa trên đặc tính động học được đề xuất bởi W. Chung và K. Iagnemma \cite{chung2008}. Theo đó, mỗi cấu hình robot (WMR) được đặc trưng bởi một cặp chỉ số (m,s), trong đó:
+
+\begin{itemize}
+    \item $m$ (mobility degree): Bậc linh hoạt, thể hiện số lượng bậc tự do vận tốc tức thời mà robot có thể thực hiện trong mặt phẳng (không tính đến việc đổi hướng bánh xe).
+    \item $s$ (steerability degree): Bậc lái, thể hiện số lượng biến độc lập có thể điều khiển hướng của các bánh xe.
+\end{itemize}
+
+Dựa trên cặp chỉ số này, robot di động được chia thành 5 lớp cấu trúc chính:
+
+\begin{enumerate}
+    \item Loại (3,0) - Robot Toàn hướng (Omnidirectional Robots)
+    \begin{itemize}
+        \item \textbf{Đặc điểm:} $m = 3$, $s = 0$.
+        \item \textbf{Mô tả:} Robot không sử dụng bánh lái mà trang bị hoàn toàn các bánh xe đặc biệt (như bánh Mecanum, bánh omni, hoặc bánh caster).
+        \item \textbf{Động học:} Robot có khả năng di chuyển tự do theo cả 3 bậc tự do trong mặt phẳng ($v_x$, $v_y$, $\omega$) ngay lập tức mà không cần phải thực hiện thao tác xoay thân xe để đổi hướng.
+    \end{itemize}
+
+    \item Loại (2,0) - Robot Dẫn động Vi sai (Differential Drive Robots)
+    \begin{itemize}
+        \item \textbf{Đặc điểm:} $m = 2$, $s = 0$.
+        \item \textbf{Mô tả:} Robot không có bánh lái. Cấu trúc bao gồm một hoặc nhiều bánh xe cố định được gắn trên cùng một trục chung.
+        \item \textbf{Động học:} Trục chung tạo ra một ràng buộc không trượt ngang (non-holonomic constraint), giới hạn khả năng di chuyển tức thời của robot trong không gian 2 chiều (chỉ có thể tiến/lùi và quay, không thể đi ngang). Đây là lớp robot phổ biến nhất trong các ứng dụng cơ bản.
+    \end{itemize}
+
+    \item Loại (2,1) - Robot Lái Đồng bộ không Bánh cố định
+    \begin{itemize}
+        \item \textbf{Đặc điểm:} $m = 2$, $s = 1$.
+        \item \textbf{Mô tả:} Robot không có bánh xe cố định và có ít nhất một bánh lái. Nếu có nhiều bánh lái, hướng của chúng phải được phối hợp đồng bộ (ví dụ: Cấu trúc Synchro-drive).
+        \item \textbf{Động học:} Mặc dù có bánh lái, nhưng do sự đồng bộ hóa, bậc linh hoạt của robot vẫn bị giới hạn ở mức 2 trong mặt phẳng chuyển động.
+    \end{itemize}
+
+    \item Loại (1,1) - Robot Lái có Trục cố định (Tricycle/Car-like)
+    \begin{itemize}
+        \item \textbf{Đặc điểm:} $m = 1$, $s = 1$.
+        \item \textbf{Mô tả:} Cấu trúc kết hợp giữa một hoặc nhiều bánh cố định trên một trục chung và một hoặc nhiều bánh lái.
+        \item \textbf{Điều kiện:} Tâm quay của bánh lái không được nằm trên trục của bánh cố định.
+        \item \textbf{Động học:} Khả năng di chuyển tức thời bị giới hạn nghiêm ngặt xuống 1 chiều (di chuyển dọc theo hướng bánh xe). Hướng di chuyển này được xác định bởi góc quay của bánh lái ($s = 1$). Các cấu trúc tiêu biểu: Steered Tricycle (xe ba bánh), Ackermann (xe ô tô).
+    \end{itemize}
+
+    \item Loại (1,2) - Robot Đa trục lái (Multi-steering Robots)
+    \begin{itemize}
+        \item \textbf{Đặc điểm:} $m = 1$, $s = 2$.
+        \item \textbf{Mô tả:} Robot không có bánh xe cố định nhưng có ít nhất hai bánh lái. Nếu có nhiều hơn hai bánh lái, chúng phải được phối hợp thành hai nhóm điều khiển độc lập.
+        \item \textbf{Động học:} Tương tự loại (1, 1), chuyển động tức thời bị giới hạn ở 1 chiều, nhưng hướng di chuyển được xác định bởi sự phối hợp góc của hai nhóm bánh lái ($s = 2$). Ví dụ: Các robot 4 bánh lái độc lập (4WS) ở chế độ lái phức tạp.
+    \end{itemize}
+\end{enumerate}
 
 % ======================================================================
 
@@ -1193,6 +1253,12 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 % ======================================================================
 
 % ----- CẤU TRÚC DẪN ĐỘNG VI SAI -----
+
+% 1
+\bibitem{Stefek2020} A. Stefek, T. V. Pham, V. Krivanek and K. L. Pham, "Energy Comparison of Controllers Used for a Differential Drive Wheeled Mobile Robot," in IEEE Access, vol. 8, pp. 170915-170927, 2020, doi: 10.1109/ACCESS.2020.3023345.
+% 2
+\bibitem{Fareh2019} R. Fareh, M. Baziyad, M. H. Rahman, T. Rabie, and M. Bettayeb, "Investigating reduced path planning strategy for differential wheeled mobile robot," Robotica, vol. 38, no. 2, pp. 235-255, May 2019, doi: 10.1017/s0263574719000572.
+
 
 % ======================================================================
 
