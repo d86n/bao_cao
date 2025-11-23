@@ -432,11 +432,15 @@ Bánh xe Mecanum đại diện cho giải pháp kỹ thuật phổ biến nhất
 
 % ======================================================================
 
-% BÁNH XE ĐẶC BIỆT
+% ----- BÁNH XE ĐẶC BIỆT -----
 
 \subsection{Bánh xe đặc biệt}
 Nhóm này bao gồm các thiết kế bánh xe mang tính thử nghiệm, đột phá hoặc mới lạ, 
 thường tập trung vào các lĩnh vực nghiên cứu cụ thể như robot tự cân bằng hoặc robot có khả năng thích ứng địa hình.
+
+% ======================================================================
+
+% ----- BÁNH HÌNH CẦU -----
 
 \subsubsection{Bánh hình cầu}
 Bánh hình cầu là một cơ cấu bánh xe sử dụng một quả cầu để tiếp xúc với mặt đất. 
@@ -526,9 +530,11 @@ Các vấn đề Hiện đại và Thách thức Kỹ thuật: Nghiên cứu v�
 
 Ứng dụng tiềm năng nhất của công nghệ này là các robot giao hàng (last-mile delivery) có khả năng tự leo vỉa hè hoặc robot thám hiểm bề mặt hành tinh với địa hình không xác định.
 
-% ----------
+% ======================================================================
 
-\subsection{Tổng hơp, so sánh các loại bánh xe}
+% ----- TỔNG HỢP, SO SÁNH CÁC LOẠI BÁNH XE -----
+
+\subsection{Tổng hợp, so sánh các loại bánh xe}
 
 Sau khi phân tích chi tiết đặc tính động học và cơ khí của từng nhóm bánh xe, phần này tổng hợp và so sánh chúng để cung cấp cái nhìn toàn diện cho việc lựa chọn thiết kế robot. Trong kỹ thuật robot hiện đại, không có loại bánh xe nào là ưu việt tuyệt đối; sự lựa chọn luôn là kết quả của bài toán tối ưu hóa đa mục tiêu giữa: Khả năng cơ động (Mobility), Độ phức tạp (Complexity) và Khả năng thích ứng địa hình (Traversability) [].
 
@@ -576,13 +582,19 @@ Từ bảng so sánh, ta có thể rút ra ba xu hướng thiết kế chính tr
     \end{itemize}
 \end{enumerate}
 
-%---------------------------------
+% ======================================================================
+
+% ----- PHÂN LOẠI CẤU TRÚC ROBOT DI ĐỘNG -----
 
 \section{Phân loại cấu trúc robot di động}
 Sau khi phân tích các loại bánh xe (linh kiện) ở phần II, phần này sẽ đi sâu vào việc phân loại các cấu trúc robot di động (hệ thống). 
 Một cấu trúc robot được định nghĩa bởi cách các bánh xe được sắp xếp, loại bánh xe được sử dụng, 
 và phương pháp truyền động [..]. Các yếu tố này kết hợp lại sẽ quyết định mô hình động học (kinematic model), 
 các ràng buộc chuyển động (constraints), và từ đó, ảnh hưởng trực tiếp đến khả năng cơ động, độ ổn định, và môi trường hoạt động của robot.
+
+% ======================================================================
+
+% ----- CẤU TRÚC DẪN ĐỘNG VI SAI -----
 
 \subsection{Cấu trúc dẫn động vi sai}
 Đây là cấu trúc phổ biến, đơn giản và được sử dụng rộng rãi nhất cho robot di động trong nhà [].
@@ -596,7 +608,9 @@ Cấu trúc dẫn động vi sai là một hệ thống phi đa hướng (non-ho
     \label{fig:fig6}
 \end{figure}
 
-%-----
+% ======================================================================
+
+% ----- CẤU TRÚC LÁI ACKERMAN -----
 
 \subsection{Cấu trúc lái Ackerman}
 Cấu trúc này mô phỏng cơ chế lái của các phương tiện giao thông đường bộ phổ biến như ô tô [].
@@ -606,14 +620,52 @@ Một cấu hình Ackerman điển hình có bốn bánh xe, bao gồm hai bánh
 Ưu điểm: Rất ổn định khi vận hành ở tốc độ cao, giảm mài mòn bánh xe do loại bỏ được phần lớn lực trượt khi rẽ.
 Nhược điểm: Bán kính quay lớn, hạn chế sự linh hoạt trong không gian hẹp. Cơ cấu cơ khí (thanh liên kết) để thực hiện hình học Ackerman tương đối phức tạp [..].
 
-% =======================================================================
+% ======================================================================
 
-% ----- CẤU TRÚC BA BÁNH -----
+% ----- CẤU TRÚC LÁI BA BÁNH -----
 
-\subsection{Cấu trúc ba bánh}
-Cấu trúc ba bánh là một trong những thiết kế kinh điển và phổ biến nhất trong robot công nghiệp và xe tự hành (AGV). Khác với cấu trúc vi sai (điều hướng bằng chênh lệch vận tốc), cấu trúc này tách biệt hoàn toàn chức năng tạo lực đẩy và chức năng điều hướng [1]. Về mặt động học, đây là một hệ thống phi đa hướng (non-holonomic) với bán kính quay vòng bị giới hạn bởi góc lái cực đại [2].
+\subsection{Cấu trúc lái ba bánh (\textit{Steered Tricycle})}
 
-% =======================================================================
+Cấu trúc lái ba bánh là nền tảng kinh điển trong robot di động mặt đất, đặc trưng bởi sự tách biệt giữa chức năng lái và dẫn động. Dựa trên phân tích tổng hợp từ các nghiên cứu hiện đại, cấu trúc này được phân loại và đánh giá qua ba khía cạnh: Cấu hình hình học cơ khí, Kiến trúc phần cứng nhúng và Cấu trúc hệ thống điều khiển.
+
+\subsubsection{Biến thể cấu hình cơ khí}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Widiawan2020.pdf}
+    \caption{Sơ đồ động học của robot di động ba bánh cấu hình Delta. Trong đó, góc lái $\gamma$ điều khiển vận tốc góc quay $\dot{\psi}$ so với Hệ quy chiếu Toàn cục (GRF). \cite{Widiawan2020}.}
+    \label{fig:fig_Widiawan2020}
+\end{figure}
+
+Sự ổn định động lực học của robot phụ thuộc hoàn toàn vào cách bố trí khung gầm. Hai biến thể chính hiện nay là:
+
+\begin{itemize}
+    \item Cấu hình Delta (1F/2R): Đây là thiết kế tiêu chuẩn với một bánh lái phía trước và hai bánh sau cố định. Mặc dù có ưu điểm về cơ cấu lái servo đơn giản \cite{Widiawan2020}, các nghiên cứu của Vázquez-Rodríguez và các cộng sự \cite{VazquezRodriguez2018} và Licea và các cộng sự \cite{Licea2018} chỉ ra rằng cấu trúc này có "tam giác hỗ trợ" hẹp về phía trước, khiến robot cực kỳ dễ bị lật (rollover) khi phanh gấp hoặc vào cua tốc độ cao. Để khắc phục, Jaskot và Posiadała \cite{jaskot2018} nhấn mạnh việc phải đưa các thành phần lực ma sát trượt vào mô hình cấu trúc động lực học thay vì chỉ dùng mô hình hình học cứng nhắc, giúp dự đoán sớm các trạng thái mất ổn định.
+    \item Cấu hình Tadpole (2F/1R): Để giải quyết vấn đề ổn định của Delta, cấu hình Tadpole (hai bánh trước, một bánh sau) được ưu tiên trong các ứng dụng tốc độ cao \cite{VazquezRodriguez2018}. Cấu trúc này yêu cầu cơ cấu lái Ackermann phức tạp hơn để đồng bộ hóa hai bánh trước, nhưng đổi lại, trọng tâm robot luôn nằm trong vùng hỗ trợ rộng nhất khi phanh, giúp giảm thiểu chỉ số lật (Rollover Index - RI) \cite{Licea2018}.
+\end{itemize}
+
+\subsubsection{Kiến trúc Phần cứng và Tích hợp Cảm biến}
+
+Cấu trúc robot hiện đại không chỉ là khung sắt mà là một hệ thống cơ điện tử tích hợp.
+
+\begin{itemize}
+    \item Kiến trúc Phân cấp (Hierarchical Architecture): Widiawan và các cộng sự \cite{Widiawan2020} đề xuất mô hình phần cứng phân cấp để khắc phục độ trễ truyền dẫn. Hệ thống sử dụng Raspberry Pi cho các tác vụ bậc cao (xử lý ảnh/IoT) và vi điều khiển ATMega328 để điều khiển động cơ thời gian thực.
+    \item Tích hợp Đa cảm biến: Do cấu trúc ba bánh dễ bị trượt ngang, phép đo hành trình (odometry) từ encoder thường thiếu chính xác. Chand \cite{chand2022} đã đề xuất tích hợp La bàn điện tử vào cấu trúc phần cứng. Dữ liệu hướng từ la bàn được hợp nhất với encoder thông qua bộ lọc Kalman, giúp robot duy trì định vị chính xác trong môi trường trong nhà.
+    \item Mô hình hóa Không gian An toàn: Trong môi trường công nghiệp, Subash và các cộng sự \cite{subash2024} đề xuất thay thế cấu trúc khung bao hình chữ nhật bằng các "hình tròn bao phủ" (covering circles). Cấu trúc ảo này cho phép robot tận dụng khả năng bẻ lái linh hoạt của bánh trước để di chuyển trong không gian hẹp mà không va chạm.
+\end{itemize}
+
+\subsubsection{Cấu trúc Hệ thống Điều khiển}
+
+Để vận hành cấu trúc cơ khí trên, các kiến trúc điều khiển hiện đại đã chuyển dịch từ PID cổ điển sang các cấu trúc thông minh và thích nghi.
+
+\begin{itemize}
+    \item Cấu trúc Điều khiển Tầng (Cascaded Control): Kamga và Rachid \cite{kamga1996} đã đặt nền móng với cấu trúc điều khiển tách biệt cho vận tốc và góc lái. Phát triển trên nền tảng đó, Precup và các cộng sự \cite{Precup2006} đề xuất kiến trúc điều khiển Mờ (Fuzzy Control) kết hợp với trường thế năng nhân tạo, giúp robot xử lý các hành vi phi tuyến của cấu trúc ba bánh khi tránh vật cản.
+    \item Cấu trúc Thích nghi và Tối ưu: Để đối phó với sự thay đổi trọng tâm và ma sát, Pătraşcu và Gheorghe \cite{patrascu2021} sử dụng kiến trúc điều khiển P-D được tinh chỉnh online bằng Giải thuật Di truyền (Genetic Algorithms). Đồng thời, Ketemaw và Seid [10] đề xuất kiến trúc điều khiển Trượt (Sliding Mode Control) tích hợp Logic mờ để giám sát chỉ số RI, tự động kích hoạt phanh vi sai cầu sau (rear differential braking) để chống lật chủ động.
+\end{itemize}
+
+Cấu trúc lái ba bánh hiện đại là sự hội tụ của thiết kế cơ khí tối ưu (ưu tiên Tadpole cho tốc độ cao), phần cứng nhúng phân cấp (Raspberry Pi/Vi điều khiển) và các thuật toán điều khiển thông minh. Sự kết hợp này cho phép khắc phục các nhược điểm vật lý vốn có (như dễ lật, dễ trượt), biến nó thành nền tảng tin cậy cho nông nghiệp thông minh và logistics tự động.
+
+% ======================================================================
 
 % ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
 
@@ -690,7 +742,7 @@ Thách thức Hiện đại và Giới hạn Mô hình: Các nghiên cứu gần
     \item Tối ưu hóa Năng lượng trên Địa hình thực tế: Một thách thức lớn của robot dẫn động trượt là mức tiêu thụ năng lượng phi tuyến tính, đặc biệt trên địa hình đất mềm. Các mô hình cổ điển thường giả định mặt đường cứng và công suất tiêu thụ là hằng số. Tuy nhiên, nghiên cứu thực nghiệm gần đây của Fiset và các cộng sự (2021) \cite{fiset2021} đã chứng minh rằng trên nền đất xốp (như cát), công suất tiêu thụ tăng vọt tại các bán kính quay vòng nhỏ. Nguyên nhân là do hiện tượng "ủi đất": khi bánh xe phía trong quay ngược chiều để rẽ gắt, nó bị lún xuống và đẩy một lượng đất lớn phía trước, làm tăng mô-men cản lăn đột biến. Phát hiện này có ý nghĩa quan trọng trong việc lập kế hoạch quỹ đạo để tránh các bán kính quay gây tốn năng lượng này.
 \end{enumerate}
 
-% =======================================================================
+% ======================================================================
 
 % ----- CẤU TRÚC ĐA HƯỚNG -----
 
@@ -743,7 +795,7 @@ Cấu trúc đa hướng cho phép robot di chuyển theo bất kỳ hướng n�
     \end{itemize}
 \end{enumerate}
 
-% =======================================================================
+% ======================================================================
 
 % ----- CẤU TRÚC BÁNH XÍCH -----
 
@@ -759,7 +811,7 @@ Cấu trúc này đại diện cho giải pháp tối ưu nhất về khả năn
 
 Nguyên lý hoạt động và Đặc tính cơ bản: Cơ chế lái của robot bánh xích tương tự như Cấu trúc Dẫn động trượt (Skid-Steer). Robot thay đổi hướng bằng cách tạo ra chênh lệch vận tốc giữa hai dải xích trái ($v_L$) và phải ($v_R$) [].
 
-% ====================================================================== 
+% ===================================================================== 
 
 % ----- CẤU TRÚC TỰ CÂN BẰNG -----
 
@@ -800,7 +852,7 @@ Tương tác Động lực học (Hybrid Dynamics): Khác với robot bánh xe t
 
 Ứng dụng thực tiễn: Các robot tiêu biểu cho xu hướng này bao gồm Boston Dynamics Handle (robot kho vận), ETH Zurich ANYmal on Wheels (robot thám hiểm), và Tencent Ollie (robot nhào lộn). Chúng đang mở ra hướng đi mới cho robot giao hàng chặng cuối (last-mile delivery) nơi robot phải leo lên bậc thềm nhà khách hàng.
 
-% =======================================================================
+% ======================================================================
 
 % ----- CẤU TRÚC DẪN ĐỘNG BÁNH CẦU -----
 
@@ -1150,14 +1202,26 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ----- CẤU TRÚC BA BÁNH -----
 
-\bibitem{chand2022} P. Chand, “Integrating an electronic compass for position tracking on a wheeled tricycle mobile robot,” Drone Systems and Applications, vol. 10, no. 1, pp. 179-199, Jan. 2022, doi: 10.1139/dsa-2021-0049.
-\bibitem{jaskot2018} A. Jaskot and B. Posiadała, “Analysis of motion of the three wheeled mobile platform,” MATEC Web of Conferences, vol. 157, p. 01008, Jan. 2018, doi: 10.1051/matecconf/201815701008.
+% 1
+\bibitem{chand2022} P. Chand, "Integrating an electronic compass for position tracking on a wheeled tricycle mobile robot," Drone Systems and Applications, vol. 10, no. 1, pp. 179-199, Jan. 2022, doi: 10.1139/dsa-2021-0049.
+% 2
+\bibitem{jaskot2018} A. Jaskot and B. Posiadała, "Analysis of motion of the three wheeled mobile platform," MATEC Web of Conferences, vol. 157, p. 01008, Jan. 2018, doi: 10.1051/matecconf/201815701008.
+% 3
 \bibitem{patrascu2021} M. Pătrașcu and V. Gheorghe, "Robust Position Control for High Slip Risk Tricycle Robots with Real-coded Genetic Algorithms," 2021 60th IEEE Conference on Decision and Control (CDC), Austin, TX, USA, 2021, pp. 629-634, doi: 10.1109/CDC45484.2021.9683704.
+% 4
 \bibitem{subash2024} A. Subash, D. Kloeser, J. Frey, R. Reiter, M. Diehl and K. Bohlmann, "Model Predictive Control for Frenet-Cartesian Trajectory Tracking of a Tricycle Kinematic Automated Guided Vehicle," 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Abu Dhabi, United Arab Emirates, 2024, pp. 11948-11953, doi: 10.1109/IROS58592.2024.10802822.
+% 5
 \bibitem{kamga1996} A. Kamga and A. Rachid, "Speed, steering angle and path tracking controls for a tricycle robot," Proceedings of Joint Conference on Control Applications Intelligent Control and Computer Aided Control System Design, Dearborn, MI, USA, 1996, pp. 56-61, doi: 10.1109/CACSD.1996.555197.
+% 6
 \bibitem{Precup2006} R. -e. Precup, S. Preitl and Z. Preitl, "Fuzzy Control Solution for a Class of Tricycle Mobile Robots," 2006 IEEE International Conference on Mechatronics, Budapest, Hungary, 2006, pp. 203-208, doi: 10.1109/ICMECH.2006.252525.
-\bibitem{Widiawan2020} B. Widiawan, C. Triwidiarto, S. Kautsar, and R. Firgiyanto, “Wireless greenhouse monitoring system using Tricycle Mobile-Robot based on Rasberry PI,” IOP Conference Series Earth and Environmental Science, vol. 411, no. 1, p. 012058, Jan. 2020, doi: 10.1088/1755-1315/411/1/012058.
-\bibitem{Bi2008} Z. M. Bi, S. Y. T. Lang, and L. Wang, “Improved control and simulation models of a tricycle collaborative robot,” Journal of Intelligent Manufacturing, vol. 19, no. 6, pp. 715-722, Jun. 2008, doi: 10.1007/s10845-008-0122-4.
+% 7
+\bibitem{Widiawan2020} B. Widiawan, C. Triwidiarto, S. Kautsar, and R. Firgiyanto, "Wireless greenhouse monitoring system using Tricycle Mobile-Robot based on Rasberry PI," IOP Conference Series Earth and Environmental Science, vol. 411, no. 1, p. 012058, Jan. 2020, doi: 10.1088/1755-1315/411/1/012058.
+% 8
+\bibitem{VazquezRodriguez2018} E. A. Vázquez-Rodríguez, F. J. Perez-Pinal, P. Bautista-Camino and M. A. Rodríguez-Licea, "The Rollover Risk and its Mitigation in Rickshaws," 2018 IEEE International Autumn Meeting on Power, Electronics and Computing (ROPEC), Ixtapa, Mexico, 2018, pp. 1-6, doi: 10.1109/ROPEC.2018.8661423.
+% 9
+\bibitem{Licea2018} M. A. R. Licea, E. A. V. Rodríguez, F. J. P. Pinal, and J. P. Olivares, "The rollover risk in Delta tricycles: a new rollover index and its robust mitigation by rear differential braking," Mathematical Problems in Engineering, vol. 2018, pp. 1-14, Oct. 2018, doi: 10.1155/2018/4972419.
+% 10
+\bibitem{Ketemaw2022} D. Ketemaw and S. Seid, “Design of a rollover index-based sliding mode controller for roll stability of three wheeled vehicles using rear differential braking,” Frontiers in Mechanical Engineering, vol. 8, Nov. 2022, doi: 10.3389/fmech.2022.1038289.
 
 % ======================================================================
 
