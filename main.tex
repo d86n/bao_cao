@@ -743,9 +743,172 @@ Ballbot đại diện cho một lớp robot di động hứa hẹn với khả n
 
 \subsubsection{Robot dạng cầu (spherical robot)}
 
+Robot dạng cầu là một loại robot di động độc đáo với toàn bộ hệ thống cơ khí, điện tử và nguồn năng lượng được bao bọc hoàn toàn bên trong một vỏ hình cầu kín. Đặc điểm cấu trúc này mang lại cho robot dạng cầu những ưu thế vượt trội so với robot bánh xe hoặc robot chân truyền thống, bao gồm khả năng tự cân bằng, di chuyển đa hướng, và khả năng chống chịu cao với các yếu tố môi trường như bụi bẩn, độ ẩm hoặc sự ăn mòn. Tuy nhiên, do đặc tính tiếp xúc điểm với mặt đất và cơ chế truyền động gián tiếp, robot dạng cầu là một hệ thống phi tuyến tính cao, thiếu cơ cấu chấp hành và chịu các ràng buộc không holonomic, đặt ra nhiều thách thức lớn trong việc thiết kế và điều khiển.
 
+Nguyên lý di chuyển của robot dạng cầu chủ yếu dựa vào việc thay đổi trọng tâm (Barycentric method) hoặc bảo toàn mô-men động lượng. Các thiết kế có thể được phân loại thành ba nhóm chính:
+
+\begin{itemize}
+    \item Cơ chế Dịch chuyển Trọng tâm: Đây là phương pháp phổ biến nhất. Robot di chuyển bằng cách thay đổi vị trí của một khối lượng bên trong, làm lệch trọng tâm của cả hệ thống và tạo ra mô-men xoắn làm quay vỏ cầu.
+    \begin{itemize}
+        \item Hệ thống IDU (Internal Drive Unit): Alves và Dias \cite{Alves2003} đã giới thiệu robot "BYO" sử dụng một đơn vị dẫn động bên trong (IDU) nằm ở đáy quả cầu. Khi IDU di chuyển dọc theo các trục bên trong, nó thay đổi vị trí trọng tâm, khiến robot lăn theo hướng mong muốn.
+        \item Con lắc: Li \cite{MLi2014} đề xuất mô hình sử dụng con lắc 2 bậc tự do. Một động cơ điều khiển góc nghiêng của con lắc để lái, trong khi động cơ khác tạo lực đẩy để di chuyển dọc. Tương tự, Yang \cite{Yang2020} cũng sử dụng cơ chế con lắc để điều khiển robot bám theo quỹ đạo, tận dụng tính chất đơn giản và hiệu quả năng lượng của nó.
+        \item Thiết kế cơ khí tối ưu: Tholapu \cite{Tholapu2021} tập trung vào việc tối ưu hóa thiết kế cơ khí của hệ thống dịch chuyển trọng tâm để đảm bảo robot có thể di chuyển ổn định trên các địa hình phẳng. Ren \cite{Ren2023} cũng nghiên cứu trên cấu trúc này nhưng tập trung vào việc giải quyết vấn đề thiếu cơ cấu chấp hành của hệ thống con lắc-vỏ cầu.
+    \end{itemize}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Ren2023.pdf}
+    \caption{Mô hình robot hình cầu \cite{Ren2023}}
+    \label{fig:fig_Ren2023}
+\end{figure}
+
+    \item Cơ chế Bánh đà/Rotor: Khác với việc dịch chuyển khối lượng tịnh tiến, nhóm này sử dụng nguyên lý bảo toàn mô-men động lượng. Joshi \cite{Joshi2009} đã phân tích một thiết kế robot cầu phức tạp sử dụng 4 rotor (bánh đà) bố trí bên trong. Bằng cách tăng/giảm tốc độ quay của các rotor này, mô-men phản lực được tạo ra để điều khiển robot lăn theo bất kỳ hướng nào.
+    
+    \item Cơ chế Biến đổi Cấu trúc: Để khắc phục hạn chế về khả năng vượt chướng ngại vật của vỏ cầu cứng, Chen \cite{Chen2013} đã đề xuất một loại robot cầu có cấu trúc biến đổi. Robot này có thể mở rộng hoặc thu nhỏ đường kính vỏ cầu nhờ các cánh tay đòn bên trong, giúp nó leo qua các vật cản cao hơn bán kính của chính nó hoặc chui qua khe hẹp.
+\end{itemize}
+
+Việc xây dựng mô hình toán học chính xác là bước tiên quyết để điều khiển robot cầu.
+
+\begin{itemize}
+    \item Phương pháp Lagrange: Hầu hết các nghiên cứu đều sử dụng phương trình Euler-Lagrange để mô tả động lực học hệ thống. Sang \cite{Sang2010} đã xây dựng mô hình động lực học cho robot cầu dựa trên năng lượng hệ thống, xem xét các ràng buộc lăn không trượt. J. Chen \cite{JChen2016} mở rộng phân tích động lực học cho robot cầu hoạt động trong môi trường dưới nước, nơi các lực thủy động lực học (lực cản, lực nổi) đóng vai trò quan trọng bên cạnh động lực học vật rắn thông thường.
+    \item Ràng buộc Không Holonomic: Đặc điểm lăn không trượt của robot cầu tạo ra các ràng buộc không holonomic (không thể tích phân trực tiếp để ra vị trí). Điều này được nhấn mạnh trong các nghiên cứu của Alves \cite{Alves2003} và Joshi \cite{Joshi2009}, làm cho việc lập kế hoạch quỹ đạo trở nên phức tạp hơn so với robot bánh xe thông thường.
+\end{itemize}
+
+Các phương pháp điều khiển đa dạng từ kinh điển đến hiện đại đã được áp dụng để giải quyết vấn đề ổn định và bám quỹ đạo:
+
+\begin{itemize}
+    \item Điều khiển bám quỹ đạo: M. Li \cite{MLi2014} đã phát triển bộ điều khiển để robot con lắc 2-DOF bám theo các quỹ đạo cong phức tạp, chứng minh tính ổn định thông qua mô phỏng số. Yang \cite{Yang2020} đề xuất một luật điều khiển phi tuyến tính giúp robot cầu bám quỹ đạo mong muốn với sai số nhỏ nhất, ngay cả khi có nhiễu động.
+    \item Điều khiển bền vững: Đối mặt với các bất định của mô hình và nhiễu môi trường, Ren \cite{Ren2023} đã nghiên cứu các phương pháp điều khiển tiên tiến (như điều khiển trượt - Sliding Mode Control hoặc các biến thể) để đảm bảo robot hoạt động ổn định.
+    \item Điều khiển chuyển động Holonomic: Joshi \cite{Joshi2009} đã phát triển thuật toán điều khiển cho hệ thống 4 rotor, cho phép robot thực hiện các chuyển động quay và tịnh tiến độc lập, tận dụng tối đa khả năng di chuyển đa hướng.
+\end{itemize}
+
+Ngoài khả năng di chuyển, các nhà nghiên cứu còn tích hợp thêm các chức năng để robot cầu trở nên hữu dụng hơn:
+
+\begin{itemize}
+    \item Ổn định Camera: Một nhược điểm lớn của robot cầu là vỏ quay liên tục khiến camera gắn trên đó bị chóng mặt. Chadil \cite{Chadil2011} đã giải quyết vấn đề này bằng cách thiết kế một cơ cấu ổn định bên trong, sử dụng đối trọng để giữ cho camera luôn hướng về một phía cố định hoặc điều khiển được góc nhìn độc lập với chuyển động lăn của vỏ cầu.
+    \item Hoạt động đa môi trường: J. Chen \cite{JChen2016} đã nghiên cứu khả năng hoạt động của robot cầu trong môi trường nước, mở rộng phạm vi ứng dụng từ trên cạn xuống dưới nước.
+\end{itemize}
+
+Từ các bài báo, có thể thấy robot dạng cầu là một lĩnh vực nghiên cứu sôi động. Xu hướng phát triển đang chuyển dịch từ các thiết kế cơ khí đơn giản (con lắc đơn) sang các hệ thống phức tạp hơn (biến đổi cấu trúc, rotor đa hướng) và từ các thuật toán điều khiển cơ bản sang các phương pháp điều khiển phi tuyến, bền vững. Khả năng tích hợp các hệ thống quan sát ổn định và khả năng biến hình vượt chướng ngại vật là những hướng đi hứa hẹn để đưa robot cầu vào ứng dụng thực tế như thám hiểm, giám sát và cứu hộ.
 
 \subsubsection{Robot đơn bánh vành lớn (monowheel)}
+
+Robot đơn bánh vành lớn (monowheel) là một dạng phương tiện hoặc robot di động đặc biệt, trong đó toàn bộ các cơ cấu điều khiển, nguồn năng lượng, cảm biến và tải trọng đều được bố trí bên trong một bánh xe lớn \cite{Gim2024}. Cấu trúc này mang lại ưu điểm vượt trội về khả năng di chuyển trên nhiều loại địa hình, tính nhỏ gọn và hiệu quả năng lượng cao so với các hệ thống nhiều bánh hoặc chân \cite{Cieslak2011, Buratowski2012}.
+
+Tuy nhiên, thách thức lớn nhất của loại robot này là tính không ổn định vốn có. Khác với robot xe đạp một bánh có trọng tâm cao hơn trục bánh xe và hoạt động như một con lắc ngược cần cân bằng liên tục, robot monowheel có trọng tâm thấp hơn trục quay (nhờ phân bố khối lượng bên trong), tạo ra sự ổn định tự nhiên theo phương dọc giống như nguyên lý con lắc. Mặc dù vậy, vấn đề nghiêm trọng nằm ở sự ổn định ngang \cite{Gim2024}. Khi robot đứng yên hoặc di chuyển chậm, hiệu ứng con quay hồi chuyển chưa đủ lớn để giữ thăng bằng, khiến robot dễ bị đổ sang hai bên nếu không có cơ chế điều khiển chủ động \cite{Cieslak2011, Buratowski2012}.
+
+Có hai hướng tiếp cận chính trong thiết kế cơ khí cho robot monowheel:
+
+\begin{enumerate}
+    \item Cơ cấu cân bằng sử dụng cánh tay đòn: Đây là phương pháp được nhóm nghiên cứu từ ĐH AGH (Cieslak, Buratowski) đề xuất \cite{Cieslak2011, Buratowski2012}.
+    \begin{itemize}
+        \item Cấu tạo: Robot bao gồm một bánh xe lớn bên ngoài và một thân xe di chuyển tự do bên trong nhờ các con lăn. Cơ cấu cân bằng bao gồm một cánh tay đòn hình cung có gắn vật đối trọng, được điều khiển bởi động cơ servo để xoay sang trái hoặc phải.
+        \item Nguyên lý: Việc xoay cánh tay đòn sẽ làm thay đổi trọng tâm (CoM) của toàn bộ robot theo phương ngang, tạo ra mô-men xoắn để giữ thăng bằng hoặc điều hướng. Động cơ chính sẽ truyền động qua hệ thống bánh răng để làm quay bánh xe lớn, tạo chuyển động tịnh tiến.
+    \end{itemize}
+
+    \item Cơ cấu Robot Lai Chân-Bánh (Ringbot): Đây là thiết kế tiên tiến được Gim và Kim (2024) giới thiệu \cite{Gim2024}.
+    \begin{itemize}
+        \item Cấu tạo: Thay vì một khối thân xe duy nhất, Ringbot sử dụng hai mô-đun lái riêng biệt di chuyển bên trong vành bánh xe. Đặc biệt, mỗi mô-đun được tích hợp một chân robot 3 bậc tự do (3-DoF).
+        \item Nguyên lý: Hai mô-đun này có thể thay đổi vị trí dọc theo vành bánh để tạo mô-men xoắn cho chuyển động lăn (tương tự việc thay đổi trọng tâm dọc). Các chân robot không chỉ đóng vai trò cân bằng bằng cách dịch chuyển trọng tâm ngang mà còn có thể chạm đất để thực hiện các tác vụ phức tạp như tự đứng dậy, xoay tại chỗ, hoặc bước qua vật cản.
+    \end{itemize}
+\end{enumerate}
+
+Các nghiên cứu đều khẳng định robot đơn bánh chịu sự ràng buộc không holonomic, nghĩa là robot không thể trượt ngang mà chỉ có thể lăn theo hướng của bánh xe.
+
+\begin{itemize}
+    \item Động lực học phương dọc: Chuyển động tịnh tiến được tạo ra do sự thay đổi trọng tâm. Khi các cơ cấu bên trong (thân xe hoặc mô-đun lái) tiến lên phía trước vành bánh xe, trọng lực sẽ tạo ra mô-men xoắn làm bánh xe lăn về phía trước để đưa trọng tâm về vị trí thấp nhất.
+    \item Động lực học phương ngang: Đây là bài toán phức tạp nhất, được mô hình hóa như một con lắc ngược kép với khớp đầu tiên (điểm tiếp xúc đất) không có truyền động.
+    \begin{itemize}
+        \item Khi di chuyển nhanh: Hiệu ứng con quay hồi chuyển sinh ra từ mô-men động lượng của bánh xe giúp ổn định robot. Tốc độ tiến động tỉ lệ nghịch với mô-men động lượng, nghĩa là bánh xe quay càng nhanh thì khả năng rẽ càng chậm lại với cùng một lực tác động nghiêng.
+        \item Khi di chuyển chậm hoặc đứng yên: Hiệu ứng con quay biến mất. Robot của nhóm AGH sử dụng mô hình tuyến tính hóa quanh điểm cân bằng để điều khiển cánh tay đòn giữ thăng bằng. Trong khi đó, Ringbot sử dụng chân để tương tác trực tiếp với mặt đất hoặc dịch chuyển trọng tâm chân để giữ thăng bằng tĩnh.
+    \end{itemize}
+\end{itemize}
+
+Do tính chất phi tuyến tính và không ổn định, các chiến lược điều khiển phức tạp đã được áp dụng:
+
+\begin{itemize}
+    \item Ước lượng trạng thái: Cả hai hệ thống đều sử dụng bộ lọc Kalman để hợp nhất dữ liệu từ cảm biến gia tốc và con quay hồi chuyển nhằm ước lượng chính xác góc nghiêng và vận tốc góc, loại bỏ nhiễu và sai số trôi.
+    \item Bộ điều khiển:
+    \begin{itemize}
+        \item Nhóm AGH (Cieslak/Buratowski): Đã thử nghiệm PID và Fuzzy Logic nhưng không thành công. Cuối cùng, họ phát triển một bộ điều khiển tùy chỉnh dựa trên công thức toán học có tính đến giá trị điều khiển trước đó và các yếu tố phi tuyến, giúp robot tự cân bằng khi đứng yên hoặc di chuyển chậm ($< 0.3 m/s$).
+        \item Ringbot (Gim \& Kim): Sử dụng bộ điều khiển tách biệt cho tốc độ và góc lái.
+        \begin{itemize}
+            \item Điều khiển lái: Sử dụng cấu trúc vòng lặp: vòng ngoài điều khiển góc yaw, vòng trong điều khiển góc nghiêng thông qua việc dịch chuyển chân.
+            \item Máy trạng thái hữu hạn (Finite State Machine - FSM): Ringbot sử dụng FSM để chuyển đổi giữa các chế độ: Lái, Hồi phục khi ngã, Tự đứng dậy, và Xoay tại chỗ.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+Các thử nghiệm thực tế cho thấy robot của nhóm AGH có thể chịu được các lực tác động bên ngoài (như đẩy tay) và tự cân bằng lại khi đứng yên, tuy nhiên sẽ thất bại nếu lực vượt quá ngưỡng tới hạn. Ringbot thể hiện ưu thế vượt trội nhờ kích thước bánh xe lớn (đường kính > 500mm) và sự hỗ trợ của chân. Nó có thể vượt qua các vật cản cao tới 17.5\% đường kính bánh xe (tương đương gờ giảm tốc hoặc vỉa hè). Ringbot có khả năng tự đứng dậy sau khi ngã và xoay tròn tại chỗ nhờ chân, khắc phục nhược điểm không thể quay đầu khi đứng yên của các monowheel truyền thống.
+
+Tổng hợp từ các bài báo cho thấy sự tiến hóa của robot đơn bánh từ các thiết kế sử dụng đối trọng bên trong đơn thuần (Cieslak/Buratowski) để giải quyết bài toán cân bằng tĩnh, sang các thiết kế lai ghép phức tạp (Ringbot) sử dụng chân robot để tăng cường khả năng cơ động và tương tác môi trường. Các nghiên cứu đều chỉ ra tiềm năng lớn của loại robot này trong các ứng dụng giao thông cá nhân hoặc giao hàng chặng cuối trong môi trường đô thị chật hẹp.
+
+% ======================================================================
+
+% ----- ROBOT HAI BÁNH -----
+
+\subsection{Robot hai bánh}
+
+Trong lĩnh vực robot di động, các robot hai bánh thường được phân loại thành hai nhóm cấu trúc chính dựa trên nguyên lý hoạt động và phương pháp giữ thăng bằng: Robot kiểu xe đạp (Bicycle-type robot) và Robot kiểu con lắc ngược (Inverted-pendulum-type robot).
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_robot_hai_banh.pdf}
+    \caption{Cấu trúc chung của (a) Robot kiểu xe đạp và (b) Robot kiểu con lắc ngược \cite{chung2008}}
+    \label{fig:fig_robot_hai_banh}
+\end{figure}
+
+% ======================================================================
+
+% ----- ROBOT KIỂU XE ĐẠP -----
+
+\subsubsection{Robot kiểu xe đạp}
+
+
+
+% ======================================================================
+
+% ----- ROBOT KIỂU CON LẮC NGƯỢC -----
+
+\subsubsection{Robot kiểu con lắc ngược}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ======================================================================
+
+% ----- ROBOT BA BÁNH -----
+
+\subsection{Robot ba bánh}
+
+% ======================================================================
+
+% ----- ROBOT BỐN BÁNH -----
+
+\subsection{Robot bốn bánh}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1197,7 +1360,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 % ----- ROBOT DẠNG CẦU -----
 
 % 1
-\bibitem{MLi2014} M. Li, S. Guo, H. Hirata, and H. Ishihara, “Design and performance evaluation of an amphibious spherical robot,” Robotics and Autonomous Systems, vol. 64, pp. 21-34, Nov. 2014, doi: 10.1016/j.robot.2014.11.007.
+\bibitem{MLi2014} M. Li, S. Guo, H. Hirata, and H. Ishihara, "Design and performance evaluation of an amphibious spherical robot," Robotics and Autonomous Systems, vol. 64, pp. 21-34, Nov. 2014, doi: 10.1016/j.robot.2014.11.007.
 % 2
 \bibitem{Sang2010} S. Sang, Z. Jichao, H. Wu, S. Chen, and Q. An, “Modeling and simulation of a spherical mobile robot,” Computer Science and Information Systems, vol. 7, no. 1, pp. 51-62, Jan. 2010, doi: 10.2298/csis1001051s.
 % 3
@@ -1221,11 +1384,22 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ----- ROBOT ĐƠN BÁNH VÀNH LỚN -----
 
+% 1
+\bibitem{Cieslak2011} P. Cieslak, T. Buratowski, T. Uhl, and M. Giergiel, “The mono-wheel robot with dynamic stabilisation,” Robotics and Autonomous Systems, vol. 59, no. 9, pp. 611-619, May 2011, doi: 10.1016/j.robot.2011.05.002.
+% 2
+\bibitem{Gim2024} K. G. Gim and J. Kim, "Ringbot: Monocycle Robot With Legs," in IEEE Transactions on Robotics, vol. 40, pp. 1890-1905, 2024, doi: 10.1109/TRO.2024.3362326.
+% 3
+\bibitem{Buratowski2012} T. Buratowski, P. Cieślak, M. Giergiel, and T. Uhl, “A self-stabilising multipurpose single-wheel robot,” Journal of Theoretical and Applied Mechanics/Mechanika Teoretyczna I Stosowana, vol. 50, no. 1, pp. 99-118, Jan. 2012, [Online]. Available: http://www.ptmts.org.pl/jtam/index.php/jtam/article/download/v50n1p99/102
+
+% ======================================================================
+
+% ----- ROBOT KIỂU XE ĐẠP -----
 
 
 
+% ======================================================================
 
-
+% ----- ROBOT KIỂU CON LẮC NGƯỢC -----
 
 
 
