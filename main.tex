@@ -864,7 +864,44 @@ Trong lĩnh vực robot di động, các robot hai bánh thường được phâ
 
 \subsubsection{Robot kiểu xe đạp}
 
+Robot kiểu xe đạp là một lớp đặc biệt trong các phương tiện di động hai bánh, thu hút sự quan tâm lớn của cộng đồng nghiên cứu nhờ khả năng di chuyển linh hoạt, tiết kiệm năng lượng và kích thước nhỏ gọn. Tuy nhiên, từ góc độ động lực học hệ thống, robot xe đạp thuộc loại phương tiện "con lắc ngược có bánh xe", vốn dĩ không ổn định về mặt tĩnh học theo phương ngang và thể hiện các hành vi động lực học phi tuyến tính phức tạp. Các nghiên cứu gần đây tập trung vào việc giải quyết bài toán ổn định hệ thống dưới các điều kiện bất định về trọng tâm, biến thiên tốc độ, nhiễu loạn từ môi trường và tối ưu hóa tính toán, cũng như mở rộng ứng dụng sang các môi trường công nghiệp đặc thù.
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_Chiu2020.pdf}
+    \caption{Mô hình tổng quát của robot kiểu xe đạp \cite{Chiu2020}}
+    \label{fig:fig_Chiu2020}
+\end{figure}
+
+Phương pháp phổ biến nhất để duy trì sự cân bằng cho robot xe đạp khi di chuyển là điều chỉnh góc lái, tận dụng lực ly tâm để chống lại mô-men trọng trường gây đổ. Tuy nhiên, thách thức lớn nằm ở việc xử lý sự thay đổi vận tốc và các sai số mô hình.
+
+Yeh và cộng sự \cite{Yeh2019} đã đề xuất một bộ điều khiển cân bằng mạnh mẽ dựa trên mô hình thay đổi tham số tuyến tính (Linear Parameter Varying - LPV). Thay vì giải một họ các bất đẳng thức ma trận tuyến tính (LMI) vô hạn, nhóm nghiên cứu đã phân rã mô hình động lực học thành một tổ hợp lồi của bốn hệ thống con tuyến tính với các hệ số thay đổi theo thời gian. Bộ điều khiển đề xuất cũng có cấu trúc tương tự như luật phản hồi trạng thái mờ cho các mô hình TSK. Kết quả mô phỏng và thực nghiệm cho thấy phương pháp này cho phép robot duy trì ổn định ngang ngay cả khi tăng tốc từ $1.5m/s$ lên $10m/s$, vượt trội hơn so với bộ điều khiển LQR truyền thống vốn dễ mất ổn định khi vận tốc thay đổi.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.25\textwidth]{figures/fig_Huang2017.pdf}
+    \caption{Mô hình robot hình người đi xe đạp \cite{Huang2017}}
+    \label{fig:fig_Huang2017}
+\end{figure}
+
+Trong một hướng tiếp cận khác, Huang và cộng sự \cite{Huang2017} tập trung vào vấn đề bất định của trọng tâm (Center of Gravity - COG) khi robot hình người cưỡi xe đạp. Sự mất cân bằng khối lượng (do lắp ráp hoặc tải trọng) tạo ra một sai số trong phép đo góc nghiêng, khiến các bộ điều khiển PD thông thường dẫn đến sai số xác lập, làm xe bị lệch hướng. Nhóm tác giả đã phát triển một khung điều khiển có khả năng ước lượng trực tuyến các sai lệch này và triệt tiêu chúng. Kết quả thực nghiệm với robot hình nhân nhỏ cho thấy hệ thống có thể tự động bù đắp cho việc lệch trọng tâm (ví dụ: khi gắn thêm vật nặng 50g vào tay lái) và duy trì đường đi thẳng ổn định.
+
+Đối với các ứng dụng yêu cầu robot đứng yên hoặc di chuyển chậm, cơ chế lái không tạo đủ lực ly tâm để cân bằng. Do đó, việc sử dụng bánh đà hoặc con lắc phản lực để tạo mô-men cân bằng là giải pháp tối ưu.
+
+Chiu và Wu \cite{Chiu2020} đã phát triển một hệ thống điều khiển bám sát backstepping thông minh và mạnh mẽ (Robust Intelligent Backstepping Tracking Control - RIBTC) cho robot xe đạp. Do mô hình toán học chính xác của hệ thống rất khó xác định do ma sát và độ rơ cơ khí, nhóm tác giả sử dụng bộ điều khiển thích nghi mạng nơ-ron CMAC loại TSK hồi quy đầu ra (AORTSKCMAC) để mô phỏng bộ điều khiển backstepping lý tưởng. Đồng thời, một bộ điều khiển bền vững $H^\infty$ được tích hợp để giảm thiểu ảnh hưởng của các sai số xấp xỉ và nhiễu loạn bên ngoài. Thực nghiệm trên robot xe đạp cho thấy phương pháp này có khả năng phục hồi cân bằng nhanh chóng (trong khoảng 2 giây) khi chịu tác động ngoại lực ngang, vượt trội so với các phương pháp PID, Fuzzy hay mạng nơ-ron Elman truyền thống.
+
+Tuy nhiên, các bộ điều khiển cấp cao (Higher Order Controller - HOC) như $H^\infty$ thường dẫn đến độ phức tạp tính toán lớn, gây khó khăn cho việc triển khai trên phần cứng thời gian thực. Kumar và Suman \cite{Kumar2021} đã giải quyết vấn đề này bằng phương pháp mô hình hóa giảm bậc (Reduced Order Modelling - MOR). Họ áp dụng kỹ thuật xấp xỉ nhiễu loạn đơn lẻ cân bằng (Balanced Singular Perturbation Approximation - BSPA), là sự kết hợp giữa cắt cụt cân bằng và xấp xỉ nhiễu loạn đơn lẻ. Phương pháp này cho phép giảm bộ điều khiển từ bậc 6 xuống bậc 3 mà vẫn giữ lại các đặc tính quan trọng của hệ thống gốc, bao gồm cả độ lợi DC. Kết quả mô phỏng chứng minh rằng bộ điều khiển bậc 3 (Reduced Order Controller - ROC) hoạt động hiệu quả tương đương với bộ điều khiển bậc cao ngay cả khi có sự thay đổi tham số tải trọng và tốc độ bánh đà.
+
+Vượt ra ngoài việc di chuyển trên mặt phẳng, cấu hình robot kiểu xe đạp còn được ứng dụng trong các nhiệm vụ kiểm tra kết cấu thép phức tạp. Nguyễn Sơn Thanh \cite{Nguyen2022} đã giới thiệu một robot leo trèo kiểu xe đạp linh hoạt (Agile Bicycle-like Robot) sử dụng hai bánh xe từ tính độc lập để bám dính vào các bề mặt sắt từ. Điểm đột phá trong thiết kế này là cơ chế tịnh tiến khứ hồi và các khớp động, cho phép robot thay đổi hình dạng (khoảng cách trục bánh xe) để vượt qua các chướng ngại vật khó như góc nhọn, cạnh mỏng hoặc dầm chữ T, chữ L. Robot được trang bị cảm biến siêu âm để đo độ dày thép và có khả năng di chuyển đa hướng trên các cấu trúc cầu và đường ống phức tạp mà các robot bánh xích hoặc robot leo trèo truyền thống khó tiếp cận.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Nguyen2022.pdf}
+    \caption{Mô hình robot kiểu xe đạp có thể bám bề mặt \cite{Nguyen2022}}
+    \label{fig:fig_Nguyen2022}
+\end{figure}
+
+Tổng hợp từ các nghiên cứu trên cho thấy sự phát triển đa dạng của robot kiểu xe đạp. Về mặt điều khiển, xu hướng chuyển dịch từ các bộ điều khiển tuyến tính cổ điển sang các phương pháp phi tuyến thích nghi (như TSK-fuzzy, Neural Networks) và tối ưu hóa tính toán (Reduced Order Modelling) để đối phó với tính bất định và phi tuyến của hệ thống. Về mặt thiết kế cơ khí, sự kết hợp giữa cơ chế lái, bánh đà và bánh xe từ tính linh hoạt đã mở rộng phạm vi hoạt động của robot từ mặt đất phẳng sang các cấu trúc 3D phức tạp, phục vụ hiệu quả cho các nhiệm vụ kiểm tra và giám sát tự động.
 
 % ======================================================================
 
@@ -1131,18 +1168,6 @@ Cấu trúc này đại diện cho giải pháp tối ưu nhất về khả năn
 
 Nguyên lý hoạt động và Đặc tính cơ bản: Cơ chế lái của robot bánh xích tương tự như Cấu trúc Dẫn động trượt (Skid-Steer). Robot thay đổi hướng bằng cách tạo ra chênh lệch vận tốc giữa hai dải xích trái ($v_L$) và phải ($v_R$) [].
 
-% ===================================================================== 
-
-% ----- CẤU TRÚC TỰ CÂN BẰNG -----
-
-\subsection{Cấu trúc tự cân bằng}
-Đây là một nhóm cấu trúc đặc biệt, dựa vào nguyên lý điều khiển chủ động để duy trì sự ổn định.
-Các robot này về bản chất là không ổn định. Cấu hình phổ biến nhất là robot 2 bánh (two-wheeled) hoạt động như một con lắc ngược (inverted pendulum), hoặc các robot 1 bánh (Ball-bot) tự cân bằng trên một quả cầu [..].
-Robot liên tục sử dụng các cảm biến (thường là IMU - Cảm biến đo quán tính) để đo góc nghiêng của thân. Một vòng lặp điều khiển tốc độ cao (như PID, LQR) sẽ tính toán và ra lệnh cho động cơ (ở bánh xe hoặc quả cầu) di chuyển "về phía" robot đang ngã, nhằm đưa trọng tâm trở lại vị trí cân bằng [..].
-Đây là các hệ thống không ổn định, phi tuyến (nonlinear) và thiếu truyền động (underactuated). Chuyển động (tiến/lùi) là hệ quả của việc chủ động "ngã" về phía trước hoặc sau.
-Ưu điểm: Cực kỳ nhỏ gọn, diện tích chiếm dụng mặt bằng (footprint) bằng không, rất linh hoạt trong môi trường có con người.
-Nhược điểm: Rất phức tạp về mặt điều khiển. Hoàn toàn phụ thuộc vào cảm biến và nguồn điện (mất điện là ngã). Khả năng chịu tải và vượt địa hình bị hạn chế [..].
-
 % ======================================================================
 
 % ----- CẤU TRÚC LAI CƠ CẤU CHÂN - BÁNH -----
@@ -1172,7 +1197,7 @@ Tương tác Động lực học (Hybrid Dynamics): Khác với robot bánh xe t
 
 Ứng dụng thực tiễn: Các robot tiêu biểu cho xu hướng này bao gồm Boston Dynamics Handle (robot kho vận), ETH Zurich ANYmal on Wheels (robot thám hiểm), và Tencent Ollie (robot nhào lộn). Chúng đang mở ra hướng đi mới cho robot giao hàng chặng cuối (last-mile delivery) nơi robot phải leo lên bậc thềm nhà khách hàng.
 
-% ========================================================================
+% ======================================================================
 
 % ----- ỨNG DỤNG -----
 
@@ -1204,7 +1229,7 @@ Sự đa dạng của các loại bánh xe và cấu trúc robot di động đã
     \end{itemize}
 \end{enumerate}
 
-% =======================================================================
+% ======================================================================
 
 % ----- XU HƯỚNG NGHIÊN CỨU -----
 
@@ -1246,7 +1271,7 @@ Với sự phổ biến của các robot dẫn động 4 bánh độc lập (4WD
     \item Learning-based Control: Áp dụng AI để học đặc tính động lực học của robot. Ví dụ, sử dụng mạng nơ-ron mờ (Fuzzy Neural Networks) [6] để tự động tinh chỉnh tham số điều khiển khi robot mang vác các vật nặng có khối lượng thay đổi, giúp robot phục vụ trong gia đình trở nên an toàn và tin cậy hơn.
 \end{itemize}
 
-% =======================================================================
+% ======================================================================
 
 %----------------- KẾT LUẬN ----------------
 
@@ -1395,12 +1420,27 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ----- ROBOT KIỂU XE ĐẠP -----
 
-
+% 1
+\bibitem{Chiu2020} C. -H. Chiu and C. -Y. Wu, "Bicycle Robot Balance Control Based on a Robust Intelligent Controller," in IEEE Access, vol. 8, pp. 84837-84849, 2020, doi: 10.1109/ACCESS.2020.2992792.
+% 2
+\bibitem{Yeh2019} T. Yeh, H.-T. Lu, and P.-H. Tseng, “Balancing Control of a Self-driving Bicycle,” Proceedings of the 16th International Conference on Informatics in Control, Automation and Robotics - Volume 2: ICINCO, pp. 34-41, Jan. 2019, doi: 10.5220/0007810600340041.
+% 3
+\bibitem{Huang2017} C. -F. Huang, Y. -C. Tung and T. -J. Yeh, "Balancing control of a robot bicycle with uncertain center of gravity," 2017 IEEE International Conference on Robotics and Automation (ICRA), Singapore, 2017, pp. 5858-5863, doi: 10.1109/ICRA.2017.7989689.
+% 4
+\bibitem{Kumar2021} S. Kumar and A. Kumar, “Reduced order modelling and balancing control of bicycle robot,” FME Transaction, vol. 49, no. 4, pp. 919-934, Jan. 2021, doi: 10.5937/fme2104919k.
+% 5
+\bibitem{Nguyen2022} S. T. Nguyen, H. Nguyen, S. T. Bui, V. A. Ho, T. D. Ngo and H. M. La, "An Agile Bicycle-like Robot for Complex Steel Structure Inspection," 2022 International Conference on Robotics and Automation (ICRA), Philadelphia, PA, USA, 2022, pp. 157-163, doi: 10.1109/ICRA46639.2022.9812153.
 
 % ======================================================================
 
 % ----- ROBOT KIỂU CON LẮC NGƯỢC -----
 
+% 1
+\bibitem{Chan2013} R. P. M. Chan, K. A. Stol, and C. R. Halkyard, “Review of modelling and control of two-wheeled robots,” Annual Reviews in Control, vol. 37, no. 1, pp. 89-103, Apr. 2013, doi: 10.1016/j.arcontrol.2013.03.004.
+% 2
+\bibitem{Juang2013} H. -S. Juang and K. -Y. Lum, "Design and control of a two-wheel self-balancing robot using the arduino microcontroller board," 2013 10th IEEE International Conference on Control and Automation (ICCA), Hangzhou, China, 2013, pp. 634-639, doi: 10.1109/ICCA.2013.6565146.
+% 3
+\bibitem{Klemm2019} V. Klemm et al., "Ascento: A Two-Wheeled Jumping Robot," 2019 International Conference on Robotics and Automation (ICRA), Montreal, QC, Canada, 2019, pp. 7515-7521, doi: 10.1109/ICRA.2019.8793792.
 
 
 
