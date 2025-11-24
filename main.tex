@@ -17,6 +17,8 @@
 \usepackage{babel}
 \usepackage{booktabs}
 
+\usepackage{enumitem}
+
 \babelprovide[import,main]{vietnamese}
 
 \renewcommand{\IEEEkeywordsname}{Từ khóa}
@@ -605,54 +607,67 @@ Từ bảng so sánh, ta có thể rút ra ba xu hướng thiết kế chính tr
 
 \section{Phân loại cấu trúc robot di động}
 
-Để hệ thống hóa các cấu trúc robot đa dạng hiện nay, báo cáo sử dụng phương pháp phân loại cấu trúc kinh điển dựa trên đặc tính động học được đề xuất bởi W. Chung và K. Iagnemma \cite{chung2008}. Theo đó, mỗi cấu hình robot (WMR) được đặc trưng bởi một cặp chỉ số (m,s), trong đó:
+Trong thiết kế robot di động sử dụng bánh xe, các phương án cấu trúc rất đa dạng. Đối với robot di động, bài toán thiết kế tập trung vào ba yếu tố chính: lựa chọn loại bánh xe, bố trí vị trí bánh xe và xác định các tham số động học. Các mục tiêu thiết kế này cần được xác định cụ thể dựa trên môi trường hoạt động, nhiệm vụ được giao, cũng như cân nhắc về chi phí đầu tư và vận hành. Phần này sẽ phân loại các cấu trúc robot dựa trên số lượng bánh xe, đồng thời giới thiệu các đặc điểm của những thiết kế phổ biến hiện nay.
 
-\begin{itemize}
-    \item $m$ (mobility degree): Bậc linh hoạt, thể hiện số lượng bậc tự do vận tốc tức thời mà robot có thể thực hiện trong mặt phẳng (không tính đến việc đổi hướng bánh xe).
-    \item $s$ (steerability degree): Bậc lái, thể hiện số lượng biến độc lập có thể điều khiển hướng của các bánh xe.
-\end{itemize}
+% ======================================================================
 
-Dựa trên cặp chỉ số này, robot di động được chia thành 5 lớp cấu trúc chính:
+\subsection{Robot một bánh}
 
-\begin{enumerate}
-    \item Loại (3,0) - Robot Toàn hướng (Omnidirectional Robots)
+\subsubsection{Robot xe đạp một bánh (unicycle robot)}
+
+Đây là cấu trúc robot di động có đặc điểm chỉ tiếp xúc với mặt đất tại một điểm duy nhất thông qua bánh xe. Về mặt động lực học, hệ thống này vốn không ổn định ở cả hai phương dọc và phương ngang, đồng thời là hệ thống thiếu cơ cấu chấp hành. Do đó, các nghiên cứu tập trung chủ yếu vào việc thiết kế cơ cấu phụ trợ để duy trì cân bằng phương ngang trong khi bánh xe chính duy trì cân bằng phương dọc. Dựa trên các tài liệu khảo sát, các phương pháp tiếp cận hiện đại có thể được phân loại như sau:
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Lee2013.pdf}
+    \caption{Mô hình đơn giản của robot xe đạp một bánh sử dụng bánh phản lực, gồm 1 đĩa quay (Disk), thân (Body) và bánh xe di chuyển (Wheel) \cite{Lee2013}}
+    \label{fig:fig_Lee2013}
+\end{figure}
+
+\begin{enumerate}[label=\alph*.]
+    \item Nhóm sử dụng bánh phản lực và bàn xoay: Đây là phương pháp phổ biến nhất, sử dụng mô-men quán tính sinh ra từ việc tăng/giảm tốc độ của đĩa quay (hoặc bánh xe phụ) để triệt tiêu mô-men đổ.
     \begin{itemize}
-        \item \textbf{Đặc điểm:} $m = 3$, $s = 0$.
-        \item \textbf{Mô tả:} Robot không sử dụng bánh lái mà trang bị hoàn toàn các bánh xe đặc biệt (như bánh Mecanum, bánh omni, hoặc bánh caster).
-        \item \textbf{Động học:} Robot có khả năng di chuyển tự do theo cả 3 bậc tự do trong mặt phẳng ($v_x$, $v_y$, $\omega$) ngay lập tức mà không cần phải thực hiện thao tác xoay thân xe để đổi hướng.
+        \item Thuật toán điều khiển: Để xử lý tính phi tuyến mạnh của hệ thống, các nghiên cứu thường áp dụng mô hình động lực học tách biệt. Han \cite{Han2015} và J. Lee \cite{Lee2013} đã đề xuất sử dụng bộ điều khiển trượt kết hợp với logic mờ để bù trừ sai số mô hình và giảm hiện tượng rung. Trong khi đó, Rosyidi \cite{Rosyidi2016} chứng minh rằng cấu trúc điều khiển PID đa tầng vẫn đảm bảo khả năng cân bằng ở góc nghiêng lớn lên tới $\pm 23 ^ {\circ}$.
+        \item Cải tiến cơ khí: Để khắc phục hạn chế về khả năng điều hướng, Rizal et al. đã tích hợp thêm một bàn xoay phía trên thân robot để tạo mô-men xoắn trục đứng, giúp robot di chuyển chính xác từ điểm này sang điểm khác. Đáng chú ý, Geist \cite{Geist2022} đã giới thiệu robot "Wheelbot" với thiết kế đối xứng gồm hai bánh xe (một tiếp đất, một làm bánh phản lực), cho phép robot tự bật dậy từ trạng thái nằm trên sàn, khắc phục nhược điểm không thể tự khởi động của các robot truyền thống.
     \end{itemize}
 
-    \item Loại (2,0) - Robot Dẫn động Vi sai (Differential Drive Robots)
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.2\textwidth]{figures/fig_Shen2020.pdf}
+    \caption{Mô hình robot OmBURo sử dụng bánh xe đa hướng chủ động \cite{Shen2020}}
+    \label{fig:fig_Shen2020}
+\end{figure}
+
+    \item Nhóm sử dụng bánh xe đa hướng chủ động: Khác với phương pháp dùng bánh phản lực bên trong thân, nhóm này thay đổi cấu trúc của bánh xe tiếp đất để tạo lực cân bằng trực tiếp.
     \begin{itemize}
-        \item \textbf{Đặc điểm:} $m = 2$, $s = 0$.
-        \item \textbf{Mô tả:} Robot không có bánh lái. Cấu trúc bao gồm một hoặc nhiều bánh xe cố định được gắn trên cùng một trục chung.
-        \item \textbf{Động học:} Trục chung tạo ra một ràng buộc không trượt ngang (non-holonomic constraint), giới hạn khả năng di chuyển tức thời của robot trong không gian 2 chiều (chỉ có thể tiến/lùi và quay, không thể đi ngang). Đây là lớp robot phổ biến nhất trong các ứng dụng cơ bản.
+        \item Điển hình là robot OmBURo do Shen và Hong \cite{Shen2020} phát triển. Robot sử dụng bánh xe omni với các con lăn trên vành được dẫn động chủ động thông qua hệ thống trục mềm và bánh răng. Thiết kế này cho phép robot di chuyển ngang tức thời để "đỡ" lấy trọng tâm khi sắp đổ, biến bài toán cân bằng 3D phức tạp thành mô hình hai con lắc ngược 2D tách biệt, giúp robot đứng yên tại chỗ hiệu quả hơn so với cơ chế bánh phản lực.
     \end{itemize}
 
-    \item Loại (2,1) - Robot Lái Đồng bộ không Bánh cố định
-    \begin{itemize}
-        \item \textbf{Đặc điểm:} $m = 2$, $s = 1$.
-        \item \textbf{Mô tả:} Robot không có bánh xe cố định và có ít nhất một bánh lái. Nếu có nhiều bánh lái, hướng của chúng phải được phối hợp đồng bộ (ví dụ: Cấu trúc Synchro-drive).
-        \item \textbf{Động học:} Mặc dù có bánh lái, nhưng do sự đồng bộ hóa, bậc linh hoạt của robot vẫn bị giới hạn ở mức 2 trong mặt phẳng chuyển động.
-    \end{itemize}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_JHLee2010.pdf}
+    \caption{Robot xe đạp một bánh sử dụng khí động học để cân bằng \cite{JHLee2010}}
+    \label{fig:fig_JHLee2010}
+\end{figure}
 
-    \item Loại (1,1) - Robot Lái có Trục cố định (Tricycle/Car-like)
+    \item Nhóm sử dụng cơ chế Khí động học và Mô phỏng sinh học: Ngoài các phương pháp cơ khí truyền thống, một số nghiên cứu đề xuất các giải pháp sáng tạo khác:
     \begin{itemize}
-        \item \textbf{Đặc điểm:} $m = 1$, $s = 1$.
-        \item \textbf{Mô tả:} Cấu trúc kết hợp giữa một hoặc nhiều bánh cố định trên một trục chung và một hoặc nhiều bánh lái.
-        \item \textbf{Điều kiện:} Tâm quay của bánh lái không được nằm trên trục của bánh cố định.
-        \item \textbf{Động học:} Khả năng di chuyển tức thời bị giới hạn nghiêm ngặt xuống 1 chiều (di chuyển dọc theo hướng bánh xe). Hướng di chuyển này được xác định bởi góc quay của bánh lái ($s = 1$). Các cấu trúc tiêu biểu: Steered Tricycle (xe ba bánh), Ackermann (xe ô tô).
-    \end{itemize}
-
-    \item Loại (1,2) - Robot Đa trục lái (Multi-steering Robots)
-    \begin{itemize}
-        \item \textbf{Đặc điểm:} $m = 1$, $s = 2$.
-        \item \textbf{Mô tả:} Robot không có bánh xe cố định nhưng có ít nhất hai bánh lái. Nếu có nhiều hơn hai bánh lái, chúng phải được phối hợp thành hai nhóm điều khiển độc lập.
-        \item \textbf{Động học:} Tương tự loại (1, 1), chuyển động tức thời bị giới hạn ở 1 chiều, nhưng hướng di chuyển được xác định bởi sự phối hợp góc của hai nhóm bánh lái ($s = 2$). Ví dụ: Các robot 4 bánh lái độc lập (4WS) ở chế độ lái phức tạp.
+        \item Khí động học: J.H. Lee \cite{JHLee2010} đã phát triển robot sử dụng hai quạt ducted fan gắn trên thân. Lực đẩy từ luồng khí được sử dụng để tạo mô-men khôi phục cân bằng phương ngang, thay thế cho khối lượng nặng nề của bánh phản lực.
+        \item Mô phỏng sinh học: Suzuki \cite{Suzuki2014} thiết kế robot mô phỏng người lái xe đạp một bánh, sử dụng cơ cấu liên kết kín (closed linkage) cho phần chân và một rotor phía trên đầu để mô phỏng cử động vặn người nhằm hỗ trợ cân bằng và điều hướng.
     \end{itemize}
 \end{enumerate}
 
+\subsubsection{Robot cân bằng trên bóng (ballbot)}
+
+
+
+\subsubsection{Nhóm trọng tâm nội tại: Gồm robot dạng cầu (spherical robot) và robot đơn bánh vành lớn (monowheel)}
+
 % ======================================================================
+
+
+
+
 
 % ----- CẤU TRÚC DẪN ĐỘNG VI SAI -----
 
@@ -1119,7 +1134,7 @@ Qua phân tích, có thể rút ra các kết luận chính sau:
 
 Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước đầu tiên và quan trọng nhất để thiết kế nên những hệ thống robot tự hành hiệu quả, bền bỉ và thông minh hơn trong tương lai.
 
-%---------------------------------
+% ======================================================================
 
 \begin{thebibliography}{00}
 
@@ -1128,7 +1143,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{mir2022} I. Mir và các cộng sự, “A survey of trajectory planning techniques for autonomous systems,” Electronics, vol. 11, no. 18, p. 2801, Sep. 2022, doi: 10.3390/electronics11182801.
 \bibitem{tagliavini2022} L. Tagliavini, G. Colucci, A. Botta, P. Cavallone, L. Baglieri, and G. Quaglia, “Wheeled Mobile robots: state of the art overview and kinematic comparison among three omnidirectional locomotion strategies,” Journal of Intelligent \& Robotic Systems, vol. 106, no. 3, p. 57, Oct. 2022, doi: 10.1007/s10846-022-01745-7.
 
-% =================
+% ======================================================================
 
 \bibitem{siegwart2011} R. Siegwart, I. R. Nourbakhsh, and D. Scaramuzza, \textit{Introduction to Autonomous Mobile Robots, second edition}. MIT Press, 2011.
 \bibitem{fragapane2021} G. Fragapane, R. de Koster, F. Sgarbossa, and J. O. Strandhagen, “Planning and control of autonomous mobile robots for intralogistics: Literature review and research agenda,” European Journal of Operational Research, vol. 294, no. 2, pp. 405-426, Jan. 2021, doi: https://doi.org/10.1016/j.ejor.2021.01.019.
@@ -1162,6 +1177,29 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{mukherjee1999} R. Mukherjee, M. A. Minor and J. T. Pukrushpan, "Simple motion planning strategies for spherobot: a spherical mobile robot," Proceedings of the 38th IEEE Conference on Decision and Control (Cat. No.99CH36304), Phoenix, AZ, USA, 1999, pp. 2132-2137 vol.3, doi: 10.1109/CDC.1999.831235.
 \bibitem{nagarajan2009} U. Nagarajan, G. Kantor, and R. L. Hollis, “Trajectory planning and control of an underactuated dynamically stable single spherical wheeled mobile robot,” IEEE Xplore, May 01, 2009. https://ieeexplore.ieee.org/document/5152624.
 \bibitem{lee2024} W. Lee, J. Kim, and T. Seo, “Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability,” Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
+
+% ======================================================================
+
+% ----- ROBOT MỘT BÁNH -----
+
+% 1
+\bibitem{Han2015} S. I. Han and J. M. Lee, "Balancing and Velocity Control of a Unicycle Robot Based on the Dynamic Model," in IEEE Transactions on Industrial Electronics, vol. 62, no. 1, pp. 405-413, Jan. 2015, doi: 10.1109/TIE.2014.2327562.
+% 2
+\bibitem{Rosyidi2016} M. A. Rosyidi, E. H. Binugroho, S. E. Radin Charel, R. S. Dewanto and D. Pramadihanto, "Speed and balancing control for unicycle robot," 2016 International Electronics Symposium (IES), Denpasar, Indonesia, 2016, pp. 19-24, doi: 10.1109/ELECSYM.2016.7860969.
+% 3
+\bibitem{Lee2013} J. Lee, S. Han and J. Lee, "Decoupled Dynamic Control for Pitch and Roll Axes of the Unicycle Robot," in IEEE Transactions on Industrial Electronics, vol. 60, no. 9, pp. 3814-3822, Sept. 2013, doi: 10.1109/TIE.2012.2208431.
+% 4
+\bibitem{Shen2020} J. Shen and D. Hong, "OmBURo: A Novel Unicycle Robot with Active Omnidirectional Wheel," 2020 IEEE International Conference on Robotics and Automation (ICRA), Paris, France, 2020, pp. 8237-8243, doi: 10.1109/ICRA40945.2020.9196927.
+% 5
+\bibitem{Rizal2015} Y. Rizal, C. -T. Ke and M. -T. Ho, "Point-to-point motion control of a unicycle robot: Design, implementation, and validation," 2015 IEEE International Conference on Robotics and Automation (ICRA), Seattle, WA, USA, 2015, pp. 4379-4384, doi: 10.1109/ICRA.2015.7139804.
+% 6
+\bibitem{Suzuki2014} H. Suzuki, S. Moromugi, and T. Okura, “Development of robotic unicycles,” Journal of Robotics and Mechatronics, vol. 26, no. 5, pp. 540-549, Oct. 2014, doi: 10.20965/jrm.2014.p0540.
+% 7
+\bibitem{Geist2022} A. R. Geist, J. Fiene, N. Tashiro, Z. Jia and S. Trimpe, "The Wheelbot: A Jumping Reaction Wheel Unicycle," in IEEE Robotics and Automation Letters, vol. 7, no. 4, pp. 9683-9690, Oct. 2022, doi: 10.1109/LRA.2022.3192654.
+% 8
+\bibitem{JHLee2010} J. H. Lee, H. J. Shin, S. J. Lee and S. Jung, "Novel air blowing control for balancing a unicycle robot," 2010 IEEE/RSJ International Conference on Intelligent Robots and Systems, Taipei, Taiwan, 2010, pp. 2529-2530, doi: 10.1109/IROS.2010.5649120.
+
+% ======================================================================
 
 % ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
 
