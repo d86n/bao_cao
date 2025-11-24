@@ -73,7 +73,7 @@ Tuy nhiên, sự đa dạng về yêu cầu ứng dụng — từ di chuyển t�
 đến khả năng xoay sở linh hoạt trong không gian chật hẹp — đã dẫn đến sự ra đời 
 của hàng loạt thiết kế bánh xe và cấu trúc khung khác nhau. 
 Việc lựa chọn giữa bánh xe tiêu chuẩn (standard wheel), bánh xe đa hướng (omnidirectional wheel), 
-hay các cấu trúc dẫn động vi sai (differential drive), cấu trúc lái Ackerman... 
+hay các cấu trúc dẫn động vi sai (differential drive), cấu trúc lái Ackermann... 
 không chỉ ảnh hưởng đến khả năng cơ động mà còn quyết định mô hình động học và độ phức tạp của hệ thống điều khiển \cite{campion1993, lynch2017}.
 
 Mặc dù đã có nhiều nghiên cứu riêng lẻ về từng loại robot, 
@@ -202,7 +202,7 @@ nó còn có thêm một bậc tự do thứ hai là khả năng quay quanh tr�
 Một động cơ lái thường được sử dụng để chủ động thay đổi góc của bánh xe so với khung của robot \cite{ueno2017}.
 Mặc dù có thể thay đổi hướng, tại bất kỳ thời điểm nào, 
 nó vẫn là một bánh xe tiêu chuẩn và phải tuân thủ ràng buộc lăn không trượt theo phương mà nó đang hướng theo.
-Đây là thành phần cốt lõi trong cấu trúc lái Ackerman \cite{qiu2018, gautam2021} (như bánh trước xe ô tô) hoặc trong cấu trúc 3 bánh \cite{patel2021}.
+Đây là thành phần cốt lõi trong cấu trúc lái Ackermann \cite{qiu2018, gautam2021} (như bánh trước xe ô tô) hoặc trong cấu trúc 3 bánh \cite{patel2021}.
 
 \begin{figure}[!htbp]
     \centering
@@ -234,7 +234,7 @@ So với bánh xe cố định, việc biến góc $\beta$ thành một biến s
 
 \begin{enumerate}
     \item Ma sát xoay và Hiện tượng "Cày lốp" (Scrubbing): Một vấn đề vật lý nghiêm trọng của bánh xe lái là hiện tượng ma sát xoay khi robot cần đổi hướng mà vận tốc lăn thấp hoặc bằng không. Để thay đổi góc $\beta$, động cơ lái phải thắng được mô-men ma sát trượt xoay (twisting friction) rất lớn giữa bề mặt lốp và mặt đường \cite{gillespie1992}. Điều này không chỉ gây mài mòn lốp nhanh chóng (tire wear) mà còn đòi hỏi động cơ lái phải có mô-men xoắn cực đại lớn, làm tăng kích thước và tiêu thụ năng lượng của hệ thống.
-    \item Giới hạn tốc độ lái và Phối hợp điều khiển: Trong lý thuyết, góc lái $\beta$ có thể thay đổi tức thời. Tuy nhiên, trong thực tế, tốc độ thay đổi góc lái ($\beta$) bị giới hạn bởi động lực học của cơ cấu chấp hành. Nếu bộ điều khiển yêu cầu thay đổi hướng quá nhanh so với vận tốc lăn của robot, bánh xe sẽ bị trượt ngang (lateral slip), vi phạm ràng buộc (4). Do đó, các thuật toán điều khiển hiện đại cho robot dùng bánh lái (như Ackerman hoặc Tricycle) đòi hỏi sự phối hợp đồng bộ (coordinated control) chặt chẽ giữa vận tốc lăn $\varphi$ và vận tốc lái $\beta$ để đảm bảo quỹ đạo mượt mà \cite{deluca1998}.
+    \item Giới hạn tốc độ lái và Phối hợp điều khiển: Trong lý thuyết, góc lái $\beta$ có thể thay đổi tức thời. Tuy nhiên, trong thực tế, tốc độ thay đổi góc lái ($\beta$) bị giới hạn bởi động lực học của cơ cấu chấp hành. Nếu bộ điều khiển yêu cầu thay đổi hướng quá nhanh so với vận tốc lăn của robot, bánh xe sẽ bị trượt ngang (lateral slip), vi phạm ràng buộc (4). Do đó, các thuật toán điều khiển hiện đại cho robot dùng bánh lái (như Ackermann hoặc Tricycle) đòi hỏi sự phối hợp đồng bộ (coordinated control) chặt chẽ giữa vận tốc lăn $\varphi$ và vận tốc lái $\beta$ để đảm bảo quỹ đạo mượt mà \cite{deluca1998}.
     \item Sai số cơ khí (Backlash): Hệ thống truyền động lái (thường dùng bánh răng hoặc trục vít) luôn tồn tại độ rơ (backlash). Sai số này làm cho góc lái thực tế lệch so với góc lái đo được từ encoder, dẫn đến sai số trong bài toán định vị (Odometry) lớn hơn so với bánh xe cố định.
 \end{enumerate}
 
@@ -683,7 +683,7 @@ Cơ cấu truyền động là yếu tố cốt lõi để Ballbot giữ thăng 
     \item Cơ cấu Bánh xe đa hướng: Đây là thiết kế phổ biến hơn trong các nghiên cứu sau này nhờ khả năng kiểm soát tốt hơn.
     \begin{itemize}
         \item Cấu hình: Thông thường sử dụng 3 bánh xe đa hướng bố trí lệch nhau $120^{\circ}$ \cite{HYHYHan2014}. Góc tiếp xúc của bánh xe với mặt phẳng ngang thường được đặt ở mức $45^{\circ}$ hoặc $50^{\circ}$ để tối ưu hóa việc truyền lực \cite{Kumagai2008, Lima2018}.
-        \item Biến thể: Một số thiết kế tập trung vào chi phí thấp và đơn giản hóa bằng cách sử dụng động cơ bước truyền động trực tiếp không hộp số để giảm độ rơ (backlash) \cite{Kumagai2008}. Các thiết kế hiện đại hơn như robot MiaPURE tập trung vào khả năng chịu tải lớn (lên đến 60-80kg) để chở người hoặc hàng hóa, sử dụng bánh xe omni chịu lực cao và động cơ Quasi-Direct-Drive (QDD) \cite{Xiao2023}.
+        \item Biến thể: Một số thiết kế tập trung vào chi phí thấp và đơn giản hóa bằng cách sử dụng động cơ bước truyền động trực tiếp không hộp số để giảm độ rơ \cite{Kumagai2008}. Các thiết kế hiện đại hơn như robot MiaPURE tập trung vào khả năng chịu tải lớn (lên đến 60-80kg) để chở người hoặc hàng hóa, sử dụng bánh xe omni chịu lực cao và động cơ Quasi-Direct-Drive (QDD) \cite{Xiao2023}.
         \item Cải tiến: Để robot gọn nhẹ hơn, Park đã thiết kế một thân robot mỏng với hộp số hành tinh bậc thang tùy chỉnh, giúp đạt tỷ số truyền cao trong không gian nhỏ hẹp \cite{Park2024}.
     \end{itemize}
 \end{itemize}
@@ -712,9 +712,9 @@ Các phương pháp điều khiển đa dạng từ tuyến tính cổ điển �
 
     \item Điều khiển Nâng cao \& Kết hợp:
     \begin{itemize}
-        \item LQR-PI: Xiao và các cộng sự \cite{Xiao2023} đề xuất bộ điều khiển tầng LQR-PI, trong đó vòng ngoài LQR tính toán mô-men xoắn tối ưu, còn vòng trong PI xử lý các ma sát phi tuyến và ma sát tĩnh (stiction) mà mô hình LQR thường bỏ qua. Phương pháp này giúp robot MiaPURE đạt vận tốc tới 2.3 m/s và phanh dừng trong 2 giây.
-        \item Fuzzy PD: Cai et al. đề xuất bộ điều khiển Fuzzy PD tầng (Cascade Fuzzy PD) để xử lý các vùng phi tuyến ở góc nghiêng lớn, kết hợp với điều khiển vị trí và điều khiển góc xoay (yaw) \cite{Cai2019}.
-        \item Observer \& Feedback: Park sử dụng bộ bù (compensator) bao gồm một bộ quan sát (observer) vòng kín và phản hồi trạng thái đầy đủ để giảm thiểu sai số mô hình \cite{Park2024}.
+        \item LQR-PI: Xiao và các cộng sự \cite{Xiao2023} đề xuất bộ điều khiển tầng LQR-PI, trong đó vòng ngoài LQR tính toán mô-men xoắn tối ưu, còn vòng trong PI xử lý các ma sát phi tuyến và ma sát tĩnh mà mô hình LQR thường bỏ qua. Phương pháp này giúp robot MiaPURE đạt vận tốc tới $2.3 m/s$ và phanh dừng trong 2 giây.
+        \item Fuzzy PD: Cai et al. đề xuất bộ điều khiển Fuzzy PD tầng (Cascade Fuzzy PD) để xử lý các vùng phi tuyến ở góc nghiêng lớn, kết hợp với điều khiển vị trí và điều khiển góc xoay \cite{Cai2019}.
+        \item Observer \& Feedback: Park sử dụng bộ bù bao gồm một bộ quan sát vòng kín và phản hồi trạng thái đầy đủ để giảm thiểu sai số mô hình \cite{Park2024}.
     \end{itemize}
 
     \item Ước lượng góc nghiêng: Việc sử dụng bộ lọc Kalman hoặc bộ lọc bù (Complementary Filter) để hợp nhất dữ liệu từ gia tốc kế và con quay hồi chuyển là tiêu chuẩn để có được góc nghiêng chính xác, loại bỏ nhiễu và trôi \cite{HYHYHan2014, Park2024}.
@@ -929,72 +929,51 @@ Tổng hợp từ các nghiên cứu trên cho thấy sự phát triển đa d�
 
 \subsection{Robot ba bánh}
 
-Trong lĩnh vực robot di động, cấu trúc ba bánh là một trong những nền tảng thiết kế phổ biến nhất nhờ vào hai ưu điểm cốt lõi: sự ổn định tĩnh và cấu trúc cơ khí đơn giản. Ưu điểm về mặt cân bằng giúp robot duy trì tư thế ổn định trên mặt phẳng mà không cần các thuật toán điều khiển phức tạp như robot hai bánh. Hơn nữa, sự linh hoạt của cấu trúc ba bánh cho phép tích hợp hầu hết các loại bánh xe đã được giới thiệu ở các phần trước để tạo ra các đặc tính di chuyển khác nhau. Dựa trên cách bố trí và loại bánh xe sử dụng, phần này sẽ tập trung phân tích 5 cấu hình thiết kế tiêu biểu nhất (được minh họa trong Hình \ref{fig:fig_robot_ba_banh}):
-
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/fig_robot_ba_banh.pdf}
-    \caption{Năm cấu hình thiết kế robot ba bánh: (a) Robot dẫn động vi sai, (b) Robot dẫn động đồng bộ, (c) Robot toàn hướng sử dụng bánh Mecanum, (d) Robot toàn hướng sử dụng bánh xe dẫn hướng chủ động, (e) Robot toàn hướng sử dụng cơ chế lái chủ động \cite{chung2008}}
+    \caption{Năm cấu hình thiết kế robot ba bánh phổ biến: (a) Robot dẫn động vi sai, (b) Robot dẫn động đồng bộ, (c) Robot toàn hướng sử dụng bánh Mecanum, (d) Robot toàn hướng sử dụng bánh xe dẫn hướng chủ động, (e) Robot toàn hướng sử dụng cơ chế lái chủ động \cite{chung2008}}
     \label{fig:fig_robot_ba_banh}
 \end{figure}
 
+Trong lĩnh vực robot di động, cấu trúc ba bánh là một trong những nền tảng thiết kế phổ biến nhất nhờ vào hai ưu điểm cốt lõi: sự ổn định tĩnh và cấu trúc cơ khí đơn giản. Ưu điểm về mặt cân bằng giúp robot duy trì tư thế ổn định trên mặt phẳng mà không cần các thuật toán điều khiển phức tạp như robot hai bánh. Hơn nữa, sự linh hoạt của cấu trúc ba bánh cho phép tích hợp hầu hết các loại bánh xe đã được giới thiệu ở các phần trước để tạo ra các đặc tính di chuyển khác nhau. Dựa trên cách bố trí và loại bánh xe sử dụng, phần này sẽ tập trung phân tích 5 cấu hình thiết kế tiêu biểu nhất (được minh họa trong Hình \ref{fig:fig_robot_ba_banh}):
+
+% ======================================================================
+
+% ----- ROBOT DẪN ĐỘNG VI SAI -----
+
 \subsubsection{Robot dẫn động vi sai}
-
-\subsubsection{Robot dẫn động đồng bộ}
-
-\subsubsection{Robot toàn hướng sử dụng bánh Mecanum}
-
-\subsubsection{Robot toàn hướng sử dụng bánh xe dẫn hướng chủ động}
-
-\subsubsection{Robot toàn hướng sử dụng cơ chế lái chủ động}
-
-% ======================================================================
-
-% ----- ROBOT BỐN BÁNH -----
-
-\subsection{Robot bốn bánh}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% ======================================================================
-
-% ----- CẤU TRÚC DẪN ĐỘNG VI SAI -----
-
-\subsection{Cấu trúc dẫn động vi sai}
-Đây là cấu trúc phổ biến, đơn giản và được sử dụng rộng rãi nhất cho robot di động trong nhà [].
-Cấu trúc này bao gồm hai bánh xe chủ động (driven wheels) được lắp cố định trên cùng một trục và được điều khiển vận tốc một cách độc lập. Để giữ thăng bằng, robot thường sử dụng thêm một hoặc hai bánh xe bị động, thường là bánh xe xoay tự do (Caster Wheel) hoặc bánh bi (Ball Caster) đặt ở phía trước hoặc/và sau [..].
-Cấu trúc dẫn động vi sai là một hệ thống phi đa hướng (non-holonomic). Mặc dù nó rất linh hoạt, nó vẫn bị một ràng buộc: robot không thể di chuyển tức thời theo phương ngang (vuông góc với trục bánh xe) [..]. Mô hình động học (cả động học thuận và ngược) của nó tương đối đơn giản và đã được nghiên cứu kỹ, khiến nó trở thành lựa chọn hàng đầu cho các robot cơ bản và trong giáo dục.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.4\textwidth]{figures/fig6.pdf}
-    \caption{Mô hình cấu trúc dẫn động vi sai \cite{chung2008}}
+    \caption{Mô hình robot dẫn động vi sai \cite{siegwart2011}}
     \label{fig:fig6}
 \end{figure}
 
 % ======================================================================
 
-% ----- CẤU TRÚC LÁI ACKERMAN -----
+% ----- ROBOT DẪN ĐỘNG ĐỒNG BỘ -----
 
-\subsection{Cấu trúc lái Ackerman}
-Cấu trúc này mô phỏng cơ chế lái của các phương tiện giao thông đường bộ phổ biến như ô tô [].
-Một cấu hình Ackerman điển hình có bốn bánh xe, bao gồm hai bánh sau chủ động được gắn cố định (Fixed Wheels) và hai bánh trước có thể lái được (Steered Wheels).
-Điểm then chốt của cấu trúc này là Hình học lái Ackerman (Ackerman Steering Geometry). Khi robot rẽ, hai bánh xe phía trước không quay song song với nhau. Thay vào đó, bánh xe ở phía bên trong của vòng cua sẽ quay với một góc lớn hơn bánh xe ở phía bên ngoài [..]. Cơ chế này đảm bảo rằng tất cả bốn bánh xe đều lăn quanh một điểm quay tức thời chung (Instantaneous Center of Rotation - ICR), giúp giảm thiểu sự trượt ngang của lốp xe.
-Đây là một hệ thống phi đa hướng (non-holonomic) điển hình. Nó không thể di chuyển ngang và không thể xoay tại chỗ (bán kính quay luôn lớn hơn 0).
-Ưu điểm: Rất ổn định khi vận hành ở tốc độ cao, giảm mài mòn bánh xe do loại bỏ được phần lớn lực trượt khi rẽ.
-Nhược điểm: Bán kính quay lớn, hạn chế sự linh hoạt trong không gian hẹp. Cơ cấu cơ khí (thanh liên kết) để thực hiện hình học Ackerman tương đối phức tạp [..].
+\subsubsection{Robot dẫn động đồng bộ}
+
+% ======================================================================
+
+% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH MECANUM -----
+
+\subsubsection{Robot toàn hướng sử dụng bánh Mecanum}
+
+% ======================================================================
+
+% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH XE DẪN HƯỚNG CHỦ ĐỘNG -----
+
+\subsubsection{Robot toàn hướng sử dụng bánh xe dẫn hướng chủ động}
+
+% ======================================================================
+
+% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG CƠ CHẾ LÁI CHỦ ĐỘNG -----
+
+\subsubsection{Robot toàn hướng sử dụng cơ chế lái chủ động}
 
 % ======================================================================
 
@@ -1042,10 +1021,32 @@ Cấu trúc robot hiện đại không chỉ là khung sắt mà là một hệ 
 Cấu trúc lái ba bánh hiện đại là sự hội tụ của thiết kế cơ khí tối ưu (ưu tiên Tadpole cho tốc độ cao), phần cứng nhúng phân cấp (Raspberry Pi/Vi điều khiển) và các thuật toán điều khiển thông minh. Sự kết hợp này cho phép khắc phục các nhược điểm vật lý vốn có (như dễ lật, dễ trượt), biến nó thành nền tảng tin cậy cho nông nghiệp thông minh và logistics tự động.
 
 % ======================================================================
+% ======================================================================
+
+% ----- ROBOT BỐN BÁNH -----
+
+\subsection{Robot bốn bánh}
+
+% ======================================================================
+
+% ----- CẤU TRÚC LÁI ACKERMANN -----
+
+\subsubsection{Cấu trúc lái Ackermann}
+
+
+
+
+
+
+
+
+
+
+% ======================================================================
 
 % ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
 
-\subsection{Cấu trúc dẫn động trượt}
+\subsubsection{Cấu trúc dẫn động trượt}
 Cấu trúc này sử dụng ma sát trượt để thay đổi hướng, tương tự như các phương tiện bánh xích.
 Thường sử dụng bốn (hoặc sáu, tám) bánh xe cố định, được gắn chặt vào khung robot và không thể thay đổi hướng. Tất cả các bánh xe ở mỗi bên (trái và phải) thường được kết nối và chủ động đồng thời.
 
@@ -1120,56 +1121,9 @@ Thách thức Hiện đại và Giới hạn Mô hình: Các nghiên cứu gần
 
 % ======================================================================
 
-% ----- CẤU TRÚC ĐA HƯỚNG -----
+% ----- ROBOT SÁU BÁNH VÀ CƠ CẤU ROCKER-BOGIE -----
 
-\subsection{Cấu trúc đa hướng}
-Cấu trúc này cung cấp mức độ cơ động cao nhất trên mặt phẳng 2D.
-Cấu trúc này sử dụng các loại bánh xe đặc biệt đã được đề cập ở Phần II.B, phổ biến nhất là 3 bánh Omni (đặt cách nhau 120 độ) hoặc 4 bánh Mecanum (đặt ở 4 góc) [..].
-Bằng cách kết hợp vận tốc quay của từng bánh xe đặc biệt, robot có thể tạo ra một véc-tơ vận tốc tổng hợp theo bất kỳ hướng nào (X, Y) và đồng thời xoay quanh trục Z.
-Đây là một hệ thống đa hướng (holonomic). Nó có 3 bậc tự do (DoF) trên mặt phẳng, cho phép robot di chuyển sang ngang, đi chéo, và xoay đồng thời mà không cần thay đổi hướng của thân robot. Mô hình động học ngược (từ vận tốc robot mong muốn sang vận tốc từng bánh) là một ma trận "trộn" vận tốc (mixing matrix) [..].
-Ưu điểm: Khả năng cơ động tuyệt đối, cực kỳ lý tưởng cho các không gian chật hẹp, phức tạp.
-Nhược điểm: Các bánh xe (đặc biệt là Mecanum) đắt tiền và phức tạp. Hệ thống điều khiển phức tạp. Rất nhạy cảm với bề mặt (yêu cầu mặt phẳng), hiệu suất truyền động thấp và dễ bị trượt [..].
 
-Cấu trúc đa hướng cho phép robot di chuyển theo bất kỳ hướng nào trên mặt phẳng (3 bậc tự do $v_x$, $v_y$, $\omega$) mà không cần thay đổi hướng của thân xe. Dựa trên cơ chế tạo lực ngang, ta có thể phân loại thành hai nhóm cấu trúc chính:
-
-\begin{enumerate}
-    \item Nền tảng sử dụng Bánh xe Đa hướng
-    Đây là nhóm phổ biến nhất trong nghiên cứu và robot thi đấu (RoboCup) nhờ điều khiển đơn giản (không có điểm kỳ dị động học).
-    \begin{itemize}
-        \item Cấu trúc 3 bánh Omni ($120^o$):
-        \begin{itemize}
-            \item Mô tả: Ba bánh Omni bố trí đối xứng lệch nhau 120 độ.
-            \item Đặc điểm: Là cấu trúc holonomic tối thiểu (dùng ít động cơ nhất). Tuy nhiên, độ ổn định kém (dễ bị lật do hình tam giác) và tải trọng không đều [Ref].
-        \end{itemize}
-
-        \item Cấu trúc 4 bánh Omni (90 độ):
-        \begin{itemize}
-            \item Mô tả: Bốn bánh Omni đặt vuông góc (hình chữ thập hoặc chữ X).
-            \item Đặc điểm: Tăng độ ổn định và khả năng chịu tải so với 3 bánh. Tuy nhiên, bánh xe Omni chịu mài mòn nhanh và rung động nhiều khi di chuyển.
-        \end{itemize}
-
-        \item Cấu trúc 4 bánh Mecanum (Rectangular):
-        \begin{itemize}
-            \item Mô tả: Bốn bánh Mecanum đặt song song ở 4 góc (như xe ô tô).
-            \item Đặc điểm: Phổ biến nhất trong công nghiệp (xe nâng đa hướng). Ưu điểm là hình dáng chữ nhật dễ bố trí linh kiện và không gian chứa hàng lớn. Nhược điểm là lực ma sát trượt dọc trục tiêu tốn năng lượng lớn [Ref].
-        \end{itemize}
-    \end{itemize}
-
-    \item Nền tảng Bánh lái Độc lập (Swerve Drive / Active Caster)
-    Đây là xu hướng "hiện đại" đang thay thế dần Mecanum trong các ứng dụng công nghiệp hạng nặng (như robot KUKA KMP hay các AGV thế hệ mới).
-
-    \begin{itemize}
-        \item Mô tả: Sử dụng 4 (hoặc nhiều hơn) mô-đun bánh xe tiêu chuẩn. Mỗi mô-đun có 2 động cơ: một để lăn bánh và một để xoay hướng lái (steering) 360 độ vô hạn (infinite rotation).
-        \item Cơ chế hoạt động: Bằng cách phối hợp góc lái và vận tốc của tất cả các bánh, robot có thể đi ngang, đi chéo hoặc xoay tại tâm bất kỳ (Swerve maneuver). Đây được gọi là hệ thống Pseudo-holonomic (Giả toàn hướng) hoặc Omni-steer.
-        \item Ưu điểm vượt trội (Vấn đề hiện đại):
-        \begin{itemize}
-            \item Sử dụng lốp cao su tiêu chuẩn → Khả năng chịu tải và độ bám (traction) cao gấp nhiều lần bánh Mecanum/Omni con lăn nhựa.
-            \item Không bị rung động, vận hành êm ái trên nền nhà xưởng không phẳng.
-        \end{itemize}
-
-        \item Thách thức: Cấu trúc cơ khí và thuật toán điều khiển phức tạp hơn rất nhiều (cần xử lý các điểm kỳ dị khi bánh xe phải xoay 180 độ để đảo chiều) [Ref].
-    \end{itemize}
-\end{enumerate}
 
 % ======================================================================
 
@@ -1177,7 +1131,7 @@ Cấu trúc đa hướng cho phép robot di chuyển theo bất kỳ hướng n�
 
 \subsection{Cấu trúc bánh xích}
 Cấu trúc này được tối ưu hóa cho khả năng vượt địa hình gồ ghề và bề mặt mềm.
-Thay vì bánh xe, robot sử dụng hai dải xích (tracks) song song.
+Thay vì bánh xe, robot sử dụng hai dải xích song song.
 Tương tự như cấu trúc Dẫn động trượt (Skid-Steer), robot được điều khiển bằng cách thay đổi vận tốc tương đối của hai dải xích \cite{wong2008}.
 Đây là hệ thống phi đa hướng, có khả năng xoay tại chỗ, và phụ thuộc lớn vào sự trượt của dải xích trên mặt đất.
 Ưu điểm: Khả năng bám địa hình (traction) vượt trội. Áp suất tác dụng lên mặt đất rất thấp (do diện tích tiếp xúc lớn), cho phép robot di chuyển trên cát, tuyết, hoặc bùn lầy. Khả năng vượt chướng ngại vật và leo dốc rất tốt \cite{murphy2014}.
@@ -1210,9 +1164,9 @@ Các vấn đề Hiện đại và Thách thức Điều khiển (Modern Issues)
 
 Điều khiển Toàn thân (Whole-Body Control - WBC): Thách thức lớn nhất không nằm ở cơ khí mà ở thuật toán. Robot phải giải quyết bài toán tối ưu hóa phức tạp trong thời gian thực để phối hợp mô-men xoắn của động cơ bánh xe (để di chuyển) và động cơ chân (để giữ thăng bằng và giảm xóc). Các phương pháp hiện đại như Model Predictive Control (MPC) thường được sử dụng để dự đoán trạng thái tương lai và giữ robot ổn định khi di chuyển tốc độ cao trên địa hình lồi lõm [Ref].
 
-Quản lý Chuyển đổi trạng thái (Locomotion Mode Switching): Việc quyết định khi nào nên lăn và khi nào nên bước là một bài toán khó về nhận thức môi trường (perception). Robot cần sử dụng Vision/LiDAR để phân loại địa hình và chuyển đổi mượt mà giữa các mô hình động học khác nhau mà không bị gián đoạn hoặc mất thăng bằng.
+Quản lý Chuyển đổi trạng thái (Locomotion Mode Switching): Việc quyết định khi nào nên lăn và khi nào nên bước là một bài toán khó về nhận thức môi trường. Robot cần sử dụng Vision/LiDAR để phân loại địa hình và chuyển đổi mượt mà giữa các mô hình động học khác nhau mà không bị gián đoạn hoặc mất thăng bằng.
 
-Tương tác Động lực học (Hybrid Dynamics): Khác với robot bánh xe truyền thống luôn bám đất, robot lai có những pha "bay" (flight phase) khi nhảy hoặc bước. Việc mô hình hóa các lực va chạm (impact forces) khi bánh xe tiếp đất sau một cú nhảy là rất quan trọng để bảo vệ phần cứng và duy trì quỹ đạo.
+Tương tác Động lực học: Khác với robot bánh xe truyền thống luôn bám đất, robot lai có những pha "bay" (flight phase) khi nhảy hoặc bước. Việc mô hình hóa các lực va chạm (impact forces) khi bánh xe tiếp đất sau một cú nhảy là rất quan trọng để bảo vệ phần cứng và duy trì quỹ đạo.
 
 Ứng dụng thực tiễn: Các robot tiêu biểu cho xu hướng này bao gồm Boston Dynamics Handle (robot kho vận), ETH Zurich ANYmal on Wheels (robot thám hiểm), và Tencent Ollie (robot nhào lộn). Chúng đang mở ra hướng đi mới cho robot giao hàng chặng cuối (last-mile delivery) nơi robot phải leo lên bậc thềm nhà khách hàng.
 
@@ -1233,7 +1187,7 @@ Sự đa dạng của các loại bánh xe và cấu trúc robot di động đã
     \item Giao hàng chặng cuối: Một xu hướng "hiện đại" bùng nổ sau đại dịch.
     \begin{itemize}
         \item Cấu trúc 6 bánh (6-Wheel Differential/Rocker-bogie): Các robot như Starship Technologies sử dụng cấu trúc này để leo lề đường và di chuyển ổn định trên vỉa hè đô thị không bằng phẳng.
-        \item Cấu trúc Ackerman: Được dùng cho các robot giao hàng tốc độ cao trên làn đường xe đạp hoặc khu dân cư rộng (như Nuro R2).
+        \item Cấu trúc Ackermann: Được dùng cho các robot giao hàng tốc độ cao trên làn đường xe đạp hoặc khu dân cư rộng (như Nuro R2).
     \end{itemize}
 
     \item Thám hiểm và Nông nghiệp
@@ -1339,9 +1293,9 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{moore2014} T. Moore and D. Stouch, "A generalized extended kalman filter implementation for the robot operating system," in Proceedings of the 13th International Conference on Intelligent Autonomous Systems (IAS-13), 2014.
 \bibitem{parhi2011} D. R. Parhi and B. B. V. L. Deepak, "Kinematic model of three wheeled mobile robot," Mechanical Engineering Research, vol. 3, no. 9, pp. 307-318, Sep. 2011, doi: 10.5897/jmer.9000032.
 \bibitem{ueno2017} Y. Ueno, K. Watanabe and I. Nagai, "Design and development of steered active wheel casters and its application," 2017 IEEE International Conference on Mechatronics and Automation (ICMA), Takamatsu, Japan, 2017, pp. 507-512, doi: 10.1109/ICMA.2017.8015869.
-\bibitem{qiu2018} Q. Qiu và các cộng sự, "Extended Ackerman Steering Principle for the coordinated movement control of a four wheel drive agricultural mobile robot," Computers and Electronics in Agriculture, vol. 152, pp. 40-50, Jul. 2018, doi: 10.1016/j.compag.2018.06.036.
-\bibitem{gautam2021} P. Gautam, S. Sahai, S. S. Kelkar, P. S. Agrawal, and M. R. D, "Designing Variable Ackerman Steering geometry for Formula Student Race car," International Journal of Analytical Experimental and Finite Element Analysis (IJAEFEA), vol. 8, no. 1, Feb. 2021, doi: 10.26706/ijaefea.1.8.20210101.
-\bibitem{patel2021} S. Patel, R. Rawat, N. Shantanu, A. Kumar, and N. Amardeep, "Study of steering system for an electric Trike-Ackerman steering," in Smart innovation, systems and technologies, 2021, pp. 9-18. doi: 10.1007/978-981-16-2857-3\_3.
+\bibitem{qiu2018} Q. Qiu và các cộng sự, "Extended Ackermann Steering Principle for the coordinated movement control of a four wheel drive agricultural mobile robot," Computers and Electronics in Agriculture, vol. 152, pp. 40-50, Jul. 2018, doi: 10.1016/j.compag.2018.06.036.
+\bibitem{gautam2021} P. Gautam, S. Sahai, S. S. Kelkar, P. S. Agrawal, and M. R. D, "Designing Variable Ackermann Steering geometry for Formula Student Race car," International Journal of Analytical Experimental and Finite Element Analysis (IJAEFEA), vol. 8, no. 1, Feb. 2021, doi: 10.26706/ijaefea.1.8.20210101.
+\bibitem{patel2021} S. Patel, R. Rawat, N. Shantanu, A. Kumar, and N. Amardeep, "Study of steering system for an electric Trike-Ackermann steering," in Smart innovation, systems and technologies, 2021, pp. 9-18. doi: 10.1007/978-981-16-2857-3\_3.
 \bibitem{low2005} K. H. Low and Y. P. Leow, "Kinematic modeling, mobility analysis and design of wheeled mobile robots," Advanced Robotics, vol. 19, no. 1, pp. 73-99, Jan. 2005, doi: 10.1163/1568553053020241.
 \bibitem{gillespie1992} T. D. Gillespie, Fundamentals of Vehicle Dynamics. Warrendale, PA: SAE International, 1992.
 \bibitem{deluca1998} A. De Luca, G. Oriolo, and C. Samson, "Feedback control of a nonholonomic car-like robot," in Robot Motion Planning and Control, J.-P. Laumond, Ed. Springer, 1998, pp. 171-253.
@@ -1485,13 +1439,37 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 
 
+% ======================================================================
+
+% ----- ROBOT DẪN ĐỘNG VI SAI -----
 
 
+% ======================================================================
 
+% ----- ROBOT DẪN ĐỘNG ĐỒNG BỘ -----
+
+
+% ======================================================================
+
+% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH MECANUM -----
+
+
+% ======================================================================
+
+% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH XE DẪN HƯỚNG CHỦ ĐỘNG -----
 
 
 
 % ======================================================================
+
+% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG CƠ CHẾ LÁI CHỦ ĐỘNG -----
+
+
+% ======================================================================
+
+% ----- CẤU TRÚC LÁI BA BÁNH -----
+
+
 % ======================================================================
 
 % ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
@@ -1593,7 +1571,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ======================================================================
 
-% ----- CẤU TRÚC LÁI ACKERMAN -----
+% ----- CẤU TRÚC LÁI Ackermann -----
 
 % ======================================================================
 
