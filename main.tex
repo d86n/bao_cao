@@ -659,7 +659,59 @@ Trong thiết kế robot di động sử dụng bánh xe, các phương án cấ
 
 \subsubsection{Robot cân bằng trên bóng (ballbot)}
 
+Ballbot là một dạng robot di động cân bằng động trên một bánh xe hình cầu duy nhất \cite{Cai2019}. Khác với các robot di động ổn định tĩnh (nhiều bánh xe) truyền thống vốn cần trọng tâm thấp và chân đế rộng, Ballbot có đặc điểm cao, hẹp và trọng tâm cao \cite{Nagarajan2013}. Nhờ chỉ có một điểm tiếp xúc duy nhất với mặt đất, Ballbot sở hữu khả năng di chuyển đa hướng linh hoạt, cho phép nó di chuyển trực tiếp theo bất kỳ hướng nào mà không cần phải quay đầu trước như các robot hai bánh tự cân bằng (dạng Segway) \cite{Cai2019}. Với diện tích mặt chân đế nhỏ, Ballbot đặc biệt phù hợp để hoạt động trong các môi trường chật hẹp của con người. Tuy nhiên, đây là một hệ thống thiếu cơ cấu chấp hành và không ổn định, đòi hỏi các chiến lược điều khiển tích cực liên tục để duy trì thăng bằng \cite{HYHan2014, Pellegrini2011}.
 
+Cơ cấu truyền động là yếu tố cốt lõi để Ballbot giữ thăng bằng và di chuyển. Có hai phương pháp truyền động chính:
+
+\begin{itemize}
+    \item Cơ cấu lái chuột bi ngược (Inverse Mouse-Ball Drive): Được tiên phong bởi nhóm nghiên cứu tại Đại học Carnegie Mellon (CMU) với robot "Ballbot" ban đầu. Cơ cấu này sử dụng các con lăn ma sát ép vào quả bóng để truyền mô-men xoắn. Phiên bản đầu tiên gặp vấn đề dao động "nhảy" (hopping motion), nhưng phiên bản cải tiến sử dụng bốn động cơ DC servo điều khiển bốn con lăn chủ động đã khắc phục được điều này \cite{Nagarajan2013}. Bóng được sử dụng có thể là lõi nhôm phủ urethane để tăng độ bền và ma sát \cite{Lauwers2006}.
+    
+    \item Cơ cấu Bánh xe đa hướng: Đây là thiết kế phổ biến hơn trong các nghiên cứu sau này nhờ khả năng kiểm soát tốt hơn.
+    \begin{itemize}
+        \item Cấu hình: Thông thường sử dụng 3 bánh xe đa hướng bố trí lệch nhau $120^{\circ}$ \cite{HYHan2014}. Góc tiếp xúc của bánh xe với mặt phẳng ngang thường được đặt ở mức $45^{\circ}$ hoặc $50^{\circ}$ để tối ưu hóa việc truyền lực \cite{Kumagai2008, Lima2018}.
+        \item Biến thể: Một số thiết kế tập trung vào chi phí thấp và đơn giản hóa bằng cách sử dụng động cơ bước truyền động trực tiếp không hộp số để giảm độ rơ (backlash) \cite{Kumagai2008}. Các thiết kế hiện đại hơn như robot MiaPURE tập trung vào khả năng chịu tải lớn (lên đến 60-80kg) để chở người hoặc hàng hóa, sử dụng bánh xe omni chịu lực cao và động cơ Quasi-Direct-Drive (QDD) \cite{Xiao2023}.
+        \item Cải tiến: Để robot gọn nhẹ hơn, Park đã thiết kế một thân robot mỏng với hộp số hành tinh bậc thang tùy chỉnh, giúp đạt tỷ số truyền cao trong không gian nhỏ hẹp \cite{Park2024}.
+    \end{itemize}
+\end{itemize}
+
+Việc mô hình hóa chính xác là bước quan trọng để thiết kế bộ điều khiển.
+
+\begin{itemize}
+    \item Phương pháp Lagrange: Hầu hết các nghiên cứu đều sử dụng phương trình Euler-Lagrange để xây dựng mô hình động lực học \cite{Cai2019, Pellegrini2011, Rizal2015, Park2024}.
+    \item Mô hình phẳng: Để đơn giản hóa, chuyển động của Ballbot thường được tách thành hai mô hình con lắc ngược bánh xe (WIP) độc lập trên hai mặt phẳng trực giao. Giả định này hợp lý khi góc nghiêng nhỏ và sự ghép nối giữa các mặt phẳng là không đáng kể \cite{Xiao2023, Nagarajan2013, HYHan2014}.
+    \item Mô hình 3D toàn diện: Pellegrini và các cộng sự \cite{Pellegrini2011} đã phát triển một mô hình 3D chi tiết cho robot "Balancino", bao gồm cả động lực học của động cơ và ma sát xoay. Phân tích tính điều khiển được trên mô hình 3D chỉ ra rằng góc xoay (yaw) của bóng và thân robot không thể điều khiển đồng thời về 0 từ mọi trạng thái, và ma sát xoay là yếu tố cần thiết để đảm bảo tính điều khiển được.
+\end{itemize}
+
+Các phương pháp điều khiển đa dạng từ tuyến tính cổ điển đến phi tuyến hiện đại đã được áp dụng:
+
+\begin{itemize}
+    \item Điều khiển PID: Là phương pháp đơn giản và phổ biến cho các nguyên mẫu giá rẻ. Han et al. sử dụng các vòng lặp PID độc lập cho trục pitch và roll, với cấu trúc điều khiển vận tốc để tránh hiện tượng bão hòa tích phân \cite{HYHan2014}. Kumagai và Ochiai sử dụng lệnh gia tốc thay vì mô-men xoắn cho động cơ bước để tăng tính bền vững \cite{Kumagai2008}.
+
+    \item Điều khiển LQR (Linear Quadratic Regulator): Được sử dụng rộng rãi để tối ưu hóa hiệu suất cân bằng quanh điểm làm việc thẳng đứng. Lauwers và các cộng sự \cite{Lauwers2006} sử dụng LQR với vòng lặp PI bên trong để ổn định vận tốc. Lima và các cộng sự \cite{Lima2018} thiết kế bộ điều khiển LQR rời rạc, sử dụng quy tắc Bryson để tinh chỉnh ma trận trọng số Q và R.
+
+    \item Điều khiển Nâng cao \& Kết hợp:
+    \begin{itemize}
+        \item LQR-PI: Xiao và các cộng sự \cite{Xiao2023} đề xuất bộ điều khiển tầng LQR-PI, trong đó vòng ngoài LQR tính toán mô-men xoắn tối ưu, còn vòng trong PI xử lý các ma sát phi tuyến và ma sát tĩnh (stiction) mà mô hình LQR thường bỏ qua. Phương pháp này giúp robot MiaPURE đạt vận tốc tới 2.3 m/s và phanh dừng trong 2 giây.
+        \item Fuzzy PD: Cai et al. đề xuất bộ điều khiển Fuzzy PD tầng (Cascade Fuzzy PD) để xử lý các vùng phi tuyến ở góc nghiêng lớn, kết hợp với điều khiển vị trí và điều khiển góc xoay (yaw) \cite{Cai2019}.
+        \item Observer \& Feedback: Park sử dụng bộ bù (compensator) bao gồm một bộ quan sát (observer) vòng kín và phản hồi trạng thái đầy đủ để giảm thiểu sai số mô hình \cite{Park2024}.
+    \end{itemize}
+
+    \item Ước lượng góc nghiêng: Việc sử dụng bộ lọc Kalman hoặc bộ lọc bù (Complementary Filter) để hợp nhất dữ liệu từ gia tốc kế và con quay hồi chuyển là tiêu chuẩn để có được góc nghiêng chính xác, loại bỏ nhiễu và trôi \cite{HYHan2014, Park2024}.
+\end{itemize}
+
+Sự ổn định động của Ballbot mở ra các ứng dụng tương tác vật lý thú vị:
+
+\begin{itemize}
+    \item Tương tác vật lý (pHRI): Ballbot có khả năng nhường đường khi bị đẩy, giúp nó an toàn hơn khi va chạm so với robot ổn định tĩnh. Một lực đẩy nhẹ có thể di chuyển robot, trong khi một cú đẩy mạnh có thể được hiểu là lệnh để robot tránh đi chỗ khác \cite{Nagarajan2013}.
+
+    \item Hỗ trợ di chuyển: Các nghiên cứu gần đây như của Xiao \cite{Xiao2023} và Song \cite{Song2023} tập trung vào việc sử dụng Ballbot làm phương tiện di chuyển cá nhân (như xe lăn thế hệ mới).
+    \begin{itemize}
+        \item Hệ thống MiaPURE có thể chở tải trọng 60kg và người lái có thể điều khiển bằng cách nghiêng người \cite{Xiao2023}.
+        \item Nghiên cứu mô phỏng VR của Song giới thiệu giao diện điều khiển rảnh tay dựa trên chuyển động thân người, cho phép cả người dùng xe lăn và người bình thường điều khiển robot hiệu quả qua các môi trường phức tạp \cite{Song2023}.
+    \end{itemize}
+\end{itemize}
+
+Ballbot đại diện cho một lớp robot di động hứa hẹn với khả năng vận động đa hướng và tương tác an toàn. Các thách thức hiện tại nằm ở việc xử lý ma sát phi tuyến, đảm bảo an toàn khi chở người, và tối ưu hóa cơ khí để giảm kích thước nhưng vẫn đảm bảo mô-men xoắn lớn \cite{Xiao2023, Pellegrini2011}. Xu hướng nghiên cứu đang chuyển dịch từ các mô hình thử nghiệm phòng thí nghiệm sang các ứng dụng thực tế như robot dịch vụ và phương tiện hỗ trợ di chuyển cá nhân.
 
 \subsubsection{Nhóm trọng tâm nội tại: Gồm robot dạng cầu (spherical robot) và robot đơn bánh vành lớn (monowheel)}
 
@@ -1180,7 +1232,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ======================================================================
 
-% ----- ROBOT MỘT BÁNH -----
+% ----- ROBOT XE ĐẠP MỘT BÁNH -----
 
 % 1
 \bibitem{Han2015} S. I. Han and J. M. Lee, "Balancing and Velocity Control of a Unicycle Robot Based on the Dynamic Model," in IEEE Transactions on Industrial Electronics, vol. 62, no. 1, pp. 405-413, Jan. 2015, doi: 10.1109/TIE.2014.2327562.
@@ -1198,6 +1250,33 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{Geist2022} A. R. Geist, J. Fiene, N. Tashiro, Z. Jia and S. Trimpe, "The Wheelbot: A Jumping Reaction Wheel Unicycle," in IEEE Robotics and Automation Letters, vol. 7, no. 4, pp. 9683-9690, Oct. 2022, doi: 10.1109/LRA.2022.3192654.
 % 8
 \bibitem{JHLee2010} J. H. Lee, H. J. Shin, S. J. Lee and S. Jung, "Novel air blowing control for balancing a unicycle robot," 2010 IEEE/RSJ International Conference on Intelligent Robots and Systems, Taipei, Taiwan, 2010, pp. 2529-2530, doi: 10.1109/IROS.2010.5649120.
+
+% ======================================================================
+
+% ----- ROBOT CÂN BẰNG TRÊN BÓNG -----
+
+% 1
+\bibitem{Lauwers2006} T. B. Lauwers, G. A. Kantor and R. L. Hollis, "A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive," Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006., Orlando, FL, USA, 2006, pp. 2884-2889, doi: 10.1109/ROBOT.2006.1642139.
+% 2
+\bibitem{Kumagai2008} M. Kumagai and T. Ochiai, "Development of a robot balancing on a ball," 2008 International Conference on Control, Automation and Systems, Seoul, Korea (South), 2008, pp. 433-438, doi: 10.1109/ICCAS.2008.4694680.
+% 3
+\bibitem{Lima2018} F. H. B. Lima, E. Poleze, G. P. das Neves and B. A. Angélico, "Ball Balancing Robot: construction, modeling and control design," 2018 13th IEEE International Conference on Industry Applications (INDUSCON), Sao Paulo, Brazil, 2018, pp. 1368-1372, doi: 10.1109/INDUSCON.2018.8627171.
+% 4
+\bibitem{Nagarajan2013} U. Nagarajan, G. Kantor, and R. Hollis, "The ballbot: An omnidirectional balancing mobile robot," The International Journal of Robotics Research, vol. 33, no. 6, pp. 917-930, Nov. 2013, doi: 10.1177/0278364913509126.
+% 5
+\bibitem{Cai2019} C. Cai, J. Lu and Z. Li, "Kinematic Analysis and Control Algorithm for the Ballbot," in IEEE Access, vol. 7, pp. 38314-38321, 2019, doi: 10.1109/ACCESS.2019.2902219.
+% 6
+\bibitem{Xiao2023} C. Xiao, M. Mansouri, D. Lam, J. Ramos and E. T. Hsiao-Wecksler, "Design and Control of a Ballbot Drivetrain with High Agility, Minimal Footprint, and High Payload," 2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Detroit, MI, USA, 2023, pp. 376-383, doi: 10.1109/IROS55552.2023.10342007.
+% 7
+\bibitem{Song2023} S. Y. Song, N. Marin, C. Xiao, R. Okubo, J. Ramos and E. T. Hsiao-Wecksler, "Hands-Free Physical Human-Robot Interaction and Testing for Navigating a Virtual Ballbot," 2023 32nd IEEE International Conference on Robot and Human Interactive Communication (RO-MAN), Busan, Korea, Republic of, 2023, pp. 556-563, doi: 10.1109/RO-MAN57019.2023.10309327.
+% 8
+\bibitem{Park2024} S. Park, "Design, Implementation, and Control of a Ball-Balancing Robot," in IEEE Access, vol. 12, pp. 127380-127389, 2024, doi: 10.1109/ACCESS.2024.3456238.
+% 9
+\bibitem{HYHan2014} H. Y. Han, T. Y. Han and H. S. Jo, "Development of omnidirectional self-balancing robot," 2014 IEEE International Symposium on Robotics and Manufacturing Automation (ROMA), Kuala Lumpur, Malaysia, 2014, pp. 57-62, doi: 10.1109/ROMA.2014.7295862.
+% 10
+\bibitem{Pellegrini2011} E. Pellegrini, K. J. Diepold, R. Dessort, and H. Panzer, “3D-Modeling of a Robot Balancing on a Ball,” Technical Reports on Automatic Control, Jan. 2011, [Online]. Available: https://mediatum.ub.tum.de/1081938.
+% 11
+\bibitem{Abdelrahim2025} M. Abdelrahim, M. A. Thabet, H. S. Abbas, M. M. M. Hassan, M. H. Amin and A. Morsi, "Modeling and Control of a Ballbot: A Systematic Approach," in IEEE Access, vol. 13, pp. 141263-141280, 2025, doi: 10.1109/ACCESS.2025.3597797.
 
 % ======================================================================
 
