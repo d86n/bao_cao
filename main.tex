@@ -944,12 +944,35 @@ Trong lĩnh vực robot di động, cấu trúc ba bánh là một trong những
 
 \subsubsection{Robot dẫn động vi sai}
 
+Trong nhóm robot di động sử dụng bánh xe, cơ cấu dẫn động vi sai chiếm ưu thế nhờ sự đơn giản trong thiết kế cơ khí và khả năng cơ động cao. Các nghiên cứu tập trung vào việc tối ưu hóa cấu hình khung gầm, lựa chọn cơ cấu chấp hành và tích hợp hệ thống cảm biến vật lý để đảm bảo độ ổn định và khả năng chịu tải.
+
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.4\textwidth]{figures/fig6.pdf}
     \caption{Mô hình robot dẫn động vi sai \cite{siegwart2011}}
     \label{fig:fig6}
 \end{figure}
+
+Cấu trúc phổ biến nhất của robot dẫn động vi sai là dạng 3 bánh, bao gồm hai bánh xe chủ động được gắn cố định đồng trục và một (hoặc nhiều) bánh xe tự do để cân bằng \cite{Stefek2020}. Hirpo và cộng sự \cite{Hirpo2017} đã trình bày chi tiết quy trình thiết kế phần cứng cho một robot dịch vụ, trong đó khung gầm được thiết kế 3D trên phần mềm CATIA để tối ưu hóa không gian cho các mô đun chức năng. Hai động cơ PMDC (Permanent Magnet DC) được bố trí đối xứng ngược chiều nhau, kết nối trực tiếp với bánh xe thông qua hộp số giảm tốc để tăng mô-men xoắn. Để đảm bảo độ ổn định tĩnh và động, trọng tâm của robot thường được bố trí nằm trên trục dọc của robot, cách trục bánh xe một khoảng xác định, giúp robot không bị lật khi tăng tốc hoặc phanh gấp \cite{Petrov2010}.
+
+Yếu tố then chốt trong phần cứng là hệ thống truyền động. Stefek và cộng sự \cite{Stefek2020} phân tích rằng động cơ DC là lựa chọn tiêu chuẩn, với mô hình động lực học phần cứng bao gồm các tham số vật lý như điện trở phần ứng ($R_a$), độ tự cảm ($L_a$), và mô-men quán tính rotor ($J$). Nguồn năng lượng thường sử dụng là ắc quy axit-chì hoặc pin Lithium sắt phosphate (LiFePO4) để cung cấp dòng xả cao và độ ổn định điện áp cho động cơ. Hiệu suất phần cứng được đánh giá thông qua tiêu hao năng lượng động năng, phụ thuộc trực tiếp vào khối lượng tổng ($m$) và mô-men quán tính toàn phần ($I$) của robot.
+
+Để robot vận hành tự chủ, phần cứng phải tích hợp đa dạng các loại cảm biến:
+
+\begin{itemize}
+    \item Cảm biến nội thụ: Encoder quang học hoặc tachometer được gắn trực tiếp trên trục động cơ để đo vận tốc góc và phản hồi cho bộ điều khiển cấp thấp \cite{Hirpo2017}.
+    \item Cảm biến ngoại vi: Đối với các robot thương mại dùng trong nghiên cứu như Pioneer P3-DX , hoặc các robot tự ráp , hệ thống cảm biến thường bao gồm cảm biến siêu âm và hồng ngoại bố trí quanh thân để tránh va chạm \cite{Fareh2019}.
+    \item Cảm biến thị giác: Trong các ứng dụng phức tạp hơn, phần cứng được mở rộng với camera RGB-D (như Asus Xtion Pro) gắn trên giá đỡ cao để thu thập dữ liệu chiều sâu của môi trường, phục vụ cho việc lập bản đồ và định vị \cite{Fareh2019}.
+\end{itemize}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Petrov2010.pdf}
+    \caption{Robot dẫn động vi sai Pioneer 3-DX \cite{Petrov2010}}
+    \label{fig:fig_Petrov2010}
+\end{figure}
+
+Tóm lại, xu hướng thiết kế phần cứng hiện nay ưu tiên tính mô-đun hóa, cho phép dễ dàng thay thế các cụm bánh xe-động cơ và mở rộng không gian cho các loại cảm biến hiện đại, đồng thời tối ưu hóa các tham số hình học (bán kính bánh xe $r$, khoảng cách trục $b$) để đạt được sự cân bằng giữa tốc độ và độ chính xác của phép đo hành trình \cite{Stefek2020, Petrov2010}.
 
 % ======================================================================
 
@@ -979,11 +1002,9 @@ Trong lĩnh vực robot di động, cấu trúc ba bánh là một trong những
 
 % ----- CẤU TRÚC LÁI BA BÁNH -----
 
-\subsection{Cấu trúc lái ba bánh (\textit{Steered Tricycle})}
+\subsubsection{Cấu trúc lái ba bánh (\textit{Steered Tricycle})}
 
 Cấu trúc lái ba bánh là nền tảng kinh điển trong robot di động mặt đất, đặc trưng bởi sự tách biệt giữa chức năng lái và dẫn động. Dựa trên phân tích tổng hợp từ các nghiên cứu hiện đại, cấu trúc này được phân loại và đánh giá qua ba khía cạnh: Cấu hình hình học cơ khí, Kiến trúc phần cứng nhúng và Cấu trúc hệ thống điều khiển.
-
-\subsubsection{Biến thể cấu hình cơ khí}
 
 \begin{figure}[!htbp]
     \centering
@@ -999,8 +1020,6 @@ Sự ổn định động lực học của robot phụ thuộc hoàn toàn vào
     \item Cấu hình Tadpole (2F/1R): Để giải quyết vấn đề ổn định của Delta, cấu hình Tadpole (hai bánh trước, một bánh sau) được ưu tiên trong các ứng dụng tốc độ cao \cite{VazquezRodriguez2018}. Cấu trúc này yêu cầu cơ cấu lái Ackermann phức tạp hơn để đồng bộ hóa hai bánh trước, nhưng đổi lại, trọng tâm robot luôn nằm trong vùng hỗ trợ rộng nhất khi phanh, giúp giảm thiểu chỉ số lật (Rollover Index - RI) \cite{Licea2018}.
 \end{itemize}
 
-\subsubsection{Kiến trúc Phần cứng và Tích hợp Cảm biến}
-
 Cấu trúc robot hiện đại không chỉ là khung sắt mà là một hệ thống cơ điện tử tích hợp.
 
 \begin{itemize}
@@ -1008,8 +1027,6 @@ Cấu trúc robot hiện đại không chỉ là khung sắt mà là một hệ 
     \item Tích hợp Đa cảm biến: Do cấu trúc ba bánh dễ bị trượt ngang, phép đo hành trình (odometry) từ encoder thường thiếu chính xác. Chand \cite{chand2022} đã đề xuất tích hợp La bàn điện tử vào cấu trúc phần cứng. Dữ liệu hướng từ la bàn được hợp nhất với encoder thông qua bộ lọc Kalman, giúp robot duy trì định vị chính xác trong môi trường trong nhà.
     \item Mô hình hóa Không gian An toàn: Trong môi trường công nghiệp, Subash và các cộng sự \cite{subash2024} đề xuất thay thế cấu trúc khung bao hình chữ nhật bằng các "hình tròn bao phủ" (covering circles). Cấu trúc ảo này cho phép robot tận dụng khả năng bẻ lái linh hoạt của bánh trước để di chuyển trong không gian hẹp mà không va chạm.
 \end{itemize}
-
-\subsubsection{Cấu trúc Hệ thống Điều khiển}
 
 Để vận hành cấu trúc cơ khí trên, các kiến trúc điều khiển hiện đại đã chuyển dịch từ PID cổ điển sang các cấu trúc thông minh và thích nghi.
 
@@ -1131,16 +1148,36 @@ Thách thức Hiện đại và Giới hạn Mô hình: Các nghiên cứu gần
 
 \subsection{Robot bánh xích}
 
-Cấu trúc này được tối ưu hóa cho khả năng vượt địa hình gồ ghề và bề mặt mềm.
-Thay vì bánh xe, robot sử dụng hai dải xích song song.
-Tương tự như cấu trúc Dẫn động trượt (Skid-Steer), robot được điều khiển bằng cách thay đổi vận tốc tương đối của hai dải xích \cite{wong2008}.
-Đây là hệ thống phi đa hướng, có khả năng xoay tại chỗ, và phụ thuộc lớn vào sự trượt của dải xích trên mặt đất.
-Ưu điểm: Khả năng bám địa hình (traction) vượt trội. Áp suất tác dụng lên mặt đất rất thấp (do diện tích tiếp xúc lớn), cho phép robot di chuyển trên cát, tuyết, hoặc bùn lầy. Khả năng vượt chướng ngại vật và leo dốc rất tốt \cite{murphy2014}.
-Nhược điểm: Tốc độ di chuyển chậm, tiêu thụ năng lượng cao, phá hủy bề mặt di chuyển, và rất khó để ước tính vị trí chính xác [..].
+Xu hướng nghiên cứu hiện đại trong lĩnh vực robot di động đang chuyển dịch mạnh mẽ sang các thiết kế lai nhằm kết hợp ưu điểm vận tốc cao của bánh xe và khả năng vượt địa hình vượt trội của bánh xích. Các nghiên cứu gần đây đã đề xuất nhiều cơ chế tái cấu hình sáng tạo để tối ưu hóa khả năng vận hành trong các môi trường phi cấu trúc.
 
-Cấu trúc này đại diện cho giải pháp tối ưu nhất về khả năng vượt địa hình (traversability) trong các môi trường phi cấu trúc. Thay vì sử dụng các điểm tiếp xúc rời rạc như bánh xe, robot sử dụng hai (hoặc nhiều hơn) dải xích (tracks) tạo ra một vùng tiếp xúc liên tục (continuous footprint).
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Luo2018.pdf}
+    \caption{Mô hình robot RHMBot và ba chế độ của nó \cite{Luo2018}}
+    \label{fig:fig_Luo2018}
+\end{figure}
 
-Nguyên lý hoạt động và Đặc tính cơ bản: Cơ chế lái của robot bánh xích tương tự như Cấu trúc Dẫn động trượt (Skid-Steer). Robot thay đổi hướng bằng cách tạo ra chênh lệch vận tốc giữa hai dải xích trái ($v_L$) và phải ($v_R$) [].
+Một hướng tiếp cận phổ biến là sử dụng các cơ cấu liên kết cơ khí để thay đổi hình học của bộ phận di chuyển. Luo và cộng sự đã phát triển robot RHMBot dựa trên cơ cấu liên kết sáu thanh Watt II, cho phép robot chuyển đổi linh hoạt giữa ba chế độ: chế độ bánh xe tròn để di chuyển nhanh, chế độ bánh xích tam giác để vượt địa hình, và chế độ lăn đặc biệt để vượt qua các chướng ngại vật lớn \cite{Luo2018}. Thiết kế này sử dụng đai xích biến dạng bao gồm ba lớp (đàn hồi, truyền động và ràng buộc) để thích ứng với sự thay đổi hình dạng của khung. Tương tự, Cui và cộng sự \cite{Cui2016} đề xuất một cơ cấu xích có thể thu gọn sử dụng liên kết bốn thanh kép. Kết quả thực nghiệm từ nghiên cứu này chỉ ra rằng việc chuyển đổi sang chế độ bánh xe trên đường bằng phẳng giúp giảm tiêu thụ năng lượng và tăng độ chính xác điều khiển so với chế độ xích.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Rachkov2019.pdf}
+    \caption{Robot lai với các cụm bánh xích và bánh xe riêng biệt \cite{Rachkov2019}}
+    \label{fig:fig_Rachkov2019}
+\end{figure}
+
+Bên cạnh việc biến đổi hình dạng xích, các thiết kế mô-đun độc lập hoặc trực giao cũng được khai thác để tăng tính linh hoạt. Rachkov và cộng sự \cite{Rachkov2019} giới thiệu một robot lai với các cụm bánh xích và bánh xe riêng biệt, trong đó trục bánh xe được gắn trên các đòn bẩy có thể nâng hạ. Hệ thống này sử dụng các cảm biến đo kích thước vật cản để tự động điều chỉnh cấu hình: nâng xích lên để chạy bằng bánh xe trên đường phẳng hoặc hạ xích xuống để tăng độ bám trên địa hình gồ ghề. Khác biệt với cách bố trí song song truyền thống, Ben-Tzvi và Saab \cite{BenTzvi2019} đề xuất một kiến trúc đa hướng bằng cách bố trí các đơn vị bánh xe và bánh xích theo hai trục trực giao. Thông qua cơ cấu tịnh tiến theo phương thẳng đứng, robot có thể chuyển đổi giữa di chuyển dọc bằng xích và di chuyển ngang bằng bánh xe, hỗ trợ đắc lực cho các tác vụ yêu cầu căn chỉnh vị trí chính xác.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_HKim2008.pdf}
+    \caption{Robot bánh xích có thể leo tường \cite{HKim2008}}
+    \label{fig:fig_HKim2008}
+\end{figure}
+
+Ngoài ra, cơ cấu bánh xích còn được cải tiến đặc biệt cho các ứng dụng leo tường thẳng đứng. Kim và cộng sự \cite{HKim2008} đã phát triển cơ cấu "bánh xe bánh xích" tích hợp giác hút chân không, đạt tốc độ leo lên tới 15m/phút nhờ sử dụng van cơ khí điều khiển bởi cam biên dạng thay vì van điện từ truyền thống. Trong khi đó, Zhu và cộng sự sử dụng cơ cấu xích chuỗi linh hoạt cho phép robot Cleanbot II thực hiện quay vòng bằng cách xoắn chuỗi xích, đồng thời duy trì lực hút an toàn để mang tải trọng lớn \cite{Zhu2002}.
+
+Tóm lại, các thiết kế robot bánh xích hiện nay không còn giới hạn ở cấu trúc cố định mà đang phát triển mạnh mẽ theo hướng lai ghép và tái cấu hình thông minh, sử dụng đa dạng các nguyên lý từ cơ cấu liên kết, mô-đun hóa cho đến các giải pháp khí động lực học để đáp ứng yêu cầu ngày càng cao về khả năng vận hành đa địa hình.
 
 % ======================================================================
 
@@ -1428,7 +1465,7 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 % 9
 \bibitem{An2013} W. An and Y. Li, "Simulation and control of a two-wheeled self-balancing robot," 2013 IEEE International Conference on Robotics and Biomimetics (ROBIO), Shenzhen, China, 2013, pp. 456-461, doi: 10.1109/ROBIO.2013.6739501.
 % 10
-\bibitem{Kim2015} S. Kim and S. Kwon, “Dynamic modeling of a two-wheeled inverted pendulum balancing mobile robot,” International Journal of Control Automation and Systems, vol. 13, no. 4, pp. 926-933, May 2015, doi: 10.1007/s12555-014-0564-8.
+\bibitem{Kim2015} S. Kim and S. Kwon, "Dynamic modeling of a two-wheeled inverted pendulum balancing mobile robot," International Journal of Control Automation and Systems, vol. 13, no. 4, pp. 926-933, May 2015, doi: 10.1007/s12555-014-0564-8.
 % 11
 \bibitem{Aouf2019} A. Aouf, L. Boussaid, and A. Sakly, "Same fuzzy logic controller for Two-Wheeled mobile robot navigation in strange environments," Journal of Robotics, vol. 2019, pp. 1-11, Jan. 2019, doi: 10.1155/2019/2465219.
 % 12
@@ -1450,6 +1487,10 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{Stefek2020} A. Stefek, T. V. Pham, V. Krivanek and K. L. Pham, "Energy Comparison of Controllers Used for a Differential Drive Wheeled Mobile Robot," in IEEE Access, vol. 8, pp. 170915-170927, 2020, doi: 10.1109/ACCESS.2020.3023345.
 % 3
 \bibitem{Fareh2019} R. Fareh, M. Baziyad, M. H. Rahman, T. Rabie, and M. Bettayeb, "Investigating reduced path planning strategy for differential wheeled mobile robot," Robotica, vol. 38, no. 2, pp. 235-255, May 2019, doi: 10.1017/s0263574719000572.
+% 4
+\bibitem{Chwa2010} D. Chwa, "Tracking Control of Differential-Drive Wheeled Mobile Robots Using a Backstepping-Like Feedback Linearization," in IEEE Transactions on Systems, Man, and Cybernetics - Part A: Systems and Humans, vol. 40, no. 6, pp. 1285-1295, Nov. 2010, doi: 10.1109/TSMCA.2010.2052605.
+% 5
+\bibitem{Petrov2010} P. Petrov, "Modeling and adaptive path control of a differential drive mobile robot," Proceedings of the 12th WSEAS International Conference on AUTOMATIC CONTROL, MODELLING \& SIMULATION, pp. 403-408, May 2010, [Online]. Available: http://www.wseas.us/e-library/conferences/2010/Catania/ACMOS/ACMOS-68.pdf.
 
 % ======================================================================
 
@@ -1592,24 +1633,20 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ======================================================================
 
-% ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
+% ----- ROBOT BÁNH XÍCH -----
 
-% ======================================================================
-
-% ----- CẤU TRÚC ĐA HƯỚNG -----
-
-% ======================================================================
-
-% ----- CẤU TRÚC BÁNH XÍCH -----
-
-\bibitem{wong2008} J. Y. Wong, Theory of Ground Vehicles, 4th ed. John Wiley \& Sons, 2008.
-\bibitem{murphy2014} R. R. Murphy, Disaster robotics. 2014. doi: 10.7551/mitpress/9407.001.0001.
-\bibitem{aljarrah2019} A. Al-Jarrah, M. Salah and F. Almomani, "Controlling a Skid-Steered Tracked Mobile Robot with Slippage Using Various Control Schemes," 2019 20th International Conference on Research and Education in Mechatronics (REM), Wels, Austria, 2019, pp. 1-7, doi: 10.1109/REM.2019.8744123.
-\bibitem{bekker1969} M. G. Bekker, Introduction to Terrain-Vehicle Systems. University of Michigan Press, 1969
-
-% ======================================================================
-
-% ----- CẤU TRÚC TỰ CÂN BẰNG -----
+% 1
+\bibitem{HKim2008} H. Kim et al., “Development of a wall-climbing robot using a tracked wheel mechanism,” Journal of Mechanical Science and Technology, vol. 22, no. 8, pp. 1490-1498, Aug. 2008, doi: 10.1007/s12206-008-0413-x.
+% 2
+\bibitem{BenTzvi2019} P. Ben-Tzvi and W. Saab, “A hybrid Tracked-Wheeled Multi-Directional mobile robot,” Journal of Mechanisms and Robotics, vol. 11, no. 4, Apr. 2019, doi: 10.1115/1.4043599.
+% 3
+\bibitem{Rachkov2019} M. Rachkov, A. Emelyanov and V. Kolot, "Reconfigurable Autonomous Wheel-Tracked Robot," 2019 International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Sochi, Russia, 2019, pp. 1-5, doi: 10.1109/ICIEAM.2019.8742987.
+% 4
+\bibitem{Zhu2002} J. Zhu, D. Sun, and S.-K. Tso, “Development of a tracked climbing robot,” Journal of Intelligent \& Robotic Systems, vol. 35, no. 4, pp. 427-443, Dec. 2002, doi: 10.1023/a:1022383216233.
+% 5
+\bibitem{Luo2018} Z. Luo, J. Shang, G. Wei, and L. Ren, “A reconfigurable hybrid wheel-track mobile robot based on Watt II six-bar linkage,” Mechanism and Machine Theory, vol. 128, pp. 16-32, Jun. 2018, doi: 10.1016/j.mechmachtheory.2018.04.020.
+% 6
+\bibitem{Cui2016} D. Cui, X. Gao, W. Guo and H. Dong, "Design and Stability Analysis of a Wheel-Track Robot," 2016 3rd International Conference on Information Science and Control Engineering (ICISCE), Beijing, China, 2016, pp. 918-922, doi: 10.1109/ICISCE.2016.200.
 
 % ======================================================================
 
