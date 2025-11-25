@@ -69,12 +69,8 @@ trong hầu hết các ứng dụng trên mặt đất \cite{chung2008}. Ưu đi
 nằm ở hiệu suất năng lượng cao, khả năng chịu tải lớn, cơ khí đơn giản và 
 thuật toán điều khiển tương đối hoàn thiện so với các cơ chế khác \cite{todd2012}.
 
-Tuy nhiên, sự đa dạng về yêu cầu ứng dụng — từ di chuyển tốc độ cao trên đường nhựa 
-đến khả năng xoay sở linh hoạt trong không gian chật hẹp — đã dẫn đến sự ra đời 
-của hàng loạt thiết kế bánh xe và cấu trúc khung khác nhau. 
-Việc lựa chọn giữa bánh xe tiêu chuẩn (standard wheel), bánh xe đa hướng (omnidirectional wheel), 
-hay các cấu trúc dẫn động vi sai (differential drive), cấu trúc lái Ackermann... 
-không chỉ ảnh hưởng đến khả năng cơ động mà còn quyết định mô hình động học và độ phức tạp của hệ thống điều khiển \cite{campion1993, lynch2017}.
+Tuy nhiên, sự đa dạng về yêu cầu ứng dụng — từ di chuyển tốc độ cao trên đường nhựa đến khả năng xoay sở linh hoạt trong không gian chật hẹp — đã dẫn đến sự ra đời của hàng loạt thiết kế bánh xe và cấu trúc khung khác nhau. 
+Việc lựa chọn giữa bánh xe tiêu chuẩn, bánh xe đa hướng, hay các cấu trúc dẫn động vi sai, cấu trúc lái Ackermann... không chỉ ảnh hưởng đến khả năng cơ động mà còn quyết định mô hình động học và độ phức tạp của hệ thống điều khiển \cite{campion1993, lynch2017}.
 
 Mặc dù đã có nhiều nghiên cứu riêng lẻ về từng loại robot, 
 nhưng việc tổng hợp và hệ thống hóa mối liên hệ giữa đặc tính linh kiện và cấu trúc động học trong một tài liệu duy nhất là rất cần thiết để có cái nhìn toàn diện.
@@ -103,9 +99,8 @@ Bánh xe có thể chia thành 3 loại chính gồm \textit{bánh xe tiêu chu�
 
 \subsection{Bánh xe tiêu chuẩn (standard wheel)}
 Bánh xe tiêu chuẩn là nhóm bánh xe phổ biến và cơ bản nhất trong robot di động. 
-Đặc điểm chung của nhóm này là chúng tạo ra các ràng buộc phi đa hướng (non-holonomic constraints) \cite{rasam2016, siegwart2011}, 
-nghĩa là tại một thời điểm, 
-bánh xe chỉ có thể lăn hiệu quả theo một hướng và không thể trượt theo phương của trục bánh xe trong điều kiện lý tưởng.
+Đặc điểm chung của nhóm này là chúng tạo ra các ràng buộc phi đa hướng \cite{siegwart2011, rasam2016}, 
+nghĩa là tại một thời điểm, bánh xe chỉ có thể lăn hiệu quả theo một hướng và không thể trượt theo phương của trục bánh xe trong điều kiện lý tưởng.
 
 Ba điều kiện cần được xác định cho một thiết kế bánh xe tiêu chuẩn \cite{chung2008}:
 
@@ -126,7 +121,7 @@ Bánh xe tiêu chuẩn gồm ba loại: Bánh xe cố định, bánh xe lái và
 
 \subsubsection{Bánh xe cố định (fixed wheel)}
 Bánh xe cố định là loại bánh xe đơn giản nhất, được gắn chặt vào khung robot với một hướng duy nhất không thể thay đổi \cite{mikova2016, leong2022}.
-Nó chỉ có một bậc tự do (degree of freedom) là quay quanh trục chính của nó \cite{chung2008, mikova2013}.
+Nó chỉ có một bậc tự do là quay quanh trục chính của nó \cite{chung2008, mikova2013}.
 Nó có cấu trúc đơn giản, nhiều kích thước và có độ tin cậy cao \cite{shabalina2018}.
 
 \begin{figure}[!htbp]
@@ -147,7 +142,7 @@ nối tâm khung robot $P$ với tâm bánh xe $A$ và trục của bánh xe.
 Bánh xe có bán kính $r$ và chuyển động của nó được định nghĩa bằng góc thay đổi theo thời gian $\varphi (t)$.
 
 Về mặt toán học, \textit{bánh xe cố định} áp đặt hai ràng buốc động học chính 
-lên robot trong điều kiện lý tưởng \cite{siegwart2011,mikova2016}:
+lên robot trong điều kiện lý tưởng \cite{siegwart2011, mikova2016}:
 \begin{itemize}
     \item[--] Ràng buộc lăn: Vận tốc tại điểm tiếp xúc mặt đất phải bằng không
     (lăn không trượt), điều này liên quan đến vận tốc quay của bánh xe:
@@ -174,14 +169,10 @@ Từ phương trình ràng buộc (\ref{eq2}), ta có thể thấy rằng bánh 
 khả năng di chuyển tức thời theo phương ngang trục bánh.
 Tính chất này biến robot sử dụng bánh xe cố định thành hệ thống phi đa hướng.
 Về mặt điều khiển, điều này có nghĩa là không gian điều khiển (số lượng động cơ) nhỏ hơn không gian cấu hình (số bậc tự do vị trí),
-buộc robot phải thực hiện các quỹ đạo phức tạp (như đỗ xe song song) để đến được vị trí
-mong muốn thay vì di chuyển thẳng []. Tuy nhiên, chính ràng buộc này lại mang lại sự ổn định hướng
-vượt trội khi di chuyển ở tốc độ cao, giúp robot giữ lộ trình tốt hơn so với các loại bánh đa hướng.
+buộc robot phải thực hiện các quỹ đạo phức tạp (như đỗ xe song song) để đến được vị trí mong muốn thay vì di chuyển thẳng. Tuy nhiên, chính ràng buộc này lại mang lại sự ổn định hướng vượt trội khi di chuyển ở tốc độ cao, giúp robot giữ lộ trình tốt hơn so với các loại bánh đa hướng.
 
-Các phương trình (\ref{eq1}) và (\ref{eq2}) dựa trên giả thuyết lý tưởng về "lăn không trượt" (pure rolling)
-và tiếp xúc điểm cứng tuyệt đối (rigid point contact). 
-Tuy nhiên, trong các ứng dụng thực tế, đặc biệt là với các robot vận tải (AGV) mang tải trọng lớn 
-hoặc robot nông nghiệp di chuyển trên địa hình mềm, giả thuyết này thường bị vi phạm:
+Các phương trình (\ref{eq1}) và (\ref{eq2}) dựa trên giả thuyết lý tưởng về lăn không trượt và tiếp xúc điểm cứng tuyệt đối. 
+Tuy nhiên, trong các ứng dụng thực tế, đặc biệt là với các robot vận tải (AGV) mang tải trọng lớn hoặc robot nông nghiệp di chuyển trên địa hình mềm, giả thuyết này thường bị vi phạm:
 
 \begin{itemize}
     \item Hiện tượng trượt: Khi lực kéo vượt quá giới hạn ma sát nghỉ, hiện tượng trượt dọc sẽ xảy ra, dẫn đến sai số tích luỹ trong bài toán định vị. Ngoài ra, khi robot quay vòng, hiện tượng trượt ngang cũng xuất hiện do lực ly tâm, tạo ra góc trượt làm lệch hướng di chuyển thực tế so với hướng bánh xe.
@@ -191,7 +182,7 @@ hoặc robot nông nghiệp di chuyển trên địa hình mềm, giả thuyết
 Do đó, để giải quyết các thách thức này, kỹ thuật robot hiện đại thường tiếp cận theo hai hướng song song:
 \begin{enumerate}
     \item Các mô hình động học được bổ sung thêm các tham số về độ trượt và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý \cite{ward2008, yi2009, Mandow2007}.
-    \item Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe (Odometry) bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài \cite{thrun2010, moore2014}.
+    \item Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài \cite{thrun2010, moore2014}.
 \end{enumerate}
 
 Nhờ sự kết hợp giữa độ tin cậy cơ khí cao và các giải pháp điều khiển/định vị tiên tiến này, bánh xe cố định vẫn giữ vững vai trò là nền tảng cốt lõi cho các cấu trúc robot phổ biến như dẫn động vi sai và dẫn động trượt \cite{parhi2011}.
@@ -233,9 +224,9 @@ Ràng buộc trượt của bánh (yêu cầu điều khiển vị trí):
 So với bánh xe cố định, việc biến góc $\beta$ thành một biến số theo thời gian $\beta(t)$ mang lại sự linh hoạt vượt trội trong việc định hình quỹ đạo. Tuy nhiên, điều này dẫn đến những thách thức kỹ thuật đặc thù mà các hệ thống robot hiện đại phải giải quyết:
 
 \begin{enumerate}
-    \item Ma sát xoay và Hiện tượng "Cày lốp" (Scrubbing): Một vấn đề vật lý nghiêm trọng của bánh xe lái là hiện tượng ma sát xoay khi robot cần đổi hướng mà vận tốc lăn thấp hoặc bằng không. Để thay đổi góc $\beta$, động cơ lái phải thắng được mô-men ma sát trượt xoay (twisting friction) rất lớn giữa bề mặt lốp và mặt đường \cite{gillespie1992}. Điều này không chỉ gây mài mòn lốp nhanh chóng (tire wear) mà còn đòi hỏi động cơ lái phải có mô-men xoắn cực đại lớn, làm tăng kích thước và tiêu thụ năng lượng của hệ thống.
-    \item Giới hạn tốc độ lái và Phối hợp điều khiển: Trong lý thuyết, góc lái $\beta$ có thể thay đổi tức thời. Tuy nhiên, trong thực tế, tốc độ thay đổi góc lái ($\beta$) bị giới hạn bởi động lực học của cơ cấu chấp hành. Nếu bộ điều khiển yêu cầu thay đổi hướng quá nhanh so với vận tốc lăn của robot, bánh xe sẽ bị trượt ngang (lateral slip), vi phạm ràng buộc (4). Do đó, các thuật toán điều khiển hiện đại cho robot dùng bánh lái (như Ackermann hoặc Tricycle) đòi hỏi sự phối hợp đồng bộ (coordinated control) chặt chẽ giữa vận tốc lăn $\varphi$ và vận tốc lái $\beta$ để đảm bảo quỹ đạo mượt mà \cite{deluca1998}.
-    \item Sai số cơ khí (Backlash): Hệ thống truyền động lái (thường dùng bánh răng hoặc trục vít) luôn tồn tại độ rơ (backlash). Sai số này làm cho góc lái thực tế lệch so với góc lái đo được từ encoder, dẫn đến sai số trong bài toán định vị (Odometry) lớn hơn so với bánh xe cố định.
+    \item Ma sát xoay và hiện tượng cày lốp: Một vấn đề vật lý nghiêm trọng của bánh xe lái là hiện tượng ma sát xoay khi robot cần đổi hướng mà vận tốc lăn thấp hoặc bằng không. Để thay đổi góc $\beta$, động cơ lái phải thắng được mô-men ma sát trượt xoay rất lớn giữa bề mặt lốp và mặt đường \cite{gillespie1992}. Điều này không chỉ gây mài mòn lốp nhanh chóng mà còn đòi hỏi động cơ lái phải có mô-men xoắn cực đại lớn, làm tăng kích thước và tiêu thụ năng lượng của hệ thống.
+    \item Giới hạn tốc độ lái và Phối hợp điều khiển: Trong lý thuyết, góc lái $\beta$ có thể thay đổi tức thời. Tuy nhiên, trong thực tế, tốc độ thay đổi góc lái ($\beta$) bị giới hạn bởi động lực học của cơ cấu chấp hành. Nếu bộ điều khiển yêu cầu thay đổi hướng quá nhanh so với vận tốc lăn của robot, bánh xe sẽ bị trượt ngang, vi phạm ràng buộc (4). Do đó, các thuật toán điều khiển hiện đại cho robot dùng bánh lái (như Ackermann hoặc Tricycle) đòi hỏi sự phối hợp đồng bộ chặt chẽ giữa vận tốc lăn $\varphi$ và vận tốc lái $\beta$ để đảm bảo quỹ đạo mượt mà \cite{deluca1998}.
+    \item Sai số cơ khí: Hệ thống truyền động lái (thường dùng bánh răng hoặc trục vít) luôn tồn tại độ rơ. Sai số này làm cho góc lái thực tế lệch so với góc lái đo được từ encoder, dẫn đến sai số trong bài toán định vị lớn hơn so với bánh xe cố định.
 \end{enumerate}
 
 Ứng dụng điển hình của bánh xe lái là trong các robot nông nghiệp cỡ lớn, xe tự hành ngoài trời hoặc các robot giao hàng tốc độ cao, nơi cần kết hợp giữa lực kéo mạnh và khả năng điều hướng ổn định theo kiểu ô tô.
@@ -280,21 +271,18 @@ Ràng buộc trượt của bánh xoay tự do:
     \end{split}
 \end{equation}
 
-Sự khác biệt cốt lõi giữa bánh Caster và bánh lái tiêu chuẩn nằm ở tham số $d$ (khoảng cách lệch tâm giữa trục lái và điểm tiếp xúc) trong phương trình (6). Sự xuất hiện của thành phần $d\dot{\beta}$ mang ý nghĩa vật lý quan trọng: mọi chuyển động ngang (trượt) của khung robot tại điểm gắn kết đều có thể được triệt tiêu bằng một tốc độ xoay $\dot{\beta}$ phù hợp của bánh xe.
-Điều này dẫn đến một kết luận quan trọng: Nếu khớp xoay là tự do (ma sát thấp), bánh xe Caster không áp đặt bất kỳ ràng buộc động học nào lên chuyển động tổng thể của robot [17]. Robot có thể di chuyển theo bất kỳ quỹ đạo nào, và bánh Caster sẽ tự động xoay để "đi theo" (follow) chuyển động đó.
+Sự khác biệt cốt lõi giữa \textit{bánh xe xoay tự do} và bánh lái tiêu chuẩn nằm ở tham số $d$ (khoảng cách lệch tâm giữa trục lái và điểm tiếp xúc) trong phương trình (6). Sự xuất hiện của thành phần $d\dot{\beta}$ mang ý nghĩa vật lý quan trọng: mọi chuyển động ngang (trượt) của khung robot tại điểm gắn kết đều có thể được triệt tiêu bằng một tốc độ xoay $\dot{\beta}$ phù hợp của bánh xe.
+Điều này dẫn đến một kết luận quan trọng: Nếu khớp xoay là tự do (ma sát thấp), \textit{bánh xe xoay tự do} không áp đặt bất kỳ ràng buộc động học nào lên chuyển động tổng thể của robot [17]. Robot có thể di chuyển theo bất kỳ quỹ đạo nào, và \textit{bánh xe xoay tự do} sẽ tự động xoay để đi theo chuyển động đó.
 
-Các vấn đề Hiện đại và Thách thức Động lực học: Mặc dù về mặt hình học (kinematics), bánh Caster rất hoàn hảo để làm bánh phụ trợ, nhưng về mặt động lực học (dynamics), chúng gây ra nhiều vấn đề phức tạp cho các robot hiện đại:
+Các vấn đề hiện đại và thách thức động lực học: Mặc dù về mặt hình học, bánh xe xoay tự do rất hoàn hảo để làm bánh phụ trợ, nhưng về mặt động lực học, chúng gây ra nhiều vấn đề phức tạp cho các robot hiện đại:
 
 \begin{enumerate}
-    \item Hiện tượng Rung lắc (Caster Flutter/Shimmy):Đây là một vấn đề kinh điển nhưng vẫn là thách thức trong thiết kế robot tốc độ cao. Khi di chuyển nhanh, bánh Caster thường xảy ra hiện tượng dao động tự kích (self-excited oscillation) quanh trục lái, gây rung lắc dữ dội cho thân robot. Điều này xuất phát từ sự tương tác phức tạp giữa độ đàn hồi của lốp, độ lệch tâm $d$ và ma sát, điều mà các mô hình động học (5) và (6) không mô tả được [18]. Các robot hiện đại thường phải sử dụng bộ giảm chấn (damper) hoặc thiết kế tối ưu hóa độ cứng lốp để triệt tiêu hiện tượng này.
-    \item Hiệu ứng "Đảo chiều" (Turn-around Effect): Khi robot đổi hướng di chuyển đột ngột (ví dụ: từ tiến sang lùi), bánh Caster phải thực hiện một hành trình xoay 180 độ quanh trục đứng để căn chỉnh lại. Quá trình này tạo ra một khoảng "trễ" và một lực phản hồi bất định lên khung robot, gây ra sai số vị trí lớn (Odometry error) và làm quỹ đạo thực tế bị giật cục. Trong các thuật toán định vị hiện đại (SLAM), hành vi khó đoán này của bánh Caster thường được coi là nhiễu (noise).
-    \item Xu hướng mới: Active Caster (Bánh Caster chủ động): Để khắc phục tính bị động, một xu hướng nghiên cứu hiện đại là Active Caster (hay Powered Caster). Thay vì để bánh tự xoay do ma sát, người ta gắn động cơ vào cả trục lăn và trục lái. Khi đó, hệ thống trở thành một mô đun truyền động đa hướng (omnidirectional drive) mạnh mẽ, cho phép robot di chuyển holonomic mà không cần dùng bánh Mecanum đắt tiền [19].
+    \item Hiện tượng rung lắc: Đây là một vấn đề kinh điển nhưng vẫn là thách thức trong thiết kế robot tốc độ cao. Khi di chuyển nhanh, \textit{bánh xe xoay tự do} thường xảy ra hiện tượng dao động tự kích quanh trục lái, gây rung lắc dữ dội cho thân robot. Điều này xuất phát từ sự tương tác phức tạp giữa độ đàn hồi của lốp, độ lệch tâm $d$ và ma sát, điều mà các mô hình động học (5) và (6) không mô tả được [18]. Các robot hiện đại thường phải sử dụng bộ giảm chấn hoặc thiết kế tối ưu hóa độ cứng lốp để triệt tiêu hiện tượng này.
+    \item Hiệu ứng đảo chiều: Khi robot đổi hướng di chuyển đột ngột (ví dụ: từ tiến sang lùi), \textit{bánh xe xoay tự do} phải thực hiện một hành trình xoay 180 độ quanh trục đứng để căn chỉnh lại. Quá trình này tạo ra một khoảng "trễ" và một lực phản hồi bất định lên khung robot, gây ra sai số vị trí lớn (Odometry error) và làm quỹ đạo thực tế bị giật cục. Trong các thuật toán định vị hiện đại (SLAM), hành vi khó đoán này của \textit{bánh xe xoay tự do} thường được coi là nhiễu (noise).
+    \item Xu hướng mới: (\textit{bánh xe xoay tự do chủ động}): Để khắc phục tính bị động, một xu hướng nghiên cứu hiện đại là Active Caster (hay Powered Caster). Thay vì để bánh tự xoay do ma sát, người ta gắn động cơ vào cả trục lăn và trục lái. Khi đó, hệ thống trở thành một mô đun truyền động đa hướng mạnh mẽ, cho phép robot di chuyển holonomic mà không cần dùng bánh Mecanum đắt tiền [19].
 \end{enumerate}
 
-Tóm lại, bánh Caster là giải pháp rẻ tiền và hiệu quả để duy trì cân bằng tĩnh, nhưng sự phức tạp về động lực học của nó đòi hỏi sự cân nhắc kỹ lưỡng trong thiết kế robot chính xác cao.
-
-%-----
-
+Tóm lại, \textit{bánh xe xoay tự do} là giải pháp rẻ tiền và hiệu quả để duy trì cân bằng tĩnh, nhưng sự phức tạp về động lực học của nó đòi hỏi sự cân nhắc kỹ lưỡng trong thiết kế robot chính xác cao.
 
 % -----------------------
 
@@ -308,7 +296,7 @@ Khả năng này đạt được bằng cách gắn các con lăn bị động v
 
 % ======================================================================
 
-% ----- BÁNH XE OMNI -----
+% ----- BÁNH XE omni -----
 
 \subsubsection{Bánh xe omni (omni wheel)}
 
@@ -319,34 +307,34 @@ Khả năng này đạt được bằng cách gắn các con lăn bị động v
     \label{fig:fig1500}
 \end{figure}
 
-Cấu tạo và Nguyên lý: Bánh xe Omni (hay còn gọi là Universal Wheel) bao gồm một vành bánh xe chính và các con lăn nhỏ (passive rollers) được gắn dọc theo chu vi. Đặc điểm hình học cốt lõi là trục quay của các con lăn này vuông góc (90 độ) với trục quay chính của bánh xe \cite{patil2024, kanjanawanishkul2015}. Nguyên lý hoạt động dựa trên sự tách biệt chuyển động:
+Cấu tạo và nguyên lý: Bánh xe omni (hay còn gọi là Universal Wheel) bao gồm một vành bánh xe chính và các con lăn nhỏ được gắn dọc theo chu vi. Đặc điểm hình học cốt lõi là trục quay của các con lăn này vuông góc ($90 ^{\circ}$) với trục quay chính của bánh xe \cite{patil2024, kanjanawanishkul2015}. Nguyên lý hoạt động dựa trên sự tách biệt chuyển động:
 
 \begin{itemize}
-    \item Động cơ dẫn động trục chính tạo ra lực đẩy chủ động (active traction) theo hướng dọc.
-    \item Các con lăn tự do cho phép bánh xe trượt thụ động (passive motion) theo phương ngang. Sự kết hợp của nhiều bánh xe Omni (thường là 3 hoặc 4) cho phép tổng hợp véc-tơ vận tốc theo bất kỳ hướng nào \cite{kanjanawanishkul2015, komori2016}.
+    \item Động cơ dẫn động trục chính tạo ra lực đẩy chủ động theo hướng dọc.
+    \item Các con lăn tự do cho phép bánh xe trượt thụ động theo phương ngang. Sự kết hợp của nhiều bánh xe omni (thường là 3 hoặc 4) cho phép tổng hợp véc-tơ vận tốc theo bất kỳ hướng nào \cite{komori2016, kanjanawanishkul2015}.
 \end{itemize}
 
-Các Biến thể Cấu trúc và Giảm chấn (Structural Variations): Một nhược điểm cố hữu của thiết kế Omni cổ điển là sự không liên tục của điểm tiếp xúc (discontinuous contact points). Giữa các con lăn luôn tồn tại khoảng hở, gây ra rung động dọc (vertical vibration) khi bánh xe quay. Ferrière và các cộng sự \cite{ferriere1996} đã phân tích rằng biên độ rung động này phụ thuộc trực tiếp vào kích thước khe hở và bán kính con lăn. Để khắc phục, các biến thể cấu trúc hiện đại đã được phát triển:
+Các biến thể cấu trúc và giảm chấn: Một nhược điểm cố hữu của thiết kế omni cổ điển là sự không liên tục của điểm tiếp xúc. Giữa các con lăn luôn tồn tại khoảng hở, gây ra rung động dọc khi bánh xe quay. Ferrière và các cộng sự \cite{ferriere1996} đã phân tích rằng biên độ rung động này phụ thuộc trực tiếp vào kích thước khe hở và bán kính con lăn. Để khắc phục, các biến thể cấu trúc hiện đại đã được phát triển:
 
 \begin{itemize}
-    \item Bánh Omni Kép (Dual-row / Double Wheel): Sử dụng hai đĩa bánh xe ghép lại, lệch pha nhau để đảm bảo biên dạng tiếp xúc liên tục. Tuy nhiên, thiết kế này làm tăng bề rộng và khối lượng bánh xe.
-    \item Thiết kế Con lăn Xen kẽ (Alternate Concept): Các con lăn được thiết kế đan xen (interpenetrated) để giảm thiểu khe hở mà không cần dùng bánh kép, giúp giảm rung động hiệu quả.
+    \item Bánh omni kép: Sử dụng hai đĩa bánh xe ghép lại, lệch pha nhau để đảm bảo biên dạng tiếp xúc liên tục. Tuy nhiên, thiết kế này làm tăng bề rộng và khối lượng bánh xe.
+    \item Thiết kế con lăn Xen kẽ: Các con lăn được thiết kế đan xen để giảm thiểu khe hở mà không cần dùng bánh kép, giúp giảm rung động hiệu quả.
 \end{itemize}
 
-\textbf{Phân tích Động lực học Trượt (Slip Dynamics - Modern Issue)}: Trong các nghiên cứu hiện đại, mô hình động học lý tưởng (lăn không trượt) đã được chứng minh là không đủ chính xác. Williams và các cộng sự \cite{williams2002} đã phát hiện ra rằng phần vật liệu cứng nằm giữa các con lăn (discontinuities) đóng vai trò quan trọng trong việc gây ra hiện tượng trượt (slip), ngay cả ở tốc độ thấp. Nghiên cứu thực nghiệm chỉ ra rằng hệ số ma sát trong hướng lăn ($\mu_W$) và hướng trượt ngang ($\mu_T$) là khác nhau đáng kể (ví dụ: $\mu_W \approx 0.26$ so với $\mu_T \approx 0.09$ trên bề mặt giấy). Do đó, các bộ điều khiển robot hiện đại cần tích hợp mô hình ma sát phi tuyến để bù trừ sai số trượt này, thay vì chỉ dựa vào mô hình hình học thuần túy.
+\textbf{Phân tích Động lực học Trượt}: Trong các nghiên cứu hiện đại, mô hình động học lý tưởng (lăn không trượt) đã được chứng minh là không đủ chính xác. Williams và các cộng sự \cite{williams2002} đã phát hiện ra rằng phần vật liệu cứng nằm giữa các con lăn đóng vai trò quan trọng trong việc gây ra hiện tượng trượt, ngay cả ở tốc độ thấp. Nghiên cứu thực nghiệm chỉ ra rằng hệ số ma sát trong hướng lăn ($\mu_W$) và hướng trượt ngang ($\mu_T$) là khác nhau đáng kể (ví dụ: $\mu_W \approx 0.26$ so với $\mu_T \approx 0.09$ trên bề mặt giấy). Do đó, các bộ điều khiển robot hiện đại cần tích hợp mô hình ma sát phi tuyến để bù trừ sai số trượt này, thay vì chỉ dựa vào mô hình hình học thuần túy.
 
-Đột phá về Vật liệu (Material Innovation - 2024): Xu hướng "nhẹ hóa" robot đang thúc đẩy việc thay thế các vật liệu kim loại truyền thống. Nghiên cứu mới nhất của Patil và các cộng sự \cite{patil2024} đã đề xuất sử dụng vật liệu Composite sợi Carbon gia cường (Carbon Fiber Reinforced Polymer) để chế tạo đĩa bánh xe omni thay cho nhôm.
+Đột phá về Vật liệu: Xu hướng "nhẹ hóa" robot đang thúc đẩy việc thay thế các vật liệu kim loại truyền thống. Nghiên cứu mới nhất của Patil và các cộng sự \cite{patil2024} đã đề xuất sử dụng vật liệu Composite sợi Carbon gia cường (Carbon Fiber Reinforced Polymer) để chế tạo đĩa bánh xe omni thay cho nhôm.
 
 \begin{itemize}
-    \item Sử dụng phương pháp đắp tay (hand lay-up) với nhựa epoxy, đĩa bánh xe sợi carbon đạt được độ bền uốn (bending strength) lên tới 2.2 KN.
+    \item Sử dụng phương pháp đắp tay với nhựa epoxy, đĩa bánh xe sợi carbon đạt được độ bền uốn lên tới 2.2 kN.
     \item Mô phỏng ANSYS cho thấy biến dạng tối đa chỉ tập trung ở vùng cổ răng bánh xe và nằm trong giới hạn an toàn. Đây là bước tiến quan trọng giúp giảm quán tính quay của bánh xe, từ đó nâng cao khả năng tăng tốc và tiết kiệm năng lượng cho robot.
 \end{itemize}
 
-Hướng nghiên cứu mới: Bánh Omni Chủ động (Active Omni Wheel): Một hạn chế lớn của bánh Omni thường là khó kiểm soát chính xác chuyển động thụ động của con lăn do lực cản lăn không xác định. Để giải quyết vấn đề này, Komori và các cộng sự \cite{komori2016} đã đề xuất cơ cấu bánh omni chủ động.
+Hướng nghiên cứu mới: Bánh omni Chủ động (Active omni Wheel): Một hạn chế lớn của bánh omni thường là khó kiểm soát chính xác chuyển động thụ động của con lăn do lực cản lăn không xác định. Để giải quyết vấn đề này, Komori và các cộng sự \cite{komori2016} đã đề xuất cơ cấu bánh omni chủ động.
 
 \begin{itemize}
-    \item Thiết kế này sử dụng cơ cấu vi sai (differential gear) để dẫn động chủ động cả trục bánh xe chính và trục của các con lăn con.
-    \item Kết quả là một bánh xe duy nhất có thể chủ động di chuyển theo hướng bất kỳ (active motion in arbitrary direction) mà không cần phụ thuộc vào lực kéo của các bánh xe khác, mở ra khả năng thiết kế các loại xe vận chuyển đa hướng với cấu hình linh hoạt hơn.
+    \item Thiết kế này sử dụng cơ cấu vi sai để dẫn động chủ động cả trục bánh xe chính và trục của các con lăn con.
+    \item Kết quả là một bánh xe duy nhất có thể chủ động di chuyển theo hướng bất kỳ mà không cần phụ thuộc vào lực kéo của các bánh xe khác, mở ra khả năng thiết kế các loại xe vận chuyển đa hướng với cấu hình linh hoạt hơn.
 \end{itemize}
 
 % ======================================================================
@@ -406,28 +394,28 @@ Bánh xe Mecanum đại diện cho giải pháp kỹ thuật phổ biến nhất
     \label{fig:fig_gunther2014}
 \end{figure}
 
-\textbf{Lịch sử và Cấu hình Hình học:} Được phát minh vào năm 1973 bởi Bengt Ilon tại Thụy Điển \cite{ilon1975, wikipedia_mecanum_wheel}, bánh xe Mecanum có cấu tạo gồm một trục chính và các con lăn thụ động (rollers) bao quanh. Đặc điểm nhận dạng là trục của các con lăn tạo một góc $\alpha = 45^{\circ}$ so với trục bánh xe.
+\textbf{Lịch sử và Cấu hình Hình học:} Được phát minh vào năm 1973 bởi Bengt Ilon tại Thụy Điển \cite{ilon1975, wikipedia_mecanum_wheel}, bánh xe Mecanum có cấu tạo gồm một trục chính và các con lăn thụ động bao quanh. Đặc điểm nhận dạng là trục của các con lăn tạo một góc $\alpha = 45^{\circ}$ so với trục bánh xe.
 
 \begin{itemize}
     \item \textbf{Chế tạo:} Salih và các cộng sự \cite{salih2006} đã mô tả chi tiết quy trình chế tạo một bánh Mecanum tùy chỉnh gồm 9 con lăn làm từ vật liệu Delrin (một loại nhựa kỹ thuật có độ ma sát thấp và độ cứng cao), giúp giảm thiểu mài mòn khi trượt ngang.
-    \item \textbf{Bố trí:} Để robot hoạt động đúng, 4 bánh xe phải được lắp đặt theo quy tắc hình chữ nhật hoặc hình vuông, sao cho các trục con lăn tạo thành hình chữ X hướng vào tâm robot khi nhìn từ trên xuống \cite{hasana2021, salih2006}.
+    \item \textbf{Bố trí:} Để robot hoạt động đúng, 4 bánh xe phải được lắp đặt theo quy tắc hình chữ nhật hoặc hình vuông, sao cho các trục con lăn tạo thành hình chữ X hướng vào tâm robot khi nhìn từ trên xuống \cite{salih2006, hasana2021}.
 \end{itemize}
 
 \textbf{Cơ chế Tạo lực và Động học:} Nguyên lý vận hành dựa trên việc phân tách véc-tơ lực ma sát. Khi bánh xe quay, lực tác dụng lên mặt đất nghiêng $45^{\circ}$.
 
 \begin{itemize}
     \item \textbf{Phối hợp véc-tơ:} Bằng cách điều khiển độc lập chiều quay và tốc độ của 4 bánh, các thành phần lực dọc và ngang có thể cộng hưởng hoặc triệt tiêu. Ví dụ, Salih và các cộng sự \cite{salih2006} đã thực nghiệm và chỉ ra rằng để di chuyển ngang (sideways), các bánh chéo nhau phải quay cùng chiều, trong khi hai bánh cùng bên quay ngược chiều.
-    \item \textbf{Vấn đề Trượt (Slippage):} Mặc dù mô hình động học lý thuyết (dựa trên ma trận Jacobian) rất hoàn hảo \cite{dyakov2024}, Ignatiev và các cộng sự \cite{ignatiev2016} và Salih và các cộng sự \cite{salih2006} đều nhấn mạnh rằng trong thực tế, hiện tượng trượt là không thể tránh khỏi do diện tích tiếp xúc nhỏ (điểm) của con lăn. Điều này làm giảm độ chính xác của phương pháp định vị bằng Odometry (đếm xung encoder), đòi hỏi các giải pháp bù trừ sai số.
+    \item \textbf{Vấn đề Trượt:} Mặc dù mô hình động học lý thuyết (dựa trên ma trận Jacobian) rất hoàn hảo \cite{dyakov2024}, Ignatiev và các cộng sự \cite{ignatiev2016} và Salih và các cộng sự \cite{salih2006} đều nhấn mạnh rằng trong thực tế, hiện tượng trượt là không thể tránh khỏi do diện tích tiếp xúc nhỏ (điểm) của con lăn. Điều này làm giảm độ chính xác của phương pháp định vị bằng việc đếm xung encoder, đòi hỏi các giải pháp bù trừ sai số.
 \end{itemize}
 
 \textbf{Vấn đề Hiện đại: Rung động và Tối ưu hóa Thiết kế:} Nhược điểm lớn nhất của bánh Mecanum là rung động do sự không liên tục của điểm tiếp xúc khi chuyển giao giữa các con lăn.
 
 \begin{itemize}
-    \item \textbf{Phân tích Rung động:} Bae và Kang \cite{bae2016} đã đo đạc thực nghiệm và phát hiện ra gia tốc rung động dọc trục có tính bất đối xứng (asymmetric acceleration), tăng mạnh ở tốc độ cao.
-    \item \textbf{Tối ưu hóa Topo (Topology Optimization):} Để khắc phục, Doroliat và các cộng sự \cite{doroliat2022} đề xuất sử dụng thuật toán tối ưu hóa topo để thiết kế lại cấu trúc bên trong của lớp cao su bọc con lăn. Bằng cách thay đổi độ dày vật liệu tại các vị trí khác nhau, họ tạo ra độ cứng tiếp xúc đồng nhất (uniform stiffness), giúp giảm rung động tới 30\%.
+    \item \textbf{Phân tích Rung động:} Bae và Kang \cite{bae2016} đã đo đạc thực nghiệm và phát hiện ra gia tốc rung động dọc trục có tính bất đối xứng, tăng mạnh ở tốc độ cao.
+    \item \textbf{Tối ưu hóa Topo:} Để khắc phục, Doroliat và các cộng sự \cite{doroliat2022} đề xuất sử dụng thuật toán tối ưu hóa topo để thiết kế lại cấu trúc bên trong của lớp cao su bọc con lăn. Bằng cách thay đổi độ dày vật liệu tại các vị trí khác nhau, họ tạo ra độ cứng tiếp xúc đồng nhất, giúp giảm rung động tới 30\%.
 \end{itemize}
 
-\textbf{Hệ thống Điều khiển và Tích hợp (System Integration):} Sự phát triển của bánh Mecanum gắn liền với sự tiến bộ của hệ thống nhúng.
+\textbf{Hệ thống Điều khiển và Tích hợp:} Sự phát triển của bánh Mecanum gắn liền với sự tiến bộ của hệ thống nhúng.
 
 \begin{itemize}
     \item \textbf{Điều khiển cơ bản:} Salih và các cộng sự \cite{salih2006} trình bày kiến trúc điều khiển kinh điển sử dụng vi điều khiển (như BasicStamp) kết hợp với mạch cầu H để điều xung PWM độc lập cho 4 động cơ DC, cho phép thực hiện các chuyển động cơ bản.
@@ -470,10 +458,9 @@ Chúng ta có thể phân biệt hai loại chính: bánh cầu bị động và
     \item Bánh cầu bị động: Nó hoạt động như một bánh xe xoay tự do đa hướng, bị động.
           Thường được dùng làm bánh xe hỗ trợ (thứ ba hoặc thứ tư) để giữ thăng bằng cho các robot có cấu trúc dẫn động vi sai.
     \item Bánh cầu chủ động: Đây là một cơ cấu cơ khí cực kỳ phức tạp, trong đó quả cầu được chủ động điều khiển để tạo lực đẩy.
-          Quả cầu được giữ trong một hốc (socket) và tiếp xúc trực tiếp với các con lăn (rollers) 
-          hoặc động cơ được đặt bên trong cơ cấu. Bằng cách điều khiển các con lăn này 
+          Quả cầu được giữ trong một hốc và tiếp xúc trực tiếp với các con lăn hoặc động cơ được đặt bên trong cơ cấu. Bằng cách điều khiển các con lăn này 
           (ví dụ, hai con lăn đặt vuông góc với nhau), cơ cấu có thể làm quả cầu quay theo bất kỳ trục nào trên mặt phẳng \cite{Lauwers2006, mukherjee1999}.
-          Một bánh xe cầu chủ động là một cơ cấu truyền động đa hướng (holonomic) hoàn chỉnh. 
+          Một bánh xe cầu chủ động là một cơ cấu truyền động đa hướng hoàn chỉnh. 
           Một robot được trang bị 3 hoặc 4 bánh xe này có thể di chuyển theo mọi hướng và xoay đồng thời, 
           tương tự như bánh Mecanum nhưng tiềm năng về độ mượt mà và khả năng vượt địa hình gồ ghề (nhẹ) tốt hơn \cite{nagarajan2009}.
           Ưu điểm là khả năng cơ động đa hướng tuyệt đối. 
@@ -527,7 +514,7 @@ Bánh xe Origami đại diện cho một hướng đi đột phá trong thiết 
 \end{figure}
 
 \begin{itemize}
-    \item Lee và cộng sự \cite{DYLee2013, DYLee2017} đã tiên phong phát triển bánh xe biến đổi đường kính dựa trên mẫu gấp "Magic Ball". Cấu trúc này cho phép bánh xe thay đổi đường kính một cách đáng kể (ví dụ: từ 30mm lên 68mm hoặc từ 4cm lên 11cm) mà vẫn duy trì độ tròn tương đối để lăn. Điều này giúp robot có thể thu nhỏ để chui qua khe hẹp hoặc mở rộng để leo qua các bậc thang cao.
+    \item Lee và cộng sự \cite{DYLee2017, DYLee2013} đã tiên phong phát triển bánh xe biến đổi đường kính dựa trên mẫu gấp "Magic Ball". Cấu trúc này cho phép bánh xe thay đổi đường kính một cách đáng kể (ví dụ: từ 30mm lên 68mm hoặc từ 4cm lên 11cm) mà vẫn duy trì độ tròn tương đối để lăn. Điều này giúp robot có thể thu nhỏ để chui qua khe hẹp hoặc mở rộng để leo qua các bậc thang cao.
     \item Mặc dù được chế tạo từ vật liệu mềm (như vải cốt hợp kim hoặc composite polymer), cấu trúc Origami liên kết kín cho phép bánh xe chịu được tải trọng rất lớn, lên tới hơn 400 lần trọng lượng của chính nó, đảm bảo tính khả thi cho các ứng dụng thực tế.
 \end{itemize}
 
@@ -546,7 +533,7 @@ Bánh xe Origami đại diện cho một hướng đi đột phá trong thiết 
     \item Khác với việc thay đổi đường kính, Liu và cộng sự \cite{JLiu2024} gần đây đã giới thiệu một thiết kế bánh xe Origami có khả năng thay đổi bề rộng . Cơ chế này giúp tăng diện tích tiếp xúc khi di chuyển trên nền cát hoặc đất mềm (giảm áp suất mặt đất để tránh sụt lún) và thu hẹp lại khi đi trên nền cứng để giảm ma sát.
 \end{itemize}
 
-Bánh xe Origami cung cấp giải pháp "biến hình" linh hoạt: sử dụng bánh xe lớn/mỏng để di chuyển tốc độ cao trên đường bằng và bánh xe nhỏ/rộng để vượt chướng ngại vật hoặc địa hình yếu. Thách thức chính hiện nay nằm ở độ bền mỏi của các nếp gấp vật liệu và tốc độ phản hồi của cơ cấu chấp hành (đặc biệt là SMA).
+Bánh xe Origami cung cấp giải pháp biến hình linh hoạt: sử dụng bánh xe lớn/mỏng để di chuyển tốc độ cao trên đường bằng và bánh xe nhỏ/rộng để vượt chướng ngại vật hoặc địa hình yếu. Thách thức chính hiện nay nằm ở độ bền mỏi của các nếp gấp vật liệu và tốc độ phản hồi của cơ cấu chấp hành (đặc biệt là SMA).
 
 Công nghệ bánh xe Origami đang chuyển dịch từ các mô hình thử nghiệm khái niệm sang các thiết kế tối ưu hóa cho môi trường phi cấu trúc đặc thù (như sa mạc, đống đổ nát), mở ra tiềm năng cho các robot cứu hộ và thám hiểm thế hệ mới với khả năng thích ứng hình học chưa từng có.
 
@@ -598,7 +585,7 @@ Từ bảng so sánh, ta có thể rút ra ba xu hướng thiết kế chính tr
     \item Hiệu suất Năng lượng:
     \begin{itemize}
         \item Bánh xe cố định và bánh lái tận dụng ma sát lăn thuần túy, tiêu tốn ít năng lượng nhất.
-        \item Bánh Omni và Mecanum tiêu tốn năng lượng đáng kể do lực ma sát trượt nội tại giữa các con lăn và trục, cũng như việc các véc-tơ lực của 4 bánh thường triệt tiêu lẫn nhau khi tạo chuyển động ngang. Đây là lý do chúng hiếm khi được dùng cho các robot chạy pin hoạt động ngoài trời trong thời gian dài.
+        \item Bánh omni và Mecanum tiêu tốn năng lượng đáng kể do lực ma sát trượt nội tại giữa các con lăn và trục, cũng như việc các véc-tơ lực của 4 bánh thường triệt tiêu lẫn nhau khi tạo chuyển động ngang. Đây là lý do chúng hiếm khi được dùng cho các robot chạy pin hoạt động ngoài trời trong thời gian dài.
     \end{itemize}
 \end{enumerate}
 
@@ -672,7 +659,7 @@ Ballbot là một dạng robot di động cân bằng động trên một bánh 
 Cơ cấu truyền động là yếu tố cốt lõi để Ballbot giữ thăng bằng và di chuyển. Có hai phương pháp truyền động chính:
 
 \begin{itemize}
-    \item Cơ cấu lái chuột bi ngược (Inverse Mouse-Ball Drive): Được tiên phong bởi nhóm nghiên cứu tại Đại học Carnegie Mellon (CMU) với robot "Ballbot" ban đầu. Cơ cấu này sử dụng các con lăn ma sát ép vào quả bóng để truyền mô-men xoắn. Phiên bản đầu tiên gặp vấn đề dao động "nhảy" (hopping motion), nhưng phiên bản cải tiến sử dụng bốn động cơ DC servo điều khiển bốn con lăn chủ động đã khắc phục được điều này \cite{Nagarajan2013}. Bóng được sử dụng có thể là lõi nhôm phủ urethane để tăng độ bền và ma sát \cite{Lauwers2006}.
+    \item Cơ cấu lái chuột bi ngược (Inverse Mouse-Ball Drive): Được tiên phong bởi nhóm nghiên cứu tại Đại học Carnegie Mellon (CMU) với robot "Ballbot" ban đầu. Cơ cấu này sử dụng các con lăn ma sát ép vào quả bóng để truyền mô-men xoắn. Phiên bản đầu tiên gặp vấn đề dao động nhảy, nhưng phiên bản cải tiến sử dụng bốn động cơ DC servo điều khiển bốn con lăn chủ động đã khắc phục được điều này \cite{Nagarajan2013}. Bóng được sử dụng có thể là lõi nhôm phủ urethane để tăng độ bền và ma sát \cite{Lauwers2006}.
     
 \begin{figure}[!htbp]
     \centering
@@ -718,7 +705,7 @@ Các phương pháp điều khiển đa dạng từ tuyến tính cổ điển �
         \item Observer \& Feedback: Park sử dụng bộ bù bao gồm một bộ quan sát vòng kín và phản hồi trạng thái đầy đủ để giảm thiểu sai số mô hình \cite{Park2024}.
     \end{itemize}
 
-    \item Ước lượng góc nghiêng: Việc sử dụng bộ lọc Kalman hoặc bộ lọc bù (Complementary Filter) để hợp nhất dữ liệu từ gia tốc kế và con quay hồi chuyển là tiêu chuẩn để có được góc nghiêng chính xác, loại bỏ nhiễu và trôi \cite{HYHYHan2014, Park2024}.
+    \item Ước lượng góc nghiêng: Việc sử dụng bộ lọc Kalman hoặc bộ lọc bù để hợp nhất dữ liệu từ gia tốc kế và con quay hồi chuyển là tiêu chuẩn để có được góc nghiêng chính xác, loại bỏ nhiễu và trôi \cite{HYHYHan2014, Park2024}.
 \end{itemize}
 
 Sự ổn định động của Ballbot mở ra các ứng dụng tương tác vật lý thú vị:
@@ -746,7 +733,7 @@ Ballbot đại diện cho một lớp robot di động hứa hẹn với khả n
 
 Robot dạng cầu là một loại robot di động độc đáo với toàn bộ hệ thống cơ khí, điện tử và nguồn năng lượng được bao bọc hoàn toàn bên trong một vỏ hình cầu kín. Đặc điểm cấu trúc này mang lại cho robot dạng cầu những ưu thế vượt trội so với robot bánh xe hoặc robot chân truyền thống, bao gồm khả năng tự cân bằng, di chuyển đa hướng, và khả năng chống chịu cao với các yếu tố môi trường như bụi bẩn, độ ẩm hoặc sự ăn mòn. Tuy nhiên, do đặc tính tiếp xúc điểm với mặt đất và cơ chế truyền động gián tiếp, robot dạng cầu là một hệ thống phi tuyến tính cao, thiếu cơ cấu chấp hành và chịu các ràng buộc không holonomic, đặt ra nhiều thách thức lớn trong việc thiết kế và điều khiển.
 
-Nguyên lý di chuyển của robot dạng cầu chủ yếu dựa vào việc thay đổi trọng tâm (Barycentric method) hoặc bảo toàn mô-men động lượng. Các thiết kế có thể được phân loại thành ba nhóm chính:
+Nguyên lý di chuyển của robot dạng cầu chủ yếu dựa vào việc thay đổi trọng tâm hoặc bảo toàn mô-men động lượng. Các thiết kế có thể được phân loại thành ba nhóm chính:
 
 \begin{itemize}
     \item Cơ chế Dịch chuyển Trọng tâm: Đây là phương pháp phổ biến nhất. Robot di chuyển bằng cách thay đổi vị trí của một khối lượng bên trong, làm lệch trọng tâm của cả hệ thống và tạo ra mô-men xoắn làm quay vỏ cầu.
@@ -772,7 +759,7 @@ Việc xây dựng mô hình toán học chính xác là bước tiên quyết �
 
 \begin{itemize}
     \item Phương pháp Lagrange: Hầu hết các nghiên cứu đều sử dụng phương trình Euler-Lagrange để mô tả động lực học hệ thống. Sang \cite{Sang2010} đã xây dựng mô hình động lực học cho robot cầu dựa trên năng lượng hệ thống, xem xét các ràng buộc lăn không trượt. J. Chen \cite{JChen2016} mở rộng phân tích động lực học cho robot cầu hoạt động trong môi trường dưới nước, nơi các lực thủy động lực học (lực cản, lực nổi) đóng vai trò quan trọng bên cạnh động lực học vật rắn thông thường.
-    \item Ràng buộc Không Holonomic: Đặc điểm lăn không trượt của robot cầu tạo ra các ràng buộc không holonomic (không thể tích phân trực tiếp để ra vị trí). Điều này được nhấn mạnh trong các nghiên cứu của Alves \cite{Alves2003} và Joshi \cite{Joshi2009}, làm cho việc lập kế hoạch quỹ đạo trở nên phức tạp hơn so với robot bánh xe thông thường.
+    \item Ràng buộc không holonomic: Đặc điểm lăn không trượt của robot cầu tạo ra các ràng buộc không holonomic (không thể tích phân trực tiếp để ra vị trí). Điều này được nhấn mạnh trong các nghiên cứu của Alves \cite{Alves2003} và Joshi \cite{Joshi2009}, làm cho việc lập kế hoạch quỹ đạo trở nên phức tạp hơn so với robot bánh xe thông thường.
 \end{itemize}
 
 Các phương pháp điều khiển đa dạng từ kinh điển đến hiện đại đã được áp dụng để giải quyết vấn đề ổn định và bám quỹ đạo:
@@ -1179,7 +1166,7 @@ Cấu trúc lái ba bánh là nền tảng kinh điển trong robot di động m
 Sự ổn định động lực học của robot phụ thuộc hoàn toàn vào cách bố trí khung gầm. Hai biến thể chính hiện nay là:
 
 \begin{itemize}
-    \item Cấu hình Delta (1F/2R): Đây là thiết kế tiêu chuẩn với một bánh lái phía trước và hai bánh sau cố định. Mặc dù có ưu điểm về cơ cấu lái servo đơn giản \cite{Widiawan2020}, các nghiên cứu của Vázquez-Rodríguez và các cộng sự \cite{VazquezRodriguez2018} và Licea và các cộng sự \cite{Licea2018} chỉ ra rằng cấu trúc này có "tam giác hỗ trợ" hẹp về phía trước, khiến robot cực kỳ dễ bị lật (rollover) khi phanh gấp hoặc vào cua tốc độ cao. Để khắc phục, Jaskot và Posiadała \cite{jaskot2018} nhấn mạnh việc phải đưa các thành phần lực ma sát trượt vào mô hình cấu trúc động lực học thay vì chỉ dùng mô hình hình học cứng nhắc, giúp dự đoán sớm các trạng thái mất ổn định.
+    \item Cấu hình Delta (1F/2R): Đây là thiết kế tiêu chuẩn với một bánh lái phía trước và hai bánh sau cố định. Mặc dù có ưu điểm về cơ cấu lái servo đơn giản \cite{Widiawan2020}, các nghiên cứu của Vázquez-Rodríguez và các cộng sự \cite{VazquezRodriguez2018} và Licea và các cộng sự \cite{Licea2018} chỉ ra rằng cấu trúc này có "tam giác hỗ trợ" hẹp về phía trước, khiến robot cực kỳ dễ bị lật khi phanh gấp hoặc vào cua tốc độ cao. Để khắc phục, Jaskot và Posiadała \cite{jaskot2018} nhấn mạnh việc phải đưa các thành phần lực ma sát trượt vào mô hình cấu trúc động lực học thay vì chỉ dùng mô hình hình học cứng nhắc, giúp dự đoán sớm các trạng thái mất ổn định.
     \item Cấu hình Tadpole (2F/1R): Để giải quyết vấn đề ổn định của Delta, cấu hình Tadpole (hai bánh trước, một bánh sau) được ưu tiên trong các ứng dụng tốc độ cao \cite{VazquezRodriguez2018}. Cấu trúc này yêu cầu cơ cấu lái Ackermann phức tạp hơn để đồng bộ hóa hai bánh trước, nhưng đổi lại, trọng tâm robot luôn nằm trong vùng hỗ trợ rộng nhất khi phanh, giúp giảm thiểu chỉ số lật (Rollover Index - RI) \cite{Licea2018}.
 \end{itemize}
 
@@ -1187,15 +1174,15 @@ Cấu trúc robot hiện đại không chỉ là khung sắt mà là một hệ 
 
 \begin{itemize}
     \item Kiến trúc Phân cấp (Hierarchical Architecture): Widiawan và các cộng sự \cite{Widiawan2020} đề xuất mô hình phần cứng phân cấp để khắc phục độ trễ truyền dẫn. Hệ thống sử dụng Raspberry Pi cho các tác vụ bậc cao (xử lý ảnh/IoT) và vi điều khiển ATMega328 để điều khiển động cơ thời gian thực.
-    \item Tích hợp Đa cảm biến: Do cấu trúc ba bánh dễ bị trượt ngang, phép đo hành trình (odometry) từ encoder thường thiếu chính xác. Chand \cite{chand2022} đã đề xuất tích hợp La bàn điện tử vào cấu trúc phần cứng. Dữ liệu hướng từ la bàn được hợp nhất với encoder thông qua bộ lọc Kalman, giúp robot duy trì định vị chính xác trong môi trường trong nhà.
+    \item Tích hợp Đa cảm biến: Do cấu trúc ba bánh dễ bị trượt ngang, phép đo hành trình từ encoder thường thiếu chính xác. Chand \cite{chand2022} đã đề xuất tích hợp La bàn điện tử vào cấu trúc phần cứng. Dữ liệu hướng từ la bàn được hợp nhất với encoder thông qua bộ lọc Kalman, giúp robot duy trì định vị chính xác trong môi trường trong nhà.
     \item Mô hình hóa Không gian An toàn: Trong môi trường công nghiệp, Subash và các cộng sự \cite{subash2024} đề xuất thay thế cấu trúc khung bao hình chữ nhật bằng các "hình tròn bao phủ" (covering circles). Cấu trúc ảo này cho phép robot tận dụng khả năng bẻ lái linh hoạt của bánh trước để di chuyển trong không gian hẹp mà không va chạm.
 \end{itemize}
 
 Để vận hành cấu trúc cơ khí trên, các kiến trúc điều khiển hiện đại đã chuyển dịch từ PID cổ điển sang các cấu trúc thông minh và thích nghi.
 
 \begin{itemize}
-    \item Cấu trúc Điều khiển Tầng (Cascaded Control): Kamga và Rachid \cite{kamga1996} đã đặt nền móng với cấu trúc điều khiển tách biệt cho vận tốc và góc lái. Phát triển trên nền tảng đó, Precup và các cộng sự \cite{Precup2006} đề xuất kiến trúc điều khiển Mờ (Fuzzy Control) kết hợp với trường thế năng nhân tạo, giúp robot xử lý các hành vi phi tuyến của cấu trúc ba bánh khi tránh vật cản.
-    \item Cấu trúc Thích nghi và Tối ưu: Để đối phó với sự thay đổi trọng tâm và ma sát, Pătraşcu và Gheorghe \cite{patrascu2021} sử dụng kiến trúc điều khiển P-D được tinh chỉnh online bằng Giải thuật Di truyền (Genetic Algorithms). Đồng thời, Ketemaw và Seid [10] đề xuất kiến trúc điều khiển Trượt (Sliding Mode Control) tích hợp Logic mờ để giám sát chỉ số RI, tự động kích hoạt phanh vi sai cầu sau (rear differential braking) để chống lật chủ động.
+    \item Cấu trúc Điều khiển Tầng (Cascaded Control): Kamga và Rachid \cite{kamga1996} đã đặt nền móng với cấu trúc điều khiển tách biệt cho vận tốc và góc lái. Phát triển trên nền tảng đó, Precup và các cộng sự \cite{Precup2006} đề xuất kiến trúc điều khiển mờ kết hợp với trường thế năng nhân tạo, giúp robot xử lý các hành vi phi tuyến của cấu trúc ba bánh khi tránh vật cản.
+    \item Cấu trúc Thích nghi và Tối ưu: Để đối phó với sự thay đổi trọng tâm và ma sát, Pătraşcu và Gheorghe \cite{patrascu2021} sử dụng kiến trúc điều khiển P-D được tinh chỉnh trực tuyến bằng giải thuật di truyền. Đồng thời, Ketemaw và Seid \cite{Ketemaw2022} đề xuất kiến trúc điều khiển trượt tích hợp logic mờ để giám sát chỉ số RI, tự động kích hoạt phanh vi sai cầu sau để chống lật chủ động.
 \end{itemize}
 
 Cấu trúc lái ba bánh hiện đại là sự hội tụ của thiết kế cơ khí tối ưu (ưu tiên Tadpole cho tốc độ cao), phần cứng nhúng phân cấp (Raspberry Pi/Vi điều khiển) và các thuật toán điều khiển thông minh. Sự kết hợp này cho phép khắc phục các nhược điểm vật lý vốn có (như dễ lật, dễ trượt), biến nó thành nền tảng tin cậy cho nông nghiệp thông minh và logistics tự động.
@@ -1423,7 +1410,7 @@ Sự đa dạng trong thiết kế bánh xe và cấu trúc khung vỏ robot di 
     \begin{itemize}
         \item Cấu trúc dẫn động vi sai: Đây là cấu hình chiếm ưu thế tuyệt đối trong các robot vận chuyển kệ hàng tự động (ví dụ: Amazon Kiva/Amazon Robotics). Cấu trúc cơ khí đơn giản giúp giảm chi phí bảo trì và tăng độ tin cậy. Đặc biệt, khả năng xoay tại chỗ cho phép robot chuyển hướng linh hoạt trong các lối đi vuông góc chật hẹp của nhà kho.
         
-        \item Cấu trúc Đa hướng (Mecanum/Omni): Đang dần phổ biến trong các nhà máy sản xuất linh kiện điện tử hoặc lắp ráp máy bay, nơi cần di chuyển chính xác các linh kiện lớn trong không gian chật hẹp mà không cần không gian quay đầu.
+        \item Cấu trúc Đa hướng (Mecanum/omni): Đang dần phổ biến trong các nhà máy sản xuất linh kiện điện tử hoặc lắp ráp máy bay, nơi cần di chuyển chính xác các linh kiện lớn trong không gian chật hẹp mà không cần không gian quay đầu.
     \end{itemize}
 
     \item Giao hàng chặng cuối là một xu hướng hiện đại bùng nổ sau đại dịch:
@@ -1457,7 +1444,7 @@ Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi
 
 \begin{itemize}
     \item Bánh xe Origami chịu tải trọng cao: Các nghiên cứu tiên phong của Lee và các cộng sự [48] đã giới thiệu bánh xe Origami có thể thay đổi đường kính. Tuy nhiên, thách thức lớn nhất là độ cứng vững. Xu hướng mới nhất (2021-2023) tập trung vào cơ chế khóa cấu trúc. Nghiên cứu [49] đã phát triển bánh xe Origami có khả năng chịu tải lên tới hàng trăm kilogram khi ở trạng thái khóa, nhưng vẫn linh hoạt biến hình khi cần thiết. Gần đây nhất, robot OriWheelBot (2023) [52] đã tích hợp khả năng này để tự động chuyển đổi giữa chế độ bánh xe tròn (di chuyển nhanh) và chế độ bánh răng/gai (leo dốc) dựa trên cảm nhận địa hình.
-    \item Cấu trúc Lai Bánh-Chân (Omni-Wheg): Sự kết hợp giữa bánh xe và chân (Whegs) đang được cải tiến để đạt được tính năng toàn hướng. Robot OmniWheg [47] là một ví dụ điển hình, sử dụng cơ cấu biến hình để tách các phần của bánh xe Omni thành các "chân" riêng biệt, cho phép robot vừa đi ngang trên sàn phẳng, vừa bước qua bậc thang mà không cần hệ thống lái phức tạp.
+    \item Cấu trúc Lai Bánh-Chân (omni-Wheg): Sự kết hợp giữa bánh xe và chân (Whegs) đang được cải tiến để đạt được tính năng toàn hướng. Robot OmniWheg [47] là một ví dụ điển hình, sử dụng cơ cấu biến hình để tách các phần của bánh xe omni thành các "chân" riêng biệt, cho phép robot vừa đi ngang trên sàn phẳng, vừa bước qua bậc thang mà không cần hệ thống lái phức tạp.
 \end{itemize}
 
 \subsubsection{Động học dựa trên Thị giác và Ước lượng Trạng thái}
@@ -1473,7 +1460,7 @@ Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi
 Với sự phổ biến của các robot dẫn động 4 bánh độc lập (4WD/4WS), vấn đề không chỉ là "đi được" mà là "đi hiệu quả".
 
 \begin{itemize}
-    \item Trên các robot dẫn động trượt thừa dẫn động (over-actuated), các bánh xe thường sinh ra nội lực chống lại nhau (fighting forces). Các nghiên cứu của Liao và các cộng sự [40], [41] tập trung vào các thuật toán phân phối mô-men xoắn tối ưu (Optimal Torque Distribution). Mục tiêu là tìm ra tổ hợp lực kéo của 4 bánh sao cho robot vẫn bám quỹ đạo mong muốn nhưng tiêu tốn năng lượng ít nhất và giảm thiểu mài mòn lốp.
+    \item Trên các robot dẫn động trượt thừa dẫn động, các bánh xe thường sinh ra nội lực chống lại nhau. Các nghiên cứu của Liao và các cộng sự [40], [41] tập trung vào các thuật toán phân phối mô-men xoắn tối ưu. Mục tiêu là tìm ra tổ hợp lực kéo của 4 bánh sao cho robot vẫn bám quỹ đạo mong muốn nhưng tiêu tốn năng lượng ít nhất và giảm thiểu mài mòn lốp.
     \item Việc đưa các mô hình cơ học đất phức tạp (như mô hình Bekker/Wong [14], [57]) vào bộ điều khiển thời gian thực đang trở thành xu hướng. Bằng cách ước lượng online các thông số của đất (độ lún, độ kết dính), robot có thể chủ động giới hạn gia tốc để tránh bị đào hố trên cát hoặc bùn lầy, như phân tích về tiêu thụ năng lượng của Fiset và các cộng sự (2021) [36].
 \end{itemize}
 
@@ -1509,19 +1496,14 @@ Việc hiểu rõ đặc tính của từng loại bánh xe và cấu trúc robo
 
 % ----- TỔNG HỢP -----
 
-\bibitem{mir2022} I. Mir và các cộng sự, "A survey of trajectory planning techniques for autonomous systems," Electronics, vol. 11, no. 18, p. 2801, Sep. 2022, doi: 10.3390/electronics11182801.
-\bibitem{tagliavini2022} L. Tagliavini, G. Colucci, A. Botta, P. Cavallone, L. Baglieri, and G. Quaglia, "Wheeled Mobile robots: state of the art overview and kinematic comparison among three omnidirectional locomotion strategies," Journal of Intelligent \& Robotic Systems, vol. 106, no. 3, p. 57, Oct. 2022, doi: 10.1007/s10846-022-01745-7.
-
-% ======================================================================
-
 \bibitem{siegwart2011} R. Siegwart, I. R. Nourbakhsh, and D. Scaramuzza, \textit{Introduction to Autonomous Mobile Robots, second edition}. MIT Press, 2011.
 \bibitem{fragapane2021} G. Fragapane, R. de Koster, F. Sgarbossa, and J. O. Strandhagen, "Planning and control of autonomous mobile robots for intralogistics: Literature review and research agenda," European Journal of Operational Research, vol. 294, no. 2, pp. 405-426, Jan. 2021, doi: https://doi.org/10.1016/j.ejor.2021.01.019.
 \bibitem{chung2008} W. Chung and K. Iagnemma,  "Wheeled robots," \textit{Springer Handbook of Robotics}. 2008. doi: 10.1007/978-3-540-30301-5.
 \bibitem{todd2012} D. J. Todd, \textit{Walking machines: An Introduction to Legged Robots}. Springer, 2012.
 \bibitem{campion1993} G. Campion, G. Bastin and B. D'Andrea-Novel, "Structural properties and classification of kinematic and dynamic models of wheeled mobile robots," [1993] Proceedings IEEE International Conference on Robotics and Automation, Atlanta, GA, USA, 1993, pp. 462-469 vol.1, doi: 10.1109/ROBOT.1993.292023.
 \bibitem{lynch2017} K. M. Lynch and F. C. Park, Modern robotics : mechanics, planning, and control. Cambridge: University Press, 2017.
-\bibitem{rasam2016} H. R. Rasam, "Review on Land-Based Wheeled Robots," MATEC Web of Conferences, vol. 53, p. 01058, Jan. 2016, doi: 10.1051/matecconf/20165301058.
 \bibitem{rubio2019} F. Rubio, F. Valero, and C. Llopis-Albert, "A review of mobile robots: Concepts, methods, theoretical framework, and applications," International Journal of Advanced Robotic Systems, vol. 16, no. 2, Mar. 2019, doi: 10.1177/1729881419839596.
+\bibitem{rasam2016} H. R. Rasam, "Review on Land-Based Wheeled Robots," MATEC Web of Conferences, vol. 53, p. 01058, Jan. 2016, doi: 10.1051/matecconf/20165301058.
 \bibitem{mikova2016} Ľ. Miková and A. Gmiterko, "Kinematic model and control algorithm for the path tracking of nonholonomic mobile robots," Journal of Automation and Control, vol. 4, no. 2, pp. 26-29, Dec. 2016, doi: 10.12691/automation-4-2-4.
 \bibitem{leong2022} J. S. Ling Leong, K. T. Kin Teo and H. P. Yoong, "Four Wheeled Mobile Robots: A Review," \textit{2022 IEEE International Conference on Artificial Intelligence in Engineering and Technology (IICAIET)}, pp. 1-6, Sep. 2022, doi: 10.1109/IICAIET55139.2022.9936855.
 \bibitem{mikova2013} L. Miková, F. Trebuňa and M. Čurilla, "Model of mechatronic system's undercarriage created on the basis of its dynamics," 2013 International Conference on Process Control (PC), Strbske Pleso, Slovakia, 2013, pp. 231-234, doi: 10.1109/PC.2013.6581414.
@@ -1530,6 +1512,7 @@ Việc hiểu rõ đặc tính của từng loại bánh xe và cấu trúc robo
 \bibitem{iagnemma2000} K. Iagnemma and S. Dubowsky, "Mobile Robot Rough-Terrain Control (RTC) for Planetary Exploration," Sep. 2000, doi: https://doi.org/10.1115/detc2000/mech-14211.
 \bibitem{ward2008} C. C. Ward and K. Iagnemma, "A Dynamic-Model-Based Wheel Slip Detector for Mobile Robots on Outdoor Terrain," in IEEE Transactions on Robotics, vol. 24, no. 4, pp. 821-831, Aug. 2008, doi: 10.1109/TRO.2008.924945.
 \bibitem{yi2009} J. Yi, H. Wang, J. Zhang, D. Song, S. Jayasuriya, and J. Liu, "Kinematic Modeling and Analysis of Skid-Steered Mobile Robots With Applications to Low-Cost Inertial-Measurement-Unit-Based Motion Estimation," vol. 25, no. 5, pp. 1087-1097, Oct. 2009, doi: https://doi.org/10.1109/tro.2009.2026506.
+\bibitem{Mandow2007} A. Mandow, J. L. Martinez, J. Morales, J. L. Blanco, A. Garcia-Cerezo and J. Gonzalez, "Experimental kinematics for wheeled skid-steer mobile robots," 2007 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Diego, CA, USA, 2007, pp. 1222-1227, doi: 10.1109/IROS.2007.4399139.
 \bibitem{thrun2010} S. Thrun, W. Burgard, and D. Fox, Probabilistic robotics. Cambridge, Mass.: Mit Press, 2010.
 \bibitem{moore2014} T. Moore and D. Stouch, "A generalized extended kalman filter implementation for the robot operating system," in Proceedings of the 13th International Conference on Intelligent Autonomous Systems (IAS-13), 2014.
 \bibitem{parhi2011} D. R. Parhi and B. B. V. L. Deepak, "Kinematic model of three wheeled mobile robot," Mechanical Engineering Research, vol. 3, no. 9, pp. 307-318, Sep. 2011, doi: 10.5897/jmer.9000032.
@@ -1541,409 +1524,133 @@ Việc hiểu rõ đặc tính của từng loại bánh xe và cấu trúc robo
 \bibitem{gillespie1992} T. D. Gillespie, Fundamentals of Vehicle Dynamics. Warrendale, PA: SAE International, 1992.
 \bibitem{deluca1998} A. De Luca, G. Oriolo, and C. Samson, "Feedback control of a nonholonomic car-like robot," in Robot Motion Planning and Control, J.-P. Laumond, Ed. Springer, 1998, pp. 171-253.
 \bibitem{arrizabalaga2021} J. Arrizabalaga, N. Van Duijkeren, M. Ryll, and R. Lange, "A caster-wheel-aware MPC-based motion planner for mobile robotics," 2021 20th International Conference on Advanced Robotics (ICAR), pp. 613-618, Dec. 2021, doi: 10.1109/icar53236.2021.9659478.
-
+\bibitem{lee2024} W. Lee, J. Kim, and T. Seo, "Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability," Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
+\bibitem{garcia2016} J. M. García, J. L. Martínez, A. Mandow, and A. García-Cerezo, "Caster-leg aided maneuver for negotiating surface discontinuities with a wheeled skid-steer mobile robot," Robotics and Autonomous Systems, vol. 91, pp. 25-37, Dec. 2016, doi: 10.1016/j.robot.2016.12.007.
+\bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
+\bibitem{komori2016} M. Komori, K. Matsuda, T. Terakawa, F. Takeoka, H. Nishihara, and H. Ohashi, "Active omni wheel capable of active motion in arbitrary direction and omnidirectional vehicle," Journal of Advanced Mechanical Design Systems and Manufacturing, vol. 10, no. 6, p. JAMDSM0086, Jan. 2016, doi: 10.1299/jamdsm.2016jamdsm0086.
+\bibitem{patil2024} S. Patil, M. Madgule, and R. Patil, "Design and analysis of carbon reinforced composite plate for robotic omni-Wheel: replacement of costly metals," Journal of the Institution of Engineers (India) Series D, Nov. 2024, doi: 10.1007/s40033-024-00831-4.
+\bibitem{kanjanawanishkul2015} K. Kanjanawanishkul, "Omnidirectional wheeled mobile robots: wheel types and practical applications," International Journal of Advanced Mechatronic Systems, vol. 6, no. 6, p. 289, Jan. 2015, doi: 10.1504/ijamechs.2015.074788.
+\bibitem{ferriere1996} L. Ferriere, B. Raucent and G. Campion, "Design of omnimobile robot wheels," Proceedings of IEEE International Conference on Robotics and Automation, Minneapolis, MN, USA, 1996, pp. 3664-3670 vol.4, doi: 10.1109/ROBOT.1996.509271.
+\bibitem{williams2002} R. L. Williams, B. E. Carter, P. Gallina and G. Rosati, "Dynamic model with slip for wheeled omnidirectional robots," in IEEE Transactions on Robotics and Automation, vol. 18, no. 3, pp. 285-293, June 2002, doi: 10.1109/TRA.2002.1019459.
+\bibitem{ilon1975} B. E. Ilon, "Wheels for a course stable selfpropelling vehicle movable in any desired direction on the ground or some other base," U.S. Patent 3 876 255, 1975.
+\bibitem{barnett2003} D. H. Barnett, "Low vibration omni-directional wheel," U.S. Patent 6,547,340, Apr. 15, 2003.
+\bibitem{potter2010} S. D. Potter, "omni-directional wheel," U.S. Patent Application 2010/0187779 A1, published Jul. 29, 2010.
+\bibitem{baker2010} A. R. Baker, "omni-directional wheel design for construction cost reduction," U.S. Patent 7,641,288, Jan. 5, 2010.
+\bibitem{scogna2011} J. Scogna, "Wheel for omni-directional vehicle," U.S. Patent 8,011,735, Sep. 6, 2011.
+\bibitem{schlee2013} K. L. Schlee, "Mecanum wheel," U.S. Patent Application 2013/0292918 A1, published Nov. 7, 2013.
+\bibitem{gunther2014} W. G\"unther, "Wheel," U.S. Patent 8,833,862, Sep. 16, 2014.
+\bibitem{wikipedia_mecanum_wheel} Wikipedia, "Mecanum wheel," Wikipedia, Sep. 08, 2025. https://en.wikipedia.org/wiki/Mecanum\_wheel.
+\bibitem{salih2006} J. E. M. Salih, M. Rizon, and S. Yaacob, "Designing omni-Directional Mobile Robot with Mecanum Wheel," American Journal of Applied Sciences, vol. 3, no. 5, pp. 1831-1835, May 2006, doi: 10.3844/ajassp.2006.1831.1835.
+\bibitem{hasana2021} S. Hasana and H. Alwan, "Modeling and control of wheeled mobile robot with four Mecanum wheels," Engineering and Technology Journal, vol. 39, no. 5A, pp. 779-789, May 2021, doi: 10.30684/etj.v39i5a.1926.
+\bibitem{dyakov2024} A. S. Dyakov and D. S. Fedorov, "GEOMETRY, KINEMATICS AND DYNAMICS OF THE MECANUM WHEEL. UNSTABLE ACCELERATED MOTION OF MECANUM VEHICLE," Izvestiya MGTU MAMI, May 2024, doi: 10.17816/2074-0530-629873.
+\bibitem{bae2016} J.-J. Bae and N. Kang, "Design optimization of a mecanum wheel to reduce vertical vibrations by the consideration of equivalent stiffness," Shock and Vibration, vol. 2016, pp. 1-8, Jan. 2016, doi: 10.1155/2016/5892784.
+\bibitem{doroliat2022} A. P. Doroliat, M.-H. Ing, and C.-H. G. Li, "Optimization of mecanum wheels for mitigation of AGV vibration," The International Journal of Advanced Manufacturing Technology, vol. 121, no. 1-2, pp. 633-645, May 2022, doi: 10.1007/s00170-022-09298-7.
+\bibitem{dosoftei2020} C. Dosoftei, V. Horga, I. Doroftei, T. Popovici and Ş. Custura, "Simplified Mecanum Wheel Modelling using a Reduced omni Wheel Model for Dynamic Simulation of an Omnidirectional Mobile Robot," 2020 International Conference and Exposition on Electrical And Power Engineering (EPE), Iasi, Romania, 2020, pp. 721-726, doi: 10.1109/EPE50722.2020.9305643.
+\bibitem{zimmermann2014} K. Zimmermann, I. Zeidis, and M. Abdelrahman, "Dynamics of Mechanical Systems with Mecanum Wheels," in Springer proceedings in mathematics \& statistics, 2014, pp. 269-279. doi: 10.1007/978-3-319-08266-0\_19.
+\bibitem{giurgiu2022} T. Giurgiu, G. Bârsan, I. Virca, and C. Pupăză, "Mecanum wheeled platforms for special applications," International Conference KNOWLEDGE-BASED ORGANIZATION, vol. 28, no. 3, pp. 44-51, Jun. 2022, doi: 10.2478/kbo-2022-0086.
+\bibitem{yadav2022} N. P. S. Yadav, V. Agrawal, N. J. C. Mohanta, and N. Md. F. Ahmed, "A Theoretical Review of Mobile Robot Locomotion based on Mecanum Wheels," Evergreen, vol. 9, no. 2, pp. 396-403, Jun. 2022, doi: 10.5109/4794163.
+\bibitem{doroftei2011} I. Doroftei and B.-D. D. Mangeron, "PRACTICAL APPLICATIONS FOR MOBILE ROBOTS BASED ON MECANUM WHEELS - A SYSTEMATIC SURVEY," Romanian Review Precision Mechanics, Optics and Mechatronics, Jan. 2011, [Online]. Available: http://www.incdmtm.ro/mecahitech2011/articole/Pp112-123.pdf.
+\bibitem{Lauwers2006} T. B. Lauwers, G. A. Kantor and R. L. Hollis, "A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive," Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006., Orlando, FL, USA, 2006, pp. 2884-2889, doi: 10.1109/ROBOT.2006.1642139.
 \bibitem{mukherjee1999} R. Mukherjee, M. A. Minor and J. T. Pukrushpan, "Simple motion planning strategies for spherobot: a spherical mobile robot," Proceedings of the 38th IEEE Conference on Decision and Control (Cat. No.99CH36304), Phoenix, AZ, USA, 1999, pp. 2132-2137 vol.3, doi: 10.1109/CDC.1999.831235.
 \bibitem{nagarajan2009} U. Nagarajan, G. Kantor, and R. L. Hollis, "Trajectory planning and control of an underactuated dynamically stable single spherical wheeled mobile robot," IEEE Xplore, May 01, 2009. https://ieeexplore.ieee.org/document/5152624.
-\bibitem{lee2024} W. Lee, J. Kim, and T. Seo, "Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability," Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
-
-% ======================================================================
-% ----- BÁNH XE CỐ ĐỊNH -----
-
-% ======================================================================
-% ----- BÁNH XE LÁI -----
-
-% ======================================================================
-% ----- BÁNH XE XOAY TỰ DO -----
-
-% ======================================================================
-% ----- BÁNH XE OMNI -----
-
-% 1
-\bibitem{ferriere1996} L. Ferriere, B. Raucent and G. Campion, "Design of omnimobile robot wheels," Proceedings of IEEE International Conference on Robotics and Automation, Minneapolis, MN, USA, 1996, pp. 3664-3670 vol.4, doi: 10.1109/ROBOT.1996.509271.
-% 2
-\bibitem{kanjanawanishkul2015} K. Kanjanawanishkul, "Omnidirectional wheeled mobile robots: wheel types and practical applications," International Journal of Advanced Mechatronic Systems, vol. 6, no. 6, p. 289, Jan. 2015, doi: 10.1504/ijamechs.2015.074788.
-% 3
-\bibitem{patil2024} S. Patil, M. Madgule, and R. Patil, "Design and analysis of carbon reinforced composite plate for robotic Omni-Wheel: replacement of costly metals," Journal of the Institution of Engineers (India) Series D, Nov. 2024, doi: 10.1007/s40033-024-00831-4.
-% 4
-\bibitem{williams2002} R. L. Williams, B. E. Carter, P. Gallina and G. Rosati, "Dynamic model with slip for wheeled omnidirectional robots," in IEEE Transactions on Robotics and Automation, vol. 18, no. 3, pp. 285-293, June 2002, doi: 10.1109/TRA.2002.1019459.
-% 5
-\bibitem{komori2016} M. Komori, K. Matsuda, T. Terakawa, F. Takeoka, H. Nishihara, and H. Ohashi, "Active omni wheel capable of active motion in arbitrary direction and omnidirectional vehicle," Journal of Advanced Mechanical Design Systems and Manufacturing, vol. 10, no. 6, p. JAMDSM0086, Jan. 2016, doi: 10.1299/jamdsm.2016jamdsm0086.
-
-% ======================================================================
-% ----- BÁNH XE MECANUM -----
-
-% 1
-\bibitem{ilon1975} B. E. Ilon, "Wheels for a course stable selfpropelling vehicle movable in any desired direction on the ground or some other base," U.S. Patent 3 876 255, 1975.
-% 2
-\bibitem{wikipedia_mecanum_wheel} Wikipedia, "Mecanum wheel," Wikipedia, Sep. 08, 2025. https://en.wikipedia.org/wiki/Mecanum\_wheel.
-% 3
-\bibitem{barnett2003} D. H. Barnett, "Low vibration omni-directional wheel," U.S. Patent 6,547,340, Apr. 15, 2003.
-% 4
-\bibitem{potter2010} S. D. Potter, "Omni-directional wheel," U.S. Patent Application 2010/0187779 A1, published Jul. 29, 2010.
-% 5
-\bibitem{baker2010} A. R. Baker, "Omni-directional wheel design for construction cost reduction," U.S. Patent 7,641,288, Jan. 5, 2010.
-% 6
-\bibitem{scogna2011} J. Scogna, "Wheel for omni-directional vehicle," U.S. Patent 8,011,735, Sep. 6, 2011.
-% 7
-\bibitem{schlee2013} K. L. Schlee, "Mecanum wheel," U.S. Patent Application 2013/0292918 A1, published Nov. 7, 2013.
-% 8
-\bibitem{gunther2014} W. G\"unther, "Wheel," U.S. Patent 8,833,862, Sep. 16, 2014.
-% 9
-\bibitem{bae2016} J.-J. Bae and N. Kang, "Design optimization of a mecanum wheel to reduce vertical vibrations by the consideration of equivalent stiffness," Shock and Vibration, vol. 2016, pp. 1-8, Jan. 2016, doi: 10.1155/2016/5892784.
-% 10
-\bibitem{giurgiu2022} T. Giurgiu, G. Bârsan, I. Virca, and C. Pupăză, "Mecanum wheeled platforms for special applications," International Conference KNOWLEDGE-BASED ORGANIZATION, vol. 28, no. 3, pp. 44-51, Jun. 2022, doi: 10.2478/kbo-2022-0086.
-% 11
-\bibitem{dyakov2024} A. S. Dyakov and D. S. Fedorov, "GEOMETRY, KINEMATICS AND DYNAMICS OF THE MECANUM WHEEL. UNSTABLE ACCELERATED MOTION OF MECANUM VEHICLE," Izvestiya MGTU MAMI, May 2024, doi: 10.17816/2074-0530-629873.
-% 12
-\bibitem{dosoftei2020} C. Dosoftei, V. Horga, I. Doroftei, T. Popovici and Ş. Custura, "Simplified Mecanum Wheel Modelling using a Reduced Omni Wheel Model for Dynamic Simulation of an Omnidirectional Mobile Robot," 2020 International Conference and Exposition on Electrical And Power Engineering (EPE), Iasi, Romania, 2020, pp. 721-726, doi: 10.1109/EPE50722.2020.9305643.
-% 13
-\bibitem{hasana2021} S. Hasana and H. Alwan, "Modeling and control of wheeled mobile robot with four Mecanum wheels," Engineering and Technology Journal, vol. 39, no. 5A, pp. 779-789, May 2021, doi: 10.30684/etj.v39i5a.1926.
-% 14
-\bibitem{doroliat2022} A. P. Doroliat, M.-H. Ing, and C.-H. G. Li, "Optimization of mecanum wheels for mitigation of AGV vibration," The International Journal of Advanced Manufacturing Technology, vol. 121, no. 1-2, pp. 633-645, May 2022, doi: 10.1007/s00170-022-09298-7.
-% 15
-\bibitem{zimmermann2014} K. Zimmermann, I. Zeidis, and M. Abdelrahman, "Dynamics of Mechanical Systems with Mecanum Wheels," in Springer proceedings in mathematics \& statistics, 2014, pp. 269-279. doi: 10.1007/978-3-319-08266-0\_19.
-% 16
-\bibitem{zhewen2024} Z. Zhewen, Y. Hongliu, W. Chengjia, H. Pu, and W. Jiangui, "A comprehensive study on Mecanum wheel-based mobility and suspension solutions for intelligent nursing wheelchairs," Scientific Reports, vol. 14, no. 1, p. 20644, Sep. 2024, doi: 10.1038/s41598-024-71459-3.
-% 17
-\bibitem{yadav2022} N. P. S. Yadav, V. Agrawal, N. J. C. Mohanta, and N. Md. F. Ahmed, "A Theoretical Review of Mobile Robot Locomotion based on Mecanum Wheels," Evergreen, vol. 9, no. 2, pp. 396-403, Jun. 2022, doi: 10.5109/4794163.
-% 18
-\bibitem{salih2006} J. E. M. Salih, M. Rizon, and S. Yaacob, "Designing Omni-Directional Mobile Robot with Mecanum Wheel," American Journal of Applied Sciences, vol. 3, no. 5, pp. 1831-1835, May 2006, doi: 10.3844/ajassp.2006.1831.1835.
-% 19
-\bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
-% 20
-\bibitem{doroftei2011} I. Doroftei and B.-D. D. Mangeron, "PRACTICAL APPLICATIONS FOR MOBILE ROBOTS BASED ON MECANUM WHEELS - A SYSTEMATIC SURVEY," Romanian Review Precision Mechanics, Optics and Mechatronics, Jan. 2011, [Online]. Available: http://www.incdmtm.ro/mecahitech2011/articole/Pp112-123.pdf.
-
-
-% ======================================================================
-% ----- BÁNH ORIGAMI -----
-
-% 1
-\bibitem{DYLee2013} D. -Y. Lee, G. -P. Jung, M. -K. Sin, S. -H. Ahn and K. -J. Cho, "Deformable wheel robot based on origami structure," 2013 IEEE International Conference on Robotics and Automation, Karlsruhe, Germany, 2013, pp. 5612-5617, doi: 10.1109/ICRA.2013.6631383.
-% 2
-\bibitem{Fonseca2019} L. M. Fonseca, G. V. Rodrigues, M. A. Savi, and A. Paiva, “Nonlinear dynamics of an origami wheel with shape memory alloy actuators,” Chaos Solitons \& Fractals, vol. 122, pp. 245-261, Apr. 2019, doi: 10.1016/j.chaos.2019.03.033.
-% 3
-\bibitem{JLiu2024} J. Liu et al., “An origami-wheeled robot with variable width and enhanced sand walking versatility,” Thin-Walled Structures, vol. 206, p. 112645, Nov. 2024, doi: 10.1016/j.tws.2024.112645.
-% 4
-\bibitem{DYLee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163-180, May 2017, doi: 10.1089/soro.2016.0038.
-
-% ======================================================================
-% ----- ROBOT XE ĐẠP MỘT BÁNH -----
-
-% 1
-\bibitem{Han2015} S. I. Han and J. M. Lee, "Balancing and Velocity Control of a Unicycle Robot Based on the Dynamic Model," in IEEE Transactions on Industrial Electronics, vol. 62, no. 1, pp. 405-413, Jan. 2015, doi: 10.1109/TIE.2014.2327562.
-% 2
-\bibitem{Rosyidi2016} M. A. Rosyidi, E. H. Binugroho, S. E. Radin Charel, R. S. Dewanto and D. Pramadihanto, "Speed and balancing control for unicycle robot," 2016 International Electronics Symposium (IES), Denpasar, Indonesia, 2016, pp. 19-24, doi: 10.1109/ELECSYM.2016.7860969.
-% 3
-\bibitem{Lee2013} J. Lee, S. Han and J. Lee, "Decoupled Dynamic Control for Pitch and Roll Axes of the Unicycle Robot," in IEEE Transactions on Industrial Electronics, vol. 60, no. 9, pp. 3814-3822, Sept. 2013, doi: 10.1109/TIE.2012.2208431.
-% 4
-\bibitem{Shen2020} J. Shen and D. Hong, "OmBURo: A Novel Unicycle Robot with Active Omnidirectional Wheel," 2020 IEEE International Conference on Robotics and Automation (ICRA), Paris, France, 2020, pp. 8237-8243, doi: 10.1109/ICRA40945.2020.9196927.
-% 5
-\bibitem{Rizal2015} Y. Rizal, C. -T. Ke and M. -T. Ho, "Point-to-point motion control of a unicycle robot: Design, implementation, and validation," 2015 IEEE International Conference on Robotics and Automation (ICRA), Seattle, WA, USA, 2015, pp. 4379-4384, doi: 10.1109/ICRA.2015.7139804.
-% 6
-\bibitem{Suzuki2014} H. Suzuki, S. Moromugi, and T. Okura, "Development of robotic unicycles," Journal of Robotics and Mechatronics, vol. 26, no. 5, pp. 540-549, Oct. 2014, doi: 10.20965/jrm.2014.p0540.
-% 7
-\bibitem{Geist2022} A. R. Geist, J. Fiene, N. Tashiro, Z. Jia and S. Trimpe, "The Wheelbot: A Jumping Reaction Wheel Unicycle," in IEEE Robotics and Automation Letters, vol. 7, no. 4, pp. 9683-9690, Oct. 2022, doi: 10.1109/LRA.2022.3192654.
-% 8
-\bibitem{JHLee2010} J. H. Lee, H. J. Shin, S. J. Lee and S. Jung, "Novel air blowing control for balancing a unicycle robot," 2010 IEEE/RSJ International Conference on Intelligent Robots and Systems, Taipei, Taiwan, 2010, pp. 2529-2530, doi: 10.1109/IROS.2010.5649120.
-
-% ======================================================================
-% ----- ROBOT CÂN BẰNG TRÊN BÓNG -----
-
-% 1
-\bibitem{Lauwers2006} T. B. Lauwers, G. A. Kantor and R. L. Hollis, "A dynamically stable single-wheeled mobile robot with inverse mouse-ball drive," Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006., Orlando, FL, USA, 2006, pp. 2884-2889, doi: 10.1109/ROBOT.2006.1642139.
-% 2
 \bibitem{Kumagai2008} M. Kumagai and T. Ochiai, "Development of a robot balancing on a ball," 2008 International Conference on Control, Automation and Systems, Seoul, Korea (South), 2008, pp. 433-438, doi: 10.1109/ICCAS.2008.4694680.
-% 3
-\bibitem{Lima2018} F. H. B. Lima, E. Poleze, G. P. das Neves and B. A. Angélico, "Ball Balancing Robot: construction, modeling and control design," 2018 13th IEEE International Conference on Industry Applications (INDUSCON), Sao Paulo, Brazil, 2018, pp. 1368-1372, doi: 10.1109/INDUSCON.2018.8627171.
-% 4
-\bibitem{Nagarajan2013} U. Nagarajan, G. Kantor, and R. Hollis, "The ballbot: An omnidirectional balancing mobile robot," The International Journal of Robotics Research, vol. 33, no. 6, pp. 917-930, Nov. 2013, doi: 10.1177/0278364913509126.
-% 5
-\bibitem{Cai2019} C. Cai, J. Lu and Z. Li, "Kinematic Analysis and Control Algorithm for the Ballbot," in IEEE Access, vol. 7, pp. 38314-38321, 2019, doi: 10.1109/ACCESS.2019.2902219.
-% 6
-\bibitem{Xiao2023} C. Xiao, M. Mansouri, D. Lam, J. Ramos and E. T. Hsiao-Wecksler, "Design and Control of a Ballbot Drivetrain with High Agility, Minimal Footprint, and High Payload," 2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Detroit, MI, USA, 2023, pp. 376-383, doi: 10.1109/IROS55552.2023.10342007.
-% 7
-\bibitem{Song2023} S. Y. Song, N. Marin, C. Xiao, R. Okubo, J. Ramos and E. T. Hsiao-Wecksler, "Hands-Free Physical Human-Robot Interaction and Testing for Navigating a Virtual Ballbot," 2023 32nd IEEE International Conference on Robot and Human Interactive Communication (RO-MAN), Busan, Korea, Republic of, 2023, pp. 556-563, doi: 10.1109/RO-MAN57019.2023.10309327.
-% 8
-\bibitem{Park2024} S. Park, "Design, Implementation, and Control of a Ball-Balancing Robot," in IEEE Access, vol. 12, pp. 127380-127389, 2024, doi: 10.1109/ACCESS.2024.3456238.
-% 9
-\bibitem{HYHYHan2014} H. Y. Han, T. Y. Han and H. S. Jo, "Development of omnidirectional self-balancing robot," 2014 IEEE International Symposium on Robotics and Manufacturing Automation (ROMA), Kuala Lumpur, Malaysia, 2014, pp. 57-62, doi: 10.1109/ROMA.2014.7295862.
-% 10
-\bibitem{Pellegrini2011} E. Pellegrini, K. J. Diepold, R. Dessort, and H. Panzer, "3D-Modeling of a Robot Balancing on a Ball," Technical Reports on Automatic Control, Jan. 2011, [Online]. Available: https://mediatum.ub.tum.de/1081938.
-% 11
+\bibitem{DYLee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163-180, May 2017, doi: 10.1089/soro.2016.0038.
+\bibitem{DYLee2013} D. -Y. Lee, G. -P. Jung, M. -K. Sin, S. -H. Ahn and K. -J. Cho, "Deformable wheel robot based on origami structure," 2013 IEEE International Conference on Robotics and Automation, Karlsruhe, Germany, 2013, pp. 5612-5617, doi: 10.1109/ICRA.2013.6631383.
+\bibitem{Fonseca2019} L. M. Fonseca, G. V. Rodrigues, M. A. Savi, and A. Paiva, “Nonlinear dynamics of an origami wheel with shape memory alloy actuators,” Chaos Solitons \& Fractals, vol. 122, pp. 245-261, Apr. 2019, doi: 10.1016/j.chaos.2019.03.033.
+\bibitem{JLiu2024} J. Liu et al., “An origami-wheeled robot with variable width and enhanced sand walking versatility,” Thin-Walled Structures, vol. 206, p. 112645, Nov. 2024, doi: 10.1016/j.tws.2024.112645.
+\bibitem{Lee2013} J. Lee, S. Han and J. Lee, "Decoupled Dynamic Control for Pitch and Roll Axes of the Unicycle Robot," in IEEE Transactions on Industrial Electronics, vol. 60, no. 9, pp. 3814-3822, Sept. 2013, doi: 10.1109/TIE.2012.2208431.
+\bibitem{Han2015} S. I. Han and J. M. Lee, "Balancing and Velocity Control of a Unicycle Robot Based on the Dynamic Model," in IEEE Transactions on Industrial Electronics, vol. 62, no. 1, pp. 405-413, Jan. 2015, doi: 10.1109/TIE.2014.2327562.
+\bibitem{Rosyidi2016} M. A. Rosyidi, E. H. Binugroho, S. E. Radin Charel, R. S. Dewanto and D. Pramadihanto, "Speed and balancing control for unicycle robot," 2016 International Electronics Symposium (IES), Denpasar, Indonesia, 2016, pp. 19-24, doi: 10.1109/ELECSYM.2016.7860969.
+\bibitem{Geist2022} A. R. Geist, J. Fiene, N. Tashiro, Z. Jia and S. Trimpe, "The Wheelbot: A Jumping Reaction Wheel Unicycle," in IEEE Robotics and Automation Letters, vol. 7, no. 4, pp. 9683-9690, Oct. 2022, doi: 10.1109/LRA.2022.3192654.
+\bibitem{Shen2020} J. Shen and D. Hong, "OmBURo: A Novel Unicycle Robot with Active Omnidirectional Wheel," 2020 IEEE International Conference on Robotics and Automation (ICRA), Paris, France, 2020, pp. 8237-8243, doi: 10.1109/ICRA40945.2020.9196927.
+\bibitem{JHLee2010} J. H. Lee, H. J. Shin, S. J. Lee and S. Jung, "Novel air blowing control for balancing a unicycle robot," 2010 IEEE/RSJ International Conference on Intelligent Robots and Systems, Taipei, Taiwan, 2010, pp. 2529-2530, doi: 10.1109/IROS.2010.5649120.
+\bibitem{Suzuki2014} H. Suzuki, S. Moromugi, and T. Okura, "Development of robotic unicycles," Journal of Robotics and Mechatronics, vol. 26, no. 5, pp. 540-549, Oct. 2014, doi: 10.20965/jrm.2014.p0540.
 \bibitem{Abdelrahim2025} M. Abdelrahim, M. A. Thabet, H. S. Abbas, M. M. M. Hassan, M. H. Amin and A. Morsi, "Modeling and Control of a Ballbot: A Systematic Approach," in IEEE Access, vol. 13, pp. 141263-141280, 2025, doi: 10.1109/ACCESS.2025.3597797.
-
-% ======================================================================
-% ----- ROBOT DẠNG CẦU -----
-
-% 1
-\bibitem{MLi2014} M. Li, S. Guo, H. Hirata, and H. Ishihara, "Design and performance evaluation of an amphibious spherical robot," Robotics and Autonomous Systems, vol. 64, pp. 21-34, Nov. 2014, doi: 10.1016/j.robot.2014.11.007.
-% 2
-\bibitem{Sang2010} S. Sang, Z. Jichao, H. Wu, S. Chen, and Q. An, "Modeling and simulation of a spherical mobile robot," Computer Science and Information Systems, vol. 7, no. 1, pp. 51-62, Jan. 2010, doi: 10.2298/csis1001051s.
-% 3
-\bibitem{Joshi2009} V. A. Joshi, R. N. Banavar, and R. Hippalgaonkar, "Design and analysis of a spherical mobile robot," Mechanism and Machine Theory, vol. 45, no. 2, pp. 130-136, May 2009, doi: 10.1016/j.mechmachtheory.2009.04.003.
-% 4
-\bibitem{Chen2013} W.-H. Chen, C.-P. Chen, J.-S. Tsai, J. Yang, and P.-C. Lin, "Design and implementation of a ball-driven omnidirectional spherical robot," Mechanism and Machine Theory, vol. 68, pp. 35-48, May 2013, doi: 10.1016/j.mechmachtheory.2013.04.012.
-% 5
+\bibitem{Cai2019} C. Cai, J. Lu and Z. Li, "Kinematic Analysis and Control Algorithm for the Ballbot," in IEEE Access, vol. 7, pp. 38314-38321, 2019, doi: 10.1109/ACCESS.2019.2902219.
+\bibitem{Nagarajan2013} U. Nagarajan, G. Kantor, and R. Hollis, "The ballbot: An omnidirectional balancing mobile robot," The International Journal of Robotics Research, vol. 33, no. 6, pp. 917-930, Nov. 2013, doi: 10.1177/0278364913509126.
+\bibitem{HYHYHan2014} H. Y. Han, T. Y. Han and H. S. Jo, "Development of omnidirectional self-balancing robot," 2014 IEEE International Symposium on Robotics and Manufacturing Automation (ROMA), Kuala Lumpur, Malaysia, 2014, pp. 57-62, doi: 10.1109/ROMA.2014.7295862.
+\bibitem{Pellegrini2011} E. Pellegrini, K. J. Diepold, R. Dessort, and H. Panzer, "3D-Modeling of a Robot Balancing on a Ball," Technical Reports on Automatic Control, Jan. 2011, [Online]. Available: https://mediatum.ub.tum.de/1081938.
+\bibitem{Lima2018} F. H. B. Lima, E. Poleze, G. P. das Neves and B. A. Angélico, "Ball Balancing Robot: construction, modeling and control design," 2018 13th IEEE International Conference on Industry Applications (INDUSCON), Sao Paulo, Brazil, 2018, pp. 1368-1372, doi: 10.1109/INDUSCON.2018.8627171.
+\bibitem{Xiao2023} C. Xiao, M. Mansouri, D. Lam, J. Ramos and E. T. Hsiao-Wecksler, "Design and Control of a Ballbot Drivetrain with High Agility, Minimal Footprint, and High Payload," 2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Detroit, MI, USA, 2023, pp. 376-383, doi: 10.1109/IROS55552.2023.10342007.
+\bibitem{Park2024} S. Park, "Design, Implementation, and Control of a Ball-Balancing Robot," in IEEE Access, vol. 12, pp. 127380-127389, 2024, doi: 10.1109/ACCESS.2024.3456238.
+\bibitem{Rizal2015} Y. Rizal, C. -T. Ke and M. -T. Ho, "Point-to-point motion control of a unicycle robot: Design, implementation, and validation," 2015 IEEE International Conference on Robotics and Automation (ICRA), Seattle, WA, USA, 2015, pp. 4379-4384, doi: 10.1109/ICRA.2015.7139804.
+\bibitem{Song2023} S. Y. Song, N. Marin, C. Xiao, R. Okubo, J. Ramos and E. T. Hsiao-Wecksler, "Hands-Free Physical Human-Robot Interaction and Testing for Navigating a Virtual Ballbot," 2023 32nd IEEE International Conference on Robot and Human Interactive Communication (RO-MAN), Busan, Korea, Republic of, 2023, pp. 556-563, doi: 10.1109/RO-MAN57019.2023.10309327.
 \bibitem{Alves2003} J. Alves and J. Dias, "Design and control of a spherical mobile robot," Proceedings of the Institution of Mechanical Engineers Part I Journal of Systems and Control Engineering, vol. 217, no. 6, pp. 457-467, Sep. 2003, doi: 10.1177/095965180321700602.
-% 6
-\bibitem{Ren2023} W. Ren et al., "Spherical robot: A novel robot for exploration in harsh unknown environments," IET Cyber-Systems and Robotics, vol. 5, no. 4, Oct. 2023, doi: 10.1049/csy2.12099.
-% 7
-\bibitem{Chadil2011} N. Chadil, M. Phadoongsidhi, K. Suwannasit, P. Manoonpong and P. Laksanacharoen, "A reconfigurable spherical robot," 2011 IEEE International Conference on Robotics and Automation, Shanghai, China, 2011, pp. 2380-2385, doi: 10.1109/ICRA.2011.5979756.
-% 8
+\bibitem{MLi2014} M. Li, S. Guo, H. Hirata, and H. Ishihara, "Design and performance evaluation of an amphibious spherical robot," Robotics and Autonomous Systems, vol. 64, pp. 21-34, Nov. 2014, doi: 10.1016/j.robot.2014.11.007.
 \bibitem{Yang2020} M. Yang et al., "Design and Analysis of a Spherical Robot with Two Degrees of Freedom Swing," 2020 Chinese Control And Decision Conference (CCDC), Hefei, China, 2020, pp. 4913-4918, doi: 10.1109/CCDC49329.2020.9164196.
-% 9
-\bibitem{JChen2016} J. Chen, P. Ye, H. Sun and Q. Jia, "Design and motion control of a spherical robot with control moment gyroscope," 2016 3rd International Conference on Systems and Informatics (ICSAI), Shanghai, China, 2016, pp. 114-120, doi: 10.1109/ICSAI.2016.7810940.
-% 10
 \bibitem{Tholapu2021} S. Tholapu, A. P. Sudheer, and M. L. Joy, "Kinematic modelling and structural analysis of a spherical robot: BALL-E," IOP Conference Series Materials Science and Engineering, vol. 1132, no. 1, p. 012034, Apr. 2021, doi: 10.1088/1757-899x/1132/1/012034.
-
-% ======================================================================
-% ----- ROBOT ĐƠN BÁNH VÀNH LỚN -----
-
-% 1
-\bibitem{Cieslak2011} P. Cieslak, T. Buratowski, T. Uhl, and M. Giergiel, "The mono-wheel robot with dynamic stabilisation," Robotics and Autonomous Systems, vol. 59, no. 9, pp. 611-619, May 2011, doi: 10.1016/j.robot.2011.05.002.
-% 2
+\bibitem{Ren2023} W. Ren et al., "Spherical robot: A novel robot for exploration in harsh unknown environments," IET Cyber-Systems and Robotics, vol. 5, no. 4, Oct. 2023, doi: 10.1049/csy2.12099.
+\bibitem{Joshi2009} V. A. Joshi, R. N. Banavar, and R. Hippalgaonkar, "Design and analysis of a spherical mobile robot," Mechanism and Machine Theory, vol. 45, no. 2, pp. 130-136, May 2009, doi: 10.1016/j.mechmachtheory.2009.04.003.
+\bibitem{Chen2013} W.-H. Chen, C.-P. Chen, J.-S. Tsai, J. Yang, and P.-C. Lin, "Design and implementation of a ball-driven omnidirectional spherical robot," Mechanism and Machine Theory, vol. 68, pp. 35-48, May 2013, doi: 10.1016/j.mechmachtheory.2013.04.012.
+\bibitem{Sang2010} S. Sang, Z. Jichao, H. Wu, S. Chen, and Q. An, "Modeling and simulation of a spherical mobile robot," Computer Science and Information Systems, vol. 7, no. 1, pp. 51-62, Jan. 2010, doi: 10.2298/csis1001051s.
+\bibitem{JChen2016} J. Chen, P. Ye, H. Sun and Q. Jia, "Design and motion control of a spherical robot with control moment gyroscope," 2016 3rd International Conference on Systems and Informatics (ICSAI), Shanghai, China, 2016, pp. 114-120, doi: 10.1109/ICSAI.2016.7810940.
+\bibitem{Chadil2011} N. Chadil, M. Phadoongsidhi, K. Suwannasit, P. Manoonpong and P. Laksanacharoen, "A reconfigurable spherical robot," 2011 IEEE International Conference on Robotics and Automation, Shanghai, China, 2011, pp. 2380-2385, doi: 10.1109/ICRA.2011.5979756.
 \bibitem{Gim2024} K. G. Gim and J. Kim, "Ringbot: Monocycle Robot With Legs," in IEEE Transactions on Robotics, vol. 40, pp. 1890-1905, 2024, doi: 10.1109/TRO.2024.3362326.
-% 3
-\bibitem{Buratowski2012} T. Buratowski, P. Cieślak, M. Giergiel, and T. Uhl, "A self-stabilising multipurpose single-wheel robot," Journal of Theoretical and Applied Mechanics/Mechanika Teoretyczna I Stosowana, vol. 50, no. 1, pp. 99-118, Jan. 2012, [Online]. Available: http://www.ptmts.org.pl/jtam/index.php/jtam/article/download/v50n1p99/102
-
-% ======================================================================
-% ----- ROBOT KIỂU XE ĐẠP -----
-
-% 1
+\bibitem{Cieslak2011} P. Cieslak, T. Buratowski, T. Uhl, and M. Giergiel, "The mono-wheel robot with dynamic stabilisation," Robotics and Autonomous Systems, vol. 59, no. 9, pp. 611-619, May 2011, doi: 10.1016/j.robot.2011.05.002.
+\bibitem{Buratowski2012} T. Buratowski, P. Cieślak, M. Giergiel, and T. Uhl, "A self-stabilising multipurpose single-wheel robot," Journal of Theoretical and Applied Mechanics/Mechanika Teoretyczna I Stosowana, vol. 50, no. 1, pp. 99-118, Jan. 2012, [Online]. Available: http://www.ptmts.org.pl/jtam/index.php/jtam/article/download/v50n1p99/102.
 \bibitem{Chiu2020} C. -H. Chiu and C. -Y. Wu, "Bicycle Robot Balance Control Based on a Robust Intelligent Controller," in IEEE Access, vol. 8, pp. 84837-84849, 2020, doi: 10.1109/ACCESS.2020.2992792.
-% 2
 \bibitem{Yeh2019} T. Yeh, H.-T. Lu, and P.-H. Tseng, "Balancing Control of a Self-driving Bicycle," Proceedings of the 16th International Conference on Informatics in Control, Automation and Robotics - Volume 2: ICINCO, pp. 34-41, Jan. 2019, doi: 10.5220/0007810600340041.
-% 3
 \bibitem{Huang2017} C. -F. Huang, Y. -C. Tung and T. -J. Yeh, "Balancing control of a robot bicycle with uncertain center of gravity," 2017 IEEE International Conference on Robotics and Automation (ICRA), Singapore, 2017, pp. 5858-5863, doi: 10.1109/ICRA.2017.7989689.
-% 4
 \bibitem{Kumar2021} S. Kumar and A. Kumar, "Reduced order modelling and balancing control of bicycle robot," FME Transaction, vol. 49, no. 4, pp. 919-934, Jan. 2021, doi: 10.5937/fme2104919k.
-% 5
 \bibitem{Nguyen2022} S. T. Nguyen, H. Nguyen, S. T. Bui, V. A. Ho, T. D. Ngo and H. M. La, "An Agile Bicycle-like Robot for Complex Steel Structure Inspection," 2022 International Conference on Robotics and Automation (ICRA), Philadelphia, PA, USA, 2022, pp. 157-163, doi: 10.1109/ICRA46639.2022.9812153.
-
-% ======================================================================
-% ----- ROBOT KIỂU CON LẮC NGƯỢC -----
-
-% 1
-\bibitem{Chan2013} R. P. M. Chan, K. A. Stol, and C. R. Halkyard, "Review of modelling and control of two-wheeled robots," Annual Reviews in Control, vol. 37, no. 1, pp. 89-103, Apr. 2013, doi: 10.1016/j.arcontrol.2013.03.004.
-% 2
 \bibitem{Juang2013} H. -S. Juang and K. -Y. Lum, "Design and control of a two-wheel self-balancing robot using the arduino microcontroller board," 2013 10th IEEE International Conference on Control and Automation (ICCA), Hangzhou, China, 2013, pp. 634-639, doi: 10.1109/ICCA.2013.6565146.
-% 3
-\bibitem{Klemm2019} V. Klemm et al., "Ascento: A Two-Wheeled Jumping Robot," 2019 International Conference on Robotics and Automation (ICRA), Montreal, QC, Canada, 2019, pp. 7515-7521, doi: 10.1109/ICRA.2019.8793792.
-% 4
-\bibitem{Jeong2007} SH. Jeong and T. Takahashi, "Wheeled inverted pendulum type assistant robot: inverted mobile, standing, and sitting motions," 2007 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Diego, CA, USA, 2007, pp. 1932-1937, doi: 10.1109/IROS.2007.4398961.
-% 5
-\bibitem{Akesson2006} J. Akesson, A. Blomdell and R. Braun, "Design and Control of YAIP — an Inverted Pendulum on Two Wheels Robot," 2006 IEEE Conference on Computer Aided Control System Design, 2006 IEEE International Conference on Control Applications, 2006 IEEE International Symposium on Intelligent Control, Munich, Germany, 2006, pp. 2178-2183, doi: 10.1109/CACSD-CCA-ISIC.2006.4776978.
-% 6
-\bibitem{Zhang2018} Y. Zhang, L. Zhang, W. Wang, Y. Li and Q. Zhang, "Design and Implementation of a Two-Wheel and Hopping Robot With a Linkage Mechanism," in IEEE Access, vol. 6, pp. 42422-42430, 2018, doi: 10.1109/ACCESS.2018.2859840.
-% 7
-\bibitem{Hassan2023} I. A. Hassan, I. A. Abed, and W. A. Al-Hussaibi, "Path planning and trajectory tracking control for Two-Wheel mobile robot," Journal of Robotics and Control (JRC), vol. 5, no. 1, pp. 1-15, Dec. 2023, doi: 10.18196/jrc.v5i1.20489.
-% 8
-\bibitem{Esmaeili2017} N. Esmaeili, A. Alfi, and H. Khosravi, "Balancing and trajectory tracking of Two-Wheeled mobile robot using backstepping sliding mode control: design and experiments," Journal of Intelligent \& Robotic Systems, vol. 87, no. 3-4, pp. 601-613, Jan. 2017, doi: 10.1007/s10846-017-0486-9.
-% 9
-\bibitem{An2013} W. An and Y. Li, "Simulation and control of a two-wheeled self-balancing robot," 2013 IEEE International Conference on Robotics and Biomimetics (ROBIO), Shenzhen, China, 2013, pp. 456-461, doi: 10.1109/ROBIO.2013.6739501.
-% 10
-\bibitem{Kim2015} S. Kim and S. Kwon, "Dynamic modeling of a two-wheeled inverted pendulum balancing mobile robot," International Journal of Control Automation and Systems, vol. 13, no. 4, pp. 926-933, May 2015, doi: 10.1007/s12555-014-0564-8.
-% 11
-\bibitem{Aouf2019} A. Aouf, L. Boussaid, and A. Sakly, "Same fuzzy logic controller for Two-Wheeled mobile robot navigation in strange environments," Journal of Robotics, vol. 2019, pp. 1-11, Jan. 2019, doi: 10.1155/2019/2465219.
-% 12
 \bibitem{Li2007} J. Li, X. Gao, Q. Huang, Q. Du and X. Duan, "Mechanical Design and Dynamic Modeling of a Two-Wheeled Inverted Pendulum Mobile Robot," 2007 IEEE International Conference on Automation and Logistics, Jinan, China, 2007, pp. 1614-1619, doi: 10.1109/ICAL.2007.4338830.
-% 13
-\bibitem{Ali2021} A. T. Ali, A. M. O. Mohamedy, A. S. A. Salimz, E. -A. O. M. El-Aminx and O. M. K. Ahmed, "Design and Implementation of Two-Wheeled Self-Balancing Robot Using PID Controller," 2020 International Conference on Computer, Control, Electrical, and Electronics Engineering (ICCCEEE), Khartoum, Sudan, 2021, pp. 1-5, doi: 10.1109/ICCCEEE49695.2021.9429579.
-% 14
-\bibitem{Bin2010} H. Bin, L. W. Zhen and L. H. Feng, "The Kinematics Model of a Two-Wheeled Self-Balancing Autonomous Mobile Robot and Its Simulation," 2010 Second International Conference on Computer Engineering and Applications, Bali, Indonesia, 2010, pp. 64-68, doi: 10.1109/ICCEA.2010.169.
-
-% ======================================================================
-% ----- ROBOT DẪN ĐỘNG VI SAI -----
-
-% 1
-\bibitem{Hirpo2017} B. D. Hirpo , W. Zhongmin, "Design and Control for Differential Drive Mobile Robot", INTERNATIONAL JOURNAL OF ENGINEERING RESEARCH \& TECHNOLOGY (IJERT), vol. 6, no. 10, pp. 327-334, Oct. 2017.
-% 2
+\bibitem{Klemm2019} V. Klemm et al., "Ascento: A Two-Wheeled Jumping Robot," 2019 International Conference on Robotics and Automation (ICRA), Montreal, QC, Canada, 2019, pp. 7515-7521, doi: 10.1109/ICRA.2019.8793792.
+\bibitem{Jeong2007} SH. Jeong and T. Takahashi, "Wheeled inverted pendulum type assistant robot: inverted mobile, standing, and sitting motions," 2007 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Diego, CA, USA, 2007, pp. 1932-1937, doi: 10.1109/IROS.2007.4398961.
+\bibitem{Zhang2018} Y. Zhang, L. Zhang, W. Wang, Y. Li and Q. Zhang, "Design and Implementation of a Two-Wheel and Hopping Robot With a Linkage Mechanism," in IEEE Access, vol. 6, pp. 42422-42430, 2018, doi: 10.1109/ACCESS.2018.2859840.
 \bibitem{Stefek2020} A. Stefek, T. V. Pham, V. Krivanek and K. L. Pham, "Energy Comparison of Controllers Used for a Differential Drive Wheeled Mobile Robot," in IEEE Access, vol. 8, pp. 170915-170927, 2020, doi: 10.1109/ACCESS.2020.3023345.
-% 3
-\bibitem{Fareh2019} R. Fareh, M. Baziyad, M. H. Rahman, T. Rabie, and M. Bettayeb, "Investigating reduced path planning strategy for differential wheeled mobile robot," Robotica, vol. 38, no. 2, pp. 235-255, May 2019, doi: 10.1017/s0263574719000572.
-% 4
-\bibitem{Chwa2010} D. Chwa, "Tracking Control of Differential-Drive Wheeled Mobile Robots Using a Backstepping-Like Feedback Linearization," in IEEE Transactions on Systems, Man, and Cybernetics - Part A: Systems and Humans, vol. 40, no. 6, pp. 1285-1295, Nov. 2010, doi: 10.1109/TSMCA.2010.2052605.
-% 5
+\bibitem{Hirpo2017} B. D. Hirpo , W. Zhongmin, "Design and Control for Differential Drive Mobile Robot", INTERNATIONAL JOURNAL OF ENGINEERING RESEARCH \& TECHNOLOGY (IJERT), vol. 6, no. 10, pp. 327-334, Oct. 2017.
 \bibitem{Petrov2010} P. Petrov, "Modeling and adaptive path control of a differential drive mobile robot," Proceedings of the 12th WSEAS International Conference on AUTOMATIC CONTROL, MODELLING \& SIMULATION, pp. 403-408, May 2010, [Online]. Available: http://www.wseas.us/e-library/conferences/2010/Catania/ACMOS/ACMOS-68.pdf.
-
-% ======================================================================
-% ----- ROBOT DẪN ĐỘNG ĐỒNG BỘ -----
-
-% 1
+\bibitem{Fareh2019} R. Fareh, M. Baziyad, M. H. Rahman, T. Rabie, and M. Bettayeb, "Investigating reduced path planning strategy for differential wheeled mobile robot," Robotica, vol. 38, no. 2, pp. 235-255, May 2019, doi: 10.1017/s0263574719000572.
 \bibitem{Tatar2014} M. O. Tătar, F. Haiduc, and D. Mândru, “Design of a Synchro-Drive omnidirectional Mini-Robot,” Diffusion and Defect Data, Solid State Data. Part B, Solid State Phenomena/Solid State Phenomena, vol. 220-221, pp. 161-167, Dec. 2014, doi: 10.4028/www.scientific.net/ssp.220-221.161.
-% 2
 \bibitem{Tatar2012} M. O. Tătar, C. Cirebea, D. Mândru, and B. V. Chetran, “Synchronous Drive Omnidirectional minirobot,” Applied Mechanics and Materials, vol. 162, pp. 294-301, Mar. 2012, doi: 10.4028/www.scientific.net/amm.162.294.
-
-% ======================================================================
-% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH MECANUM -----
-
-% 1
-\bibitem{Doroftei2007} I. Doroftei, V. Grosu, and V. Spinu, “Omnidirectional Mobile Robot - Design and Implementation,” in Bioinspiration and Robotics Walking and Climbing Robots, 2007. doi: 10.5772/5518.
-% 2
-\bibitem{Tatar2013} M. O. Tătar, C. Cirebea, and D. Mândru, “Structures of the Omnidirectional Robots with Swedish Wheels,” Diffusion and Defect Data, Solid State Data. Part B, Solid State Phenomena/Solid State Phenomena, vol. 198, pp. 132-137, Mar. 2013, doi: 10.4028/www.scientific.net/ssp.198.132.
-% 3
-\bibitem{Denegri2019} E. Denegri, E. Muñoz-Panduro and O. E. Ramos, "Step-by-step Development of an Omnidirectional Mobile Robot," 2019 IEEE Sciences and Humanities International Research Conference (SHIRCON), Lima, Peru, 2019, pp. 1-4, doi: 10.1109/SHIRCON48091.2019.9024865.
-% 4
-\bibitem{Liu2017} Y. Liu et al., "An omnidirectional mobile operating robot based on mecanum wheel," 2017 2nd International Conference on Advanced Robotics and Mechatronics (ICARM), Hefei and Tai'an, China, 2017, pp. 468-473, doi: 10.1109/ICARM.2017.8273208.
-% 5
 \bibitem{Muir1987} P. Muir and C. Neuman, "Kinematic modeling for feedback control of an omnidirectional wheeled mobile robot," Proceedings. 1987 IEEE International Conference on Robotics and Automation, Raleigh, NC, USA, 1987, pp. 1772-1778, doi: 10.1109/ROBOT.1987.1087767.
-
-% ======================================================================
-% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH XE DẪN HƯỚNG CHỦ ĐỘNG -----
-
-% 1
-\bibitem{WChung2010} W. Chung, C.-B. Moon, C. Jung, and J. Jin, “Design of the dual offset Active Caster Wheel for Holonomic Omni-Directional Mobile Robots,” International Journal of Advanced Robotic Systems, vol. 7, no. 4, Jan. 2010, doi: 10.5772/10485.
-% 2
+\bibitem{Denegri2019} E. Denegri, E. Muñoz-Panduro and O. E. Ramos, "Step-by-step Development of an Omnidirectional Mobile Robot," 2019 IEEE Sciences and Humanities International Research Conference (SHIRCON), Lima, Peru, 2019, pp. 1-4, doi: 10.1109/SHIRCON48091.2019.9024865.
+\bibitem{Doroftei2007} I. Doroftei, V. Grosu, and V. Spinu, “Omnidirectional Mobile Robot - Design and Implementation,” in Bioinspiration and Robotics Walking and Climbing Robots, 2007. doi: 10.5772/5518.
+\bibitem{Liu2017} Y. Liu et al., "An omnidirectional mobile operating robot based on mecanum wheel," 2017 2nd International Conference on Advanced Robotics and Mechatronics (ICARM), Hefei and Tai'an, China, 2017, pp. 468-473, doi: 10.1109/ICARM.2017.8273208.
+\bibitem{Tatar2013} M. O. Tătar, C. Cirebea, and D. Mândru, “Structures of the Omnidirectional Robots with Swedish Wheels,” Diffusion and Defect Data, Solid State Data. Part B, Solid State Phenomena/Solid State Phenomena, vol. 198, pp. 132-137, Mar. 2013, doi: 10.4028/www.scientific.net/ssp.198.132.
+\bibitem{TZheng2018} T. Zheng et al., “Design and control of two degree of freedom powered caster wheels based omni-Directional Robot,” in Communications in computer and information science, 2018, pp. 548-560. doi: 10.1007/978-981-13-2396-6\_51.
 \bibitem{JHChung2003} J. H. Chung, BJ. Yi, W. K. Kim and H. Lee, "The dynamic modeling and analysis for an omnidirectional mobile robot with three caster wheels," 2003 IEEE International Conference on Robotics and Automation (Cat. No.03CH37422), Taipei, Taiwan, 2003, pp. 521-527 vol.1, doi: 10.1109/ROBOT.2003.1241647.
-% 3
 \bibitem{YUeno2017} Y. Ueno, K. Watanabe and I. Nagai, "Design and development of steered active wheel casters and its application," 2017 IEEE International Conference on Mechatronics and Automation (ICMA), Takamatsu, Japan, 2017, pp. 507-512, doi: 10.1109/ICMA.2017.8015869.
-% 4
-\bibitem{TZheng2018} T. Zheng et al., “Design and control of two degree of freedom powered caster wheels based Omni-Directional Robot,” in Communications in computer and information science, 2018, pp. 548-560. doi: 10.1007/978-981-13-2396-6\_51.
-
-% ======================================================================
-% ----- ROBOT TOÀN HƯỚNG SỬ DỤNG CƠ CHẾ LÁI CHỦ ĐỘNG -----
-
-% 1
-\bibitem{JSong2004} J. Song and K. Byun, “Design and Control of a Four-Wheeled Omnidirectional Mobile Robot with Steerable Omnidirectional Wheels,” Journal of Robotic Systems, vol. 21, no. 4, pp. 193-208, Mar. 2004, doi: 10.1002/rob.20009.
-% 2
 \bibitem{Jiang2022} S. Jiang et al., "Design, Control and Experiments of An Agile Omnidirectional Mobile Robot with Active Suspension," 2022 IEEE 18th International Conference on Automation Science and Engineering (CASE), Mexico City, Mexico, 2022, pp. 913-918, doi: 10.1109/CASE49997.2022.9926462.
-
-% ======================================================================
-% ----- CẤU TRÚC LÁI BA BÁNH -----
-
-% ======================================================================
-
-\bibitem{garcia2016} J. M. García, J. L. Martínez, A. Mandow, and A. García-Cerezo, "Caster-leg aided maneuver for negotiating surface discontinuities with a wheeled skid-steer mobile robot," Robotics and Autonomous Systems, vol. 91, pp. 25-37, Dec. 2016, doi: 10.1016/j.robot.2016.12.007.
-\bibitem{rodriguez2017} A. A. Rodriguez và các cộng sự, "Modeling, design and control of low-cost differential-drive robotic ground vehicles: Part II — Multiple vehicle study," 2017 IEEE Conference on Control Technology and Applications (CCTA), Maui, HI, USA, 2017, pp. 161-166, doi: 10.1109/CCTA.2017.8062457.
-\bibitem{cao2022} R. Cao, J. Gu, C. Yu and A. Rosendo, "OmniWheg: An Omnidirectional Wheel-Leg Transformable Robot," 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Kyoto, Japan, 2022, pp. 5626-5631, doi: 10.1109/IROS47612.2022.9982030.
-\bibitem{lee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, "Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure," Soft Robotics, vol. 4, no. 2, pp. 163-180, May 2017, doi: 10.1089/soro.2016.0038.
-\bibitem{lee2021} D.-Y. Lee, J.-K. Kim, C.-Y. Sohn, J.-M. Heo, and K.-J. Cho, "High-load capacity origami transformable wheel," Science Robotics, vol. 6, no. 53, Apr. 2021, doi: 10.1126/scirobotics.abe0201.
-\bibitem{rhoads2016} B. P. Rhoads and H.-J. Su, "The Design and Fabrication of a Deformable Origami Wheel," Volume 5B: 40th Mechanisms and Robotics Conference, Aug. 2016, doi: https://doi.org/10.1115/detc2016-60045.
-\bibitem{berre2020} J. Berre, François Geiskopf, L. Rubbert, and P. Renaud, "Origami-Inspired Design of a Deployable Wheel," Mechanisms and machine science, pp. 114-126, Oct. 2020, doi: https://doi.org/10.1007/978-3-030-60076-1\_11.
-\bibitem{liu2023} J. Liu và các cộng sự, "OriWheelBot: An origami-wheeled robot," arXiv (Cornell University), Jan. 2023, doi: https://doi.org/10.48550/arxiv.2310.00033.
-\bibitem{liao2008} Ching-Wen Liao, Ching-Chih Tsai, Yi Yu Li and Cheng-Kai Chan, "Dynamic modeling and sliding-mode control of a Ball robot with inverse mouse-ball drive," 2008 SICE Annual Conference, Chofu, Japan, 2008, pp. 2951-2955, doi: 10.1109/SICE.2008.4655168.
-\bibitem{trojnacki2019} M. Trojnacki and P. D\pl{ą}bek, "Mechanical properties of modern wheeled mobile robots," Journal of Automation Mobile Robotics \& Intelligent Systems, pp. 3-13, Jul. 2019, doi: 10.14313/jamris/3-2019/21.
-\bibitem{nakata2022} Y. Nakata, S. Yagi, S. Yu, Y. Wang, N. Ise, Y. Nakamura, and H. Ishiguro, "Development of 'ibuki' an electrically actuated childlike Android with mobility and its potential in the future society," Robotica, vol. 40, no. 4, pp. 933-950, Apr. 2022.
-
-\bibitem{bhatia2015} A. Bhatia, M. Kumagai, and R. Hollis, "Six-stator spherical induction motor for balancing mobile robots," in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2015, pp. 226-231.
-
-% ======================================================================
-% ----- CẤU TRÚC BA BÁNH -----
-
-% 1
-\bibitem{chand2022} P. Chand, "Integrating an electronic compass for position tracking on a wheeled tricycle mobile robot," Drone Systems and Applications, vol. 10, no. 1, pp. 179-199, Jan. 2022, doi: 10.1139/dsa-2021-0049.
-% 2
-\bibitem{jaskot2018} A. Jaskot and B. Posiadała, "Analysis of motion of the three wheeled mobile platform," MATEC Web of Conferences, vol. 157, p. 01008, Jan. 2018, doi: 10.1051/matecconf/201815701008.
-% 3
-\bibitem{patrascu2021} M. Pătrașcu and V. Gheorghe, "Robust Position Control for High Slip Risk Tricycle Robots with Real-coded Genetic Algorithms," 2021 60th IEEE Conference on Decision and Control (CDC), Austin, TX, USA, 2021, pp. 629-634, doi: 10.1109/CDC45484.2021.9683704.
-% 4
-\bibitem{subash2024} A. Subash, D. Kloeser, J. Frey, R. Reiter, M. Diehl and K. Bohlmann, "Model Predictive Control for Frenet-Cartesian Trajectory Tracking of a Tricycle Kinematic Automated Guided Vehicle," 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Abu Dhabi, United Arab Emirates, 2024, pp. 11948-11953, doi: 10.1109/IROS58592.2024.10802822.
-% 5
-\bibitem{kamga1996} A. Kamga and A. Rachid, "Speed, steering angle and path tracking controls for a tricycle robot," Proceedings of Joint Conference on Control Applications Intelligent Control and Computer Aided Control System Design, Dearborn, MI, USA, 1996, pp. 56-61, doi: 10.1109/CACSD.1996.555197.
-% 6
-\bibitem{Precup2006} R. -e. Precup, S. Preitl and Z. Preitl, "Fuzzy Control Solution for a Class of Tricycle Mobile Robots," 2006 IEEE International Conference on Mechatronics, Budapest, Hungary, 2006, pp. 203-208, doi: 10.1109/ICMECH.2006.252525.
-% 7
+\bibitem{JSong2004} J. Song and K. Byun, “Design and Control of a Four-Wheeled Omnidirectional Mobile Robot with Steerable Omnidirectional Wheels,” Journal of Robotic Systems, vol. 21, no. 4, pp. 193-208, Mar. 2004, doi: 10.1002/rob.20009.
 \bibitem{Widiawan2020} B. Widiawan, C. Triwidiarto, S. Kautsar, and R. Firgiyanto, "Wireless greenhouse monitoring system using Tricycle Mobile-Robot based on Rasberry PI," IOP Conference Series Earth and Environmental Science, vol. 411, no. 1, p. 012058, Jan. 2020, doi: 10.1088/1755-1315/411/1/012058.
-% 8
 \bibitem{VazquezRodriguez2018} E. A. Vázquez-Rodríguez, F. J. Perez-Pinal, P. Bautista-Camino and M. A. Rodríguez-Licea, "The Rollover Risk and its Mitigation in Rickshaws," 2018 IEEE International Autumn Meeting on Power, Electronics and Computing (ROPEC), Ixtapa, Mexico, 2018, pp. 1-6, doi: 10.1109/ROPEC.2018.8661423.
-% 9
 \bibitem{Licea2018} M. A. R. Licea, E. A. V. Rodríguez, F. J. P. Pinal, and J. P. Olivares, "The rollover risk in Delta tricycles: a new rollover index and its robust mitigation by rear differential braking," Mathematical Problems in Engineering, vol. 2018, pp. 1-14, Oct. 2018, doi: 10.1155/2018/4972419.
-% 10
+\bibitem{jaskot2018} A. Jaskot and B. Posiadała, "Analysis of motion of the three wheeled mobile platform," MATEC Web of Conferences, vol. 157, p. 01008, Jan. 2018, doi: 10.1051/matecconf/201815701008.
+\bibitem{chand2022} P. Chand, "Integrating an electronic compass for position tracking on a wheeled tricycle mobile robot," Drone Systems and Applications, vol. 10, no. 1, pp. 179-199, Jan. 2022, doi: 10.1139/dsa-2021-0049.
+\bibitem{subash2024} A. Subash, D. Kloeser, J. Frey, R. Reiter, M. Diehl and K. Bohlmann, "Model Predictive Control for Frenet-Cartesian Trajectory Tracking of a Tricycle Kinematic Automated Guided Vehicle," 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Abu Dhabi, United Arab Emirates, 2024, pp. 11948-11953, doi: 10.1109/IROS58592.2024.10802822.
+\bibitem{kamga1996} A. Kamga and A. Rachid, "Speed, steering angle and path tracking controls for a tricycle robot," Proceedings of Joint Conference on Control Applications Intelligent Control and Computer Aided Control System Design, Dearborn, MI, USA, 1996, pp. 56-61, doi: 10.1109/CACSD.1996.555197.
+\bibitem{Precup2006} R. -e. Precup, S. Preitl and Z. Preitl, "Fuzzy Control Solution for a Class of Tricycle Mobile Robots," 2006 IEEE International Conference on Mechatronics, Budapest, Hungary, 2006, pp. 203-208, doi: 10.1109/ICMECH.2006.252525.
+\bibitem{patrascu2021} M. Pătrașcu and V. Gheorghe, "Robust Position Control for High Slip Risk Tricycle Robots with Real-coded Genetic Algorithms," 2021 60th IEEE Conference on Decision and Control (CDC), Austin, TX, USA, 2021, pp. 629-634, doi: 10.1109/CDC45484.2021.9683704.
 \bibitem{Ketemaw2022} D. Ketemaw and S. Seid, "Design of a rollover index-based sliding mode controller for roll stability of three wheeled vehicles using rear differential braking," Frontiers in Mechanical Engineering, vol. 8, Nov. 2022, doi: 10.3389/fmech.2022.1038289.
-
-% ======================================================================
-% ----- CẤU TRÚC LÁI ACKERMANN -----
-
-% 1
-\bibitem{Hrbacek2010} J. Hrbáček, T. Ripel and J. Krejsa, "Ackermann mobile robot chassis with independent rear wheel drives," Proceedings of 14th International Power Electronics and Motion Control Conference EPE-PEMC 2010, Ohrid, Macedonia, 2010, pp. T5-46-T5-51, doi: 10.1109/EPEPEMC.2010.5606853.
-% 2
-\bibitem{Zhao2013} J.-S. Zhao, X. Liu, Z.-J. Feng, and J. S. Dai, “Design of an Ackermann-type steering mechanism,” Proceedings of the Institution of Mechanical Engineers Part C Journal of Mechanical Engineering Science, vol. 227, no. 11, pp. 2549-2562, Feb. 2013, doi: 10.1177/0954406213475980.
-% 3
 \bibitem{Yao2000} J. Yao and J. Angeles, “THE KINEMATIC SYNTHESIS OF STEERING MECHANISMS,” Transactions of the Canadian Society for Mechanical Engineering, vol. 24, no. 3-4, pp. 453-476, Sep. 2000, doi: 10.1139/tcsme-2000-0035.
-% 4
+\bibitem{Zhao2013} J.-S. Zhao, X. Liu, Z.-J. Feng, and J. S. Dai, “Design of an Ackermann-type steering mechanism,” Proceedings of the Institution of Mechanical Engineers Part C Journal of Mechanical Engineering Science, vol. 227, no. 11, pp. 2549-2562, Feb. 2013, doi: 10.1177/0954406213475980.
 \bibitem{Mitchell2006} Wm. C. Mitchell, A. Staniforth, and I. Scott, “Analysis of Ackermann Steering geometry,” SAE Technical Papers on CD-ROM/SAE Technical Paper Series, vol. 1, Dec. 2006, doi: 10.4271/2006-01-3638.
-
-% ======================================================================
-% ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
-
-% 1
-\bibitem{Mandow2007} A. Mandow, J. L. Martinez, J. Morales, J. L. Blanco, A. Garcia-Cerezo and J. Gonzalez, "Experimental kinematics for wheeled skid-steer mobile robots," 2007 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Diego, CA, USA, 2007, pp. 1222-1227, doi: 10.1109/IROS.2007.4399139.
-% 2
-\bibitem{Reina2016} G. Reina and R. Galati, "Slip-based terrain estimation with a skid-steer vehicle," Vehicle System Dynamics, vol. 54, no. 10, pp. 1384-1404, Jun. 2016, doi: 10.1080/00423114.2016.1203961.
-% 3
-\bibitem{Fiset2021} J.-S. Fiset, M. Effati, and K. Skonieczny, "Effects of turning radius on skid-steered wheeled robot power consumption on loose soil," pp. 115-129, 2021.
-% 4
+\bibitem{Hrbacek2010} J. Hrbáček, T. Ripel and J. Krejsa, "Ackermann mobile robot chassis with independent rear wheel drives," Proceedings of 14th International Power Electronics and Motion Control Conference EPE-PEMC 2010, Ohrid, Macedonia, 2010, pp. T5-46-T5-51, doi: 10.1109/EPEPEMC.2010.5606853.
 \bibitem{Martinez2023} J. L. Martínez, J. Morales, J. M. García and A. García-Cerezo, "Analysis of Tread ICRs for Wheeled Skid-Steer Vehicles on Inclined Terrain," in IEEE Access, vol. 11, pp. 547-555, 2023, doi: 10.1109/ACCESS.2022.3232954.
-% 5
+\bibitem{Reina2016} G. Reina and R. Galati, "Slip-based terrain estimation with a skid-steer vehicle," Vehicle System Dynamics, vol. 54, no. 10, pp. 1384-1404, Jun. 2016, doi: 10.1080/00423114.2016.1203961.
+\bibitem{Fiset2021} J.-S. Fiset, M. Effati, and K. Skonieczny, "Effects of turning radius on skid-steered wheeled robot power consumption on loose soil," pp. 115-129, 2021.
 \bibitem{Alkalla2019} M. G. Alkalla et al., “EJBot-II: an optimized skid-steering propeller-type climbing robot with transition mechanism,” Advanced Robotics, vol. 33, no. 20, pp. 1042-1059, Aug. 2019, doi: 10.1080/01691864.2019.1657948.
-
-% ======================================================================
-% ----- ROBOT SÁU BÁNH VÀ CƠ CẤU ROCKER-BOGIE -----
-
-% 1
-\bibitem{Moore2000} K. L. Moore and N. S. Flann, "A six-wheeled omnidirectional autonomous mobile robot," in IEEE Control Systems Magazine, vol. 20, no. 6, pp. 53-66, Dec. 2000, doi: 10.1109/37.887449.
-% 2
-\bibitem{Chinchkar2017} D. S. Chinchkar, S. S. Gajghate, R. N. Panchal, R. M. Shetenawar, and P. S. Mulik, “Design of Rocker Bogie Mechanism,” IARJSET, vol. 4, no. 1, pp. 46-50, Jan. 2017, doi: 10.17148/iarjset/ncdmete.2017.13.
-% 3
-\bibitem{DKim2011} D. Kim, H. Hong, H. S. Kim, and J. Kim, “Optimal design and kinetic analysis of a stair-climbing mobile robot with rocker-bogie mechanism,” Mechanism and Machine Theory, vol. 50, pp. 90-108, Dec. 2011, doi: 10.1016/j.mechmachtheory.2011.11.013.
-% 4
 \bibitem{KLim2022} K. Lim, S. Ryu, J. H. Won and T. Seo, "A Modified Rocker-Bogie Mechanism With Fewer Actuators and High Mobility," in IEEE Robotics and Automation Letters, vol. 7, no. 4, pp. 8752-8758, Oct. 2022, doi: 10.1109/LRA.2022.3188120.
-% 5
 \bibitem{Gupta2013} A. K. Gupta and V. K. Gupta, "Design and development of six-wheeled Multi-Terrain Robot," 2013 International Conference on Control, Automation, Robotics and Embedded Systems (CARE), Jabalpur, India, 2013, pp. 1-6, doi: 10.1109/CARE.2013.6733751.
-% 6
+\bibitem{Chinchkar2017} D. S. Chinchkar, S. S. Gajghate, R. N. Panchal, R. M. Shetenawar, and P. S. Mulik, “Design of Rocker Bogie Mechanism,” IARJSET, vol. 4, no. 1, pp. 46-50, Jan. 2017, doi: 10.17148/iarjset/ncdmete.2017.13.
 \bibitem{Pandey2022} A. Pandey, A. Kumar, T. D. Diwan, Md. E. Hasan, R. L. Mohanty, and S. S. Gour, “New Concept-Based Six-Wheels Rocker-Bogie Robot: Design and analysis,” Materials Today Proceedings, vol. 56, pp. 726-734, Jan. 2022, doi: 10.1016/j.matpr.2022.02.243.
-% 7
 \bibitem{ZSong2021} Z. Song, Z. Luo, G. Wei, and J. Shang, “Design and analysis of a six-wheeled companion robot with mechanical obstacle-overcoming adaptivity,” Mechanical Sciences, vol. 12, no. 2, pp. 1115-1136, Dec. 2021, doi: 10.5194/ms-12-1115-2021.
-
-% ======================================================================
-% ----- ROBOT BÁNH XÍCH -----
-
-% 1
-\bibitem{HKim2008} H. Kim et al., “Development of a wall-climbing robot using a tracked wheel mechanism,” Journal of Mechanical Science and Technology, vol. 22, no. 8, pp. 1490-1498, Aug. 2008, doi: 10.1007/s12206-008-0413-x.
-% 2
-\bibitem{BenTzvi2019} P. Ben-Tzvi and W. Saab, “A hybrid Tracked-Wheeled Multi-Directional mobile robot,” Journal of Mechanisms and Robotics, vol. 11, no. 4, Apr. 2019, doi: 10.1115/1.4043599.
-% 3
-\bibitem{Rachkov2019} M. Rachkov, A. Emelyanov and V. Kolot, "Reconfigurable Autonomous Wheel-Tracked Robot," 2019 International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Sochi, Russia, 2019, pp. 1-5, doi: 10.1109/ICIEAM.2019.8742987.
-% 4
-\bibitem{Zhu2002} J. Zhu, D. Sun, and S.-K. Tso, “Development of a tracked climbing robot,” Journal of Intelligent \& Robotic Systems, vol. 35, no. 4, pp. 427-443, Dec. 2002, doi: 10.1023/a:1022383216233.
-% 5
+\bibitem{Moore2000} K. L. Moore and N. S. Flann, "A six-wheeled omnidirectional autonomous mobile robot," in IEEE Control Systems Magazine, vol. 20, no. 6, pp. 53-66, Dec. 2000, doi: 10.1109/37.887449.
+\bibitem{DKim2011} D. Kim, H. Hong, H. S. Kim, and J. Kim, “Optimal design and kinetic analysis of a stair-climbing mobile robot with rocker-bogie mechanism,” Mechanism and Machine Theory, vol. 50, pp. 90-108, Dec. 2011, doi: 10.1016/j.mechmachtheory.2011.11.013.
 \bibitem{Luo2018} Z. Luo, J. Shang, G. Wei, and L. Ren, “A reconfigurable hybrid wheel-track mobile robot based on Watt II six-bar linkage,” Mechanism and Machine Theory, vol. 128, pp. 16-32, Jun. 2018, doi: 10.1016/j.mechmachtheory.2018.04.020.
-% 6
 \bibitem{Cui2016} D. Cui, X. Gao, W. Guo and H. Dong, "Design and Stability Analysis of a Wheel-Track Robot," 2016 3rd International Conference on Information Science and Control Engineering (ICISCE), Beijing, China, 2016, pp. 918-922, doi: 10.1109/ICISCE.2016.200.
-
-% ======================================================================
-% ----- CẤU TRÚC LAI CƠ CẤU CHÂN - BÁNH -----
-
-% 1
-\bibitem{Lu2013} D. Lu, E. Dong, C. Liu, M. Xu and J. Yang, "Design and development of a leg-wheel hybrid robot “HyTRo-I”," 2013 IEEE/RSJ International Conference on Intelligent Robots and Systems, Tokyo, Japan, 2013, pp. 6031-6036, doi: 10.1109/IROS.2013.6697232.
-% 2
-\bibitem{Wei2017} Z. Wei, G. Song, G. Qiao, Y. Zhang, and H. Sun, “Design and implementation of a Leg-Wheel robot: TransLeg,” Journal of Mechanisms and Robotics, vol. 9, no. 5, Jun. 2017, doi: 10.1115/1.4037018.
-% 3
+\bibitem{Rachkov2019} M. Rachkov, A. Emelyanov and V. Kolot, "Reconfigurable Autonomous Wheel-Tracked Robot," 2019 International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Sochi, Russia, 2019, pp. 1-5, doi: 10.1109/ICIEAM.2019.8742987.
+\bibitem{BenTzvi2019} P. Ben-Tzvi and W. Saab, “A hybrid Tracked-Wheeled Multi-Directional mobile robot,” Journal of Mechanisms and Robotics, vol. 11, no. 4, Apr. 2019, doi: 10.1115/1.4043599.
+\bibitem{HKim2008} H. Kim et al., “Development of a wall-climbing robot using a tracked wheel mechanism,” Journal of Mechanical Science and Technology, vol. 22, no. 8, pp. 1490-1498, Aug. 2008, doi: 10.1007/s12206-008-0413-x.
+\bibitem{Zhu2002} J. Zhu, D. Sun, and S.-K. Tso, “Development of a tracked climbing robot,” Journal of Intelligent \& Robotic Systems, vol. 35, no. 4, pp. 427-443, Dec. 2002, doi: 10.1023/a:1022383216233.
 \bibitem{Shen2009} S. -Y. Shen, Cheng-Hsin Li, C. -C. Cheng, J. -C. Lu, S. -F. Wang and P. -C. Lin, "Design of a leg-wheel hybrid mobile platform," 2009 IEEE/RSJ International Conference on Intelligent Robots and Systems, St. Louis, MO, USA, 2009, pp. 4682-4687, doi: 10.1109/IROS.2009.5353958.
-% 4
-\bibitem{Chen2014} S. -C. Chen, K. -J. Huang, W. -H. Chen, S. -Y. Shen, C. -H. Li and P. -C. Lin, "Quattroped: A Leg--Wheel Transformable Robot," in IEEE/ASME Transactions on Mechatronics, vol. 19, no. 2, pp. 730-742, April 2014, doi: 10.1109/TMECH.2013.2253615.
-% 5
 \bibitem{Zheng2015} C. Zheng et al., “Design and analysis of a wheel-legged hybrid locomotion mechanism,” Advances in Mechanical Engineering, vol. 7, no. 11, Nov. 2015, doi: 10.1177/1687814015616908.
-
-% ======================================================================
-
-% ----- ỨNG DỤNG -----
-
+\bibitem{Wei2017} Z. Wei, G. Song, G. Qiao, Y. Zhang, and H. Sun, “Design and implementation of a Leg-Wheel robot: TransLeg,” Journal of Mechanisms and Robotics, vol. 9, no. 5, Jun. 2017, doi: 10.1115/1.4037018.
+\bibitem{Chen2014} S. -C. Chen, K. -J. Huang, W. -H. Chen, S. -Y. Shen, C. -H. Li and P. -C. Lin, "Quattroped: A Leg--Wheel Transformable Robot," in IEEE/ASME Transactions on Mechatronics, vol. 19, no. 2, pp. 730-742, April 2014, doi: 10.1109/TMECH.2013.2253615.
+\bibitem{Lu2013} D. Lu, E. Dong, C. Liu, M. Xu and J. Yang, "Design and development of a leg-wheel hybrid robot “HyTRo-I”," 2013 IEEE/RSJ International Conference on Intelligent Robots and Systems, Tokyo, Japan, 2013, pp. 6031-6036, doi: 10.1109/IROS.2013.6697232.
 \bibitem{jackal} "Jackal UGV - Small Weatherproof Robot - Clearpath," Clearpath Robotics, Jun. 09, 2025. https://www.clearpathrobotics.com/jackal-small-unmanned-ground-vehicle/ (accessed Nov. 20, 2025).
-
-% ====================
-
-% ----- XU HƯỚNG NGHIÊN CỨU -----
-
-
-
-% ===============================
-
-% ----- KẾT LUẬN -----
-
-
-
-% ====================
 
 \end{thebibliography}
 
