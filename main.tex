@@ -1153,14 +1153,23 @@ Cấu trúc lái ba bánh hiện đại là sự hội tụ của thiết kế c
 
 \subsubsection{Cấu trúc lái Ackermann}
 
+Cấu trúc lái Ackermann là giải pháp tiêu chuẩn cho các robot di động hoạt động ngoài trời hoặc yêu cầu di chuyển tốc độ cao tương tự ô tô. Nguyên lý cốt lõi của cấu trúc này là đảm bảo tất cả các bánh xe đều lăn quanh một tâm quay tức thời (ICR) duy nhất, giúp triệt tiêu hiện tượng trượt bánh và giảm thiểu mài mòn lốp khi vào cua.
 
+Thách thức lớn nhất trong thiết kế phần cứng Ackermann là tạo ra mối quan hệ hình học chính xác giữa góc lái của bánh trong và bánh ngoài.
 
+\begin{itemize}
+    \item Đây là giải pháp cơ khí phổ biến nhất. Tuy nhiên, Yao và Angeles \cite{Yao2000} chỉ ra rằng cơ cấu 4 khâu truyền thống chỉ có thể đáp ứng điều kiện Ackermann một cách gần đúng tại một số điểm nhất định trong hành trình lái. Họ đề xuất phương pháp tổng hợp động học tính toán để tối ưu hóa chiều dài các khâu, giảm thiểu sai số bình phương trung bình của góc lái thực tế so với lý thuyết.
+    
+    \item Để khắc phục giới hạn của cơ cấu liên kết, Zhao và cộng sự \cite{Zhao2013} đã đề xuất một cơ chế lái tiên tiến sử dụng các bánh răng phi tròn. Thiết kế này cho phép biến đổi quan hệ góc lái giữa hai bánh trước tuân theo chính xác phương trình Ackermann lý thuyết trong toàn bộ dải hoạt động, loại bỏ hoàn toàn sai số hình học của các cơ cấu 4 khâu.
+    
+    \item Mitchell và cộng sự \cite{Mitchell2006} cung cấp các phân tích sâu về hình học lái, phân biệt giữa "Ackermann hoàn hảo" (lý tưởng cho robot tốc độ thấp) và các biến thể như "Anti-Ackermann" hoặc "Parallel Steer" (dùng trong đua xe để bù góc trượt lốp). Đối với robot di động, việc duy trì hình học Ackermann chính xác là ưu tiên hàng đầu để đảm bảo tính chính xác của phép đo hành trình.
+\end{itemize}
 
+Trong thực tế chế tạo robot, cấu trúc Ackermann thường được kết hợp với các giải pháp dẫn động hiện đại để giảm trọng lượng và tăng tính linh hoạt.
 
+Hrbáček và cộng sự \cite{Hrbacek2010} giới thiệu robot "Bender II", sử dụng cấu trúc lái Ackermann phía trước kết hợp với hai động cơ dẫn động độc lập phía sau. Thay vì sử dụng bộ vi sai cơ khí cồng kềnh và nặng nề như ô tô truyền thống, họ áp dụng thuật toán "vi sai mềm" để điều khiển vận tốc hai bánh sau dựa trên góc lái của bánh trước. Giải pháp phần cứng này giúp đơn giản hóa khung gầm, giảm tiêu hao năng lượng và tăng độ tin cậy. Phần cứng điều khiển thường được phân cấp, với các bộ vi điều khiển chuyên dụng (như Atmega128) xử lý vòng lặp điều khiển PID cho từng động cơ (lái và dẫn động) để đảm bảo sự đồng bộ thời gian thực giữa góc lái và vận tốc bánh xe, ngăn chặn hiện tượng cưỡng bức trượt.
 
-
-
-
+Robot sử dụng cấu trúc lái Ackermann cung cấp sự ổn định vượt trội và hiệu quả năng lượng khi di chuyển đường dài. Xu hướng thiết kế hiện nay đang chuyển dịch từ các cơ cấu liên kết xấp xỉ sang các cơ cấu chính xác cao (như bánh răng phi tròn) và thay thế các thành phần cơ khí phức tạp (vi sai) bằng các giải pháp điều khiển điện tử thông minh.
 
 % ======================================================================
 
@@ -1448,6 +1457,90 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{lee2024} W. Lee, J. Kim, and T. Seo, "Design and analysis of a mobile robot with novel caster mechanism for high step-overcoming capability," Scientific Reports, vol. 14, no. 1, p. 13745, Jun. 2024, doi: 10.1038/s41598-024-63825-y.
 
 % ======================================================================
+% ----- BÁNH XE CỐ ĐỊNH -----
+
+% ======================================================================
+% ----- BÁNH XE LÁI -----
+
+% ======================================================================
+% ----- BÁNH XE XOAY TỰ DO -----
+
+% ======================================================================
+% ----- BÁNH XE OMNI -----
+
+% 1
+\bibitem{ferriere1996} L. Ferriere, B. Raucent and G. Campion, "Design of omnimobile robot wheels," Proceedings of IEEE International Conference on Robotics and Automation, Minneapolis, MN, USA, 1996, pp. 3664-3670 vol.4, doi: 10.1109/ROBOT.1996.509271.
+% 2
+\bibitem{kanjanawanishkul2015} K. Kanjanawanishkul, "Omnidirectional wheeled mobile robots: wheel types and practical applications," International Journal of Advanced Mechatronic Systems, vol. 6, no. 6, p. 289, Jan. 2015, doi: 10.1504/ijamechs.2015.074788.
+% 3
+\bibitem{patil2024} S. Patil, M. Madgule, and R. Patil, "Design and analysis of carbon reinforced composite plate for robotic Omni-Wheel: replacement of costly metals," Journal of the Institution of Engineers (India) Series D, Nov. 2024, doi: 10.1007/s40033-024-00831-4.
+% 4
+\bibitem{williams2002} R. L. Williams, B. E. Carter, P. Gallina and G. Rosati, "Dynamic model with slip for wheeled omnidirectional robots," in IEEE Transactions on Robotics and Automation, vol. 18, no. 3, pp. 285-293, June 2002, doi: 10.1109/TRA.2002.1019459.
+% 5
+\bibitem{komori2016} M. Komori, K. Matsuda, T. Terakawa, F. Takeoka, H. Nishihara, and H. Ohashi, "Active omni wheel capable of active motion in arbitrary direction and omnidirectional vehicle," Journal of Advanced Mechanical Design Systems and Manufacturing, vol. 10, no. 6, p. JAMDSM0086, Jan. 2016, doi: 10.1299/jamdsm.2016jamdsm0086.
+
+% ======================================================================
+% ----- BÁNH XE MECANUM -----
+
+% 1
+\bibitem{ilon1975} B. E. Ilon, "Wheels for a course stable selfpropelling vehicle movable in any desired direction on the ground or some other base," U.S. Patent 3 876 255, 1975.
+% 2
+\bibitem{wikipedia_mecanum_wheel} Wikipedia, "Mecanum wheel," Wikipedia, Sep. 08, 2025. https://en.wikipedia.org/wiki/Mecanum\_wheel.
+% 3
+\bibitem{barnett2003} D. H. Barnett, "Low vibration omni-directional wheel," U.S. Patent 6,547,340, Apr. 15, 2003.
+% 4
+\bibitem{potter2010} S. D. Potter, "Omni-directional wheel," U.S. Patent Application 2010/0187779 A1, published Jul. 29, 2010.
+% 5
+\bibitem{baker2010} A. R. Baker, "Omni-directional wheel design for construction cost reduction," U.S. Patent 7,641,288, Jan. 5, 2010.
+% 6
+\bibitem{scogna2011} J. Scogna, "Wheel for omni-directional vehicle," U.S. Patent 8,011,735, Sep. 6, 2011.
+% 7
+\bibitem{schlee2013} K. L. Schlee, "Mecanum wheel," U.S. Patent Application 2013/0292918 A1, published Nov. 7, 2013.
+% 8
+\bibitem{gunther2014} W. G\"unther, "Wheel," U.S. Patent 8,833,862, Sep. 16, 2014.
+% 9
+\bibitem{bae2016} J.-J. Bae and N. Kang, "Design optimization of a mecanum wheel to reduce vertical vibrations by the consideration of equivalent stiffness," Shock and Vibration, vol. 2016, pp. 1-8, Jan. 2016, doi: 10.1155/2016/5892784.
+% 10
+\bibitem{giurgiu2022} T. Giurgiu, G. Bârsan, I. Virca, and C. Pupăză, "Mecanum wheeled platforms for special applications," International Conference KNOWLEDGE-BASED ORGANIZATION, vol. 28, no. 3, pp. 44-51, Jun. 2022, doi: 10.2478/kbo-2022-0086.
+% 11
+\bibitem{dyakov2024} A. S. Dyakov and D. S. Fedorov, "GEOMETRY, KINEMATICS AND DYNAMICS OF THE MECANUM WHEEL. UNSTABLE ACCELERATED MOTION OF MECANUM VEHICLE," Izvestiya MGTU MAMI, May 2024, doi: 10.17816/2074-0530-629873.
+% 12
+\bibitem{dosoftei2020} C. Dosoftei, V. Horga, I. Doroftei, T. Popovici and Ş. Custura, "Simplified Mecanum Wheel Modelling using a Reduced Omni Wheel Model for Dynamic Simulation of an Omnidirectional Mobile Robot," 2020 International Conference and Exposition on Electrical And Power Engineering (EPE), Iasi, Romania, 2020, pp. 721-726, doi: 10.1109/EPE50722.2020.9305643.
+% 13
+\bibitem{hasana2021} S. Hasana and H. Alwan, "Modeling and control of wheeled mobile robot with four Mecanum wheels," Engineering and Technology Journal, vol. 39, no. 5A, pp. 779-789, May 2021, doi: 10.30684/etj.v39i5a.1926.
+% 14
+\bibitem{doroliat2022} A. P. Doroliat, M.-H. Ing, and C.-H. G. Li, "Optimization of mecanum wheels for mitigation of AGV vibration," The International Journal of Advanced Manufacturing Technology, vol. 121, no. 1-2, pp. 633-645, May 2022, doi: 10.1007/s00170-022-09298-7.
+% 15
+\bibitem{zimmermann2014} K. Zimmermann, I. Zeidis, and M. Abdelrahman, "Dynamics of Mechanical Systems with Mecanum Wheels," in Springer proceedings in mathematics \& statistics, 2014, pp. 269-279. doi: 10.1007/978-3-319-08266-0\_19.
+% 16
+\bibitem{zhewen2024} Z. Zhewen, Y. Hongliu, W. Chengjia, H. Pu, and W. Jiangui, "A comprehensive study on Mecanum wheel-based mobility and suspension solutions for intelligent nursing wheelchairs," Scientific Reports, vol. 14, no. 1, p. 20644, Sep. 2024, doi: 10.1038/s41598-024-71459-3.
+% 17
+\bibitem{yadav2022} N. P. S. Yadav, V. Agrawal, N. J. C. Mohanta, and N. Md. F. Ahmed, "A Theoretical Review of Mobile Robot Locomotion based on Mecanum Wheels," Evergreen, vol. 9, no. 2, pp. 396-403, Jun. 2022, doi: 10.5109/4794163.
+% 18
+\bibitem{salih2006} J. E. M. Salih, M. Rizon, and S. Yaacob, "Designing Omni-Directional Mobile Robot with Mecanum Wheel," American Journal of Applied Sciences, vol. 3, no. 5, pp. 1831-1835, May 2006, doi: 10.3844/ajassp.2006.1831.1835.
+% 19
+\bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
+% 20
+\bibitem{doroftei2011} I. Doroftei and B.-D. D. Mangeron, "PRACTICAL APPLICATIONS FOR MOBILE ROBOTS BASED ON MECANUM WHEELS - A SYSTEMATIC SURVEY," Romanian Review Precision Mechanics, Optics and Mechatronics, Jan. 2011, [Online]. Available: http://www.incdmtm.ro/mecahitech2011/articole/Pp112-123.pdf.
+
+% ======================================================================
+% ----- BÁNH HÌNH CẦU -----
+
+
+
+% ======================================================================
+% ----- BÁNH ORIGAMI -----
+
+% 1
+\bibitem{DYLee2013} D. -Y. Lee, G. -P. Jung, M. -K. Sin, S. -H. Ahn and K. -J. Cho, "Deformable wheel robot based on origami structure," 2013 IEEE International Conference on Robotics and Automation, Karlsruhe, Germany, 2013, pp. 5612-5617, doi: 10.1109/ICRA.2013.6631383.
+% 2
+\bibitem{Fonseca2019} L. M. Fonseca, G. V. Rodrigues, M. A. Savi, and A. Paiva, “Nonlinear dynamics of an origami wheel with shape memory alloy actuators,” Chaos Solitons \& Fractals, vol. 122, pp. 245-261, Apr. 2019, doi: 10.1016/j.chaos.2019.03.033.
+% 3
+\bibitem{JLiu2024} J. Liu et al., “An origami-wheeled robot with variable width and enhanced sand walking versatility,” Thin-Walled Structures, vol. 206, p. 112645, Nov. 2024, doi: 10.1016/j.tws.2024.112645.
+% 4
+\bibitem{DYLee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163-180, May 2017, doi: 10.1089/soro.2016.0038.
+
+% ======================================================================
 % ----- ROBOT XE ĐẠP MỘT BÁNH -----
 
 % 1
@@ -1636,82 +1729,6 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{nakata2022} Y. Nakata, S. Yagi, S. Yu, Y. Wang, N. Ise, Y. Nakamura, and H. Ishiguro, "Development of 'ibuki' an electrically actuated childlike Android with mobility and its potential in the future society," Robotica, vol. 40, no. 4, pp. 933-950, Apr. 2022.
 
 \bibitem{bhatia2015} A. Bhatia, M. Kumagai, and R. Hollis, "Six-stator spherical induction motor for balancing mobile robots," in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2015, pp. 226-231.
-
-% ======================================================================
-% ----- BÁNH XE CỐ ĐỊNH -----
-
-% ======================================================================
-% ----- BÁNH XE LÁI -----
-
-% ======================================================================
-% ----- BÁNH XE XOAY TỰ DO -----
-
-% ======================================================================
-% ----- BÁNH XE OMNI -----
-
-\bibitem{ferriere1996} L. Ferriere, B. Raucent and G. Campion, "Design of omnimobile robot wheels," Proceedings of IEEE International Conference on Robotics and Automation, Minneapolis, MN, USA, 1996, pp. 3664-3670 vol.4, doi: 10.1109/ROBOT.1996.509271.
-\bibitem{kanjanawanishkul2015} K. Kanjanawanishkul, "Omnidirectional wheeled mobile robots: wheel types and practical applications," International Journal of Advanced Mechatronic Systems, vol. 6, no. 6, p. 289, Jan. 2015, doi: 10.1504/ijamechs.2015.074788.
-\bibitem{patil2024} S. Patil, M. Madgule, and R. Patil, "Design and analysis of carbon reinforced composite plate for robotic Omni-Wheel: replacement of costly metals," Journal of the Institution of Engineers (India) Series D, Nov. 2024, doi: 10.1007/s40033-024-00831-4.
-\bibitem{williams2002} R. L. Williams, B. E. Carter, P. Gallina and G. Rosati, "Dynamic model with slip for wheeled omnidirectional robots," in IEEE Transactions on Robotics and Automation, vol. 18, no. 3, pp. 285-293, June 2002, doi: 10.1109/TRA.2002.1019459.
-\bibitem{komori2016} M. Komori, K. Matsuda, T. Terakawa, F. Takeoka, H. Nishihara, and H. Ohashi, "Active omni wheel capable of active motion in arbitrary direction and omnidirectional vehicle," Journal of Advanced Mechanical Design Systems and Manufacturing, vol. 10, no. 6, p. JAMDSM0086, Jan. 2016, doi: 10.1299/jamdsm.2016jamdsm0086.
-
-% ======================================================================
-% ----- BÁNH XE MECANUM -----
-
-% 1
-\bibitem{ilon1975} B. E. Ilon, "Wheels for a course stable selfpropelling vehicle movable in any desired direction on the ground or some other base," U.S. Patent 3 876 255, 1975.
-% 2
-\bibitem{wikipedia_mecanum_wheel} Wikipedia, "Mecanum wheel," Wikipedia, Sep. 08, 2025. https://en.wikipedia.org/wiki/Mecanum\_wheel.
-% 3
-\bibitem{barnett2003} D. H. Barnett, "Low vibration omni-directional wheel," U.S. Patent 6,547,340, Apr. 15, 2003.
-% 4
-\bibitem{potter2010} S. D. Potter, "Omni-directional wheel," U.S. Patent Application 2010/0187779 A1, published Jul. 29, 2010.
-% 5
-\bibitem{baker2010} A. R. Baker, "Omni-directional wheel design for construction cost reduction," U.S. Patent 7,641,288, Jan. 5, 2010.
-% 6
-\bibitem{scogna2011} J. Scogna, "Wheel for omni-directional vehicle," U.S. Patent 8,011,735, Sep. 6, 2011.
-% 7
-\bibitem{schlee2013} K. L. Schlee, "Mecanum wheel," U.S. Patent Application 2013/0292918 A1, published Nov. 7, 2013.
-% 8
-\bibitem{gunther2014} W. G\"unther, "Wheel," U.S. Patent 8,833,862, Sep. 16, 2014.
-% 9
-\bibitem{bae2016} J.-J. Bae and N. Kang, "Design optimization of a mecanum wheel to reduce vertical vibrations by the consideration of equivalent stiffness," Shock and Vibration, vol. 2016, pp. 1-8, Jan. 2016, doi: 10.1155/2016/5892784.
-% 10
-\bibitem{giurgiu2022} T. Giurgiu, G. Bârsan, I. Virca, and C. Pupăză, "Mecanum wheeled platforms for special applications," International Conference KNOWLEDGE-BASED ORGANIZATION, vol. 28, no. 3, pp. 44-51, Jun. 2022, doi: 10.2478/kbo-2022-0086.
-% 11
-\bibitem{dyakov2024} A. S. Dyakov and D. S. Fedorov, "GEOMETRY, KINEMATICS AND DYNAMICS OF THE MECANUM WHEEL. UNSTABLE ACCELERATED MOTION OF MECANUM VEHICLE," Izvestiya MGTU MAMI, May 2024, doi: 10.17816/2074-0530-629873.
-% 12
-\bibitem{dosoftei2020} C. Dosoftei, V. Horga, I. Doroftei, T. Popovici and Ş. Custura, "Simplified Mecanum Wheel Modelling using a Reduced Omni Wheel Model for Dynamic Simulation of an Omnidirectional Mobile Robot," 2020 International Conference and Exposition on Electrical And Power Engineering (EPE), Iasi, Romania, 2020, pp. 721-726, doi: 10.1109/EPE50722.2020.9305643.
-% 13
-\bibitem{hasana2021} S. Hasana and H. Alwan, "Modeling and control of wheeled mobile robot with four Mecanum wheels," Engineering and Technology Journal, vol. 39, no. 5A, pp. 779-789, May 2021, doi: 10.30684/etj.v39i5a.1926.
-% 14
-\bibitem{doroliat2022} A. P. Doroliat, M.-H. Ing, and C.-H. G. Li, "Optimization of mecanum wheels for mitigation of AGV vibration," The International Journal of Advanced Manufacturing Technology, vol. 121, no. 1-2, pp. 633-645, May 2022, doi: 10.1007/s00170-022-09298-7.
-% 15
-\bibitem{zimmermann2014} K. Zimmermann, I. Zeidis, and M. Abdelrahman, "Dynamics of Mechanical Systems with Mecanum Wheels," in Springer proceedings in mathematics \& statistics, 2014, pp. 269-279. doi: 10.1007/978-3-319-08266-0\_19.
-% 16
-\bibitem{zhewen2024} Z. Zhewen, Y. Hongliu, W. Chengjia, H. Pu, and W. Jiangui, "A comprehensive study on Mecanum wheel-based mobility and suspension solutions for intelligent nursing wheelchairs," Scientific Reports, vol. 14, no. 1, p. 20644, Sep. 2024, doi: 10.1038/s41598-024-71459-3.
-% 17
-\bibitem{yadav2022} N. P. S. Yadav, V. Agrawal, N. J. C. Mohanta, and N. Md. F. Ahmed, "A Theoretical Review of Mobile Robot Locomotion based on Mecanum Wheels," Evergreen, vol. 9, no. 2, pp. 396-403, Jun. 2022, doi: 10.5109/4794163.
-% 18
-\bibitem{salih2006} J. E. M. Salih, M. Rizon, and S. Yaacob, "Designing Omni-Directional Mobile Robot with Mecanum Wheel," American Journal of Applied Sciences, vol. 3, no. 5, pp. 1831-1835, May 2006, doi: 10.3844/ajassp.2006.1831.1835.
-% 19
-\bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
-% 20
-\bibitem{doroftei2011} I. Doroftei and B.-D. D. Mangeron, "PRACTICAL APPLICATIONS FOR MOBILE ROBOTS BASED ON MECANUM WHEELS - A SYSTEMATIC SURVEY," Romanian Review Precision Mechanics, Optics and Mechatronics, Jan. 2011, [Online]. Available: http://www.incdmtm.ro/mecahitech2011/articole/Pp112-123.pdf.
-
-% ======================================================================
-% ----- BÁNH ORIGAMI -----
-
-% 1
-\bibitem{DYLee2013} D. -Y. Lee, G. -P. Jung, M. -K. Sin, S. -H. Ahn and K. -J. Cho, "Deformable wheel robot based on origami structure," 2013 IEEE International Conference on Robotics and Automation, Karlsruhe, Germany, 2013, pp. 5612-5617, doi: 10.1109/ICRA.2013.6631383.
-% 2
-\bibitem{Fonseca2019} L. M. Fonseca, G. V. Rodrigues, M. A. Savi, and A. Paiva, “Nonlinear dynamics of an origami wheel with shape memory alloy actuators,” Chaos Solitons \& Fractals, vol. 122, pp. 245-261, Apr. 2019, doi: 10.1016/j.chaos.2019.03.033.
-% 3
-\bibitem{JLiu2024} J. Liu et al., “An origami-wheeled robot with variable width and enhanced sand walking versatility,” Thin-Walled Structures, vol. 206, p. 112645, Nov. 2024, doi: 10.1016/j.tws.2024.112645.
-% 4
-\bibitem{DYLee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163-180, May 2017, doi: 10.1089/soro.2016.0038.
-
-
 
 % ======================================================================
 % ----- CẤU TRÚC BA BÁNH -----
