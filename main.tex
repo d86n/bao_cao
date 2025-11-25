@@ -190,7 +190,7 @@ hoặc robot nông nghiệp di chuyển trên địa hình mềm, giả thuyết
 
 Do đó, để giải quyết các thách thức này, kỹ thuật robot hiện đại thường tiếp cận theo hai hướng song song:
 \begin{enumerate}
-    \item Các mô hình động học được bổ sung thêm các tham số về độ trượt và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý \cite{ward2008, yi2009, mandow2007}.
+    \item Các mô hình động học được bổ sung thêm các tham số về độ trượt và độ cứng lốp để phản ánh chính xác hơn tương tác vật lý \cite{ward2008, yi2009, Mandow2007}.
     \item Vì mô hình hóa không thể loại bỏ hoàn toàn sai số tích lũy, dữ liệu từ bánh xe (Odometry) bắt buộc phải được kết hợp với các cảm biến ngoại vi (như IMU, LiDAR) thông qua các bộ lọc ước lượng trạng thái (như EKF) để đảm bảo độ chính xác vị trí trong thời gian dài \cite{thrun2010, moore2014}.
 \end{enumerate}
 
@@ -1155,6 +1155,13 @@ Cấu trúc lái ba bánh hiện đại là sự hội tụ của thiết kế c
 
 Cấu trúc lái Ackermann là giải pháp tiêu chuẩn cho các robot di động hoạt động ngoài trời hoặc yêu cầu di chuyển tốc độ cao tương tự ô tô. Nguyên lý cốt lõi của cấu trúc này là đảm bảo tất cả các bánh xe đều lăn quanh một tâm quay tức thời (ICR) duy nhất, giúp triệt tiêu hiện tượng trượt bánh và giảm thiểu mài mòn lốp khi vào cua.
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Hrbacek2010.pdf}
+    \caption{Nguyên lý hoạt động của cấu trúc lái Ackermann \cite{Hrbacek2010}}
+    \label{fig:fig_Hrbacek2010}
+\end{figure}
+
 Thách thức lớn nhất trong thiết kế phần cứng Ackermann là tạo ra mối quan hệ hình học chính xác giữa góc lái của bánh trong và bánh ngoài.
 
 \begin{itemize}
@@ -1176,77 +1183,49 @@ Robot sử dụng cấu trúc lái Ackermann cung cấp sự ổn định vượ
 % ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
 
 \subsubsection{Cấu trúc dẫn động trượt}
-Cấu trúc này sử dụng ma sát trượt để thay đổi hướng, tương tự như các phương tiện bánh xích.
-Thường sử dụng bốn (hoặc sáu, tám) bánh xe cố định, được gắn chặt vào khung robot và không thể thay đổi hướng. Tất cả các bánh xe ở mỗi bên (trái và phải) thường được kết nối và chủ động đồng thời.
 
-Robot rẽ bằng cách tạo ra chênh lệch vận tốc giữa hai phía của robot, giống hệt như Cấu trúc Dẫn động Vi sai. Ví dụ, để rẽ trái, các bánh xe bên phải quay nhanh hơn bên trái (hoặc bên trái quay lùi). Sự chênh lệch vận tốc này buộc các bánh xe phải trượt (skid) trên mặt đất để robot có thể xoay [..].
-
-Về mặt điều khiển, nó được xem như một hệ thống phi đa hướng tương tự Dẫn động Vi sai, có khả năng xoay tại chỗ (zero turning radius). Tuy nhiên, mô hình động học của nó phức tạp hơn nhiều do sự trượt không thể đoán trước, phụ thuộc rất nhiều vào ma sát và bề mặt địa hình.
-
-\begin{itemize}
-    \item Ưu điểm: Cấu trúc cơ khí cực kỳ đơn giản và bền bỉ (không có cơ cấu lái). Rất phù hợp cho địa hình gồ ghề.
-    \item Nhược điểm: Tiêu thụ năng lượng rất lớn do ma sát trượt. Gây mài mòn bánh xe và làm hỏng các bề mặt mềm. Việc ước tính vị trí (Odometry) rất không chính xác do độ trượt cao [..]. 
-\end{itemize}
+Cấu trúc dẫn động trượt là một biến thể cơ học bền bỉ của cấu trúc vi sai, thường được áp dụng cho các robot vận hành trên địa hình gồ ghề. Đặc điểm của loại robot này là các bánh xe (hoặc dải xích) ở cùng một phía được kết nối cơ khí và quay cùng tốc độ. Để thay đổi hướng, robot tạo ra sự chênh lệch vận tốc giữa hai bên trái/phải, buộc các bánh xe phải trượt trên mặt đất để tạo ra mô-men quay.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.4\textwidth]{figures/fig500.pdf}
-    \caption{Mô hình động học trên mặt phẳng của cấu trúc dẫn động trượt bốn bánh, hiển thị các tâm quay tức thời (ICR) của thân xe ($ICR_v$) và hai bên bánh xe ($ICR_l$, $ICR_r$). Các tâm quay này nằm bên ngoài thân robot do hiện tượng trượt \cite{mandow2007}.}
+    \caption{Mô hình động học trên mặt phẳng của cấu trúc dẫn động trượt bốn bánh, hiển thị các tâm quay tức thời (ICR) của thân xe ($ICR_v$) và hai bên bánh xe ($ICR_l$, $ICR_r$). Các tâm quay này nằm bên ngoài thân robot do hiện tượng trượt \cite{Mandow2007}.}
     \label{fig:fig500}
 \end{figure}
 
-Mô hình Động học và Tâm quay tức thời: Khác với robot dẫn động vi sai lý tưởng (nơi bánh xe lăn không trượt), chuyển động của robot dẫn động trượt phụ thuộc vào sự tương tác phức tạp giữa lốp và mặt đất. Để mô tả động học của nó, các nghiên cứu hiện đại sử dụng khái niệm Tâm quay tức thời \cite{mandow2007}.
+Khác với robot vi sai lý tưởng, mô hình động học của robot dẫn động trượt phức tạp hơn nhiều do sự hiện diện của ma sát trượt không xác định.
 
-Mô hình động học được xấp xỉ tương đương với một robot vi sai mở rộng:
-
-\begin{equation} \label{eq9}
-    \begin{split}
-        \begin{bmatrix}
-            v_x \\
-            \omega_z
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-            \dfrac{R}{2} & \dfrac{R}{2} \\
-            -\dfrac{R}{2y_{ICR}} & \dfrac{R}{2y_{ICR}}
-        \end{bmatrix}
-        \begin{bmatrix}
-            \omega_L \\
-            \omega_R
-        \end{bmatrix}
-    \end{split}
-\end{equation}
-
-Trong đó:
 \begin{itemize}
-    \item $v_x$, $\omega_z$: Vận tốc dài và vận tốc góc của robot.
-    \item $\omega_L$, $\omega_R$: Vận tốc góc của bánh trái và phải.
-    \item $y_{ICR}$: Toạ độ ngang của tâm quay tức thời bánh xe (hay còn gọi là bán kính trục xe hiệu dụng).
+    \item Mandow và cộng sự \cite{Mandow2007} đã đề xuất và kiểm chứng thực nghiệm một mô hình động học dựa trên vị trí của các Tâm quay Tức thời (Instantaneous Centers of Rotation - ICR). Nghiên cứu chỉ ra rằng, do hiện tượng trượt, các ICR của hai bên bánh xe không nằm trên trục bánh xe hình học mà bị dịch chuyển dọc theo phương dọc của robot. Vị trí của các điểm này phụ thuộc vào đặc tính lốp và mặt đường, nhưng tương đối ổn định ở tốc độ thấp, cho phép cải thiện đáng kể độ chính xác của phép đo hành trình so với mô hình vi sai tiêu chuẩn.
+    
+    \item Mở rộng mô hình này, Martínez và cộng sự \cite{Martinez2023} đã phân tích hành vi của các ICR khi robot di chuyển trên địa hình dốc. Kết quả mô phỏng động lực học cho thấy góc nghiêng (pitch và roll) ảnh hưởng đáng kể đến sự phân bố áp lực lên các bánh xe, làm thay đổi vị trí ICR và yêu cầu các chiến lược điều khiển bù trừ để duy trì quỹ đạo mong muốn.
 \end{itemize}
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.4\textwidth]{figures/fig499.pdf}
-    \caption{Sơ đồ vùng tiếp xúc thể hiện sự tương đồng động học giữa các cấu trúc: (a) Robot vi sai tiêu chuẩn, (b) Robot bánh xích, (c) Robot dẫn động trượt 4 bánh, (d) Robot dẫn động trượt 6 bánh \cite{mandow2007}.}
+    \caption{Sơ đồ vùng tiếp xúc thể hiện sự tương đồng động học giữa các cấu trúc: (a) Robot vi sai tiêu chuẩn, (b) Robot bánh xích, (c) Robot dẫn động trượt 4 bánh, (d) Robot dẫn động trượt 6 bánh \cite{Mandow2007}.}
     \label{fig:fig499}
 \end{figure}
 
-Quan sát Hình \ref{fig:fig499}, ta thấy mối liên hệ: Cấu trúc bánh xích (b) và cấu trúc dẫn động trượt (c, d) thực chất có thể được coi là các biến thể mở rộng của cấu trúc vi sai (a) với vùng tiếp xúc mặt đất được kéo dài.
+Do dựa vào ma sát để bẻ lái, hiệu suất của robot dẫn động trượt phụ thuộc chặt chẽ vào cơ học đất.
 
 \begin{itemize}
-    \item Ở robot vi sai (a), vùng tiếp xúc là điểm, ma sát xoay là tối thiểu.
-    \item Ở các cấu trúc còn lại (b, c, d), vùng tiếp xúc là một dải (continuous tread) hoặc một chuỗi các điểm rời rạc.
+    \item Reina và Galati \cite{Reina2016} đã phát triển phương pháp sử dụng chính chiếc robot làm cảm biến để định danh tính chất địa hình. Thông qua việc giám sát sai lệch giữa mô hình động học lý thuyết và phản hồi thực tế từ encoder/gyroscope, hệ thống có thể ước lượng trực tuyến các tham số vật lý của mặt đường, giúp robot thích nghi chiến lược điều khiển.
+    
+    \item Fiset \cite{Fiset2021} đã nghiên cứu sâu về tiêu thụ năng lượng của robot bánh lốp dẫn động trượt trên nền đất tơi xốp. Kết quả chỉ ra mối quan hệ phi tuyến tính giữa bán kính quay vòng và công suất tiêu thụ: tại các bán kính quay nhỏ, hiện tượng ủi đất của các bánh xe trượt ngang gây ra lực cản cực lớn, làm tăng vọt mức tiêu thụ năng lượng. Điều này gợi ý rằng các thuật toán hoạch định đường đi cần tránh các cua gắt để tiết kiệm năng lượng.
 \end{itemize}
 
-Chính sự "kéo dài" vùng tiếp xúc này mang lại khả năng bám địa hình vượt trội nhưng đồng thời sinh ra mô-men cản xoay lớn, buộc các bánh xe phải trượt để robot có thể đổi hướng \cite{reina2016}. Đây chính là nguyên nhân gốc rễ của sự phức tạp trong mô hình động học ICR đã phân tích ở trên.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Alkalla2019.pdf}
+    \caption{Robot EJBot-II leo tường và bám trần nhà \cite{Alkalla2019}}
+    \label{fig:fig_Alkalla2019}
+\end{figure}
 
-Thách thức Hiện đại và Giới hạn Mô hình: Các nghiên cứu gần đây chỉ ra rằng việc áp dụng trực tiếp mô hình vi sai tiêu chuẩn cho robot trượt là không khả thi do sai số trượt quá lớn. Mặc dù mô hình dựa trên Tâm quay tức thời (ICR) là giải pháp thay thế phổ biến, nó vẫn tồn tại hai giới hạn lớn trong các ứng dụng thực tế:
+Cấu trúc skid-steer cũng được ứng dụng trong các robot leo trèo chuyên dụng. Alkalla \cite{Alkalla2019} giới thiệu EJBot-II, một robot leo tường sử dụng cơ chế dẫn động trượt kết hợp với lực đẩy từ cánh quạt. Sự kết hợp này cho phép robot chuyển đổi linh hoạt giữa di chuyển trên mặt sàn và leo tường thẳng đứng, tận dụng sự đơn giản của cơ cấu dẫn động trượt để giảm trọng lượng và tăng độ tin cậy cho hệ thống.
 
-\begin{enumerate}
-    \item Giới hạn tốc độ: Mô hình ICR chỉ hợp lệ trong vùng động lực học thấp (tốc độ thấp). Ở tốc độ cao, hiệu suất bám quỹ đạo bị suy giảm mạnh do các yếu tố động lực học phi tuyến.
-    \item Biến thiên tham số: Các tọa độ ICR ($y_{ICR}$) biến thiên liên tục theo địa hình và không thể đo trực tiếp. Do đó, xu hướng hiện đại là tích hợp việc ước lượng tham số ICR trực tuyến (Online Parameter Estimation) vào trong các bộ lọc Kalman mở rộng (EKF) cùng với dữ liệu IMU/GPS để đảm bảo độ chính xác định vị \cite{pentzer2014}.
-    \item Tối ưu hóa Năng lượng trên Địa hình thực tế: Một thách thức lớn của robot dẫn động trượt là mức tiêu thụ năng lượng phi tuyến tính, đặc biệt trên địa hình đất mềm. Các mô hình cổ điển thường giả định mặt đường cứng và công suất tiêu thụ là hằng số. Tuy nhiên, nghiên cứu thực nghiệm gần đây của Fiset và các cộng sự (2021) \cite{fiset2021} đã chứng minh rằng trên nền đất xốp (như cát), công suất tiêu thụ tăng vọt tại các bán kính quay vòng nhỏ. Nguyên nhân là do hiện tượng "ủi đất": khi bánh xe phía trong quay ngược chiều để rẽ gắt, nó bị lún xuống và đẩy một lượng đất lớn phía trước, làm tăng mô-men cản lăn đột biến. Phát hiện này có ý nghĩa quan trọng trong việc lập kế hoạch quỹ đạo để tránh các bán kính quay gây tốn năng lượng này.
-\end{enumerate}
+Robot dẫn động trượt là giải pháp tiêu chuẩn cho các ứng dụng ngoài trời nhờ sự đơn giản và bền bỉ của phần cứng. Tuy nhiên, thách thức lớn nằm ở việc mô hình hóa chính xác hiện tượng trượt và quản lý tiêu hao năng lượng do ma sát, đòi hỏi các mô hình động học thích nghi (như ICR) và chiến lược điều khiển nhận thức địa hình.
 
 % ======================================================================
 
@@ -1406,12 +1385,12 @@ Bài báo cáo này đã trình bày một cái nhìn tổng quan và hệ thố
 Qua phân tích, có thể rút ra các kết luận chính sau:
 
 \begin{enumerate}
-    \item Không có thiết kế vạn năng: Sự lựa chọn cấu trúc robot luôn là một sự đánh đổi (design trade-off). Cấu trúc Dẫn động vi sai tối ưu cho sự đơn giản và giá thành; Cấu trúc Đa hướng tối ưu cho sự linh hoạt trong không gian hẹp; trong khi Cấu trúc Skid-steer/Bánh xích tối ưu cho địa hình gồ ghề.
-    \item Thách thức từ Thực tế: Các mô hình động học lý tưởng (lăn không trượt) là nền tảng cần thiết nhưng không đủ. Kỹ thuật robot hiện đại buộc phải giải quyết các vấn đề phi tuyến như ma sát xoay (scrubbing), trượt (slippage) và tương tác địa hình thông qua việc mở rộng mô hình và ghép nối cảm biến (Sensor Fusion).
-    \item Tương lai là sự Thích ứng: Xu hướng phát triển đang hướng tới các cấu trúc lai (chân-bánh) và các vật liệu thông minh, cho phép robot không chỉ di chuyển trên địa hình mà còn thích ứng với địa hình đó.
+    \item Sự lựa chọn cấu trúc robot luôn là một sự đánh đổi. Cấu trúc dẫn động vi sai tối ưu cho sự đơn giản và giá thành; Cấu trúc đa hướng tối ưu cho sự linh hoạt trong không gian hẹp; trong khi Cấu trúc Skid-steer/Bánh xích tối ưu cho địa hình gồ ghề.
+    \item Các mô hình động học lý tưởng là nền tảng cần thiết nhưng không đủ. Kỹ thuật robot hiện đại buộc phải giải quyết các vấn đề phi tuyến như ma sát xoay, trượt và tương tác địa hình thông qua việc mở rộng mô hình và ghép nối cảm biến.
+    \item Xu hướng phát triển đang hướng tới các cấu trúc lai (chân-bánh) và các vật liệu thông minh, cho phép robot không chỉ di chuyển trên địa hình mà còn thích ứng với địa hình đó.
 \end{enumerate}
 
-Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước đầu tiên và quan trọng nhất để thiết kế nên những hệ thống robot tự hành hiệu quả, bền bỉ và thông minh hơn trong tương lai.
+Việc hiểu rõ đặc tính của từng loại bánh xe và cấu trúc robot là bước đầu tiên và quan trọng nhất để thiết kế nên những hệ thống robot tự hành hiệu quả, bền bỉ và thông minh trong tương lai.
 
 % ======================================================================
 
@@ -1770,23 +1749,15 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 % ----- CẤU TRÚC DẪN ĐỘNG TRƯỢT -----
 
 % 1
-\bibitem{mandow2007} A. Mandow, J. L. Martinez, J. Morales, J. L. Blanco, A. Garcia-Cerezo and J. Gonzalez, "Experimental kinematics for wheeled skid-steer mobile robots," 2007 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Diego, CA, USA, 2007, pp. 1222-1227, doi: 10.1109/IROS.2007.4399139.
+\bibitem{Mandow2007} A. Mandow, J. L. Martinez, J. Morales, J. L. Blanco, A. Garcia-Cerezo and J. Gonzalez, "Experimental kinematics for wheeled skid-steer mobile robots," 2007 IEEE/RSJ International Conference on Intelligent Robots and Systems, San Diego, CA, USA, 2007, pp. 1222-1227, doi: 10.1109/IROS.2007.4399139.
 % 2
-\bibitem{reina2016} G. Reina and R. Galati, "Slip-based terrain estimation with a skid-steer vehicle," Vehicle System Dynamics, vol. 54, no. 10, pp. 1384-1404, Jun. 2016, doi: 10.1080/00423114.2016.1203961.
+\bibitem{Reina2016} G. Reina and R. Galati, "Slip-based terrain estimation with a skid-steer vehicle," Vehicle System Dynamics, vol. 54, no. 10, pp. 1384-1404, Jun. 2016, doi: 10.1080/00423114.2016.1203961.
 % 3
-\bibitem{pentzer2014} J. Pentzer, S. Brennan, and K. Reichard, "Model-based Prediction of Skid-steer Robot Kinematics Using Online Estimation of Track Instantaneous Centers of Rotation," Journal of Field Robotics, vol. 31, no. 3, pp. 455-476, Mar. 2014, doi: https://doi.org/10.1002/rob.21509.
+\bibitem{Fiset2021} J.-S. Fiset, M. Effati, and K. Skonieczny, "Effects of turning radius on skid-steered wheeled robot power consumption on loose soil," pp. 115-129, 2021.
 % 4
-\bibitem{fiset2021} J.-S. Fiset, M. Effati, and K. Skonieczny, "Effects of turning radius on skid-steered wheeled robot power consumption on loose soil," pp. 115-129, 2021.
+\bibitem{Martinez2023} J. L. Martínez, J. Morales, J. M. García and A. García-Cerezo, "Analysis of Tread ICRs for Wheeled Skid-Steer Vehicles on Inclined Terrain," in IEEE Access, vol. 11, pp. 547-555, 2023, doi: 10.1109/ACCESS.2022.3232954.
 % 5
-\bibitem{rabiee2019} S. Rabiee and J. Biswas, "A Friction-Based Kinematic Model for Skid-Steer Wheeled Mobile Robots," 2019 International Conference on Robotics and Automation (ICRA), Montreal, QC, Canada, 2019, pp. 8563-8569, doi: 10.1109/ICRA.2019.8794216.
-% 6
-\bibitem{ferreira2023} A. R. S. Ferreira, V. S. Medeiros, H. V. H. Ayala and M. A. Meggiolaro, "Hierarchical control in skid steer mobile robots with nonholonomics constraints," 2023 31st Mediterranean Conference on Control and Automation (MED), Limassol, Cyprus, 2023, pp. 299-304, doi: 10.1109/MED59994.2023.10185672.
-% 7
-\bibitem{zuo2024} X. Zuo và các cộng sự, "Visual-Based Kinematics and Pose Estimation for Skid-Steering Robots," in IEEE Transactions on Automation Science and Engineering, vol. 21, no. 1, pp. 91-105, Jan. 2024, doi: 10.1109/TASE.2022.3214984.
-% 8
-\bibitem{liao2019} J. Liao, Z. Chen and B. Yao, "Model-Based Coordinated Control of Four-Wheel Independently Driven Skid Steer Mobile Robot with Wheel-Ground Interaction and Wheel Dynamics," in IEEE Transactions on Industrial Informatics, vol. 15, no. 3, pp. 1742-1752, March 2019, doi: 10.1109/TII.2018.2869573.
-% 9
-\bibitem{liao2017} J. Liao, Z. Chen and B. Yao, "Performance-Oriented Coordinated Adaptive Robust Control for Four-Wheel Independently Driven Skid Steer Mobile Robot," in IEEE Access, vol. 5, pp. 19048-19057, 2017, doi: 10.1109/ACCESS.2017.2754647.
+\bibitem{Alkalla2019} M. G. Alkalla et al., “EJBot-II: an optimized skid-steering propeller-type climbing robot with transition mechanism,” Advanced Robotics, vol. 33, no. 20, pp. 1042-1059, Aug. 2019, doi: 10.1080/01691864.2019.1657948.
 
 % ======================================================================
 % ----- ROBOT BÁNH XÍCH -----
