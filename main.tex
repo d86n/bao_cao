@@ -1095,14 +1095,39 @@ Robot sử dụng bánh Mecanum cung cấp một giải pháp hiệu quả cho b
 
 \subsubsection{Robot toàn hướng sử dụng bánh xe dẫn hướng chủ động}
 
-% ======================================================================
+Robot sử dụng bánh xe dẫn hướng chủ động đại diện cho giải pháp tối ưu để đạt được khả năng di chuyển toàn hướng mà không phải đánh đổi khả năng chịu tải hay chịu rung động như bánh xe Mecanum/omni. Cấu trúc này sử dụng lốp xe tiêu chuẩn (thường là lốp cao su), mang lại độ bám đường cao và vận hành êm ái trên nền cứng.
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_TZheng2018.pdf}
+    \caption{Mô hình 3D đơn giản của robot toàn hướng sử dụng cơ chế lái chủ động \cite{TZheng2018}}
+    \label{fig:fig_TZheng2018}
+\end{figure}
+
+Một trong những thiết kế nổi bật nhất trong nhóm này là cơ cấu ASOC (Active Split Offset Caster):
+
+\begin{itemize}
+    \item Nguyên lý hoạt động: Chung \cite{JHChung2003} và Zheng \cite{TZheng2018} mô tả ASOC bao gồm hai bánh xe đồng trục được gắn vào một trục xoay lệch tâm. Khác với bánh xe dẫn hướng đơn phải xoay trục lái bằng một động cơ riêng, ASOC tạo ra mô-men lái thông qua sự chênh lệch vận tốc giữa hai bánh xe (dẫn động vi sai). Khi hai bánh quay cùng chiều, module di chuyển tịnh tiến; khi quay ngược chiều, module tự xoay quanh trục đứng để đổi hướng.
+    
+    \item Ưu điểm cơ khí: Thiết kế này loại bỏ hoàn toàn ma sát trượt khi xoay tại chỗ, một nhược điểm lớn của các bánh xe dẫn hướng đơn truyền thống. Zheng \cite{TZheng2018} cũng chỉ ra rằng ASOC có khả năng chịu tải trọng lớn nhờ cấu trúc kép, phù hợp cho các robot vận chuyển trong nhà máy.
+\end{itemize}
+
+Do tính chất dư thừa bậc tự do khi kết hợp nhiều module bánh xe, việc điều khiển robot đòi hỏi sự phối hợp chính xác.
+
+\begin{itemize}
+    \item Chung và cộng sự \cite{JHChung2003} đã xây dựng mô hình động học cho robot sử dụng bánh xe dẫn hướng chủ động, tập trung vào việc giải quyết các điểm kỳ dị trong ma trận điều khiển. Nghiên cứu nhấn mạnh tầm quan trọng của việc duy trì một độ lệch tâm hợp lý để đảm bảo khả năng điều khiển toàn hướng tại mọi thời điểm.
+    
+    \item Ueno và cộng sự \cite{YUeno2017} đề xuất chiến lược điều khiển bám quỹ đạo cho robot sử dụng bánh xe dẫn hướng chủ động, trong đó bộ điều khiển xem xét động lực học của từng module bánh xe để giảm thiểu sai số trượt và đảm bảo chuyển động mượt mà khi robot thay đổi hướng di chuyển đột ngột. Đối với cơ cấu ASOC, Chung \cite{JHChung2003} áp dụng kỹ thuật điều khiển bền vững để bù đắp các bất định về ma sát và tải trọng.
+\end{itemize}
+
+Robot sử dụng bánh xe dẫn hướng chủ động, đặc biệt là cấu trúc ASOC, là giải pháp thay thế mạnh mẽ cho bánh xe Mecanum trong các ứng dụng tải trọng lớn và yêu cầu độ êm ái cao. Thách thức chính nằm ở sự phức tạp của cơ cấu cơ khí và thuật toán điều khiển phối hợp để đảm bảo tất cả các bánh xe cùng đóng góp vào vector chuyển động chung của thân xe.
+
+% ======================================================================
 % ----- ROBOT TOÀN HƯỚNG SỬ DỤNG CƠ CHẾ LÁI CHỦ ĐỘNG -----
 
 \subsubsection{Robot toàn hướng sử dụng cơ chế lái chủ động}
 
 % ======================================================================
-
 % ----- CẤU TRÚC LÁI BA BÁNH -----
 
 \subsubsection{Cấu trúc lái ba bánh (\textit{Steered Tricycle})}
@@ -1228,10 +1253,49 @@ Cấu trúc skid-steer cũng được ứng dụng trong các robot leo trèo ch
 Robot dẫn động trượt là giải pháp tiêu chuẩn cho các ứng dụng ngoài trời nhờ sự đơn giản và bền bỉ của phần cứng. Tuy nhiên, thách thức lớn nằm ở việc mô hình hóa chính xác hiện tượng trượt và quản lý tiêu hao năng lượng do ma sát, đòi hỏi các mô hình động học thích nghi (như ICR) và chiến lược điều khiển nhận thức địa hình.
 
 % ======================================================================
-
 % ----- ROBOT SÁU BÁNH VÀ CƠ CẤU ROCKER-BOGIE -----
 
 \subsection{Robot sáu bánh và cơ cấu Rocker-Bogie}
+
+Trong lĩnh vực robot địa hình, cấu hình sáu bánh kết hợp với hệ thống treo thụ động Rocker-Bogie được xem là tiêu chuẩn vàng cho các ứng dụng thám hiểm hành tinh và cứu hộ, nhờ khả năng duy trì độ ổn định vượt trội và bám địa hình mà không cần hệ thống điều khiển phức tạp.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_KLim2022.pdf}
+    \caption{Mô hình đơn giản của cơ cấu Rocker-Bogie \cite{KLim2022}}
+    \label{fig:fig_KLim2022}
+\end{figure}
+
+Cơ cấu Rocker-Bogie, được phát triển ban đầu bởi NASA cho Mars Pathfinder, là một hệ thống treo thụ động không sử dụng lò xo hay giảm chấn.
+
+Gupta \cite{Gupta2013} mô tả cơ cấu này gồm hai phần chính: "Rocker" (thanh bập bênh) lớn được nối với thân xe qua khớp xoay, và "Bogie" (thanh cân bằng) nhỏ hơn được nối vào đầu Rocker. Cấu trúc này đảm bảo cả 6 bánh xe luôn tiếp xúc với mặt đất ngay cả khi đi qua địa hình gồ ghề.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Gupta2013.pdf}
+    \caption{Robot sáu bánh địa hình \cite{Gupta2013}}
+    \label{fig:fig_Gupta2013}
+\end{figure}
+
+Một thành phần quan trọng là bộ vi sai (thường là vi sai thanh giằng hoặc hộp số) kết nối hai bên trái/phải của robot. Chinchkar và cộng sự \cite{Chinchkar2017} giải thích rằng bộ vi sai này giúp cân bằng góc nghiêng của thân xe bằng trung bình cộng góc nghiêng của hai bên Rocker, giúp giảm thiểu rung động truyền lên thân robot khi một bên bánh xe leo qua vật cản.
+
+Khả năng vượt chướng ngại vật của robot phụ thuộc chặt chẽ vào các thông số hình học.
+
+\begin{itemize}
+    \item Pandey và cộng sự \cite{Pandey2022} đã phân tích thiết kế của robot Rocker-Bogie cho ứng dụng leo cầu thang. Kết quả cho thấy với kích thước bánh xe và chiều dài liên kết phù hợp, robot có thể leo qua các bậc thang có chiều cao gấp 1.5 lần đường kính bánh xe mà không bị lật.
+    
+    \item Song và cộng sự \cite{ZSong2021} đề xuất một phương pháp tối ưu hóa đa mục tiêu cho hệ thống treo Rocker-Bogie, tập trung vào việc cực tiểu hóa năng lượng tiêu thụ và cực đại hóa độ ổn định. Nghiên cứu chỉ ra rằng tỷ lệ chiều dài giữa Rocker và Bogie ảnh hưởng trực tiếp đến sự phân bố lực kéo và khả năng chống trượt của robot trên đất mềm.
+\end{itemize}
+
+Để khắc phục hạn chế về tốc độ và khả năng leo trèo của thiết kế cổ điển, nhiều biến thể mới đã được phát triển.
+
+\begin{itemize}
+    \item Moore và cộng sự \cite{Moore2000} giới thiệu robot "Shrimp", một biến thể 6 bánh hiệu năng cao. Thay vì dùng Rocker-Bogie tiêu chuẩn, Shrimp sử dụng cấu trúc hình thoi với một bánh xe được gắn trên phuộc trước và một bánh sau treo lơ lửng, kết hợp với hai bogie song song ở giữa. Thiết kế này cho phép robot vượt qua vật cản cao gấp 2 lần đường kính bánh xe và leo cầu thang một cách thụ động hoàn toàn, vượt trội so với các xe rover truyền thống.
+    
+    \item Kim \cite{DKim2011} và Lim \cite{KLim2022} đã phát triển các robot 6 bánh có khả năng biến đổi hình dạng. Robot của Kim sử dụng cơ cấu 6 bánh với các trục bánh xe có thể mở rộng hoặc thu gọn để thay đổi chế độ di chuyển (từ chế độ ổn định cao sang chế độ di chuyển nhanh). Trong khi đó, thiết kế của Lim tập trung vào khả năng thay đổi cấu hình khung gầm để thích nghi với các không gian hẹp hoặc địa hình dốc đứng, kết hợp ưu điểm của bánh xe và chân robot.
+\end{itemize}
+
+Robot sáu bánh Rocker-Bogie và các biến thể của nó đại diện cho đỉnh cao của thiết kế cơ khí thụ động. Xu hướng nghiên cứu hiện nay đang chuyển dịch từ việc tinh chỉnh các tham số hình học sang việc phát triển các cơ cấu lai chủ động-thụ động để nâng cao tốc độ vận hành mà vẫn giữ được sự ổn định vốn có.
 
 % ======================================================================
 
@@ -1275,29 +1339,41 @@ Tóm lại, các thiết kế robot bánh xích hiện nay không còn giới h�
 % ----- CẤU TRÚC LAI CƠ CẤU CHÂN - BÁNH -----
 
 \subsection{Cấu trúc lai cơ cấu chân - bánh}
-Cấu trúc lai chân - bánh đại diện cho sự hội tụ giữa hai cơ chế di chuyển cơ bản: bánh xe (hiệu quả năng lượng cao trên mặt phẳng) và chân (khả năng vượt địa hình phức tạp). Mục tiêu của thiết kế này là kết hợp ưu điểm của cả hai để tạo ra các robot đa năng vượt trội [Ref].
 
-Nguyên lý hoạt động và Cấu hình: Thông thường, cấu trúc này bao gồm các bánh xe chủ động được gắn vào điểm cuối (end-effector) của các chân robot có nhiều bậc tự do (DOF). Robot có thể hoạt động ở hai chế độ chính:
+Cấu trúc lai chân - bánh đại diện cho sự kết hợp tối ưu giữa hai cơ chế di chuyển cơ bản: hiệu suất năng lượng và tốc độ cao của bánh xe trên địa hình bằng phẳng, cùng với khả năng vượt chướng ngại vật vượt trội của cơ cấu chân. Các nghiên cứu trong lĩnh vực này tập trung vào hai hướng thiết kế chính: bánh xe biến hình và chân khớp nối gắn bánh.
 
-Chế độ lăn (Driving Mode): Trên địa hình bằng phẳng, robot hạ thấp trọng tâm, khóa các khớp chân hoặc sử dụng chúng như hệ thống treo chủ động (active suspension), và di chuyển bằng bánh xe để đạt tốc độ cao và tiết kiệm năng lượng.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Shen2009.pdf}
+    \caption{Robot có cơ cấu bánh xe biến hình \cite{Shen2009}}
+    \label{fig:fig_Shen2009}
+\end{figure}
 
-Chế độ bước (Walking/Stepping Mode): Khi gặp chướng ngại vật lớn hoặc cầu thang, robot khóa bánh xe và sử dụng chân để bước qua, thực hiện các chuyển động rời rạc [Ref].
+Cơ cấu Bánh xe Biến hình: Đây là hướng tiếp cận độc đáo nhằm thay đổi hình học của bánh xe để thích nghi với địa hình mà không làm tăng đáng kể kích thước bao của robot.
 
-Đặc tính Động học và Ưu điểm: Về mặt động học, đây là một hệ thống dư thừa dẫn động (redundant actuated system).
+\begin{itemize}
+    \item Shen và cộng sự \cite{Shen2009} đã phát triển một nền tảng robot sử dụng cơ cấu bánh xe có khả năng biến đổi thành chân. Ở chế độ bình thường, các phần tử được ghép lại thành vành tròn hoàn chỉnh để lăn. Khi gặp chướng ngại vật hoặc cầu thang, cơ cấu liên kết bên trong sẽ tách vành bánh xe thành các "chân" hình bán nguyệt, cho phép robot bước qua vật cản thay vì lăn qua chúng.
+    
+    \item Zheng và cộng sự \cite{Zheng2015} tiếp tục phát triển ý tưởng này với các thiết kế bánh xe biến hình có khả năng thay đổi bán kính tác dụng hoặc hình dạng tiếp xúc, giúp tăng mô-men xoắn và độ bám khi robot thực hiện các thao tác leo trèo phức tạp mà bánh xe tròn truyền thống không thể thực hiện.
+\end{itemize}
 
-Khả năng thay đổi cấu hình (Reconfigurability): Khác với cấu trúc Ackermann hay Vi sai có hình học cố định, robot lai có thể thay đổi chiều rộng cơ sở (footprint), chiều cao trọng tâm (CoM height) và góc nghiêng thân xe (roll/pitch) một cách chủ động. Điều này cho phép robot duy trì thăng bằng trên các sườn dốc nghiêng mà các robot bánh xe thông thường sẽ bị lật.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_Wei2017.pdf}
+    \caption{Robot có cơ cấu chân gắn bánh \cite{Wei2017}}
+    \label{fig:fig_Wei2017}
+\end{figure}
 
-Di chuyển Đa hướng (Omnidirectional): Bằng cách xoay trục của chân (yaw joint), các bánh xe có thể được định hướng theo bất kỳ góc nào, cho phép robot di chuyển holonomic tương tự như dùng bánh Mecanum nhưng trên địa hình gồ ghề.
+Cấu trúc chân khớp nối gắn bánh: Hướng thiết kế này sử dụng các chân robot chủ động (thường có nhiều bậc tự do) với bánh xe được gắn ở đầu mút.
 
-Các vấn đề Hiện đại và Thách thức Điều khiển (Modern Issues): Đây là phần quan trọng nhất, làm nổi bật tính "hiện đại" của báo cáo:
+\begin{itemize}
+    \item Chen và cộng sự \cite{Chen2014} đã phân tích sâu về hoạch định dáng đi cho loại robot này. Họ đề xuất các chiến lược di chuyển lai như lăn - bước, trong đó robot sử dụng các khớp chân để nâng hạ trọng tâm hoặc bước qua hố sâu trong khi các bánh xe vẫn hỗ trợ di chuyển, giúp duy trì sự ổn định động học tốt hơn so với robot chân thuần túy.
+    \item Lu và cộng sự \cite{Lu2013} tập trung vào bài toán điều khiển lực bám cho robot chân - bánh trên địa hình gồ ghề. Thông qua mô hình động lực học phức tạp, nghiên cứu chỉ ra rằng việc chủ động điều khiển góc và lực nén của từng chân lên mặt đất có thể tối ưu hóa phân bố lực ma sát, ngăn chặn hiện tượng trượt bánh khi robot leo dốc hoặc di chuyển trên nền đất yếu.
+\end{itemize}
 
-Điều khiển Toàn thân (Whole-Body Control - WBC): Thách thức lớn nhất không nằm ở cơ khí mà ở thuật toán. Robot phải giải quyết bài toán tối ưu hóa phức tạp trong thời gian thực để phối hợp mô-men xoắn của động cơ bánh xe (để di chuyển) và động cơ chân (để giữ thăng bằng và giảm xóc). Các phương pháp hiện đại như Model Predictive Control (MPC) thường được sử dụng để dự đoán trạng thái tương lai và giữ robot ổn định khi di chuyển tốc độ cao trên địa hình lồi lõm [Ref].
+Thách thức lớn nhất của robot lai là duy trì sự ổn định khi chuyển đổi giữa các chế độ di chuyển. Wei và cộng sự \cite{Wei2017} đã nghiên cứu các thuật toán điều khiển cân bằng cho robot lai, đặc biệt trong các pha chuyển động nhanh hoặc khi va chạm với môi trường. Kết quả cho thấy việc kết hợp hệ thống treo chủ động (từ cơ cấu chân) với phản hồi tốc độ (từ bánh xe) giúp giảm thiểu rung động thân xe và tăng khả năng bám đường trên các địa hình phi cấu trúc.
 
-Quản lý Chuyển đổi trạng thái (Locomotion Mode Switching): Việc quyết định khi nào nên lăn và khi nào nên bước là một bài toán khó về nhận thức môi trường. Robot cần sử dụng Vision/LiDAR để phân loại địa hình và chuyển đổi mượt mà giữa các mô hình động học khác nhau mà không bị gián đoạn hoặc mất thăng bằng.
-
-Tương tác Động lực học: Khác với robot bánh xe truyền thống luôn bám đất, robot lai có những pha "bay" (flight phase) khi nhảy hoặc bước. Việc mô hình hóa các lực va chạm (impact forces) khi bánh xe tiếp đất sau một cú nhảy là rất quan trọng để bảo vệ phần cứng và duy trì quỹ đạo.
-
-Ứng dụng thực tiễn: Các robot tiêu biểu cho xu hướng này bao gồm Boston Dynamics Handle (robot kho vận), ETH Zurich ANYmal on Wheels (robot thám hiểm), và Tencent Ollie (robot nhào lộn). Chúng đang mở ra hướng đi mới cho robot giao hàng chặng cuối (last-mile delivery) nơi robot phải leo lên bậc thềm nhà khách hàng.
+Robot lai chân - bánh là giải pháp toàn diện cho các nhiệm vụ đa địa hình. Xu hướng thiết kế đang chuyển dịch từ các cơ cấu biến hình cơ khí phức tạp sang các hệ thống chân - bánh có khả năng điều khiển phối hợp thông minh, cho phép robot tự động lựa chọn phương thức di chuyển (lăn, bước, hoặc trượt) tối ưu cho từng đoạn đường cụ thể.
 
 % ======================================================================
 
@@ -1684,10 +1760,18 @@ Việc hiểu rõ đặc tính của từng loại bánh xe và cấu trúc robo
 % ======================================================================
 % ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH XE DẪN HƯỚNG CHỦ ĐỘNG -----
 
-
+% 1
+\bibitem{WChung2010} W. Chung, C.-B. Moon, C. Jung, and J. Jin, “Design of the dual offset Active Caster Wheel for Holonomic Omni-Directional Mobile Robots,” International Journal of Advanced Robotic Systems, vol. 7, no. 4, Jan. 2010, doi: 10.5772/10485.
+% 2
+\bibitem{JHChung2003} J. H. Chung, BJ. Yi, W. K. Kim and H. Lee, "The dynamic modeling and analysis for an omnidirectional mobile robot with three caster wheels," 2003 IEEE International Conference on Robotics and Automation (Cat. No.03CH37422), Taipei, Taiwan, 2003, pp. 521-527 vol.1, doi: 10.1109/ROBOT.2003.1241647.
+% 3
+\bibitem{YUeno2017} Y. Ueno, K. Watanabe and I. Nagai, "Design and development of steered active wheel casters and its application," 2017 IEEE International Conference on Mechatronics and Automation (ICMA), Takamatsu, Japan, 2017, pp. 507-512, doi: 10.1109/ICMA.2017.8015869.
+% 4
+\bibitem{TZheng2018} T. Zheng et al., “Design and control of two degree of freedom powered caster wheels based Omni-Directional Robot,” in Communications in computer and information science, 2018, pp. 548-560. doi: 10.1007/978-981-13-2396-6\_51.
 
 % ======================================================================
 % ----- ROBOT TOÀN HƯỚNG SỬ DỤNG CƠ CHẾ LÁI CHỦ ĐỘNG -----
+
 
 
 % ======================================================================
@@ -1760,6 +1844,24 @@ Việc hiểu rõ đặc tính của từng loại bánh xe và cấu trúc robo
 \bibitem{Alkalla2019} M. G. Alkalla et al., “EJBot-II: an optimized skid-steering propeller-type climbing robot with transition mechanism,” Advanced Robotics, vol. 33, no. 20, pp. 1042-1059, Aug. 2019, doi: 10.1080/01691864.2019.1657948.
 
 % ======================================================================
+% ----- ROBOT SÁU BÁNH VÀ CƠ CẤU ROCKER-BOGIE -----
+
+% 1
+\bibitem{Moore2000} K. L. Moore and N. S. Flann, "A six-wheeled omnidirectional autonomous mobile robot," in IEEE Control Systems Magazine, vol. 20, no. 6, pp. 53-66, Dec. 2000, doi: 10.1109/37.887449.
+% 2
+\bibitem{Chinchkar2017} D. S. Chinchkar, S. S. Gajghate, R. N. Panchal, R. M. Shetenawar, and P. S. Mulik, “Design of Rocker Bogie Mechanism,” IARJSET, vol. 4, no. 1, pp. 46-50, Jan. 2017, doi: 10.17148/iarjset/ncdmete.2017.13.
+% 3
+\bibitem{DKim2011} D. Kim, H. Hong, H. S. Kim, and J. Kim, “Optimal design and kinetic analysis of a stair-climbing mobile robot with rocker-bogie mechanism,” Mechanism and Machine Theory, vol. 50, pp. 90-108, Dec. 2011, doi: 10.1016/j.mechmachtheory.2011.11.013.
+% 4
+\bibitem{KLim2022} K. Lim, S. Ryu, J. H. Won and T. Seo, "A Modified Rocker-Bogie Mechanism With Fewer Actuators and High Mobility," in IEEE Robotics and Automation Letters, vol. 7, no. 4, pp. 8752-8758, Oct. 2022, doi: 10.1109/LRA.2022.3188120.
+% 5
+\bibitem{Gupta2013} A. K. Gupta and V. K. Gupta, "Design and development of six-wheeled Multi-Terrain Robot," 2013 International Conference on Control, Automation, Robotics and Embedded Systems (CARE), Jabalpur, India, 2013, pp. 1-6, doi: 10.1109/CARE.2013.6733751.
+% 6
+\bibitem{Pandey2022} A. Pandey, A. Kumar, T. D. Diwan, Md. E. Hasan, R. L. Mohanty, and S. S. Gour, “New Concept-Based Six-Wheels Rocker-Bogie Robot: Design and analysis,” Materials Today Proceedings, vol. 56, pp. 726-734, Jan. 2022, doi: 10.1016/j.matpr.2022.02.243.
+% 7
+\bibitem{ZSong2021} Z. Song, Z. Luo, G. Wei, and J. Shang, “Design and analysis of a six-wheeled companion robot with mechanical obstacle-overcoming adaptivity,” Mechanical Sciences, vol. 12, no. 2, pp. 1115-1136, Dec. 2021, doi: 10.5194/ms-12-1115-2021.
+
+% ======================================================================
 % ----- ROBOT BÁNH XÍCH -----
 
 % 1
@@ -1776,8 +1878,18 @@ Việc hiểu rõ đặc tính của từng loại bánh xe và cấu trúc robo
 \bibitem{Cui2016} D. Cui, X. Gao, W. Guo and H. Dong, "Design and Stability Analysis of a Wheel-Track Robot," 2016 3rd International Conference on Information Science and Control Engineering (ICISCE), Beijing, China, 2016, pp. 918-922, doi: 10.1109/ICISCE.2016.200.
 
 % ======================================================================
-
 % ----- CẤU TRÚC LAI CƠ CẤU CHÂN - BÁNH -----
+
+% 1
+\bibitem{Lu2013} D. Lu, E. Dong, C. Liu, M. Xu and J. Yang, "Design and development of a leg-wheel hybrid robot “HyTRo-I”," 2013 IEEE/RSJ International Conference on Intelligent Robots and Systems, Tokyo, Japan, 2013, pp. 6031-6036, doi: 10.1109/IROS.2013.6697232.
+% 2
+\bibitem{Wei2017} Z. Wei, G. Song, G. Qiao, Y. Zhang, and H. Sun, “Design and implementation of a Leg-Wheel robot: TransLeg,” Journal of Mechanisms and Robotics, vol. 9, no. 5, Jun. 2017, doi: 10.1115/1.4037018.
+% 3
+\bibitem{Shen2009} S. -Y. Shen, Cheng-Hsin Li, C. -C. Cheng, J. -C. Lu, S. -F. Wang and P. -C. Lin, "Design of a leg-wheel hybrid mobile platform," 2009 IEEE/RSJ International Conference on Intelligent Robots and Systems, St. Louis, MO, USA, 2009, pp. 4682-4687, doi: 10.1109/IROS.2009.5353958.
+% 4
+\bibitem{Chen2014} S. -C. Chen, K. -J. Huang, W. -H. Chen, S. -Y. Shen, C. -H. Li and P. -C. Lin, "Quattroped: A Leg--Wheel Transformable Robot," in IEEE/ASME Transactions on Mechatronics, vol. 19, no. 2, pp. 730-742, April 2014, doi: 10.1109/TMECH.2013.2253615.
+% 5
+\bibitem{Zheng2015} C. Zheng et al., “Design and analysis of a wheel-legged hybrid locomotion mechanism,” Advances in Mechanical Engineering, vol. 7, no. 11, Nov. 2015, doi: 10.1177/1687814015616908.
 
 % ======================================================================
 
