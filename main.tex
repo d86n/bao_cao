@@ -1057,7 +1057,36 @@ Robot dẫn động đồng bộ cung cấp một giải pháp phần cứng tha
 
 \subsubsection{Robot toàn hướng sử dụng bánh Mecanum}
 
+Robot di động toàn hướng sử dụng bánh xe Mecanum đại diện cho một lớp robot có khả năng di chuyển holonomic, cho phép thực hiện chuyển động tịnh tiến theo bất kỳ hướng nào và quay tại chỗ đồng thời mà không cần thay đổi cấu hình hình học của xe.
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.35\textwidth]{figures/fig_Doroftei2007_1.pdf}
+    \caption{Robot toàn hướng Uranus \cite{Muir1987}}
+    \label{fig:fig_Doroftei2007_1}
+\end{figure}
+
+Thành phần cốt lõi của hệ thống là bánh xe Mecanum. Cấu tạo của bánh xe bao gồm một trục chính và một loạt các con lăn thụ động được gắn xung quanh chu vi. Đặc điểm hình học quan trọng nhất là trục của các con lăn này tạo thành một góc $45^{\circ}$ so với trục quay của bánh xe chính.
+Để đạt được khả năng di chuyển toàn hướng, robot thường được bố trí với 4 bánh xe Mecanum. Các bánh xe này phải được lắp đặt theo quy tắc hình học xác định (thường là cấu hình hình chữ X hoặc O của các vector lực con lăn khi tiếp xúc mặt đất) để đảm bảo vector vận tốc tổng hợp có thể hướng theo mọi phía. Denegri và cộng sự \cite{Denegri2019} nhấn mạnh tầm quan trọng của việc thiết kế khung gầm đối xứng để đảm bảo phân bố lực đồng đều.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Doroftei2007_2.pdf}
+    \caption{Mô hình robot toàn hướng sử dụng bánh Mecanum \cite{Doroftei2007}}
+    \label{fig:fig_Doroftei2007_2}
+\end{figure}
+
+Chuyển động của robot là kết quả của sự tổng hợp vector vận tốc từ các bánh xe riêng lẻ. Nguyên lý di chuyển dựa trên việc điều khiển độc lập chiều quay và tốc độ của 4 động cơ.
+
+\begin{itemize}
+    \item Liu và cộng sự \cite{Liu2017} đã xây dựng mô hình động học chi tiết, thiết lập mối quan hệ giữa vận tốc góc của bốn bánh xe ($\omega_1$, $\omega_2$, $\omega_3$, $\omega_4$) và vận tốc của robot trong hệ tọa độ Descartes ($v_x$, $v_y$, $\omega_z$) thông qua ma trận Jacobian ngược.
+    
+    \item Tătar và cộng sự \cite{Tatar2013} đã phân tích các trường hợp di chuyển cơ bản: khi tất cả bánh quay cùng chiều, robot đi thẳng; khi các cặp bánh chéo nhau quay cùng chiều nhưng ngược chiều với cặp còn lại, robot di chuyển ngang; và khi hai hàng bánh bên trái/phải quay ngược chiều nhau, robot thực hiện quay tại chỗ.
+\end{itemize}
+
+Ưu điểm vượt trội của cấu trúc này là khả năng vận hành cực kỳ linh hoạt trong không gian chật hẹp, giúp tối ưu hóa quy trình di chuyển trong các môi trường công nghiệp hoặc kho vận. Tuy nhiên, thiết kế này cũng đối mặt với thách thức về rung động do sự tiếp xúc không liên tục của các con lăn và yêu cầu bề mặt di chuyển phải tương đối bằng phẳng để tránh trượt bánh, đảm bảo độ chính xác của phép đo hành trình.
+
+Robot sử dụng bánh Mecanum cung cấp một giải pháp hiệu quả cho bài toán di chuyển đa hướng mà không cần cơ cấu lái phức tạp (như bánh lái). Sự phức tạp của hệ thống được chuyển dịch từ thiết kế cơ khí sang thuật toán điều khiển phối hợp vận tốc động cơ.
 
 % ======================================================================
 
@@ -1579,7 +1608,15 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 % ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH MECANUM -----
 
 % 1
-
+\bibitem{Doroftei2007} I. Doroftei, V. Grosu, and V. Spinu, “Omnidirectional Mobile Robot - Design and Implementation,” in Bioinspiration and Robotics Walking and Climbing Robots, 2007. doi: 10.5772/5518.
+% 2
+\bibitem{Tatar2013} M. O. Tătar, C. Cirebea, and D. Mândru, “Structures of the Omnidirectional Robots with Swedish Wheels,” Diffusion and Defect Data, Solid State Data. Part B, Solid State Phenomena/Solid State Phenomena, vol. 198, pp. 132-137, Mar. 2013, doi: 10.4028/www.scientific.net/ssp.198.132.
+% 3
+\bibitem{Denegri2019} E. Denegri, E. Muñoz-Panduro and O. E. Ramos, "Step-by-step Development of an Omnidirectional Mobile Robot," 2019 IEEE Sciences and Humanities International Research Conference (SHIRCON), Lima, Peru, 2019, pp. 1-4, doi: 10.1109/SHIRCON48091.2019.9024865.
+% 4
+\bibitem{Liu2017} Y. Liu et al., "An omnidirectional mobile operating robot based on mecanum wheel," 2017 2nd International Conference on Advanced Robotics and Mechatronics (ICARM), Hefei and Tai'an, China, 2017, pp. 468-473, doi: 10.1109/ICARM.2017.8273208.
+% 5
+\bibitem{Muir1987} P. Muir and C. Neuman, "Kinematic modeling for feedback control of an omnidirectional wheeled mobile robot," Proceedings. 1987 IEEE International Conference on Robotics and Automation, Raleigh, NC, USA, 1987, pp. 1772-1778, doi: 10.1109/ROBOT.1987.1087767.
 
 % ======================================================================
 
