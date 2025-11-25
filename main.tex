@@ -909,19 +909,54 @@ Tổng hợp từ các nghiên cứu trên cho thấy sự phát triển đa d�
 
 \subsubsection{Robot kiểu con lắc ngược}
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Juang2013.pdf}
+    \caption{Mô hình robot kiểu con lắc ngược đơn giản \cite{Juang2013}}
+    \label{fig:fig_Juang2013}
+\end{figure}
 
+Robot kiểu con lắc ngược là một hệ thống cơ điện tử đặc thù, được thiết kế dựa trên nguyên lý của con lắc ngược đặt trên xe hai bánh đồng trục. Khác với các robot di động thông thường, phần cứng của loại robot này phải được tối ưu hóa để giải quyết bài toán cân bằng động liên tục, đòi hỏi sự tích hợp chặt chẽ giữa cơ cấu chấp hành phản hồi nhanh và hệ thống cảm biến quán tính chính xác.
 
+Đặc điểm vật lý quan trọng nhất của robot kiểu con lắc ngược là vị trí trọng tâm (Center of Gravity - COG). Để hệ thống hoạt động đúng theo nguyên lý con lắc ngược, trọng tâm của thân xe phải được bố trí cao hơn trục bánh xe một khoảng đáng kể, tạo ra mô-men quán tính đủ lớn để hệ thống có thể cảm nhận và phản hồi lại xu hướng đổ ngã.
 
+\begin{itemize}
+    \item Li và cộng sự \cite{Li2007} nhấn mạnh rằng thiết kế cơ khí phải đảm bảo robot đủ gọn nhẹ để di chuyển trong không gian hẹp nhưng cũng đủ cứng vững để chịu tải (như chở người hoặc hàng hóa). Robot của họ có kích thước 42x36x15 cm và nặng 12 kg, sử dụng cấu trúc khung nhôm để tối ưu hóa tỷ lệ công suất/trọng lượng.
+    \item Khả năng cân bằng phụ thuộc hoàn toàn vào việc tạo ra mô-men xoắn phục hồi tại bánh xe. Do đó, động cơ DC công suất lớn (ví dụ: 200W) kết hợp với hộp số giảm tốc tỷ số truyền cao (ví dụ: 15:1) thường được sử dụng để đảm bảo khả năng phản ứng tức thời với các thay đổi nhỏ của góc nghiêng, đồng thời cung cấp đủ lực để leo dốc.
+\end{itemize}
 
+Trái tim của phần cứng robot con lắc ngược là hệ thống đo lường quán tính (IMU), đóng vai trò như tiền đình giúp robot nhận biết trạng thái cân bằng.
 
+\begin{itemize}
+    \item Juang và Lum \cite{Juang2013} chỉ ra rằng việc sử dụng duy nhất gia tốc kế hoặc con quay hồi chuyển là không đủ do nhiễu rung động và sai số trôi. Giải pháp phần cứng tiêu chuẩn là tích hợp cả hai loại cảm biến này (thường là module MEMS như MPU-6050) và xử lý tín hiệu ngay trên vi điều khiển (như Arduino) thông qua bộ lọc Kalman hoặc Complementary để có được góc nghiêng chính xác trong thời gian thực.
+    \item Để kiểm soát hành trình và ngăn robot tăng tốc mất kiểm soát khi cố gắng giữ thăng bằng, các encoder độ phân giải cao được gắn trực tiếp vào trục động cơ để cung cấp phản hồi vận tốc chính xác cho vòng điều khiển.
+\end{itemize}
 
+Gần đây, phần cứng của robot kiểu con lắc ngược đã phát triển vượt bậc với sự xuất hiện của các cơ cấu lai ghép, cho phép robot thực hiện các động tác phức tạp mà vẫn duy trì nguyên lý cân bằng động:
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Klemm2019.pdf}
+    \caption{Robot Ascento \cite{Klemm2019}}
+    \label{fig:fig_Klemm2019}
+\end{figure}
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Jeong2007.pdf}
+    \caption{Robot I-PENTAR \cite{Jeong2007}}
+    \label{fig:fig_Jeong2007}
+\end{figure}
 
+\begin{itemize}
+    \item Cơ cấu nhảy:
+    \begin{itemize}
+        \item Zhang và cộng sự \cite{Zhang2018} đã phát triển một robot con lắc ngược có khả năng nhảy nhờ tích hợp cơ cấu liên kết 4 khâu và hệ thống bánh răng lệch tâm. Thiết kế này cho phép robot tích trữ năng lượng và giải phóng đột ngột để bật nhảy, thay đổi quỹ đạo bay, giúp vượt qua chướng ngại vật mà bánh xe thông thường không thể làm được.
+        \item Robot Ascento của Klemm và cộng sự \cite{Klemm2019} sử dụng thiết kế chân có khớp nối với lò xo xoắn. Cấu trúc này cho phép robot hoạt động như một con lắc ngược linh hoạt: nó có thể di chuyển nhanh bằng bánh xe trên mặt phẳng và dùng chân để nhảy lên cầu thang hoặc hấp thụ xung lực khi tiếp đất, mở rộng đáng kể khả năng vận hành trong môi trường phi cấu trúc.
+    \end{itemize}
 
-
-
-
+    \item Robot I-PENTAR được Jeong và Takahashi \cite{Jeong2007} giới thiệu có khả năng thay đổi cấu hình cơ khí thông qua khớp eo chủ động. Điều này cho phép robot thực hiện các tác vụ như "ngồi" (thu gọn trọng tâm để ổn định) hoặc "đứng" (nâng cao trọng tâm để di chuyển nhanh), mô phỏng linh hoạt hành vi của con người.
+\end{itemize}
 
 % ======================================================================
 
@@ -979,6 +1014,8 @@ Tóm lại, xu hướng thiết kế phần cứng hiện nay ưu tiên tính m�
 % ----- ROBOT DẪN ĐỘNG ĐỒNG BỘ -----
 
 \subsubsection{Robot dẫn động đồng bộ}
+
+
 
 % ======================================================================
 
@@ -1213,12 +1250,14 @@ Tương tác Động lực học: Khác với robot bánh xe truyền thống lu
 % ----- ỨNG DỤNG -----
 
 \section{Ứng dụng}
-Sự đa dạng của các loại bánh xe và cấu trúc robot di động đã được phản ánh qua vô số ứng dụng thực tế. Việc lựa chọn một cấu hình di động cụ thể luôn là kết quả của bài toán tối ưu hóa giữa: khả năng cơ động, tải trọng, năng lượng tiêu thụ và đặc điểm môi trường hoạt động [].
+
+Sự đa dạng trong thiết kế bánh xe và cấu trúc khung vỏ robot di động không phải là ngẫu nhiên mà là kết quả của quá trình tối ưu hóa cho các môi trường vận hành cụ thể. Việc lựa chọn cấu hình robot phù hợp luôn là sự cân nhắc kỹ lưỡng giữa các yếu tố: khả năng cơ động, tải trọng, hiệu suất năng lượng và đặc điểm địa hình. Dưới đây là các ứng dụng tiêu biểu tương ứng với từng loại cấu trúc:
 
 \begin{enumerate}
-    \item Logistics và Kho bãi thông minh: Đây là lĩnh vực ứng dụng lớn nhất của robot di động (AMR/AGV).
+    \item Logistics và kho bãi thông minh: Đây là lĩnh vực ứng dụng rộng lớn nhất của robot di động tự hành (AMR) và xe tự hành (AGV), nơi yêu cầu cao về độ chính xác và hiệu quả trong không gian hạn chế.
     \begin{itemize}
-        \item Cấu trúc Dẫn động Vi sai: Chiếm ưu thế trong các robot vận chuyển kệ hàng (như Amazon Kiva/Robotics) nhờ chi phí thấp, độ tin cậy cao và khả năng xoay tại chỗ trong các lối đi vuông góc [].
+        \item Cấu trúc dẫn động vi sai: Đây là cấu hình chiếm ưu thế tuyệt đối trong các robot vận chuyển kệ hàng tự động (ví dụ: Amazon Kiva/Amazon Robotics). Cấu trúc cơ khí đơn giản giúp giảm chi phí bảo trì và tăng độ tin cậy. Đặc biệt, khả năng xoay tại chỗ cho phép robot chuyển hướng linh hoạt trong các lối đi vuông góc chật hẹp của nhà kho.
+        
         \item Cấu trúc Đa hướng (Mecanum/Omni): Đang dần phổ biến trong các nhà máy sản xuất linh kiện điện tử hoặc lắp ráp máy bay, nơi cần di chuyển chính xác các linh kiện lớn trong không gian chật hẹp mà không cần không gian quay đầu (zero turning radius) [].
     \end{itemize}
 
@@ -1474,8 +1513,6 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{Ali2021} A. T. Ali, A. M. O. Mohamedy, A. S. A. Salimz, E. -A. O. M. El-Aminx and O. M. K. Ahmed, "Design and Implementation of Two-Wheeled Self-Balancing Robot Using PID Controller," 2020 International Conference on Computer, Control, Electrical, and Electronics Engineering (ICCCEEE), Khartoum, Sudan, 2021, pp. 1-5, doi: 10.1109/ICCCEEE49695.2021.9429579.
 % 14
 \bibitem{Bin2010} H. Bin, L. W. Zhen and L. H. Feng, "The Kinematics Model of a Two-Wheeled Self-Balancing Autonomous Mobile Robot and Its Simulation," 2010 Second International Conference on Computer Engineering and Applications, Bali, Indonesia, 2010, pp. 64-68, doi: 10.1109/ICCEA.2010.169.
-
-
 
 % ======================================================================
 
