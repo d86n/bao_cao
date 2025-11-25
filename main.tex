@@ -1338,23 +1338,23 @@ Sự đa dạng trong thiết kế bánh xe và cấu trúc khung vỏ robot di 
 % ----- XU HƯỚNG NGHIÊN CỨU -----
 
 \section{Xu hướng nghiên cứu}
-Lĩnh vực thiết kế và điều khiển robot di động đang trải qua một sự chuyển dịch mô hình (paradigm shift) mạnh mẽ: từ các cơ cấu cứng nhắc, điều khiển dựa trên mô hình hình học cố định sang các hệ thống mềm dẻo, thích ứng và nhận thức môi trường. Dựa trên khảo sát các công bố khoa học từ 2019 đến 2025, các xu hướng nghiên cứu mũi nhọn có thể được phân thành bốn nhóm chính sau:
+Lĩnh vực thiết kế và điều khiển robot di động đang trải qua một sự chuyển dịch mô hình mạnh mẽ: từ các cơ cấu cứng nhắc, điều khiển dựa trên mô hình hình học cố định sang các hệ thống mềm dẻo, thích ứng và nhận thức môi trường. Dựa trên khảo sát các công bố khoa học từ 2019 đến 2025, các xu hướng nghiên cứu mũi nhọn có thể được phân thành bốn nhóm chính sau:
 
-\subsubsection{Cơ cấu Bánh xe Biến hình và Vật liệu Mềm}
+\subsubsection{Cơ cấu bánh xe biến hình và vật liệu mềm}
 
-Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi giữa tốc độ (trên đường bằng) và khả năng vượt chướng ngại vật. Xu hướng hiện đại tập trung vào các thiết kế có khả năng thay đổi hình học (geometry reconfiguration) trong thời gian thực.
+Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi giữa tốc độ (trên đường bằng) và khả năng vượt chướng ngại vật. Xu hướng hiện đại tập trung vào các thiết kế có khả năng thay đổi hình học trong thời gian thực.
 
 \begin{itemize}
-    \item Bánh xe Origami chịu tải trọng cao: Các nghiên cứu tiên phong của Lee và các cộng sự [48] đã giới thiệu bánh xe Origami có thể thay đổi đường kính. Tuy nhiên, thách thức lớn nhất là độ cứng vững (stiffness). Xu hướng mới nhất (2021-2023) tập trung vào cơ chế "khóa cấu trúc" (structural locking). Nghiên cứu [49] đã phát triển bánh xe Origami có khả năng chịu tải lên tới hàng trăm kg khi ở trạng thái khóa, nhưng vẫn linh hoạt biến hình khi cần thiết. Gần đây nhất, robot OriWheelBot (2023) [52] đã tích hợp khả năng này để tự động chuyển đổi giữa chế độ bánh xe tròn (di chuyển nhanh) và chế độ bánh răng/gai (leo dốc) dựa trên cảm nhận địa hình.
-    \item Cấu trúc Lai Bánh-Chân (Omni-Wheg): Sự kết hợp giữa bánh xe và chân (Whegs) đang được cải tiến để đạt được tính năng toàn hướng. Robot OmniWheg [47] là một ví dụ điển hình, sử dụng cơ cấu biến hình để tách các phần của bánh xe Omni thành các "chân" riêng biệt, cho phép robot vừa đi ngang (holonomic) trên sàn phẳng, vừa bước qua bậc thang mà không cần hệ thống lái phức tạp.
+    \item Bánh xe Origami chịu tải trọng cao: Các nghiên cứu tiên phong của Lee và các cộng sự [48] đã giới thiệu bánh xe Origami có thể thay đổi đường kính. Tuy nhiên, thách thức lớn nhất là độ cứng vững. Xu hướng mới nhất (2021-2023) tập trung vào cơ chế khóa cấu trúc. Nghiên cứu [49] đã phát triển bánh xe Origami có khả năng chịu tải lên tới hàng trăm kilogram khi ở trạng thái khóa, nhưng vẫn linh hoạt biến hình khi cần thiết. Gần đây nhất, robot OriWheelBot (2023) [52] đã tích hợp khả năng này để tự động chuyển đổi giữa chế độ bánh xe tròn (di chuyển nhanh) và chế độ bánh răng/gai (leo dốc) dựa trên cảm nhận địa hình.
+    \item Cấu trúc Lai Bánh-Chân (Omni-Wheg): Sự kết hợp giữa bánh xe và chân (Whegs) đang được cải tiến để đạt được tính năng toàn hướng. Robot OmniWheg [47] là một ví dụ điển hình, sử dụng cơ cấu biến hình để tách các phần của bánh xe Omni thành các "chân" riêng biệt, cho phép robot vừa đi ngang trên sàn phẳng, vừa bước qua bậc thang mà không cần hệ thống lái phức tạp.
 \end{itemize}
 
 \subsubsection{Động học dựa trên Thị giác và Ước lượng Trạng thái}
 
-Đối với các robot dẫn động trượt (Skid-steer/Tracked) hoạt động ngoài trời, mô hình động học truyền thống (dựa trên Encoder) thường thất bại do hiện tượng trượt không xác định. Một xu hướng nghiên cứu đột phá trong năm 2024 là tích hợp thị giác máy vào vòng lặp động học.
+Đối với các robot dẫn động trượt hoạt động ngoài trời, mô hình động học truyền thống (dựa trên Encoder) thường thất bại do hiện tượng trượt không xác định. Một xu hướng nghiên cứu đột phá trong năm 2024 là tích hợp thị giác máy vào vòng lặp động học.
 
 \begin{itemize}
-    \item Visual Kinematics Estimation: Thay vì chỉ dùng Camera/LiDAR để định vị (SLAM), nghiên cứu mới nhất của Zuo và các cộng sự (2024) [39] đề xuất sử dụng dữ liệu hình ảnh để ước lượng trực tiếp các tham số động học tức thời (như tâm quay ICR và vận tốc trượt). Bằng cách phân tích luồng quang học (optical flow) của kết cấu mặt đất, robot có thể "nhìn thấy" mình đang trượt như thế nào và tự động điều chỉnh lại mô hình động học (Self-calibrating Kinematics) theo thời gian thực, giúp giảm sai số vị trí xuống mức thấp kỷ lục mà không cần GPS độ chính xác cao.
+    \item Visual Kinematics Estimation: Thay vì chỉ dùng Camera/LiDAR để định vị (SLAM), nghiên cứu mới nhất của Zuo và các cộng sự (2024) [39] đề xuất sử dụng dữ liệu hình ảnh để ước lượng trực tiếp các tham số động học tức thời (như tâm quay ICR và vận tốc trượt). Bằng cách phân tích luồng quang học của kết cấu mặt đất, robot có thể "nhìn thấy" mình đang trượt như thế nào và tự động điều chỉnh lại mô hình động học theo thời gian thực, giúp giảm sai số vị trí xuống mức thấp kỷ lục mà không cần GPS độ chính xác cao.
 \end{itemize}
 
 \subsubsection{Điều khiển Phối hợp và Tối ưu Năng lượng}
@@ -1362,16 +1362,16 @@ Giới hạn lớn nhất của bánh xe truyền thống là sự đánh đổi
 Với sự phổ biến của các robot dẫn động 4 bánh độc lập (4WD/4WS), vấn đề không chỉ là "đi được" mà là "đi hiệu quả".
 
 \begin{itemize}
-    \item Điều khiển Phối hợp Mô-men xoắn (Torque Coordination): Trên các robot dẫn động trượt (Skid-steer) thừa dẫn động (over-actuated), các bánh xe thường sinh ra nội lực chống lại nhau (fighting forces). Các nghiên cứu của Liao và các cộng sự [40], [41] tập trung vào các thuật toán phân phối mô-men xoắn tối ưu (Optimal Torque Distribution). Mục tiêu là tìm ra tổ hợp lực kéo của 4 bánh sao cho robot vẫn bám quỹ đạo mong muốn nhưng tiêu tốn năng lượng ít nhất và giảm thiểu mài mòn lốp.
-    \item Tích hợp Mô hình Tương tác Đất (Terramechanics-based Control): Việc đưa các mô hình cơ học đất phức tạp (như mô hình Bekker/Wong [14], [57]) vào bộ điều khiển thời gian thực đang trở thành xu hướng. Bằng cách ước lượng online các thông số của đất (độ lún, độ kết dính), robot có thể chủ động giới hạn gia tốc để tránh bị "đào hố" (digging) trên cát hoặc bùn lầy, như phân tích về tiêu thụ năng lượng của Fiset và các cộng sự (2021) [36].
+    \item Trên các robot dẫn động trượt thừa dẫn động (over-actuated), các bánh xe thường sinh ra nội lực chống lại nhau (fighting forces). Các nghiên cứu của Liao và các cộng sự [40], [41] tập trung vào các thuật toán phân phối mô-men xoắn tối ưu (Optimal Torque Distribution). Mục tiêu là tìm ra tổ hợp lực kéo của 4 bánh sao cho robot vẫn bám quỹ đạo mong muốn nhưng tiêu tốn năng lượng ít nhất và giảm thiểu mài mòn lốp.
+    \item Việc đưa các mô hình cơ học đất phức tạp (như mô hình Bekker/Wong [14], [57]) vào bộ điều khiển thời gian thực đang trở thành xu hướng. Bằng cách ước lượng online các thông số của đất (độ lún, độ kết dính), robot có thể chủ động giới hạn gia tốc để tránh bị đào hố trên cát hoặc bùn lầy, như phân tích về tiêu thụ năng lượng của Fiset và các cộng sự (2021) [36].
 \end{itemize}
 
 \subsubsection{Điều khiển Tiên tiến cho Hệ thống Cân bằng}
 
-Đối với cấu trúc Ballbot và robot tự cân bằng, nghiên cứu đã vượt qua giai đoạn PID/LQR cơ bản để hướng tới các thuật toán phi tuyến mạnh mẽ (Robust/Nonlinear Control).
+Đối với cấu trúc Ballbot và robot tự cân bằng, nghiên cứu đã vượt qua giai đoạn PID/LQR cơ bản để hướng tới các thuật toán phi tuyến mạnh mẽ.
 
 \begin{itemize}
-    \item Model Predictive Control (MPC): Xu hướng chủ đạo hiện nay là sử dụng MPC để xử lý các ràng buộc vật lý (như giới hạn góc nghiêng, điện áp động cơ). Nghiên cứu của Jespersen [73] và các công bố năm 2024-2025 [66], [75] cho thấy MPC giúp Ballbot thực hiện các quỹ đạo lượn tốc độ cao (high-speed maneuvering) và phục hồi sau va chạm tốt hơn hẳn các phương pháp cổ điển.
+    \item Model Predictive Control (MPC): Xu hướng chủ đạo hiện nay là sử dụng MPC để xử lý các ràng buộc vật lý (như giới hạn góc nghiêng, điện áp động cơ). Nghiên cứu của Jespersen [73] và các công bố năm 2024-2025 [66], [75] cho thấy MPC giúp Ballbot thực hiện các quỹ đạo lượn tốc độ cao và phục hồi sau va chạm tốt hơn hẳn các phương pháp cổ điển.
     \item Learning-based Control: Áp dụng AI để học đặc tính động lực học của robot. Ví dụ, sử dụng mạng nơ-ron mờ (Fuzzy Neural Networks) [6] để tự động tinh chỉnh tham số điều khiển khi robot mang vác các vật nặng có khối lượng thay đổi, giúp robot phục vụ trong gia đình trở nên an toàn và tin cậy hơn.
 \end{itemize}
 
