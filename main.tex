@@ -514,40 +514,41 @@ Thách thức hiện đại: Mặc dù lý thuyết động học rất lý tư�
 % ----- BÁNH ORIGAMI -----
 
 \subsubsection{Bánh Origami}
-Đây là một hướng nghiên cứu mới, ứng dụng các nguyên lý của nghệ thuật gấp giấy Nhật Bản (Origami) để tạo ra các bánh xe có thể thay đổi hình dạng.
-Ưu điểm lớn nhất là khả năng thích ứng địa hình (terrain adaptability).
-Nhược điểm là độ phức tạp về cơ khí, độ bền của các khớp gấp, và sự phức tạp trong hệ thống điều khiển để quyết định khi nào cần thay đổi hình dạng [..].
 
-Cơ chế và Nguyên lý Biến hình: Hầu hết các bánh xe Origami hiện đại dựa trên các mẫu gấp (tessellation patterns) nổi tiếng như mẫu "Bóng ma thuật" (Magic Ball pattern) hoặc "Waterbomb base" [].
+Bánh xe Origami đại diện cho một hướng đi đột phá trong thiết kế robot di động, kết hợp lĩnh vực robot mềm với nghệ thuật gấp giấy truyền thống để giải quyết mâu thuẫn kinh điển giữa khả năng di chuyển nhanh trên đường bằng và khả năng vượt địa hình phức tạp.
 
-\begin{itemize}
-    \item Cấu trúc: Bánh xe được cấu tạo từ một màng mỏng (thường là composite hoặc polymer) được gấp nếp theo quy luật hình học xác định.
-    
-    \item Hoạt động: Một cơ cấu chấp hành tuyến tính (linear actuator) ở trục bánh xe sẽ đẩy hai đĩa ốp hai bên lại gần hoặc ra xa nhau. Nhờ cấu trúc gấp nếp, chuyển động tuyến tính này sẽ được chuyển đổi thành chuyển động hướng kính, làm thay đổi đường kính của bánh xe.
-    \begin{itemize}
-        \item Trạng thái thu gọn: Đường kính nhỏ, bề mặt trơn nhẵn → Di chuyển nhanh, hiệu suất cao trên mặt phẳng.
-        \item Trạng thái mở rộng: Đường kính lớn, bề mặt xuất hiện các "gai" hoặc mấu bám → Tăng mô-men vượt chướng ngại vật, leo cầu thang hoặc đi trên đất mềm.
-    \end{itemize}
-\end{itemize}
+Đặc điểm cốt lõi của loại bánh xe này là khả năng thay đổi hình học (đường kính hoặc bề rộng) thông qua các nếp gấp thông minh.
 
-Đặc tính Động học Biến thiên (Variable Kinematics): Điểm khác biệt "hiện đại" nhất so với bánh xe truyền thống là bán kính bánh xe r không còn là hằng số mà là một hàm số phụ thuộc vào trạng thái biến hình u(t). Phương trình ràng buộc lăn (1) trở thành phi tuyến:
-
-Điều này đặt ra thách thức lớn cho bài toán Odometry và điều khiển PID, vì hệ số khuếch đại của hệ thống thay đổi liên tục khi bánh xe biến hình. Bộ điều khiển cần phải thích nghi (Adaptive Control) để cập nhật lại mô hình động học theo thời gian thực.
-
-Các vấn đề Hiện đại và Thách thức Kỹ thuật: Nghiên cứu về bánh xe Origami đang đối mặt với 3 bài toán lớn:
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_DYLee2017.pdf}
+    \caption{Bánh Origami thay đổi hình dạng tuỳ thuộc vào ngoại lực \cite{DYLee2017}}
+    \label{fig:fig_DYLee2017}
+\end{figure}
 
 \begin{itemize}
-    \item Mâu thuẫn giữa Độ cứng và Độ linh hoạt (Stiffness vs. Flexibility Trade-off): Để biến hình, vật liệu cần mềm dẻo (flexible). Nhưng để chịu tải trọng của robot (Payload), bánh xe cần phải cứng (stiff).
-    \begin{itemize}
-        \item Giải pháp hiện đại: Các nghiên cứu mới nhất (như của ĐH Quốc gia Seoul) đề xuất cơ chế khóa cấu trúc (structural locking). Khi ở trạng thái mong muốn, bánh xe tự khóa cứng lại để chịu tải lên tới hàng trăm kg, nhưng khi cần biến hình thì mở khóa để trở nên mềm dẻo [Ref].
-    \end{itemize}
-
-    \item Hiệu ứng Đa giác (Polygon Effect): Khi mở rộng, bánh xe Origami thường không giữ được hình tròn hoàn hảo mà tạo thành hình đa giác. Điều này gây ra rung động chu kỳ (vibration) khi robot di chuyển, ảnh hưởng đến độ ổn định của camera hoặc cảm biến trên thân robot.
-    
-    \item Độ bền mỏi (Fatigue Durability): Các nếp gấp (hinges) là nơi tập trung ứng suất. Sau hàng nghìn chu kỳ gấp/mở, vật liệu rất dễ bị nứt gãy. Công nghệ vật liệu hiện đại đang hướng tới các loại vải gia cường (fabric-reinforced composites) để tăng tuổi thọ cho bánh xe.
+    \item Lee và cộng sự \cite{DYLee2013, DYLee2017} đã tiên phong phát triển bánh xe biến đổi đường kính dựa trên mẫu gấp "Magic Ball". Cấu trúc này cho phép bánh xe thay đổi đường kính một cách đáng kể (ví dụ: từ 30mm lên 68mm hoặc từ 4cm lên 11cm) mà vẫn duy trì độ tròn tương đối để lăn. Điều này giúp robot có thể thu nhỏ để chui qua khe hẹp hoặc mở rộng để leo qua các bậc thang cao.
+    \item Mặc dù được chế tạo từ vật liệu mềm (như vải cốt hợp kim hoặc composite polymer), cấu trúc Origami liên kết kín cho phép bánh xe chịu được tải trọng rất lớn, lên tới hơn 400 lần trọng lượng của chính nó, đảm bảo tính khả thi cho các ứng dụng thực tế.
 \end{itemize}
 
-Ứng dụng tiềm năng nhất của công nghệ này là các robot giao hàng (last-mile delivery) có khả năng tự leo vỉa hè hoặc robot thám hiểm bề mặt hành tinh với địa hình không xác định.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Fonseca2019.pdf}
+    \caption{Hai cấu hình của một bánh Origami \cite{Fonseca2019}}
+    \label{fig:fig_Fonseca2019}
+\end{figure}
+
+Để kích hoạt quá trình biến hình, các nghiên cứu tập trung vào việc sử dụng vật liệu thông minh và cơ cấu truyền động nội tại.
+
+\begin{itemize}
+    \item Fonseca và cộng sự \cite{Fonseca2019} và Lee và cộng sự \cite{DYLee2013} đã ứng dụng lò xo hợp kim nhớ hình (SMA) làm cơ cấu chấp hành. Khi được cấp nhiệt, SMA co lại làm thay đổi cấu trúc nếp gấp (thường là mẫu waterbomb), giúp bánh xe biến hình mà không cần động cơ cồng kềnh. Tuy nhiên, nghiên cứu của Fonseca cũng chỉ ra rằng hệ thống này thể hiện các đặc tính động lực học phi tuyến mạnh và hỗn loạn, đòi hỏi các chiến lược điều khiển phức tạp để duy trì độ ổn định.
+    
+    \item Khác với việc thay đổi đường kính, Liu và cộng sự \cite{JLiu2024} gần đây đã giới thiệu một thiết kế bánh xe Origami có khả năng thay đổi bề rộng . Cơ chế này giúp tăng diện tích tiếp xúc khi di chuyển trên nền cát hoặc đất mềm (giảm áp suất mặt đất để tránh sụt lún) và thu hẹp lại khi đi trên nền cứng để giảm ma sát.
+\end{itemize}
+
+Bánh xe Origami cung cấp giải pháp "biến hình" linh hoạt: sử dụng bánh xe lớn/mỏng để di chuyển tốc độ cao trên đường bằng và bánh xe nhỏ/rộng để vượt chướng ngại vật hoặc địa hình yếu. Thách thức chính hiện nay nằm ở độ bền mỏi của các nếp gấp vật liệu và tốc độ phản hồi của cơ cấu chấp hành (đặc biệt là SMA).
+
+Công nghệ bánh xe Origami đang chuyển dịch từ các mô hình thử nghiệm khái niệm sang các thiết kế tối ưu hóa cho môi trường phi cấu trúc đặc thù (như sa mạc, đống đổ nát), mở ra tiềm năng cho các robot cứu hộ và thám hiểm thế hệ mới với khả năng thích ứng hình học chưa từng có.
 
 % ======================================================================
 
@@ -1709,17 +1710,21 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{yadav2022} N. P. S. Yadav, V. Agrawal, N. J. C. Mohanta, and N. Md. F. Ahmed, "A Theoretical Review of Mobile Robot Locomotion based on Mecanum Wheels," Evergreen, vol. 9, no. 2, pp. 396-403, Jun. 2022, doi: 10.5109/4794163.
 \bibitem{salih2006} J. E. M. Salih, M. Rizon, and S. Yaacob, "Designing Omni-Directional Mobile Robot with Mecanum Wheel," American Journal of Applied Sciences, vol. 3, no. 5, pp. 1831-1835, May 2006, doi: 10.3844/ajassp.2006.1831.1835.
 \bibitem{ignatiev2016} K. V. Ignatiev, M. M. Kopichev and A. V. Putov, "Autonomous omni-wheeled mobile robots," 2016 2nd International Conference on Industrial Engineering, Applications and Manufacturing (ICIEAM), Chelyabinsk, Russia, 2016, pp. 1-4, doi: 10.1109/ICIEAM.2016.7910957.
-\bibitem{doroftei2011} I. Doroftei and B.-D. D. Mangeron, "PRACTICAL APPLICATIONS FOR MOBILE ROBOTS BASED ON MECANUM WHEELS - A SYSTEMATIC SURVEY," Romanian Review Precision Mechanics, Optics and Mechatronics, Jan. 2011, [Online]. Available: http://www.incdmtm.ro/mecahitech2011/articole/Pp112-123.pdf
-
-% ======================================================================
-
-% ----- BÁNH HÌNH CẦU -----
-
-
+\bibitem{doroftei2011} I. Doroftei and B.-D. D. Mangeron, "PRACTICAL APPLICATIONS FOR MOBILE ROBOTS BASED ON MECANUM WHEELS - A SYSTEMATIC SURVEY," Romanian Review Precision Mechanics, Optics and Mechatronics, Jan. 2011, [Online]. Available: http://www.incdmtm.ro/mecahitech2011/articole/Pp112-123.pdf.
 
 % ======================================================================
 
 % ----- BÁNH ORIGAMI -----
+
+% 1
+\bibitem{DYLee2013} D. -Y. Lee, G. -P. Jung, M. -K. Sin, S. -H. Ahn and K. -J. Cho, "Deformable wheel robot based on origami structure," 2013 IEEE International Conference on Robotics and Automation, Karlsruhe, Germany, 2013, pp. 5612-5617, doi: 10.1109/ICRA.2013.6631383.
+% 2
+\bibitem{Fonseca2019} L. M. Fonseca, G. V. Rodrigues, M. A. Savi, and A. Paiva, “Nonlinear dynamics of an origami wheel with shape memory alloy actuators,” Chaos Solitons \& Fractals, vol. 122, pp. 245-261, Apr. 2019, doi: 10.1016/j.chaos.2019.03.033.
+% 3
+\bibitem{JLiu2024} J. Liu et al., “An origami-wheeled robot with variable width and enhanced sand walking versatility,” Thin-Walled Structures, vol. 206, p. 112645, Nov. 2024, doi: 10.1016/j.tws.2024.112645.
+% 4
+\bibitem{DYLee2017} D.-Y. Lee, S.-R. Kim, J.-S. Kim, J.-J. Park, and K.-J. Cho, “Origami Wheel Transformer: A Variable-Diameter wheel drive robot using an origami structure,” Soft Robotics, vol. 4, no. 2, pp. 163-180, May 2017, doi: 10.1089/soro.2016.0038.
+
 
 
 % ======================================================================
@@ -1746,6 +1751,12 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 \bibitem{Licea2018} M. A. R. Licea, E. A. V. Rodríguez, F. J. P. Pinal, and J. P. Olivares, "The rollover risk in Delta tricycles: a new rollover index and its robust mitigation by rear differential braking," Mathematical Problems in Engineering, vol. 2018, pp. 1-14, Oct. 2018, doi: 10.1155/2018/4972419.
 % 10
 \bibitem{Ketemaw2022} D. Ketemaw and S. Seid, "Design of a rollover index-based sliding mode controller for roll stability of three wheeled vehicles using rear differential braking," Frontiers in Mechanical Engineering, vol. 8, Nov. 2022, doi: 10.3389/fmech.2022.1038289.
+
+% ======================================================================
+
+% ----- CẤU TRÚC LÁI ACKERMANN -----
+
+
 
 % ======================================================================
 
