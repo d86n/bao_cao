@@ -1015,13 +1015,49 @@ Tóm lại, xu hướng thiết kế phần cứng hiện nay ưu tiên tính m�
 
 \subsubsection{Robot dẫn động đồng bộ}
 
+Cấu trúc dẫn động đồng bộ đại diện cho một phương pháp thiết kế robot di động độc đáo, nơi chức năng di chuyển và chức năng lái được tách biệt hoàn toàn về mặt cơ khí. Khác với các cấu trúc dẫn động vi sai hay Ackermann, robot dẫn động đồng bộ cho phép tất cả các bánh xe quay cùng một tốc độ và bẻ lái theo cùng một hướng tại mọi thời điểm, tạo ra khả năng di chuyển tịnh tiến theo hướng bất kỳ mà không làm thay đổi hướng của thân robot.
 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Tatar2014.pdf}
+    \caption{Mô hình robot dẫn động đồng bộ \cite{Tatar2014}}
+    \label{fig:fig_Tatar2014}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_Tatar2012.pdf}
+    \caption{Mô hình robot dẫn động đồng bộ đơn giản \cite{Tatar2012}}
+    \label{fig:fig_Tatar2012}
+\end{figure}
+
+Đặc trưng cơ bản của robot dẫn động đồng bộ là việc sử dụng tối thiểu số lượng cơ cấu chấp hành để kiểm soát nhiều bánh xe. Tătar và cộng sự \cite{Tatar2012, Tatar2014} đã phát triển các mô hình robot mini toàn hướng dựa trên nguyên lý này, sử dụng cấu hình hai động cơ DC độc lập:
+
+\begin{itemize}
+    \item Động cơ dẫn động (Driving motor): Chịu trách nhiệm cung cấp mô-men xoắn để quay tất cả các bánh xe quanh trục ngang của chúng, tạo ra lực đẩy tịnh tiến cho robot.
+    \item Động cơ lái (Steering motor): Chịu trách nhiệm xoay đồng bộ tất cả các cụm bánh xe quanh trục thẳng đứng để thay đổi hướng di chuyển.
+\end{itemize}
+
+Sự tách biệt này giúp đơn giản hóa đáng kể mô hình điều khiển, vì vận tốc dài và góc hướng của robot được kiểm soát bởi hai kênh tín hiệu riêng biệt, loại bỏ sự phụ thuộc lẫn nhau thường thấy trong các robot holonomic khác.
+
+Thách thức lớn nhất trong thiết kế phần cứng của robot dẫn động đồng bộ là cơ chế truyền lực từ hai động cơ cố định trên khung xe xuống các bánh xe có thể xoay 360 độ.
+
+\begin{itemize}
+    \item Cơ cấu truyền động bánh răng: Trong các thiết kế của Tătar, hệ thống sử dụng các cơ cấu bánh răng phức tạp để đảm bảo sự đồng bộ. Robot được trang bị ba cặp bánh xe tiêu chuẩn bố trí đối xứng. Một hệ thống gồm ba bộ truyền bánh răng được dùng cho chức năng lái và ba bộ khác dùng cho chức năng dẫn động.
+    \item Ưu điểm của thiết kế: Việc sử dụng bánh răng thay vì đai hoặc xích (thường thấy trong các robot dẫn động đồng bộ cổ điển) giúp tăng độ cứng vững, giảm độ rơ và đảm bảo độ chính xác cao trong quá trình đồng bộ hóa góc lái của các bánh xe.
+\end{itemize}
+
+Nhờ cơ chế đồng bộ, robot có khả năng di chuyển toàn hướng. Robot có thể thay đổi hướng di chuyển tức thời sang bất kỳ góc nào mà không cần thực hiện thao tác quay thân xe, giúp nó hoạt động hiệu quả trong các môi trường chật hẹp và đông đúc. Hơn nữa, thiết kế này cho phép robot duy trì hướng nhìn của cảm biến hoặc camera cố định về một phía trong khi di chuyển theo quỹ đạo phức tạp, một đặc tính quan trọng cho các ứng dụng giám sát và kiểm tra tự động.
+
+Robot dẫn động đồng bộ cung cấp một giải pháp phần cứng thanh lịch cho bài toán di chuyển toàn hướng. Bằng cách xử lý sự phức tạp về điều phối chuyển động ngay tại tầng cơ khí (thông qua hệ thống bánh răng đồng bộ), nó giảm tải gánh nặng cho hệ thống điều khiển điện tử, đồng thời cung cấp khả năng vận hành mượt mà và chính xác.
 
 % ======================================================================
 
 % ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH MECANUM -----
 
 \subsubsection{Robot toàn hướng sử dụng bánh Mecanum}
+
+
 
 % ======================================================================
 
@@ -1533,10 +1569,16 @@ Hiểu rõ đặc tính của từng loại bánh xe và cấu trúc là bước
 
 % ----- ROBOT DẪN ĐỘNG ĐỒNG BỘ -----
 
+% 1
+\bibitem{Tatar2014} M. O. Tătar, F. Haiduc, and D. Mândru, “Design of a Synchro-Drive omnidirectional Mini-Robot,” Diffusion and Defect Data, Solid State Data. Part B, Solid State Phenomena/Solid State Phenomena, vol. 220-221, pp. 161-167, Dec. 2014, doi: 10.4028/www.scientific.net/ssp.220-221.161.
+% 2
+\bibitem{Tatar2012} M. O. Tătar, C. Cirebea, D. Mândru, and B. V. Chetran, “Synchronous Drive Omnidirectional minirobot,” Applied Mechanics and Materials, vol. 162, pp. 294-301, Mar. 2012, doi: 10.4028/www.scientific.net/amm.162.294.
 
 % ======================================================================
 
 % ----- ROBOT TOÀN HƯỚNG SỬ DỤNG BÁNH MECANUM -----
+
+% 1
 
 
 % ======================================================================
